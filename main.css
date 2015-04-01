@@ -1,0 +1,49 @@
+/* Generic selectors */
+html {
+    font-family: arial, sans-serif;
+}
+
+/* */
+h1 a {
+    color: black;
+    text-decoration: none;
+}
+h3 a:hover {
+    text-decoration: none;
+}
+
+
+/* Main table */
+.dataTables_length,
+.dataTables_filter,
+.dataTables_info,
+.dataTables_paginate,
+.paging_simple_numbers {
+    font-size: 12px;
+}
+.dataTables_filter {
+    width: 400px;
+}
+.dataTables_filter input {
+    width: 300px;
+}
+/*.table.dataTable tbody tr.odd {
+    background-color: blue !important;
+}*/
+table thead th {
+    font-size: 14px;
+}
+table tbody td {
+    font-size: 13px;
+}
+/*table td {
+    border-bottom: 1px solid #ddd;
+}*/
+table td a {
+    color: #3593b1;
+    text-decoration: none;
+}
+table td a:hover {
+    color: #2a6496;
+    text-decoration: underline;
+}
