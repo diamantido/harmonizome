@@ -1,43 +1,95 @@
 $(function() {
 
-    $.getJSON('data/resource_table_20150331_test.json', drawTable);
+    $.getJSON('data/resource_table_test.json', drawTable);
 
     function drawTable(data) {
         $table = $('table').first();
         for (var i = 0; i < data.length; i++) {
-            //$table.append( rowTemplate(data[i]) );
-            drawRow(data[i]);
+            $table.append( rowTemplate(data[i]) );
         }
         $table.DataTable();
     }
 
+    var DOWNLOAD_IMAGE = '<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>';
+
     var rowTemplate = _.template('' +
         '<tr>' +
-        '   <td><%= Script %></td>' +
-        '   <td><%= PMID %></td>' +
-        '   <td><%= Association %></td>' +
+        '   <td>' +
+        '       <a href="<%= resource_url %>"><%= resource_name %>:</a> <%= resource_description %>' +
+        '   </td>' +
+        '   <td>' +
+        '      <%= data_description %>' + 
+        '   </td>' +
+        '   <td>' +
+        '      <%= association %>' + 
+        '   </td>' +
+        '   <td>' +
+        '      <%= attribute %>' + 
+        '   </td>' +
+        '   <td>' +
+        '       <% var pub_url = "http://www.ncbi.nlm.nih.gov/pubmed/" + publication[0].pmid %>' +
+        '       <a href="<%= pub_url %>">' +
+        '           <%= publication[0].author %>' +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var gene_list_url = directory + "/" + gene_list %>' +
+        '       <a href="<%= gene_list_url %>">' +
+        '           <%= number_of_genes %>' +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var attribute_list_url = directory + "/" + attribute_list %>' +
+        '       <a href="<%= attribute_list_url %>">' +
+        '           <%= number_of_attributes %>' +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var attribute_table_url = directory + "/" + attribute_table %>' +
+        '       <a class="download-link" href="<%= attribute_table_url %>">' +
+                    DOWNLOAD_IMAGE +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var edge_list_url = directory + "/" + edge_list %>' +
+        '       <a class="download-link" href="<%= edge_list_url %>">' +
+                   DOWNLOAD_IMAGE +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var gene_set_library_url = directory + "/" + gene_set_library %>' +
+        '       <a class="download-link" href="<%= gene_set_library_url %>">' +
+                    DOWNLOAD_IMAGE +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var attribute_set_library_url = directory + "/" + attribute_set_library %>' +
+        '       <a class="download-link" href="<%= attribute_set_library_url %>">' +
+                    DOWNLOAD_IMAGE +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var gene_similarity_matrix_url = directory + "/" + gene_similarity_matrix %>' +
+        '       <a class="download-link" href="<%= gene_similarity_matrix_url %>">' +
+                   DOWNLOAD_IMAGE +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var attribute_similarity_matrix_url = directory + "/" + attribute_similarity_matrix %>' +
+        '       <a class="download-link" href="<%= attribute_similarity_matrix_url %>">' +
+                   DOWNLOAD_IMAGE +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var script_url = directory + "/" + script %>' +
+        '       <a class="download-link" href="<%= script_url %>">' +
+                   DOWNLOAD_IMAGE +
+        '       </a>' +
+        '   </td>' +
+        '   <td>' +
+        '       <% var date = download_date.month + "/" + download_date.day + "/" + download_date.year; %>' +
+        '       <%= date %>' +
+        '   </td>' +
         '</tr>'
     );
-
-    function drawRow(rowData) {
-        var row = $('<tr>');
-        $('table').first().append(row);
-        row.append($("<td>" + '<a href="' + rowData['Resource URL'] + '">' + rowData['Resource Name'] + "</a>" + ": " + rowData['Resource Description'] + "</td>"));
-        row.append($("<td>" + rowData['Data Description'] + "</td>"));
-        row.append($("<td>" + rowData['Association'] + "</td>"));
-        row.append($("<td>" + rowData['Attribute'] + "</td>"));
-        row.append($("<td>" + '<a href="http://www.ncbi.nlm.nih.gov/pubmed/' + rowData['PMID'].split(';')[0] + '">' + rowData['Citation'].split(',')[0] + " et al.</a></td>"));
-        row.append($("<td>" + '<a href="Data/' + rowData['Directory'] + '/' + rowData['Gene List'] + '">' + rowData['Number of Genes'] + "</a></td>"));
-        row.append($("<td>" + '<a href="Data/' + rowData['Directory'] + '/' + rowData['Attribute List'] + '">' + rowData['Number of Attributes'] + "</a></td>"));
-        row.append($("<td>" + '<a href="Data/' + rowData['Directory'] + '/' + rowData['Attribute Table'] + '">' + '<img src="Data/downloadicon.png" alt="Attribute Table" style="width:30px;height:30px">' + "</a></td>"));
-        row.append($("<td>" + '<a href="Data/' + rowData['Directory'] + '/' + rowData['Edge List'] + '">' + '<img src="Data/downloadicon.png" alt="Edge List" style="width:30px;height:30px">' + "</a></td>"));
-        row.append($("<td>" + '<a href="Data/' + rowData['Directory'] + '/' + rowData['Gene-set Library'] + '">' + '<img src="Data/downloadicon.png" alt="Gene-set Library" style="width:30px;height:30px">' + "</a></td>"));
-        row.append($("<td>" + '<a href="Data/' + rowData['Directory'] + '/' + rowData['Attribute-set Library'] + '">' + '<img src="Data/downloadicon.png" alt="Attribute-set Library" style="width:30px;height:30px">' + "</a></td>"));
-        row.append($("<td>" + '<a href="Data/' + rowData['Directory'] + '/' + rowData['Gene Similarity Matrix'] + '">' + '<img src="Data/downloadicon.png" alt="Gene Similarity Matrix" style="width:30px;height:30px">' + "</a></td>"));
-        row.append($("<td>" + '<a href="Data/' + rowData['Directory'] + '/' + rowData['Attribute Similarity Matrix'] + '">' + '<img src="Data/downloadicon.png" alt="Attribute Similarity Matrix" style="width:30px;height:30px">' + "</a></td>"));
-        row.append($("<td>" + '<a href="Data/' + rowData['Directory'] + '/' + rowData['Script'] + '">' + '<img src="Data/downloadicon.png" alt="Script" style="width:30px;height:30px">' + "</a></td>"));
-        // row.append($("<td>" + '<a href="' + rowData['Data URL'].split(';')[0] + '">' + '<img src="Data/hyperlinkicon.png" alt="Data URL" style="width:20px;height:20px">' + "</a></td>"));
-        // row.append($("<td>" + '<a href="' + rowData['Readme URL'].split(';')[0] + '">' + '<img src="Data/hyperlinkicon.png" alt="Readme URL" style="width:20px;height:20px">' + "</a></td>"));
-        row.append($("<td>" + rowData['Download Date (YYYYMMDD)'].substring(4,6) + "/" + rowData['Download Date (YYYYMMDD)'].substring(6,8) + "/" + rowData['Download Date (YYYYMMDD)'].substring(0,4) + "</td>"));
-    }
 });

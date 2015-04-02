@@ -2,8 +2,9 @@
 html {
     font-family: arial, sans-serif;
 }
-
-/* */
+body {
+    padding: 20px;
+}
 h1 a {
     color: black;
     text-decoration: none;
@@ -11,7 +12,6 @@ h1 a {
 h3 a:hover {
     text-decoration: none;
 }
-
 
 /* Main table */
 .dataTables_length,
@@ -27,18 +27,12 @@ h3 a:hover {
 .dataTables_filter input {
     width: 300px;
 }
-/*.table.dataTable tbody tr.odd {
-    background-color: blue !important;
-}*/
 table thead th {
     font-size: 14px;
 }
 table tbody td {
     font-size: 13px;
 }
-/*table td {
-    border-bottom: 1px solid #ddd;
-}*/
 table td a {
     color: #3593b1;
     text-decoration: none;
@@ -46,4 +40,11 @@ table td a {
 table td a:hover {
     color: #2a6496;
     text-decoration: underline;
+}
+a.download-link {
+    color: #333;
+    font-size: 25px;
+}
+a.download-link:hover {
+    color: #2a6496;
 }
