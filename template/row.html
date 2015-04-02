@@ -1,0 +1,42 @@
+<tr>
+    <td>
+        <a href="<%= resource_url %>"><%= resource_name %>:</a> <%= resource_description %>
+    </td>
+    <td>
+        <%= data_description %> 
+    </td>
+    <td>
+        <%= association %> 
+    </td>
+    <td>
+        <%= attribute %> 
+    </td>
+    <td>
+        <% var pub_url = "http://www.ncbi.nlm.nih.gov/pubmed/" + publication[0].pmid %>
+        <a href="<%= pub_url %>">
+            <%= publication[0].author %>
+        </a>
+    </td>
+    <td>
+        <% var gene_list_url = directory + "/" + gene_list %>
+        <a href="<%= gene_list_url %>">
+            <%= number_of_genes %>
+        </a>
+    </td>
+    <td>
+        <% var attribute_list_url = directory + "/" + attribute_list %>
+        <a href="<%= attribute_list_url %>">
+            <%= number_of_attributes %>
+        </a>
+    </td>
+    <td>
+        <% var download_url = "#page/" + resource_name %>
+        <a class="icon-link" href="<%= download_url %>">
+            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+        </a>
+    </td>
+    <td>
+        <% var date = download_date.month + "/" + download_date.day + "/" + download_date.year; %>
+        <%= date %>
+    </td>
+</tr>

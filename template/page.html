@@ -1,0 +1,126 @@
+<% var base_url = "http://www.ncbi.nlm.nih.gov/pubmed/"; %>
+
+<h2><%= resource_name %></h2>
+<section>
+    <h4>Resource</h4>
+    <p><%= resource_description %></p>
+</section>
+<section>
+    <h4>Data Description</h4>
+    <p><%= data_description %></p>
+</section>
+<section>
+    <h4>Association</h4>
+    <p><%= association %></p>
+</section>
+<section>
+    <h4>Attribute</h4>
+    <p><%= attribute %></p>
+</section>
+<section>
+    <h4>Citation(s)</h4>
+    <ul>
+        <% _.each(publication, function(pub) { %>
+            <li>
+                <a href="<%= base_url %>/<%= pub.pmid %>" target="_blank"><%= pub.citation %></a>
+            </li>
+        <% }); %>
+    </ul>
+</section>
+<section>
+    <h4>Counts</h4>
+    <ul>
+        <li>Number of genes: <%= number_of_genes %></li>
+        <li>Number of attributes: <%= number_of_attributes %></li>
+    </ul>
+</section>
+<section>
+    <h4>Downloads</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Content</th><th>File</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Genes</td>
+                <% var gene_list_url = directory + "/" + gene_list %>
+                <td>
+                    <a class="icon-link" href="<%= gene_list_url %>">
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>Attributes</td>
+                <% var attribute_list_url = directory + "/" + attribute_list %>
+                <td>
+                    <a class="icon-link" href="<%= attribute_list_url %>">
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Edge List</td>
+                <% var edge_list_url = directory + "/" + edge_list %>
+                <td>
+                    <a class="icon-link" href="<%= edge_list_url %>">
+                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>Gene Set Library</td>
+                <td>
+                    <% var gene_set_library_url = directory + "/" + gene_set_library %>
+                    <a class="icon-link" href="<%= gene_set_library_url %>">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>Attribute Set Library</td>
+                <td>
+                    <% var attribute_set_library_url = directory + "/" + attribute_set_library %>
+                    <a class="icon-link" href="<%= attribute_set_library_url %>">
+                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>Gene Similarity Matrix</td>
+                <td>
+                    <% var gene_similarity_matrix_url = directory + "/" + gene_similarity_matrix %>
+                    <a class="icon-link" href="<%= gene_similarity_matrix_url %>">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>Attribute Similarity Matrix</td>
+                <td>
+                    <% var attribute_similarity_matrix_url = directory + "/" + attribute_similarity_matrix %>
+                    <a class="icon-link" href="<%= attribute_similarity_matrix_url %>">
+                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td>Scripts</td>
+                <td>
+                    <% var script_url = directory + "/" + script %>
+                    <a class="icon-link" href="<%= script_url %>">
+                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+<section>
+    <h4>Created</h4>
+    <% var date = download_date.month + "/" + download_date.day + "/" + download_date.year; %>
+    <p><%= date %></p>
+</section>
