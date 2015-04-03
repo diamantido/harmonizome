@@ -1,4 +1,11 @@
 App.Model.Table = Backbone.Model.extend({
+
+    initialize: function(attributes, options) {
+        _.each(this.defaults, function(row) {
+            row['metrics'] = options.server_data[row['directory']];
+        }, this);
+    },
+
     defaults: [
         {
             "gene_set_library": null, 

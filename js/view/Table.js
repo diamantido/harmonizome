@@ -4,17 +4,15 @@ App.View.Table = Backbone.View.extend({
 
     className: 'table display',
 
-    initialize: function() {
-        var template = App.renderTemplate('thead');
+    initialize: function(options) {
         $('#content').append(this.el);
+        var template = App.renderTemplate('thead');
         this.$el.append(template);
-        this.drawTable(this.model.toJSON());
-    },
-
-    drawTable: function(data) {
-        _.each(data, function(cell) {
+        _.each(this.model.toJSON(), function(cell, i) {
             this.$el.append( App.renderTemplate('row', cell) );
         }, this);
-        this.$el.DataTable();
+        this.$el.DataTable({
+            'deferRender': true
+        });
     }
 });
