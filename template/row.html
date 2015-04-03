@@ -1,6 +1,8 @@
 <tr>
     <td>
         <a href="<%= resource_url %>"><%= resource_name %>:</a> <%= resource_description %>
+        <% var pub_url = "http://www.ncbi.nlm.nih.gov/pubmed/" + publication[0].pmid %>
+        (<a href="<%= pub_url %>"><%= publication[0].author %></a>)
     </td>
     <td>
         <%= data_description %> 
@@ -12,25 +14,13 @@
         <%= attribute %> 
     </td>
     <td>
-        <% var pub_url = "http://www.ncbi.nlm.nih.gov/pubmed/" + publication[0].pmid %>
-        <a href="<%= pub_url %>">
-            <%= publication[0].author %>
-        </a>
+        <%= number_of_genes %>
     </td>
     <td>
-        <% var gene_list_url = directory + "/" + gene_list %>
-        <a href="<%= gene_list_url %>">
-            <%= number_of_genes %>
-        </a>
+        <%= number_of_attributes %>
     </td>
     <td>
-        <% var attribute_list_url = directory + "/" + attribute_list %>
-        <a href="<%= attribute_list_url %>">
-            <%= number_of_attributes %>
-        </a>
-    </td>
-    <td>
-        <% var download_url = "#page/" + resource_name %>
+        <% var download_url = "#page/" + directory %>
         <a class="icon-link" href="<%= download_url %>">
             <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
         </a>
