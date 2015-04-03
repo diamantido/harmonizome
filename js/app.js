@@ -11,7 +11,7 @@ $(function() {
     var templateCache = {};
     App.renderTemplate = function(name, data) {
         if (!templateCache[name]) {
-            var dir = '/template/',
+            var dir = 'template/',
                 url = dir + name + '.html',
                 string;
             $.ajax({
