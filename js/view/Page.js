@@ -25,16 +25,27 @@ App.View.Page = Backbone.View.extend({
                 counter: 'page_views'
             },
             success: function(data) {
-                debugger;
             },
             error: function(data) {
-                debugger;
             }
         });
     },
 
     countDownload: function(evt) {
-        evt.preventDefault();
-        var url = $(evt.target).parent().attr('href');
+        var url = $(evt.target).parent().attr('href').split('/'),
+            resource = url[0],
+            counter = $(evt.target).parent().attr('data-db');
+        $.ajax({
+            url: 'http://maayanlab.net/harmonizome/api/metrics/index.php',
+            type: 'POST',
+            data: {
+                resource: resource,
+                counter: counter
+            },
+            success: function(data) {
+            },
+            error: function(data) {
+            }
+        });
     }
 });
