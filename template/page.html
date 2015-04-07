@@ -45,108 +45,123 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Genes</td>
-                <% var gene_list_url = directory + "/" + gene_list %>
-                <td>
-                    <a data-db="genes_dl" class="icon-link" href="<%= gene_list_url %>" target="_blank">
-                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td>
-                    <%= metrics.genes_dl %>
-                </td>
-            </tr>
-            <tr>
-                <td>Attributes</td>
-                <% var attribute_list_url = directory + "/" + attribute_list %>
-                <td>
-                    <a data-db="attributes_dl" class="icon-link" href="<%= attribute_list_url %>" target="_blank">
-                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td>
-                    <%= metrics.attributes_dl %>
-                </td>
-            </tr>
-
-            <tr>
-                <td>Edge List</td>
-                <% var edge_list_url = directory + "/" + edge_list %>
-                <td>
-                    <a data-db="edge_list_dl" class="icon-link" href="<%= edge_list_url %>" target="_blank">
-                        <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td>
-                    <%= metrics.edge_list_dl %>
-                </td>
-            </tr>
-            <tr>
-                <td>Gene Set Library</td>
-                <td>
-                    <% var gene_set_library_url = directory + "/" + gene_set_library %>
-                    <a data-db="gene_set_library_dl" class="icon-link" href="<%= gene_set_library_url %>" target="_blank">
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td>
-                    <%= metrics.gene_set_library_dl %>
-                </td>
-            </tr>
-            <tr>
-                <td>Attribute Set Library</td>
-                <td>
-                    <% var attribute_set_library_url = directory + "/" + attribute_set_library %>
-                    <a data-db="attribute_set_library_dl" class="icon-link" href="<%= attribute_set_library_url %>" target="_blank">
-                        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td>
-                    <%= metrics.attribute_set_library_dl %>
-                </td>
-            </tr>
-            <tr>
-                <td>Gene Similarity Matrix</td>
-                <td>
-                    <% var gene_similarity_matrix_url = directory + "/" + gene_similarity_matrix %>
-                    <a data-db="gene_similarity_matrix_dl" class="icon-link" href="<%= gene_similarity_matrix_url %>" target="_blank">
-                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td>
-                    <%= metrics.gene_similarity_matrix_dl %>
-                </td>
-            </tr>
-            <tr>
-                <td>Attribute Similarity Matrix</td>
-                <td>
-                    <% var attribute_similarity_matrix_url = directory + "/" + attribute_similarity_matrix %>
-                    <a data-db="attribute_similarity_matrix_dl" class="icon-link" href="<%= attribute_similarity_matrix_url %>" target="_blank">
-                        <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td>
-                    <%= metrics.attribute_similarity_matrix_dl %>
-                </td>
-            </tr>
-            <tr>
-                <td>Scripts</td>
-                <td>
-                    <% var script_url = directory + "/" + script %>
-                    <a data-db="scripts_dl" class="icon-link" href="<%= script_url %>" target="_blank">
-                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td>
-                    <%= metrics.scripts_dl %>
-                </td>
-            </tr>
+            <% if (files.gene_list) { %>
+                <tr>
+                    <td>Genes</td>
+                    <% var gene_list_url = "data/" + directory + "/" + files.gene_list %>
+                    <td>
+                        <a data-db="genes_dl" class="icon-link" href="<%= gene_list_url %>" target="_blank">
+                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <%= metrics.genes_dl %>
+                    </td>
+                </tr>
+            <% } %>
+            <% if (files.attribute_list) { %>
+                <tr>
+                    <td>Attributes</td>
+                    <% var attribute_list_url = "data/" + directory + "/" + files.attribute_list %>
+                    <td>
+                        <a data-db="attributes_dl" class="icon-link" href="<%= attribute_list_url %>" target="_blank">
+                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <%= metrics.attributes_dl %>
+                    </td>
+                </tr>
+            <% } %>
+            <% if (files.edge_list) { %>
+                <tr>
+                    <td>Edge List</td>
+                    <% var edge_list_url = "data/" + directory + "/" + files.edge_list %>
+                    <td>
+                        <a data-db="edge_list_dl" class="icon-link" href="<%= edge_list_url %>" target="_blank">
+                            <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <%= metrics.edge_list_dl %>
+                    </td>
+                </tr>
+            <% } %>
+            <% if (files.gene_set_library) { %>
+                <tr>
+                    <td>Gene Set Library</td>
+                    <td>
+                        <% var gene_set_library_url = "data/" + directory + "/" + files.gene_set_library %>
+                        <a data-db="gene_set_library_dl" class="icon-link" href="<%= gene_set_library_url %>" target="_blank">
+                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <%= metrics.gene_set_library_dl %>
+                    </td>
+                </tr>
+            <% } %>
+            <% if (files.attribute_set_library) { %>
+                <tr>
+                    <td>Attribute Set Library</td>
+                    <td>
+                        <% var attribute_set_library_url = "data/" + directory + "/" + files.attribute_set_library %>
+                        <a data-db="attribute_set_library_dl" class="icon-link" href="<%= attribute_set_library_url %>" target="_blank">
+                            <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <%= metrics.attribute_set_library_dl %>
+                    </td>
+                </tr>
+            <% } %>
+            <% if (files.gene_similarity_matrix) { %>
+                <tr>
+                    <td>Gene Similarity Matrix</td>
+                    <td>
+                        <% var gene_similarity_matrix_url = "data/" + directory + "/" + files.gene_similarity_matrix %>
+                        <a data-db="gene_similarity_matrix_dl" class="icon-link" href="<%= gene_similarity_matrix_url %>" target="_blank">
+                            <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <%= metrics.gene_similarity_matrix_dl %>
+                    </td>
+                </tr>
+            <% } %>
+            <% if (files.attribute_similarity_matrix) { %>
+                <tr>
+                    <td>Attribute Similarity Matrix</td>
+                    <td>
+                        <% var attribute_similarity_matrix_url = "data/" + directory + "/" + files.attribute_similarity_matrix %>
+                        <a data-db="attribute_similarity_matrix_dl" class="icon-link" href="<%= attribute_similarity_matrix_url %>" target="_blank">
+                            <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <%= metrics.attribute_similarity_matrix_dl %>
+                    </td>
+                </tr>
+            <% } %>
+            <% if (files.script) { %>
+                <tr>
+                    <td>Scripts</td>
+                    <td>
+                        <% var script_url = "data/" + directory + "/" + files.script %>
+                        <a data-db="scripts_dl" class="icon-link" href="<%= script_url %>" target="_blank">
+                            <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <%= metrics.scripts_dl %>
+                    </td>
+                </tr>
+            <% } %>
         </tbody>
     </table>
 </section>
 <section>
     <h4>Created</h4>
-    <% var date = download_date.month + "/" + download_date.day + "/" + download_date.year; %>
+    <% var date = download_date.year + "/" + download_date.month + "/" + download_date.day; %>
     <p><%= date %></p>
 </section>

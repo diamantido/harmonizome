@@ -14,6 +14,9 @@ $(function() {
         context: this,
         success: function(data) {
             load(data);
+        },
+        error: function() {
+            console.log("dev");
         }
     });
 

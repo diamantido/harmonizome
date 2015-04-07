@@ -20,13 +20,17 @@
         <%= number_of_attributes %>
     </td>
     <td>
-        <% var download_url = "#page/" + directory %>
-        <a class="icon-link" href="<%= download_url %>">
-            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
-        </a>
+        <% if (status === 'ready') { %>
+            <% var download_url = "#page/" + directory %>
+            <a class="icon-link" href="<%= download_url %>">
+                <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+            </a>
+        <% } else { %>
+            <em>Pending</em>
+        <% } %>
     </td>
     <td>
-        <% var date = download_date.month + "/" + download_date.day + "/" + download_date.year; %>
+        <% var date = download_date.year + "/" + download_date.month + "/" + download_date.day; %>
         <%= date %>
     </td>
     <td>
