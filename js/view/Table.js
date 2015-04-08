@@ -9,7 +9,9 @@ App.View.Table = Backbone.View.extend({
         var template = App.renderTemplate('thead');
         this.$el.append(template);
         _.each(this.model.toJSON(), function(cell, i) {
-            this.$el.append( App.renderTemplate('row', cell) );
+            if (cell.status === 'ready') {
+                this.$el.append( App.renderTemplate('row', cell) );
+            }
         }, this);
         this.$el.DataTable({
             'deferRender': true

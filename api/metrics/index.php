@@ -20,14 +20,23 @@ function doGet() {
     while ($row = mysql_fetch_array($result)) {
         $row_data = array(
             "page_views" => $row[2],
-            "genes_dl" => $row[3],
-            "attributes_dl" => $row[4],
+
+            "gene_list_dl" => $row[3],
+            "attribute_list_dl" => $row[4],
             "edge_list_dl" => $row[5],
-            "gene_set_library_dl" => $row[6],
-            "attribute_set_library_dl" => $row[7],
-            "gene_similarity_matrix_dl" => $row[8],
-            "attribute_similarity_matrix_dl" => $row[9],
-            "scripts_dl" => $row[10]
+
+            "down_gene_set_library_dl" => $row[6],
+            "up_gene_set_library_dl" => $row[7],
+            "gene_set_library_dl" => $row[8],
+            "gene_similarity_matrix_dl" => $row[12],
+
+            "down_attribute_set_library_dl" => $row[9],
+            "up_attribute_set_library_dl" => $row[10],
+            "attribute_set_library_dl" => $row[11],
+            "attribute_similarity_matrix_dl" => $row[13],
+            "attribute_table_dl" => $row[14],
+
+            "scripts_dl" => $row[15]
         );
         $response_data[$row[1]] = $row_data;
     }
