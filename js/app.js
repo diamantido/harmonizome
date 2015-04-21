@@ -9,7 +9,7 @@ var App = {
 $(function() {
 
     $.ajax({
-        url: 'http://maayanlab.net/harmonizome/api/metrics',
+        url: '/harmonizome/api/metrics',
         type: 'GET',
         context: this,
         success: function(data) {
