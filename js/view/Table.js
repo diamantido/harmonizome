@@ -5,7 +5,8 @@ App.View.Table = Backbone.View.extend({
     className: 'table display',
 
     initialize: function(options) {
-        $('#content').append(this.el);
+        this.$parent = $('#content');
+        this.$parent.append(this.el);
         var template = App.renderTemplate('thead');
         this.$el.append(template);
         _.each(this.model.toJSON(), function(cell, i) {
@@ -13,8 +14,14 @@ App.View.Table = Backbone.View.extend({
                 this.$el.append( App.renderTemplate('row', cell) );
             }
         }, this);
-        this.$el.DataTable({
-            'deferRender': true
+        var table = this.$el.dataTable({
+            paging: false
+        });
+
+        var logos = new App.View.Logos({
+            $parent: this.$parent,
+            table: table,
+            model: new App.Model.Resources()
         });
     }
 });

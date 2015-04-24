@@ -8,9 +8,6 @@
         <%= data_description %> 
     </td>
     <td>
-        <%= association %> 
-    </td>
-    <td>
         <%= attribute %> 
     </td>
     <td>
@@ -28,10 +25,6 @@
         <% } else { %>
             <em>Pending</em>
         <% } %>
-    </td>
-    <td>
-        <% var date = download_date.year + "/" + download_date.month + "/" + download_date.day; %>
-        <%= date %>
     </td>
     <td>
         <%= metrics.page_views %>
