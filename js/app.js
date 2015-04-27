@@ -16,11 +16,11 @@ $(function() {
             load(data);
         },
         error: function() {
-            console.log("dev");
+            console.log("error loading metrics");
         }
     });
 
-    function load(server_data) {
+    function load(serverData) {
         
         var templateCache = {};
         App.renderTemplate = function(name, data) {
@@ -42,12 +42,13 @@ $(function() {
             return templateCache[name](data);
         };
 
+        var tableModel = new App.Model.Table({}, { serverData: serverData });
         App.contentViews = {
-            table: new App.View.Table({
-                model: new App.Model.Table({}, { server_data: server_data })
+            index: new App.View.Index({
+                model: tableModel
             }),
             pages: new App.View.Pages({
-                model: new App.Model.Table({}, { server_data: server_data })
+                model: tableModel
             }),
             hide: function() {
                 _.each(this, function(view) {
@@ -70,11 +71,12 @@ $(function() {
 
         App.Router = Backbone.Router.extend({
             routes: {
-                '': 'table',
+                '': 'index',
                 'page/(:id)': 'page'
             },
-            table: function() {
-                App.contentViews.show(App.contentViews.table);
+            index: function() {
+                App.contentViews.show(App.contentViews.index);
+                $('#logos').show();
             },
             page: function(id) {
                 App.contentViews.pages.renderPage(id);;

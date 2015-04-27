@@ -2,7 +2,7 @@ App.Model.Table = Backbone.Model.extend({
 
     initialize: function(attributes, options) {
         _.each(this.defaults, function(row) {
-            row['metrics'] = options.server_data[row['directory']];
+            row['metrics'] = options.serverData[row['directory']];
         }, this);
     },
 

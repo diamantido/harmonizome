@@ -18,7 +18,7 @@ App.View.Page = Backbone.View.extend({
     countPageView: function() {
         var resource = this.id;
         $.ajax({
-            url: 'http://maayanlab.net/harmonizome/api/metrics/index.php',
+            url: '/harmonizome/api/metrics/index.php',
             type: 'POST',
             data: {
                 resource: resource,
@@ -36,7 +36,7 @@ App.View.Page = Backbone.View.extend({
             resource = url[0],
             counter = $(evt.target).parent().attr('data-db');
         $.ajax({
-            url: 'http://maayanlab.net/harmonizome/api/metrics/index.php',
+            url: '/harmonizome/api/metrics/index.php',
             type: 'POST',
             data: {
                 resource: resource,
