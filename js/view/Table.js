@@ -51,8 +51,7 @@ App.View.Table = Backbone.View.extend({
     initialize: function(options) {
         this.$el.append(this.templateHead);
         _.each(this.model.toJSON(), function(cell, i) {
-            if (cell.status === 'ready') {
-                //this.$el.append( App.renderTemplate('row', cell) );
+            if (cell.status !== null) {
                 this.$el.append(this.templateRow(cell));
             }
         }, this);

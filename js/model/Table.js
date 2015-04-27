@@ -7,7 +7,7 @@ App.Model.Table = Backbone.Model.extend({
     },
 
     defaults: [
-  {
+{
     "status": "ready", 
     "resource_description": "project screening essentiality of genes in cancer cell lines by measuring proliferation rates following gene knockdowns", 
     "attribute": "cell line", 
@@ -4746,6 +4746,5 @@ App.Model.Table = Backbone.Model.extend({
     "resource_url": "http://www.wikipathways.org", 
     "data_class": "literature curation"
   }
-]    
-      
+]
 });
