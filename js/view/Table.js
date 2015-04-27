@@ -11,6 +11,7 @@ App.View.Table = Backbone.View.extend({
             '<tr>' +
                 '<th>Resource</th>' +
                 '<th>Data Description</th>' +
+                '<th>Data Type</th>' +
                 '<th>Attribute</th>' +
                 '<th>Genes</th>' +
                 '<th>Attributes</th>' +
@@ -27,6 +28,7 @@ App.View.Table = Backbone.View.extend({
                 '(<a href="<%= pub_url %>"><%= publication[0].author %></a>)' +
             '</td>' +
             '<td><%= data_description %></td>' +
+            '<td><%= data_type %></td>' +
             '<td><%= attribute %> </td>' +
             '<td><%= number_of_genes %></td>' +
             '<td><%= number_of_attributes %></td>' +
