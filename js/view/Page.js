@@ -15,19 +15,16 @@ App.View.Page = Backbone.View.extend({
                     'gene_list: "glyphicon-align-justify",' +
                     'attribute_list: "glyphicon-align-justify",' +
                     'edge_list: "glyphicon-align-justify",' +
-
                     'down_gene_set_library: "glyphicon-th-list",' +
                     'up_gene_set_library: "glyphicon-th-list",' +
                     'gene_set_library: "glyphicon-th-list",' +
-
                     'gene_similarity_matrix: "glyphicon-th",' +
-
                     'down_attribute_set_library: "glyphicon-th-list",' +
                     'up_attribute_set_library: "glyphicon-th-list",' +
                     'attribute_set_library: "glyphicon-th-list",' +
                     'attribute_similarity_matrix: "glyphicon-th",' +
-
-                    'attribute_table: "glyphicon-th"' +
+                    'attribute_table: "glyphicon-th",' +
+                    'script: "glyphicon-wrench"' +
                 '};' +
         '%>' +
 

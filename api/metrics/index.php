@@ -36,7 +36,7 @@ function doGet() {
             "attribute_similarity_matrix_dl" => $row[13],
             "attribute_table_dl" => $row[14],
 
-            "scripts_dl" => $row[15]
+            "script_dl" => $row[15]
         );
         $response_data[$row[1]] = $row_data;
     }

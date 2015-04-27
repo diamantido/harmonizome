@@ -22,26 +22,6 @@ $(function() {
 
     function load(serverData) {
         
-        var templateCache = {};
-        App.renderTemplate = function(name, data) {
-            if (!templateCache[name]) {
-                var dir = 'template/',
-                    url = dir + name + '.html',
-                    string;
-                $.ajax({
-                    url: url,
-                    dataType: 'html',
-                    method: 'GET',
-                    async: false,
-                    success: function(data) {
-                        string = data;
-                    }
-                });
-                templateCache[name] = _.template(string);
-            }
-            return templateCache[name](data);
-        };
-
         var tableModel = new App.Model.Table({}, { serverData: serverData });
         App.contentViews = {
             index: new App.View.Index({
