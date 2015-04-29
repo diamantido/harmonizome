@@ -3,6 +3,7 @@
 html {
     font-family: arial, sans-serif;
 }
+a,
 a:link {
     color: #3593b1;
     text-decoration: none;
@@ -36,37 +37,59 @@ ul {
     padding-left: 15px;
 }
 
-/* Title
- * ----- */
-#title {
-    text-align: center;
+/* Menu
+ * ---- */
+#menu {
+    background: black;
+    border-top: 4px solid #3593b1;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    z-index: 999;
 }
-#title h1 {
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 0;
+#menu #subnav ul {
+    list-style-type: none;
 }
-#title h1 a {
+#menu #subnav li {
+    display: inline-block;
+}
+#menu #subnav a {
+    color: white;
+    position: relative;
+    top: 2px;
+}
+#menu #subnav .first {
+    border-right: 1px solid white;
+    padding-right: 10px;
+}
+#menu #subnav .last {
+    padding-left: 6px;
+}
+#menu #subnav a:hover,
+#menu #subnav a:active {
     color: #3593b1;
 }
-#title h1 a:hover {
-    color: #09505b;
-}
-#title h1 a:hover,
 #title h3 a:hover {
     text-decoration: none;
 }
 #title h3 {
-    border-bottom: 2px solid #ddd;
-    margin-bottom: 15px;
+    margin-bottom: 4px;
     margin-top: 0;
-    padding-bottom: 20px;
 }
 #title h3 a {
-    color: black;
+    color: white;
 }
 #title h3 a:hover {
     color: #3593b1;
+}
+
+/* Content
+ * ------- */
+#content {
+    background: white;
+    padding: 80px 40px 40px 40px;
+    margin: 0 auto;
+    max-width: 1100px;
 }
 
 /* Introduction
@@ -76,15 +99,15 @@ ul {
     font-size: 14px;
 }
 #logos {
-    padding: 20px 0;
+    padding: 12px 0;
 }
 #logos img.logo:hover {
     opacity: .5;
 }
 #logos img.logo {
     border: 1px solid #eee;
-    margin: 5px;
-    height: 40px;
+    margin: 2px;
+    height: 38px;
 }
 #stats span {
     font-family: 'Archivo Narrow';
@@ -95,12 +118,6 @@ ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
-}
-#content {
-    background: white;
-    padding: 40px;
-    margin: 0 auto;
-    max-width: 1100px;
 }
 #abstract {
     width: 80%;
@@ -178,4 +195,21 @@ a.icon-link:hover {
 .page h4 {
     font-weight: bold;
     margin-top: 25px;
+}
+
+/* Footer
+ * ------ */
+#footer {
+    border-top: 3px solid #eee;
+    bottom: 0;
+    padding: 15px;
+    width: 100%;
+}
+#footer #social .social {
+    padding: 0;
+    margin-right: 10px;
+}
+#footer #social .social.facebook {
+    position: relative;
+    top: -5px;
 }
