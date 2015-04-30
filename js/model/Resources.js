@@ -3,348 +3,383 @@ App.Model.Resources = Backbone.Model.extend({
     defaults: [
         {
             'name': 'Achilles',
-            'image': 'achilles',
+            'image': "achilles.PNG",
             'link': 'http://www.broadinstitute.org/achilles'
         },
         {
             'name': 'Allen Brain Atlas',
-            'image': 'allenbrainatlas',
-            'link': 'http://www.brain-map.org/'
+            'image': "allenbrainatlas.PNG",
+            'link': 'http://human.brain-map.org/'
         },
         {
             'name': 'Biocarta',
-            'image': 'biocarta',
+            'image': "biocarta.PNG",
             'link': 'http://www.biocarta.com/genes/index.asp'
         },
         {
             'name': 'BioGPS',
-            'image': '',
+            'image': "biogps.PNG",
             'link': 'http://biogps.org/'
         },
         {
             'name': 'Biological General Repository of Interaction Datasets (BioGRID)',
-            'image': 'biogrid',
+            'image': "biogrid.PNG",
             'link': 'http://thebiogrid.org/'
         },
         {
             'name': 'Biomolecular Interaction Network Database (BIND)',
-            'image': 'bind',
+            'image': "bind.PNG",
             'link': 'http://bond.unleashedinformatics.com/'
         },
         {
             'name': 'Cancer Cell Line Encyclopedia (CCLE)',
-            'image': 'ccle',
+            'image': "ccle.PNG",
             'link': 'http://www.broadinstitute.org/ccle/home'
         },
         {
             'name': 'Catalogue of Somatic Mutations In Cancer (COSMIC)',
-            'image': 'cosmic',
+            'image': "cosmic.PNG",
             'link': 'http://cancer.sanger.ac.uk/cancergenome/projects/cosmic/'
         },
         {
             'name': 'ChIP-X Enrichment Analysis (CHEA)',
-            'image': 'chea',
+            'image': "chea.PNG",
             'link': 'http://amp.pharm.mssm.edu/lib/chea.jsp'
         },
         {
             'name': 'ClinVar',
-            'image': 'clinvar',
+            'image': "clinvar.PNG",
             'link': 'http://www.ncbi.nlm.nih.gov/clinvar/'
         },
         {
+            'name': 'Combined Pathways',
+            'image': null,
+            'link': 'null'
+        },
+        {
             'name': 'Comparative Toxicogenomics Database (CTD)',
-            'image': 'ctd',
+            'image': "ctd.PNG",
             'link': 'http://ctdbase.org/'
         },
         {
             'name': 'COMPARTMENTS',
-            'image': '',
+            'image': null,
             'link': 'http://compartments.jensenlab.org/Search'
         },
         {
             'name': 'Connectivity Map (CMAP)',
-            'image': '',
+            'image': "cmap.PNG",
             'link': 'https://www.broadinstitute.org/cmap/'
         },
         {
             'name': 'CORUM',
-            'image': '',
+            'image': null,
             'link': 'http://mips.helmholtz-muenchen.de/genre/proj/corum'
         },
         {
             'name': 'Database of Interacting Partners (DIP)',
-            'image': '',
+            'image': "dip.PNG",
             'link': 'http://dip.doe-mbi.ucla.edu'
         },
         {
             'name': 'Dephosphorylation Database (DEPOD)',
-            'image': '',
+            'image': "depod.PNG",
             'link': 'http://www.koehn.embl.de/depod/'
         },
         {
             'name': 'DISEASES',
-            'image': '',
+            'image': null,
             'link': 'http://diseases.jensenlab.org/Search'
         },
         {
             'name': 'DrugBank',
-            'image': 'drugbank',
+            'image': "drugbank.PNG",
             'link': 'http://www.drugbank.ca/'
         },
         {
             'name': 'Encyclopedia of DNA Elements (ENCODE)',
-            'image': 'encode',
+            'image': "encode.PNG",
             'link': 'https://www.encodeproject.org/'
         },
         {
-            'name': '',
-            'image': '',
+            'name': 'ESCAPE',
+            'image': "escape.PNG",
             'link': 'http://www.maayanlab.net/ESCAPE/'
         },
         {
             'name': 'Gene Expression Omnibus (GEO)',
-            'image': 'geo',
+            'image': "geo.PNG",
             'link': 'http://www.ncbi.nlm.nih.gov/geo/'
         },
         {
             'name': 'Gene Ontology (GO)',
-            'image': 'go',
+            'image': "go.PNG",
             'link': 'http://geneontology.org/'
         },
         {
             'name': 'Gene Reference Into Function (GeneRIF)',
-            'image': '',
+            'image': null,
             'link': 'ftp://ftp.ncbi.nih.gov/gene/GeneRIF/'
         },
         {
             'name': 'GeneSigDB',
-            'image': '',
+            'image': "genesigdb.PNG",
             'link': 'http://www.genesigdb.org'
         },
         {
             'name': 'Genetic Association Database (GAD)',
-            'image': '',
+            'image': "gad.PNG",
             'link': 'http://geneticassociationdb.nih.gov/'
         },
         {
+            'name': 'Genome Browser PWMs',
+            'image': null,
+            'link': 'null'
+        },
+        {
             'name': 'Genomics of Drug Sensitivity in Cancer (GDSC)',
-            'image': 'gdsc',
+            'image': "gdsc.PNG",
             'link': 'http://www.cancerrxgene.org/'
         },
         {
             'name': 'Genotype Tissue Expression (GTEx)',
-            'image': 'gtex',
+            'image': "gtex.PNG",
             'link': 'http://www.gtexportal.org/home/'
         },
         {
             'name': 'Graph of Medicine',
-            'image': '',
+            'image': null,
             'link': 'http://datadryad.org/resource/doi:10.5061/dryad.jp917'
         },
         {
             'name': 'Guide to Pharmacology',
-            'image': '',
+            'image': "iuphar.PNG",
             'link': 'http://www.guidetopharmacology.org/'
         },
         {
             'name': 'GWAS Catalog',
-            'image': 'gwascatalog',
+            'image': "gwascatalog.PNG",
             'link': 'http://www.ebi.ac.uk/gwas/home'
         },
         {
             'name': 'GWASdb',
-            'image': 'gwasdb',
+            'image': "gwasdb.PNG",
             'link': 'http://jjwanglab.org/gwasdb'
         },
         {
             'name': 'Heiser',
-            'image': '',
+            'image': null,
             'link': 'http://www.ebi.ac.uk/arrayexpress/experiments/E-MTAB-181/'
         },
         {
+            'name': 'Hub Proteins',
+            'image': null,
+            'link': 'null'
+        },
+        {
             'name': 'HuGE Navigator',
-            'image': 'hugenavigator',
+            'image': "hugenavigator.PNG",
             'link': 'http://www.hugenavigator.net/HuGENavigator/home.do'
         },
         {
             'name': 'Human Metabolome Database',
-            'image': '',
+            'image': "humanmetabolome.PNG",
             'link': 'http://www.hmdb.ca/'
         },
         {
             'name': 'Human Phenotype Ontology (HPO)',
-            'image': '',
+            'image': null,
             'link': 'http://www.human-phenotype-ontology.org/'
         },
         {
             'name': 'Human Protein Atlas (HPA)',
-            'image': 'humanproteinatlas',
+            'image': "humanproteinatlas.PNG",
             'link': 'http://www.proteinatlas.org/'
         },
         {
             'name': 'Human Protein Resource Database (HPRD)',
-            'image': '',
+            'image': "hprd.PNG",
             'link': 'http://www.hprd.org'
         },
         {
             'name': 'Human Proteome Map (HPM)',
-            'image': 'humanproteomemap',
+            'image': "humanproteomemap.PNG",
             'link': 'http://www.humanproteomemap.org/'
         },
         {
             'name': 'HumanCyc',
-            'image': 'humancyc',
-            'link': 'http://www.humancyc.org'
+            'image': "humancyc.PNG",
+            'link': 'http://humancyc.org/;http://www.pathwaycommons.org/about/'
         },
         {
             'name': 'Jaspar PWMs',
-            'image': '',
+            'image': "jaspar.PNG",
             'link': 'http://jaspar.genereg.net/'
         },
         {
             'name': 'Kinase Enrichment Analysis (KEA)',
-            'image': 'kea',
+            'image': "kea.PNG",
             'link': 'http://amp.pharm.mssm.edu/lib/kea.jsp'
         },
         {
             'name': 'Kinativ',
-            'image': '',
+            'image': null,
             'link': 'http://lincs.hms.harvard.edu/resources/assays/'
         },
         {
             'name': 'KinomeScan',
-            'image': '',
+            'image': null,
             'link': 'http://lincs.hms.harvard.edu/data/kinomescan/'
         },
         {
+            'name': 'Klijn',
+            'image': null,
+            'link': 'null'
+        },
+        {
             'name': 'Kyoto Encyclopedia of Genes and Genomes (KEGG)',
-            'image': 'kegg',
+            'image': "kegg.PNG",
             'link': 'http://www.genome.jp/kegg/'
         },
         {
             'name': 'LINCS L1000 Connectivity Map (CMAP)',
-            'image': '',
+            'image': "lincs.PNG",
             'link': 'http://www.lincscloud.org/l1000/'
         },
         {
             'name': 'LOCATE',
-            'image': 'locate',
+            'image': "locate.PNG",
             'link': 'http://locate.imb.uq.edu.au/'
         },
         {
             'name': 'Mammalian Phenotype Ontology (MPO)',
-            'image': 'mgi',
+            'image': "mgi.PNG",
             'link': 'http://www.informatics.jax.org/phenotypes.shtml'
         },
         {
             'name': 'MiRTarBase',
-            'image': 'mirtarbase',
+            'image': "mirtarbase.PNG",
             'link': 'http://mirtarbase.mbc.nctu.edu.tw/'
         },
         {
             'name': 'Molecular Interaction Database (IntAct)',
-            'image': 'intact',
+            'image': "intact.PNG",
             'link': 'http://www.ebi.ac.uk/intact/'
         },
         {
             'name': 'Molecular Signatures Database (MSigDB)',
-            'image': '',
+            'image': "msigdb.PNG",
             'link': 'http://www.broadinstitute.org/gsea/msigdb/index.jsp'
         },
         {
             'name': 'MotifMap',
-            'image': '',
+            'image': null,
             'link': 'http://motifmap.ics.uci.edu/'
         },
         {
             'name': 'Nuclear Receptor Signaling Atlas (NURSA)',
-            'image': 'nursa',
+            'image': "nursa.PNG",
             'link': 'http://www.nursa.org/nursa/index.jsf'
         },
         {
             'name': 'Online Mendelian Inheritance in Man (OMIM)',
-            'image': 'omim',
+            'image': "omim2.PNG",
             'link': 'http://www.omim.org/'
         },
         {
             'name': 'PANTHER',
-            'image': 'panther',
-            'link': 'http://www.pantherdb.org'
+            'image': "panther.PNG",
+            'link': 'http://pantherdb.org/;http://www.pathwaycommons.org/about/'
         },
         {
             'name': 'Pathway Commons (PC)',
-            'image': 'pathwaycommons',
+            'image': "pathwaycommons.PNG",
             'link': 'http://www.pathwaycommons.org/'
         },
         {
             'name': 'Pathway Interaction Database (PID)',
-            'image': '',
+            'image': "ncipid.PNG",
             'link': 'http://pid.nci.nih.gov/'
         },
         {
+            'name': 'Phosphosite Textmining',
+            'image': null,
+            'link': 'null'
+        },
+        {
             'name': 'PhosphoSitePlus',
-            'image': 'phosphositeplus',
+            'image': "phosphositeplus.PNG",
             'link': 'http://www.phosphosite.org'
         },
         {
             'name': 'Proteomics Database (ProteomicsDB)',
-            'image': '',
+            'image': "proteomicsdb.PNG",
             'link': 'https://www.proteomicsdb.org/'
         },
         {
             'name': 'Reactome',
-            'image': 'reactome',
+            'image': "reactome.PNG",
             'link': 'http://www.reactome.org'
         },
         {
             'name': 'Recon X',
-            'image': '',
+            'image': null,
             'link': 'http://humanmetabolism.org/'
         },
         {
             'name': 'Roadmap Epigenomics',
-            'image': 'roadmapepigenomics',
+            'image': "roadmapepigenomics.PNG",
             'link': 'http://www.roadmapepigenomics.org/'
         },
         {
+            'name': 'SILAC Phosphoproteomics',
+            'image': null,
+            'link': 'null'
+        },
+        {
             'name': 'SNPedia',
-            'image': 'snpedia',
+            'image': "snpedia.PNG",
             'link': 'http://snpedia.com/index.php/SNPedia'
         },
         {
+            'name': 'STRING',
+            'image': "string.PNG",
+            'link': 'http://string-db.org/'
+        },
+        {
             'name': 'TargetScan microRNA',
-            'image': '',
+            'image': "targetscan.PNG",
             'link': 'http://www.targetscan.org/'
         },
         {
             'name': 'The Cancer Genome Atlas (TCGA)',
-            'image': 'tcga',
+            'image': "tcga.PNG",
             'link': 'https://tcga-data.nci.nih.gov/tcga/'
         },
         {
             'name': 'TISSUES',
-            'image': '',
+            'image': null,
             'link': 'http://tissues.jensenlab.org/Search'
         },
         {
             'name': 'TRANSFAC',
-            'image': '',
+            'image': null,
             'link': 'http://www.gene-regulation.com/'
         },
         {
             'name': 'Universal Protein Resource (Uniprot)',
-            'image': 'uniprot',
+            'image': "uniprot.PNG",
             'link': 'http://www.uniprot.org/'
         },
         {
             'name': 'Virus MINT',
-            'image': '',
+            'image': "virusmint.PNG",
             'link': 'http://mint.bio.uniroma2.it/virusmint/'
         },
         {
             'name': 'Wikipathways',
-            'image': 'wikipathways',
+            'image': "wikipathways.PNG",
             'link': 'http://www.wikipathways.org'
-        }  
+        }
     ]
 });

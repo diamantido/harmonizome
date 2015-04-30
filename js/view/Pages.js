@@ -1,11 +1,9 @@
 App.View.Pages = Backbone.View.extend({
 
-    tagName: 'div',
-
-    className: 'content',
+    el: '#pages',
 
     initialize: function() {
-        $('#content').append(this.el);
+        this.$el.append(this.el);
     },
 
     renderPage: function(newPage) {

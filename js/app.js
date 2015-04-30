@@ -30,6 +30,9 @@ $(function() {
             pages: new App.View.Pages({
                 model: tableModel
             }),
+            table: new App.View.Table({
+                model: tableModel        
+            }),
             hide: function() {
                 _.each(this, function(view) {
                     if (view instanceof Backbone.View) {
@@ -52,11 +55,15 @@ $(function() {
         App.Router = Backbone.Router.extend({
             routes: {
                 '': 'index',
+                'table': 'table',
                 'page/(:id)': 'page'
             },
             index: function() {
                 App.contentViews.show(App.contentViews.index);
                 $('#logos').show();
+            },
+            table: function() {
+                App.contentViews.show(App.contentViews.table);
             },
             page: function(id) {
                 App.contentViews.pages.renderPage(id);;

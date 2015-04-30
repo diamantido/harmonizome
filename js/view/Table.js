@@ -55,7 +55,11 @@ App.View.Table = Backbone.View.extend({
                 this.$el.append(this.templateRow(cell));
             }
         }, this);
-        options.parent.$el.append(this.el);
+        //options.parent.$el.append(this.el);
+        $('#table').append(this.el);
+        $('#table').css({
+            'margin-top': 50
+        });
         this.$el.dataTable({
             paging: false
         });

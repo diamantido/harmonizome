@@ -13,41 +13,32 @@
     </head>
     <body>
 
-        <!-- FB SDK -->
+        <!-- FB SDK
         <div id="fb-root"></div>
-        <script>(function(d,s,id){var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>
-    
+        <script>(function(d,s,id){var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) return;js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>-->
         <div id="menu">
-            <div id="title" class="left">
-                <h3><a href="#"><strong>Harmonizome</strong>: BD2K-LINCS DCIC Processed Datasets</a></h3>
-            </div>
-            <div id="subnav" class="right">
-                <ul>
-                    <li>
-                        <a href="http://lincs-dcic.org/" target="_blank" class="first">BD2K-LINCS DCIC</a>
-                    </li>
-                    <li>
-                        <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory" target="_blank" class="last">Ma'ayan Laboratory</a>
-                    </li>
-                </ul>
+            <div class="content">
+                <div id="title" class="left">
+                    <h3><a href="#"><strong>Harmonizome</strong>: BD2K-LINCS DCIC Processed Datasets</a></h3>
+                </div>
+                <div id="share" class="right"></div>
             </div>
         </div>
-        <div id="content">
+        <div class="content">
             <div id="index"></div>
+            <div id="table"></div>
+            <div id="pages"></div>
         </div>
         <div id="footer">
-            <div id="social">
-                <span class="social twitter">
-                    <a class="twitter-share-button" href="https://twitter.com/share">Tweet</a>
-                    <script>window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return t;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));</script>
-                </span>
-                <span class="social facebook">
-                    <div class="fb-share-button" data-href="http://maayanlab.net/harmonizome/" data-layout="button_count"></div>
-                </span>
-                <span class="social gplus">
-                    <script src="https://apis.google.com/js/platform.js" async defer></script>
-                    <g:plus action="share"></g:plus>
-                </span>
+            <div class="content">
+                <ul>
+                    <li class="first">
+                        <a href="http://lincs-dcic.org/" target="_blank">BD2K-LINCS DCIC</a>
+                    </li>
+                    <li>
+                        <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory" target="_blank">Ma'ayan Laboratory</a>
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -60,10 +51,12 @@
         <script src="js/model/Resource.js"></script>
         <script src="js/model/Resources.js"></script>
         <script src="js/model/Table.js"></script>
+        <script src="js/model/Share.js"></script>
         <script src="js/view/Index.js"></script>
         <script src="js/view/Table.js"></script>
         <script src="js/view/Page.js"></script>
         <script src="js/view/Pages.js"></script>
         <script src="js/view/Intro.js"></script>
+        <script src="js/view/Share.js"></script>
     </body>
 </html>
