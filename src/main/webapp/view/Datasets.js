@@ -14,7 +14,7 @@ App.View.Datasets = Backbone.View.extend({
     render: function() {
     	var datasets;
         $.ajax({
-            url: 'api/metrics',
+            url: 'api/metric',
             type: 'GET',
             context: this,
             success: function(data) {
@@ -26,8 +26,9 @@ App.View.Datasets = Backbone.View.extend({
     },
     
     renderWithData: function(data) {
+    	var json = JSON.parse(data);
     	this.$table.append(App.Template['head.html']());
-        _.each(data, function(cell, i) {
+        _.each(json, function(cell, i) {
             if (cell.status !== null) {
             	this.$table.append(App.Template['body.html'](cell));
             }

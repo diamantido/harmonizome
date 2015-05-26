@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.hibernateObjects;
+package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,36 +11,63 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
-
 @Entity
-@DynamicInsert
-@DynamicUpdate
-@Table(name = "metrics", catalog = "harmonizome")
-public class DbMetric {
+@Table(name = "metric", catalog = "harmonizome")
+public class Metric {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String resource;
-	private int pageViews;
-	private int geneListDl;
-	private int attributeListDl;
-	private int edgeListDl;
-	private int downGeneSetLibraryDl;
-	private int upGeneSetLibraryDl;
-	private int geneSetLibraryDl;
-	private int downAttributeSetLibraryDl;
-	private int upAttributeSetLibraryDl;
-	private int attributeSetLibraryDl;
-	private int geneSimilarityMatrixDl;
-	private int attributeSimilarityMatrixDl;
-	private int attributeTableDl;
-	private int scriptDl;
 
-	public DbMetric() {
+	@Column(name = "resource")
+	private String resource;
+
+	@Column(name = "pageViews")
+	private int pageViews;
+
+	@Column(name = "geneListDl")
+	private int geneListDl;
+
+	@Column(name = "attributeListDl")
+	private int attributeListDl;
+
+	@Column(name = "edgeListDl")
+	private int edgeListDl;
+
+	@Column(name = "downGeneSetLibraryDl")
+	private int downGeneSetLibraryDl;
+
+	@Column(name = "upGeneSetLibraryDl")
+	private int upGeneSetLibraryDl;
+
+	@Column(name = "geneSetLibraryDl")
+	private int geneSetLibraryDl;
+
+	@Column(name = "downAttributeSetLibraryDl")
+	private int downAttributeSetLibraryDl;
+
+	@Column(name = "upAttributeSetLibraryDl")
+	private int upAttributeSetLibraryDl;
+
+	@Column(name = "attributeSetLibraryDl")
+	private int attributeSetLibraryDl;
+
+	@Column(name = "geneSimilarityMatrixDl")
+	private int geneSimilarityMatrixDl;
+
+	@Column(name = "attributeSimilarityMatrixDl")
+	private int attributeSimilarityMatrixDl;
+
+	@Column(name = "attributeTableDl")
+	private int attributeTableDl;
+
+	@Column(name = "scriptDl")
+	private int scriptDl;
+	
+	public Metric() {
 	}
 
-	public DbMetric(String resource, int pageViews, int geneListDl, int attributeListDl, int edgeListDl, int downGeneSetLibraryDl, int upGeneSetLibraryDl, int geneSetLibraryDl,
+	public Metric(String resource, int pageViews, int geneListDl, int attributeListDl, int edgeListDl, int downGeneSetLibraryDl, int upGeneSetLibraryDl, int geneSetLibraryDl,
 			int geneSimilarityMatrixDl, int downAttributeSetLibraryDl, int upAttributeSetLibraryDl, int attributeSetLibraryDl, int attributeSimilarityMatrixDl, int attributeTableDl, int scriptDl) {
 
 		this.resource = resource;
@@ -60,8 +87,6 @@ public class DbMetric {
 		this.scriptDl = scriptDl;
 	}
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int getId() {
 		return id;
 	}
@@ -70,7 +95,6 @@ public class DbMetric {
 		this.id = id;
 	}
 
-	@Column(name = "resource")
 	public String getResource() {
 		return resource;
 	}
@@ -79,7 +103,6 @@ public class DbMetric {
 		this.resource = resource;
 	}
 
-	@Column(name = "pageViews")
 	public int getPageViews() {
 		return pageViews;
 	}
@@ -88,7 +111,6 @@ public class DbMetric {
 		this.pageViews = pageViews;
 	}
 
-	@Column(name = "geneListDl")
 	public int getGeneListDl() {
 		return geneListDl;
 	}
@@ -97,7 +119,6 @@ public class DbMetric {
 		this.geneListDl = geneListDl;
 	}
 
-	@Column(name = "attributeListDl")
 	public int getAttributeListDl() {
 		return attributeListDl;
 	}
@@ -106,7 +127,6 @@ public class DbMetric {
 		this.attributeListDl = attributeListDl;
 	}
 
-	@Column(name = "edgeListDl")
 	public int getEdgeListDl() {
 		return edgeListDl;
 	}
@@ -115,7 +135,6 @@ public class DbMetric {
 		this.edgeListDl = edgeListDl;
 	}
 
-	@Column(name = "downGeneSetLibraryDl")
 	public int getDownGeneSetLibraryDl() {
 		return downGeneSetLibraryDl;
 	}
@@ -124,7 +143,6 @@ public class DbMetric {
 		this.downGeneSetLibraryDl = downGeneSetLibraryDl;
 	}
 
-	@Column(name = "upGeneSetLibraryDl")
 	public int getUpGeneSetLibraryDl() {
 		return upGeneSetLibraryDl;
 	}
@@ -133,7 +151,6 @@ public class DbMetric {
 		this.upGeneSetLibraryDl = upGeneSetLibraryDl;
 	}
 
-	@Column(name = "geneSetLibraryDl")
 	public int getGeneSetLibraryDl() {
 		return geneSetLibraryDl;
 	}
@@ -142,7 +159,6 @@ public class DbMetric {
 		this.geneSetLibraryDl = geneSetLibraryDl;
 	}
 
-	@Column(name = "geneSimilarityMatrixDl")
 	public int getGeneSimilarityMatrixDl() {
 		return geneSimilarityMatrixDl;
 	}
@@ -151,7 +167,6 @@ public class DbMetric {
 		this.geneSimilarityMatrixDl = geneSimilarityMatrixDl;
 	}
 
-	@Column(name = "downAttributeSetLibraryDl")
 	public int getDownAttributeSetLibraryDl() {
 		return downAttributeSetLibraryDl;
 	}
@@ -160,7 +175,6 @@ public class DbMetric {
 		this.downAttributeSetLibraryDl = downAttributeSetLibraryDl;
 	}
 
-	@Column(name = "upAttributeSetLibraryDl")
 	public int getUpAttributeSetLibraryDl() {
 		return upAttributeSetLibraryDl;
 	}
@@ -169,7 +183,6 @@ public class DbMetric {
 		this.upAttributeSetLibraryDl = upAttributeSetLibraryDl;
 	}
 
-	@Column(name = "attributeSetLibraryDl")
 	public int getAttributeSetLibraryDl() {
 		return attributeSetLibraryDl;
 	}
@@ -178,7 +191,6 @@ public class DbMetric {
 		this.attributeSetLibraryDl = attributeSetLibraryDl;
 	}
 
-	@Column(name = "attributeSimilarityMatrixDl")
 	public int getAttributeSimilarityMatrixDl() {
 		return attributeSimilarityMatrixDl;
 	}
@@ -187,7 +199,6 @@ public class DbMetric {
 		this.attributeSimilarityMatrixDl = attributeSimilarityMatrixDl;
 	}
 
-	@Column(name = "attributeTableDl")
 	public int getAttributeTableDl() {
 		return attributeTableDl;
 	}
@@ -196,7 +207,6 @@ public class DbMetric {
 		this.attributeTableDl = attributeTableDl;
 	}
 
-	@Column(name = "scriptDl")
 	public int getScriptDl() {
 		return scriptDl;
 	}
@@ -204,7 +214,7 @@ public class DbMetric {
 	public void setScriptDl(int scriptDl) {
 		this.scriptDl = scriptDl;
 	}
-	
+
 	@Transient
 	public Map<String, Integer> getCounts() {
 		Map<String, Integer> counts = new HashMap<String, Integer>();

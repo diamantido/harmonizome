@@ -41,8 +41,8 @@ $(function() {
             /* Use "data" instead of "table" so the browser doesn't shift
              * the page to #table.
              */
-            //'table': 'datasets',
-            'dataset/(:id)': 'dataset'
+            //'dataset': 'datasets',
+            //'dataset/(:id)': 'dataset'
         },
         splash: function() {
             App.contentViews.show(App.contentViews.splash);
