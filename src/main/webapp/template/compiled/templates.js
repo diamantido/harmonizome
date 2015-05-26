@@ -1,6 +1,7 @@
-this["JST"] = this["JST"] || {};
+this["App"] = this["App"] || {};
+this["App"]["Template"] = this["App"]["Template"] || {};
 
-this["JST"]["./template/source/body.html"] = function(obj) {
+this["App"]["Template"]["body.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
@@ -45,7 +46,7 @@ __p += '\n    </td>\n    <td>\n        ' +
 return __p
 };
 
-this["JST"]["./template/source/footer.html"] = function(obj) {
+this["App"]["Template"]["footer.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -55,7 +56,7 @@ __p += '<div class="container">\n    <ul class="row">\n        <li class="first"
 return __p
 };
 
-this["JST"]["./template/source/head.html"] = function(obj) {
+this["App"]["Template"]["head.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -65,7 +66,7 @@ __p += '<thead>\n    <tr>\n        <th>Resource</th>\n        <th>Data Descripti
 return __p
 };
 
-this["JST"]["./template/source/nav.html"] = function(obj) {
+this["App"]["Template"]["nav.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -75,7 +76,7 @@ __p += '<div class="container">\n    <div class="row">\n        <div id="title" 
 return __p
 };
 
-this["JST"]["./template/source/resource.html"] = function(obj) {
+this["App"]["Template"]["resource.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
 function print() { __p += __j.call(arguments, '') }
@@ -155,7 +156,7 @@ __p += '\n    <p>' +
 return __p
 };
 
-this["JST"]["./template/source/share.html"] = function(obj) {
+this["App"]["Template"]["share.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {
@@ -171,7 +172,7 @@ __p += '<a class="company ' +
 return __p
 };
 
-this["JST"]["./template/source/splash.html"] = function(obj) {
+this["App"]["Template"]["splash.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
 with (obj) {

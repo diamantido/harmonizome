@@ -26,10 +26,10 @@ App.View.Datasets = Backbone.View.extend({
     },
     
     renderWithData: function(data) {
-    	this.$table.append(JST['template/source/head.html']());
+    	this.$table.append(App.Template['head.html']());
         _.each(data, function(cell, i) {
             if (cell.status !== null) {
-            	this.$table.append(JST['template/source/body.html'](cell));
+            	this.$table.append(App.Template['body.html'](cell));
             }
         }, this);
         this.$table.dataTable({

@@ -1,20 +1,11 @@
-var App = {
-    Collection: {},
-    Model: {},
-    View: {},
-    Data: {},
-    EventAggregator: _.extend({}, Backbone.Events)
-};
+var App = App || {};
+App.Collection = {};
+App.Model = {};
+App.View = {};
+App.Data = {};
+App.EventAggregator = _.extend({}, Backbone.Events);
 
 $(function() {
-	
-	/* This is a hack since Grunt/JST build an object based on Grunt's
-	 */
-	/*var tempJST = {};
-	_.each(JST, function(template, key) {
-		tempJST[key.replace('src/main/webapp/', '')] = template;
-	});
-	JST = tempJST;*/
 
     new App.View.Nav({
         model: new App.Model.Share()

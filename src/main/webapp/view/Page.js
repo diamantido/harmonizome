@@ -19,7 +19,7 @@ App.View.Page = Backbone.View.extend({
     
     render: function(data) {
     	var json = JSON.parse(data);
-        var html = JST['template/source/resource.html'](json);
+        var html = App.Template['resource.html'](json);
         this.$el.append(html);
         //this.countPageView();
     },
