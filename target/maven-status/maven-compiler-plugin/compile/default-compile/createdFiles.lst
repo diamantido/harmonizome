@@ -1,5 +1,0 @@
-org/hibernate/connection/TomcatJDBCConnectionProvider.class
-edu/mssm/pharm/maayanlab/Harmonizome/web/Servlet.class
-edu/mssm/pharm/maayanlab/util/DAO.class
-edu/mssm/pharm/maayanlab/Harmonizome/POJOs/DbGene.class
-edu/mssm/pharm/maayanlab/Harmonizome/web/Context.class
