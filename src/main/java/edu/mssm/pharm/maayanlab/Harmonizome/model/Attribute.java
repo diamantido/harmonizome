@@ -19,7 +19,7 @@ public class Attribute {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "name")
 	private String name;
@@ -27,7 +27,7 @@ public class Attribute {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "url")
+	@Column(name = "url", length = 2083)
 	private String url;
 
 	@Column(name = "naming_authority_id")
@@ -44,14 +44,21 @@ public class Attribute {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "naming_authority_fk")
 	private NamingAuthority namingAuthority;
-	
+
 	@OneToMany(mappedBy = "features")
 	private Set<Feature> features;
+	
+	@OneToMany(mappedBy = "attribute1")
+	private Set<AttributeSimilarity> attributeSimilarities1;
+
+	@OneToMany(mappedBy = "attribute2")
+	private Set<AttributeSimilarity> attributeSimilarities2;
 
 	public Attribute() {
 	}
 
-	public Attribute(String name, String description, String url, int namingAuthorityId, AttributeType attributeType, AttributeGroup attributeGroup, NamingAuthority namingAuthority) {
+	public Attribute(int id, String name, String description, String url, int namingAuthorityId, AttributeType attributeType, AttributeGroup attributeGroup, NamingAuthority namingAuthority) {
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.url = url;
@@ -61,7 +68,7 @@ public class Attribute {
 		this.namingAuthority = namingAuthority;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -119,5 +126,29 @@ public class Attribute {
 
 	public void setNamingAuthority(NamingAuthority namingAuthority) {
 		this.namingAuthority = namingAuthority;
+	}
+
+	public Set<Feature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(Set<Feature> features) {
+		this.features = features;
+	}
+
+	public Set<AttributeSimilarity> getAttributeSimilarities1() {
+		return attributeSimilarities1;
+	}
+
+	public void setAttributeSimilarities1(Set<AttributeSimilarity> attributeSimilarities1) {
+		this.attributeSimilarities1 = attributeSimilarities1;
+	}
+
+	public Set<AttributeSimilarity> getAttributeSimilarities2() {
+		return attributeSimilarities2;
+	}
+
+	public void setAttributeSimilarities2(Set<AttributeSimilarity> attributeSimilarities2) {
+		this.attributeSimilarities2 = attributeSimilarities2;
 	}
 }

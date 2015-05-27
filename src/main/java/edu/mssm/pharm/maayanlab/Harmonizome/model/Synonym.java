@@ -16,9 +16,9 @@ public class Synonym {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
-	@Column(name = "sybmol")
+	@Column(name = "symbol")
 	private String symbol;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -27,14 +27,14 @@ public class Synonym {
 
 	public Synonym() {
 	}
-	
-	public long getId() {
-		return id;
-	}
 
 	public Synonym(String symbol, Gene gene) {
 		this.symbol = symbol;
 		this.gene = gene;
+	}
+
+	public int getId() {
+		return id;
 	}
 
 	public String getSymbol() {

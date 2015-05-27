@@ -16,7 +16,7 @@ public class AttributeGroup {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "name")
 	private String name;
@@ -31,7 +31,7 @@ public class AttributeGroup {
 		this.name = name;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 

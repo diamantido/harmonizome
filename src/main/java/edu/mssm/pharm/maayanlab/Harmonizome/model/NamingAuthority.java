@@ -10,13 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "naming_authority")
 public class NamingAuthority {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "name")
 	private String name;
@@ -25,7 +27,11 @@ public class NamingAuthority {
 	private String acronym;
 
 	@Column(name = "description")
+	@Type(type = "text")
 	private String description;
+	
+	@Column(name = "url", length = 2083)
+	private String url;
 
 	@OneToMany(mappedBy = "attribute")
 	private Set<Attribute> attributes;
@@ -42,7 +48,7 @@ public class NamingAuthority {
 		this.description = description;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -54,22 +60,6 @@ public class NamingAuthority {
 		this.name = name;
 	}
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Set<Publication> getPublications() {
-		return publications;
-	}
-
-	public void setPublications(Set<Publication> publications) {
-		this.publications = publications;
-	}
-
 	public String getAcronym() {
 		return acronym;
 	}
@@ -78,11 +68,35 @@ public class NamingAuthority {
 		this.acronym = acronym;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
 	public Set<Attribute> getAttributes() {
 		return attributes;
 	}
 
 	public void setAttributes(Set<Attribute> attributes) {
 		this.attributes = attributes;
+	}
+
+	public Set<Publication> getPublications() {
+		return publications;
+	}
+
+	public void setPublications(Set<Publication> publications) {
+		this.publications = publications;
 	}
 }

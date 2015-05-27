@@ -16,18 +16,18 @@ public class Publication {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "citation")
 	private String citation;
 
-	@Column(name = "url")
+	@Column(name = "url", length = 2083)
 	private String url;
 
 	@Column(name = "pmid")
 	private int pmid;
 
-	@Column(name = "pub_med_url")
+	@Column(name = "pub_med_url", length = 2083)
 	private String pubMedUrl;
 
 	@Column(name = "first_author_last_name")
@@ -69,7 +69,7 @@ public class Publication {
 		this.namingAuthority = namingAuthority;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -81,27 +81,27 @@ public class Publication {
 		this.citation = citation;
 	}
 
-	public String geturl() {
+	public String getUrl() {
 		return url;
 	}
 
-	public void seturl(String url) {
+	public void setUrl(String url) {
 		this.url = url;
 	}
 
-	public int getpmid() {
+	public int getPmid() {
 		return pmid;
 	}
 
-	public void setpmid(int pmid) {
+	public void setPmid(int pmid) {
 		this.pmid = pmid;
 	}
 
-	public String getPubMedurl() {
+	public String getPubMedUrl() {
 		return pubMedUrl;
 	}
 
-	public void setPubMedurl(String pubMedUrl) {
+	public void setPubMedUrl(String pubMedUrl) {
 		this.pubMedUrl = pubMedUrl;
 	}
 
@@ -127,5 +127,29 @@ public class Publication {
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public Resource getResource() {
+		return resource;
+	}
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
+
+	public Dataset getDataset() {
+		return dataset;
+	}
+
+	public void setDataset(Dataset dataset) {
+		this.dataset = dataset;
+	}
+
+	public NamingAuthority getNamingAuthority() {
+		return namingAuthority;
+	}
+
+	public void setNamingAuthority(NamingAuthority namingAuthority) {
+		this.namingAuthority = namingAuthority;
 	}
 }

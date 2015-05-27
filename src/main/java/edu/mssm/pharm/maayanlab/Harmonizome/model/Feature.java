@@ -16,7 +16,7 @@ public class Feature {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "imported_value")
 	private double importedValue;
@@ -26,7 +26,7 @@ public class Feature {
 
 	@Column(name = "threshold_value")
 	private double thresholdValue;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "gene_fk")
 	private Gene gene;
@@ -51,7 +51,7 @@ public class Feature {
 		this.dataset = dataset;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 

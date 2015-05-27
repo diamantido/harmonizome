@@ -13,18 +13,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "dataset")
 public class Dataset {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "name")
 	private String name;
 
 	@Column(name = "description")
+	@Type(type = "text")
 	private String description;
 
 	@Column(name = "dataset_type")
@@ -33,7 +36,7 @@ public class Dataset {
 	@Column(name = "dataset_group")
 	private DatasetGroup datasetGroup;
 
-	@Column(name = "processing_script_url")
+	@Column(name = "processing_script_url", length = 2083)
 	private String processingScriptUrl;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -55,7 +58,7 @@ public class Dataset {
 		this.resource = resource;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -105,5 +108,13 @@ public class Dataset {
 
 	public void setResource(Resource resource) {
 		this.resource = resource;
+	}
+
+	public Set<Feature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(Set<Feature> features) {
+		this.features = features;
 	}
 }

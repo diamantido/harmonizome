@@ -4,6 +4,9 @@
 data/
 src/main/webapp/node_modules/
 
+# Generated files
+target/
+
 # Eclipse Core
 .project
 .settings/

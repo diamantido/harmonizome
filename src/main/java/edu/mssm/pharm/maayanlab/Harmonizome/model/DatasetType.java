@@ -16,7 +16,7 @@ public class DatasetType {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "name")
 	private String name;
@@ -27,12 +27,11 @@ public class DatasetType {
 	public DatasetType() {
 	}
 
-	public DatasetType(String name, Set<Dataset> datasets) {
+	public DatasetType(String name) {
 		this.name = name;
-		this.datasets = datasets;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 

@@ -16,14 +16,14 @@ public class DatasetGroup {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "name")
 	private String name;
-	
+
 	@OneToMany(mappedBy = "dataset")
 	private Set<Dataset> datasets;
-	
+
 	public DatasetGroup() {
 	}
 
@@ -31,7 +31,7 @@ public class DatasetGroup {
 		this.name = name;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 

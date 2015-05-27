@@ -10,47 +10,56 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "gene")
 public class Gene {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
-	@Column(name = "sybmol")
+	@Column(name = "symbol")
 	private String symbol;
-
-	@Column(name = "ncbi_entrez_gene_id")
-	private String ncbiEntrezGeneId;
 
 	@Column(name = "name")
 	private String name;
 
 	@Column(name = "description")
+	@Type(type = "text")
 	private String description;
 
-	@Column(name = "ncbi_entrez_gene_url")
+	@Column(name = "ncbi_entrez_gene_id")
+	private int ncbiEntrezGeneId;
+
+	@Column(name = "ncbi_entrez_gene_url", length = 2083)
 	private String ncbiEntrezGeneUrl;
 
 	@OneToMany(mappedBy = "gene")
 	private Set<Synonym> synonyms;
-	
-	@OneToMany(mappedBy = "features")
+
+	@OneToMany(mappedBy = "gene")
 	private Set<Feature> features;
+
+	@OneToMany(mappedBy = "gene1")
+	private Set<Gene> gene1s;
+
+	@OneToMany(mappedBy = "gene2")
+	private Set<Gene> gene2s;
 
 	public Gene() {
 	}
 
-	public Gene(String symbol, String ncbiEntrezGeneId, String name, String description, String ncbiEntrezGeneUrl) {
+	public Gene(String symbol, String name, String description, int ncbiEntrezGeneId, String ncbiEntrezGeneUrl) {
 		this.symbol = symbol;
-		this.ncbiEntrezGeneId = ncbiEntrezGeneId;
 		this.name = name;
 		this.description = description;
+		this.ncbiEntrezGeneId = ncbiEntrezGeneId;
 		this.ncbiEntrezGeneUrl = ncbiEntrezGeneUrl;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -60,14 +69,6 @@ public class Gene {
 
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
-	}
-
-	public String getNcbiEntrezGeneId() {
-		return ncbiEntrezGeneId;
-	}
-
-	public void setNcbiEntrezGeneId(String ncbiEntrezGeneId) {
-		this.ncbiEntrezGeneId = ncbiEntrezGeneId;
 	}
 
 	public String getName() {
@@ -86,6 +87,14 @@ public class Gene {
 		this.description = description;
 	}
 
+	public int getNcbiEntrezGeneId() {
+		return ncbiEntrezGeneId;
+	}
+
+	public void setNcbiEntrezGeneId(int ncbiEntrezGeneId) {
+		this.ncbiEntrezGeneId = ncbiEntrezGeneId;
+	}
+
 	public String getNcbiEntrezGeneUrl() {
 		return ncbiEntrezGeneUrl;
 	}
@@ -100,5 +109,29 @@ public class Gene {
 
 	public void setSynonyms(Set<Synonym> synonyms) {
 		this.synonyms = synonyms;
-	}	
+	}
+
+	public Set<Feature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(Set<Feature> features) {
+		this.features = features;
+	}
+
+	public Set<Gene> getGene1s() {
+		return gene1s;
+	}
+
+	public void setGene1s(Set<Gene> gene1s) {
+		this.gene1s = gene1s;
+	}
+
+	public Set<Gene> getGene2s() {
+		return gene2s;
+	}
+
+	public void setGene2s(Set<Gene> gene2s) {
+		this.gene2s = gene2s;
+	}
 }

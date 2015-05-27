@@ -10,50 +10,54 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "resource")
 public class Resource {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private int id;
 
 	@Column(name = "name")
 	private String name;
 
-	@Column(name = "acroynm")
-	private String acroynm;
+	@Column(name = "acronym")
+	private String acronym;
 
 	@Column(name = "short_description")
+	@Type(type = "text")
 	private String shortDescription;
 
 	@Column(name = "long_description")
+	@Type(type = "text")
 	private String longDescription;
 
-	@Column(name = "url")
+	@Column(name = "url", length = 2083)
 	private String url;
 
 	@OneToMany(mappedBy = "resource")
 	private Set<Dataset> datasets;
 
 	@OneToMany(mappedBy = "resource")
-	private Set<Publication> publication;
+	private Set<Publication> publications;
 
 	@OneToMany(mappedBy = "resource")
-	private Set<NamingAuthority> namingAuthority;
+	private Set<NamingAuthority> namingAuthorities;
 
 	public Resource() {
 	}
 
-	public Resource(String name, String acroynm, String shortDescription, String longDescription, String url) {
+	public Resource(String name, String acronym, String shortDescription, String longDescription, String url) {
 		this.name = name;
-		this.acroynm = acroynm;
+		this.acronym = acronym;
 		this.shortDescription = shortDescription;
 		this.longDescription = longDescription;
 		this.url = url;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -65,12 +69,12 @@ public class Resource {
 		this.name = name;
 	}
 
-	public String getAcroynm() {
-		return acroynm;
+	public String getAcronym() {
+		return acronym;
 	}
 
-	public void setAcroynm(String acroynm) {
-		this.acroynm = acroynm;
+	public void setAcronym(String acronym) {
+		this.acronym = acronym;
 	}
 
 	public String getShortDescription() {
@@ -105,19 +109,19 @@ public class Resource {
 		this.datasets = datasets;
 	}
 
-	public Set<Publication> getPublication() {
-		return publication;
+	public Set<Publication> getPublications() {
+		return publications;
 	}
 
-	public void setPublication(Set<Publication> publication) {
-		this.publication = publication;
+	public void setPublications(Set<Publication> publications) {
+		this.publications = publications;
 	}
 
-	public Set<NamingAuthority> getNamingAuthority() {
-		return namingAuthority;
+	public Set<NamingAuthority> getNamingAuthorities() {
+		return namingAuthorities;
 	}
 
-	public void setNamingAuthority(Set<NamingAuthority> namingAuthority) {
-		this.namingAuthority = namingAuthority;
+	public void setNamingAuthorities(Set<NamingAuthority> namingAuthorities) {
+		this.namingAuthorities = namingAuthorities;
 	}
 }
