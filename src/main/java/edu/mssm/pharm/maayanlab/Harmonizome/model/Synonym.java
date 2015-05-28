@@ -18,7 +18,7 @@ public class Synonym {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "symbol")
+	@Column(name = "symbol", unique = true)
 	private String symbol;
 
 	@ManyToOne(fetch = FetchType.LAZY)

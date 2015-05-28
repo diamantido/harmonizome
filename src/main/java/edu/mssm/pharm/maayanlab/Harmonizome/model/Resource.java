@@ -20,7 +20,7 @@ public class Resource {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "name")
+	@Column(name = "name", unique = true)
 	private String name;
 
 	@Column(name = "acronym")
@@ -42,9 +42,6 @@ public class Resource {
 
 	@OneToMany(mappedBy = "resource")
 	private Set<Publication> publications;
-
-	@OneToMany(mappedBy = "resource")
-	private Set<NamingAuthority> namingAuthorities;
 
 	public Resource() {
 	}
@@ -115,13 +112,5 @@ public class Resource {
 
 	public void setPublications(Set<Publication> publications) {
 		this.publications = publications;
-	}
-
-	public Set<NamingAuthority> getNamingAuthorities() {
-		return namingAuthorities;
-	}
-
-	public void setNamingAuthorities(Set<NamingAuthority> namingAuthorities) {
-		this.namingAuthorities = namingAuthorities;
 	}
 }

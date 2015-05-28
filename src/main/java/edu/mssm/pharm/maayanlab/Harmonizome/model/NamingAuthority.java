@@ -33,10 +33,10 @@ public class NamingAuthority {
 	@Column(name = "url", length = 2083)
 	private String url;
 
-	@OneToMany(mappedBy = "attribute")
+	@OneToMany(mappedBy = "namingAuthority")
 	private Set<Attribute> attributes;
 
-	@OneToMany(mappedBy = "publication")
+	@OneToMany(mappedBy = "namingAuthority")
 	private Set<Publication> publications;
 
 	public NamingAuthority() {

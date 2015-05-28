@@ -4,6 +4,9 @@
 data/
 src/main/webapp/node_modules/
 
+# Config w/ password
+build_db.sh
+
 # Generated files
 target/
 

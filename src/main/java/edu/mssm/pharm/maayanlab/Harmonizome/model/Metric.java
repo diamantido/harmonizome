@@ -22,46 +22,46 @@ public class Metric {
 	@Column(name = "resource")
 	private String resource;
 
-	@Column(name = "pageViews")
+	@Column(name = "page_views")
 	private int pageViews;
 
-	@Column(name = "geneListDl")
+	@Column(name = "gene_list_dl")
 	private int geneListDl;
 
-	@Column(name = "attributeListDl")
+	@Column(name = "attribute_list_dl")
 	private int attributeListDl;
 
-	@Column(name = "edgeListDl")
+	@Column(name = "edge_list_dl")
 	private int edgeListDl;
 
-	@Column(name = "downGeneSetLibraryDl")
+	@Column(name = "down_gene_set_library_dl")
 	private int downGeneSetLibraryDl;
 
-	@Column(name = "upGeneSetLibraryDl")
+	@Column(name = "up_gene_set_library_dl")
 	private int upGeneSetLibraryDl;
 
-	@Column(name = "geneSetLibraryDl")
+	@Column(name = "gene_set_library_dl")
 	private int geneSetLibraryDl;
 
-	@Column(name = "downAttributeSetLibraryDl")
+	@Column(name = "down_attribute_set_library_dl")
 	private int downAttributeSetLibraryDl;
 
-	@Column(name = "upAttributeSetLibraryDl")
+	@Column(name = "up_attribute_set_library_dl")
 	private int upAttributeSetLibraryDl;
 
-	@Column(name = "attributeSetLibraryDl")
+	@Column(name = "attribute_set_library_dl")
 	private int attributeSetLibraryDl;
 
-	@Column(name = "geneSimilarityMatrixDl")
+	@Column(name = "gene_similarity_matrix_dl")
 	private int geneSimilarityMatrixDl;
 
-	@Column(name = "attributeSimilarityMatrixDl")
+	@Column(name = "attribute_similarity_matrix_dl")
 	private int attributeSimilarityMatrixDl;
 
-	@Column(name = "attributeTableDl")
+	@Column(name = "attribute_table_dl")
 	private int attributeTableDl;
 
-	@Column(name = "scriptDl")
+	@Column(name = "script_dl")
 	private int scriptDl;
 	
 	public Metric() {

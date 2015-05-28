@@ -21,7 +21,7 @@ public class DatasetGroup {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "dataset")
+	@OneToMany(mappedBy = "group")
 	private Set<Dataset> datasets;
 
 	public DatasetGroup() {

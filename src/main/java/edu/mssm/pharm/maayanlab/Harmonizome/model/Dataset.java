@@ -23,18 +23,20 @@ public class Dataset {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "name")
+	@Column(name = "name", unique = true)
 	private String name;
 
 	@Column(name = "description")
 	@Type(type = "text")
 	private String description;
 
-	@Column(name = "dataset_type")
-	private DatasetType datasetType;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "type_fk")
+	private DatasetType type;
 
-	@Column(name = "dataset_group")
-	private DatasetGroup datasetGroup;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "group_fk")
+	private DatasetGroup group;
 
 	@Column(name = "processing_script_url", length = 2083)
 	private String processingScriptUrl;
@@ -43,17 +45,17 @@ public class Dataset {
 	@JoinColumn(name = "resource_fk")
 	private Resource resource;
 
-	@OneToMany(mappedBy = "features")
+	@OneToMany(mappedBy = "dataset")
 	private Set<Feature> features;
 
 	public Dataset() {
 	}
 
-	public Dataset(String name, String description, DatasetType datasetType, DatasetGroup datasetGroup, String processingScriptUrl, Resource resource) {
+	public Dataset(String name, String description, DatasetType type, DatasetGroup group, String processingScriptUrl, Resource resource) {
 		this.name = name;
 		this.description = description;
-		this.datasetType = datasetType;
-		this.datasetGroup = datasetGroup;
+		this.type = type;
+		this.group = group;
 		this.processingScriptUrl = processingScriptUrl;
 		this.resource = resource;
 	}
@@ -79,19 +81,19 @@ public class Dataset {
 	}
 
 	public DatasetType getDatasetType() {
-		return datasetType;
+		return type;
 	}
 
-	public void setDatasetType(DatasetType datasetType) {
-		this.datasetType = datasetType;
+	public void setDatasetType(DatasetType type) {
+		this.type = type;
 	}
 
 	public DatasetGroup getDatasetGroup() {
-		return datasetGroup;
+		return group;
 	}
 
-	public void setDatasetGroup(DatasetGroup datasetGroup) {
-		this.datasetGroup = datasetGroup;
+	public void setDatasetGroup(DatasetGroup group) {
+		this.group = group;
 	}
 
 	public String getProcessingScriptUrl() {

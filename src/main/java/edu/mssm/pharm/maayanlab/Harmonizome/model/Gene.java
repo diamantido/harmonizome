@@ -20,7 +20,7 @@ public class Gene {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(name = "symbol")
+	@Column(name = "symbol", unique = true)
 	private String symbol;
 
 	@Column(name = "name")
@@ -43,10 +43,10 @@ public class Gene {
 	private Set<Feature> features;
 
 	@OneToMany(mappedBy = "gene1")
-	private Set<Gene> gene1s;
+	private Set<GeneSimilarity> geneSimilarities1;
 
 	@OneToMany(mappedBy = "gene2")
-	private Set<Gene> gene2s;
+	private Set<GeneSimilarity> geneSimilarities2;
 
 	public Gene() {
 	}
@@ -119,19 +119,19 @@ public class Gene {
 		this.features = features;
 	}
 
-	public Set<Gene> getGene1s() {
-		return gene1s;
+	public Set<GeneSimilarity> getGeneSimilarities1() {
+		return geneSimilarities1;
 	}
 
-	public void setGene1s(Set<Gene> gene1s) {
-		this.gene1s = gene1s;
+	public void setGeneSimilarities1(Set<GeneSimilarity> geneSimilarities1) {
+		this.geneSimilarities1 = geneSimilarities1;
 	}
 
-	public Set<Gene> getGene2s() {
-		return gene2s;
+	public Set<GeneSimilarity> getGeneSimilarities2() {
+		return geneSimilarities2;
 	}
 
-	public void setGene2s(Set<Gene> gene2s) {
-		this.gene2s = gene2s;
+	public void setGeneSimilarities2(Set<GeneSimilarity> geneSimilarities2) {
+		this.geneSimilarities2 = geneSimilarities2;
 	}
 }

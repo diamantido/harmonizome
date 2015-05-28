@@ -35,19 +35,19 @@ public class Attribute {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attribute_type_fk")
-	private AttributeType attributeType;
+	private AttributeType type;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attribute_group_fk")
-	private AttributeGroup attributeGroup;
+	private AttributeGroup group;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "naming_authority_fk")
 	private NamingAuthority namingAuthority;
-
-	@OneToMany(mappedBy = "features")
-	private Set<Feature> features;
 	
+	@OneToMany(mappedBy = "attribute")
+	private Set<Feature> features;
+
 	@OneToMany(mappedBy = "attribute1")
 	private Set<AttributeSimilarity> attributeSimilarities1;
 
@@ -57,14 +57,14 @@ public class Attribute {
 	public Attribute() {
 	}
 
-	public Attribute(int id, String name, String description, String url, int namingAuthorityId, AttributeType attributeType, AttributeGroup attributeGroup, NamingAuthority namingAuthority) {
+	public Attribute(int id, String name, String description, String url, int namingAuthorityId, AttributeType type, AttributeGroup group, NamingAuthority namingAuthority) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.url = url;
 		this.namingAuthorityId = namingAuthorityId;
-		this.attributeType = attributeType;
-		this.attributeGroup = attributeGroup;
+		this.type = type;
+		this.group = group;
 		this.namingAuthority = namingAuthority;
 	}
 
@@ -105,19 +105,19 @@ public class Attribute {
 	}
 
 	public AttributeType getAttributeType() {
-		return attributeType;
+		return type;
 	}
 
-	public void setAttributeType(AttributeType attributeType) {
-		this.attributeType = attributeType;
+	public void setAttributeType(AttributeType type) {
+		this.type = type;
 	}
 
 	public AttributeGroup getAttributeGroup() {
-		return attributeGroup;
+		return group;
 	}
 
-	public void setAttributeGroup(AttributeGroup attributeGroup) {
-		this.attributeGroup = attributeGroup;
+	public void setAttributeGroup(AttributeGroup group) {
+		this.group = group;
 	}
 
 	public NamingAuthority getNamingAuthority() {

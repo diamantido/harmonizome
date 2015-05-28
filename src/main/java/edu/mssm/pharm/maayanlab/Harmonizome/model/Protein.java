@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "protein")
 public class Protein {
@@ -25,10 +27,11 @@ public class Protein {
 	private String symbol;
 
 	@Column(name = "description")
+	@Type(type = "text")
 	private String description;
 
 	@Column(name = "uniprot_id")
-	private int uniprotId;
+	private String uniprotId;
 
 	@Column(name = "uniprot_url")
 	private String uniprotUrl;
@@ -40,7 +43,7 @@ public class Protein {
 	public Protein() {
 	}
 	
-	public Protein(String name, String symbol, String description, int uniprotId, String uniprotUrl, Gene gene) {
+	public Protein(String name, String symbol, String description, String uniprotId, String uniprotUrl, Gene gene) {
 		this.name = name;
 		this.symbol = symbol;
 		this.description = description;
@@ -77,11 +80,11 @@ public class Protein {
 		this.description = description;
 	}
 
-	public int getUniprotId() {
+	public String getUniprotId() {
 		return uniprotId;
 	}
 
-	public void setUniprotId(int uniprotId) {
+	public void setUniprotId(String uniprotId) {
 		this.uniprotId = uniprotId;
 	}
 
