@@ -35,16 +35,16 @@ public class Attribute {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attribute_type_fk")
-	private AttributeType type;
+	private AttributeType attributeType;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attribute_group_fk")
-	private AttributeGroup group;
+	private AttributeGroup attributeGroup;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "naming_authority_fk")
 	private NamingAuthority namingAuthority;
-	
+
 	@OneToMany(mappedBy = "attribute")
 	private Set<Feature> features;
 
@@ -57,14 +57,14 @@ public class Attribute {
 	public Attribute() {
 	}
 
-	public Attribute(int id, String name, String description, String url, int namingAuthorityId, AttributeType type, AttributeGroup group, NamingAuthority namingAuthority) {
+	public Attribute(int id, String name, String description, String url, int namingAuthorityId, AttributeType attributeType, AttributeGroup attributeGroup, NamingAuthority namingAuthority) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.url = url;
 		this.namingAuthorityId = namingAuthorityId;
-		this.type = type;
-		this.group = group;
+		this.attributeType = attributeType;
+		this.attributeGroup = attributeGroup;
 		this.namingAuthority = namingAuthority;
 	}
 
@@ -105,19 +105,19 @@ public class Attribute {
 	}
 
 	public AttributeType getAttributeType() {
-		return type;
+		return attributeType;
 	}
 
-	public void setAttributeType(AttributeType type) {
-		this.type = type;
+	public void setAttributeType(AttributeType attributeType) {
+		this.attributeType = attributeType;
 	}
 
 	public AttributeGroup getAttributeGroup() {
-		return group;
+		return attributeGroup;
 	}
 
-	public void setAttributeGroup(AttributeGroup group) {
-		this.group = group;
+	public void setAttributeGroup(AttributeGroup attributeGroup) {
+		this.attributeGroup = attributeGroup;
 	}
 
 	public NamingAuthority getNamingAuthority() {

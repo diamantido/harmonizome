@@ -42,6 +42,9 @@ public class Gene {
 	@OneToMany(mappedBy = "gene")
 	private Set<Feature> features;
 
+	@OneToMany(mappedBy = "gene")
+	private Set<Protein> protein;
+
 	@OneToMany(mappedBy = "gene1")
 	private Set<GeneSimilarity> geneSimilarities1;
 
@@ -117,6 +120,14 @@ public class Gene {
 
 	public void setFeatures(Set<Feature> features) {
 		this.features = features;
+	}
+
+	public Set<Protein> getProtein() {
+		return protein;
+	}
+
+	public void setProtein(Set<Protein> protein) {
+		this.protein = protein;
 	}
 
 	public Set<GeneSimilarity> getGeneSimilarities1() {

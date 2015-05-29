@@ -21,7 +21,7 @@ public class AttributeGroup {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "group")
+	@OneToMany(mappedBy = "attributeGroup")
 	private Set<Attribute> attributes;
 
 	public AttributeGroup() {

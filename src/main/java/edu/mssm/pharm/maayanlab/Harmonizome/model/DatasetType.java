@@ -21,7 +21,7 @@ public class DatasetType {
 	@Column(name = "name")
 	private String name;
 	
-	@OneToMany(mappedBy = "type")
+	@OneToMany(mappedBy = "datasetType")
 	private Set<Dataset> datasets;
 
 	public DatasetType() {

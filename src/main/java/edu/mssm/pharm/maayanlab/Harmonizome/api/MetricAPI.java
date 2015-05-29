@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.web;
+package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,11 +18,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Metric;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
-import edu.mssm.pharm.maayanlab.util.Constants;
-import edu.mssm.pharm.maayanlab.util.DAO;
 
-@WebServlet(urlPatterns = { Constants.API_BASE_URL + "/metric/*" })
+@WebServlet(urlPatterns = { Constant.API_BASE_URL + "/metric/*" })
 public class MetricAPI extends HttpServlet {
 
 	private static final long serialVersionUID = 1537065814291707577L;
@@ -39,10 +39,10 @@ public class MetricAPI extends HttpServlet {
 	}
 
 	private void doGetByResource(HttpServletResponse resp, String resource) throws IOException {
-		Metric metric = null;
+		/*Metric metric = null;
 		try {
 			HibernateUtil.beginTransaction();
-			metric = DAO.getMetricByResource(resource);
+			//metric = DAO.getMetricByResource(resource);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();
@@ -58,7 +58,7 @@ public class MetricAPI extends HttpServlet {
 			String json = gson.toJson(result);
 			out.write(json);
 		}
-		out.flush();
+		out.flush();*/
 	}
 
 	private void doGetAll(HttpServletResponse resp) throws IOException {

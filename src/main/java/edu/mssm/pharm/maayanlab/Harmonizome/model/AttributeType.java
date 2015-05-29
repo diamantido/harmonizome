@@ -21,7 +21,7 @@ public class AttributeType {
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "type")
+	@OneToMany(mappedBy = "attributeType")
 	private Set<Attribute> attributes;
 
 	public AttributeType() {

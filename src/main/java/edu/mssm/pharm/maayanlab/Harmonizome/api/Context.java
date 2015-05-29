@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.web;
+package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
