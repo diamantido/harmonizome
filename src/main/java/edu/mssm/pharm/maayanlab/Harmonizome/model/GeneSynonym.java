@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "synonym")
-public class Synonym {
+@Table(name = "gene_synonym")
+public class GeneSynonym {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,10 +25,10 @@ public class Synonym {
 	@JoinColumn(name = "gene_fk")
 	private Gene gene;
 
-	public Synonym() {
+	public GeneSynonym() {
 	}
 
-	public Synonym(String symbol, Gene gene) {
+	public GeneSynonym(String symbol, Gene gene) {
 		this.symbol = symbol;
 		this.gene = gene;
 	}

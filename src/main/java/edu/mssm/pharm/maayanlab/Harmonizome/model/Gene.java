@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,7 +38,7 @@ public class Gene {
 	private String ncbiEntrezGeneUrl;
 
 	@OneToMany(mappedBy = "gene")
-	private Set<Synonym> synonyms;
+	private Set<GeneSynonym> synonyms;
 
 	@OneToMany(mappedBy = "gene")
 	private Set<Feature> features;
@@ -50,6 +51,12 @@ public class Gene {
 
 	@OneToMany(mappedBy = "gene2")
 	private Set<GeneSimilarity> geneSimilarities2;
+
+	@ManyToMany(mappedBy = "genes")
+	private Set<HgncRootFamily> hgncRootFamilies;
+
+	@ManyToMany(mappedBy = "genes")
+	private Set<HgncTerminalFamily> hgncTerminalFamilies;
 
 	public Gene() {
 	}
@@ -106,11 +113,11 @@ public class Gene {
 		this.ncbiEntrezGeneUrl = ncbiEntrezGeneUrl;
 	}
 
-	public Set<Synonym> getSynonyms() {
+	public Set<GeneSynonym> getSynonyms() {
 		return synonyms;
 	}
 
-	public void setSynonyms(Set<Synonym> synonyms) {
+	public void setSynonyms(Set<GeneSynonym> synonyms) {
 		this.synonyms = synonyms;
 	}
 
@@ -144,5 +151,21 @@ public class Gene {
 
 	public void setGeneSimilarities2(Set<GeneSimilarity> geneSimilarities2) {
 		this.geneSimilarities2 = geneSimilarities2;
+	}
+
+	public Set<HgncRootFamily> getHgncRootFamilies() {
+		return hgncRootFamilies;
+	}
+
+	public void setHgncRootFamilies(Set<HgncRootFamily> hgncRootFamilies) {
+		this.hgncRootFamilies = hgncRootFamilies;
+	}
+
+	public Set<HgncTerminalFamily> getHgncTerminalFamilies() {
+		return hgncTerminalFamilies;
+	}
+
+	public void setHgncTerminalFamilies(Set<HgncTerminalFamily> hgncTerminalFamilies) {
+		this.hgncTerminalFamilies = hgncTerminalFamilies;
 	}
 }

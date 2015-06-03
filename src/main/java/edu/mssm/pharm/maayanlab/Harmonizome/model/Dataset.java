@@ -54,7 +54,7 @@ public class Dataset {
 	@JoinColumn(name = "attribute_group_fk")
 	private AttributeGroup attributeGroup;
 
-	@JoinColumn(name = "download_date")
+	@Column(name = "download_date")
 	private Timestamp downloadDate;
 	
 	@Column(name = "attribute_table_dl")
