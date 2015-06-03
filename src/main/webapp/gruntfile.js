@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: ['./**/*.js', './!node_modules/**/*.js', './style/less/*.less'],
+			files: ['./**/*.js', '!./node_modules/**/*.js', './style/less/*.less'],
 			tasks: ['build']
 		}
 	});
