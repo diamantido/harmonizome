@@ -1,17 +1,24 @@
+@import "variable.less";
+
 html {
     font-family: arial, sans-serif;
 }
-a,a:link {
-    color: #3593b1;
+a,
+a:link {
+    color: @color-primary;
     text-decoration: none;
 }
 a:hover {
-    color: #09505b;
+    color: @color-primary-light;
 }
-a:visited,a:active {
+a:visited,
+a:active {
     text-decoration: none;
 }
-h1,h2,h3,h4 {
+h1,
+h2,
+h3,
+h4 {
     font-family: 'Archivo Narrow', sans-serif;
 }
 input {
@@ -31,7 +38,8 @@ ul {
 }
 .navbar {
     background-color: #f1f1f1;
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid #aaa;
+    height: @dimension-nav-height;
     padding: 10px;
     position: fixed;
     top: 0;
@@ -45,15 +53,18 @@ ul {
         }
     }
     #share {
-        .company {
+        a {
             float: right;
         }
         img {
             padding-left: 5px;
             width: 30px;
-        }
-        img:hover {
-            opacity: 0.7;
+            &:hover {
+            	opacity: 0.7;
+            }
         }
     }
+}
+.page {
+	margin-top: @dimension-nav-height;
 }

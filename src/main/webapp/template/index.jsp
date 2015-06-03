@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Harmonizome</title>
         <%@include file="common_includes.html" %>
-        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.css">
+        <%@include file="base_tag.html" %>
+        <%@include file="favicon.html" %>
         <link rel="stylesheet" type="text/css" href="/Harmonizome/style/css/index.css">
-        <link rel="shortcut icon" href="image/favicon.png">
     </head>
     <body>
 		<%@include file="navbar.html" %>
