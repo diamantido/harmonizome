@@ -8,7 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Metric;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Synonym;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class DAO {
@@ -25,8 +25,8 @@ public class DAO {
 	}
 
 	public static Gene getGeneBySynonymSymbol(String symbol) {
-		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Synonym.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
-		return ((Synonym) criteria.uniqueResult()).getGene();
+		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(GeneSynonym.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
+		return ((GeneSynonym) criteria.uniqueResult()).getGene();
 	}
 
 	public static List<Metric> getAllMetrics() {

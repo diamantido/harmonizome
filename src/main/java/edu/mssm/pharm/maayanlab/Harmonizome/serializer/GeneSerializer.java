@@ -11,7 +11,7 @@ import com.google.gson.JsonSerializer;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Synonym;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 
 public class GeneSerializer implements JsonSerializer<Gene> {
 
@@ -22,7 +22,7 @@ public class GeneSerializer implements JsonSerializer<Gene> {
 
 		// Synonyms
 		JsonArray synonyms = new JsonArray();
-		for (Synonym syn : gene.getSynonyms()) {
+		for (GeneSynonym syn : gene.getSynonyms()) {
 			synonyms.add(new JsonPrimitive(syn.getSymbol()));
 		}
 		result.add("synonyms", synonyms);
