@@ -14,9 +14,29 @@
 		<%@include file="navbar.html" %>
         <div id="wrapper">
             <div id="content" class="container">
-                <%@include file="splash.html" %>
-                <div id="datasets"></div>
-                <div id="pages"></div>
+                <div class="row">
+				    <h2 class="col-sm-12 text-center">Harmonizome is a collection of processed data about genes and proteins from over 100 datasets provided by over 50 online resources.</h2>
+				</div>
+				<div id="intro" class="row">
+				    <div class="col-sm-6">
+				        <div class="portal left">
+				            <h3>Datasets</h3>
+				            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+				            <a href="dataset/">
+				                <button>Explore datasets</button>
+				            </a>
+				        </div>
+				    </div>
+				    <div class="col-sm-6">
+				        <div class="portal right">
+				            <h3>Genes</h3>
+				            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
+				            <a href="gene/">
+				                <button>Explore genes</button>
+				            </a>
+				        </div>
+				    </div>
+				</div>
             </div>
         </div>
         <%@include file="footer.html" %>

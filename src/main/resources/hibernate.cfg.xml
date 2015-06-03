@@ -20,11 +20,15 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Feature" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSimilarity" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.HgncTerminalFamily" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.IdgFamily" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.IdgTdlClass" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Metric" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.NamingAuthority" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Protein" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Resource" />
-		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Synonym" />
 	</session-factory>
 </hibernate-configuration>
