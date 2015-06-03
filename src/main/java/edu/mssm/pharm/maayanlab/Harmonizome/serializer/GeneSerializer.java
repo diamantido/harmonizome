@@ -16,7 +16,6 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 public class GeneSerializer implements JsonSerializer<Gene> {
 
 	public JsonElement serialize(final Gene gene, final Type type, final JsonSerializationContext context) {
-		System.out.println("serializer called");
 		JsonObject result = new JsonObject();
 		result.add("symbol", new JsonPrimitive(gene.getSymbol()));
 
@@ -34,7 +33,7 @@ public class GeneSerializer implements JsonSerializer<Gene> {
 
 		// Proteins
 		JsonArray proteins = new JsonArray();
-		for (Protein prot : gene.getProtein()) {
+		for (Protein prot : gene.getProteins()) {
 			proteins.add(new JsonPrimitive(prot.getSymbol()));
 		}
 		result.add("protein", proteins);

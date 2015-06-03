@@ -30,8 +30,8 @@ public class Attribute {
 	@Column(name = "url", length = 2083)
 	private String url;
 
-	@Column(name = "naming_authority_id")
-	private int namingAuthorityId;
+	@Column(name = "id_from_naming_authority")
+	private int idFromNamingAuthority;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attribute_type_fk")
@@ -57,12 +57,12 @@ public class Attribute {
 	public Attribute() {
 	}
 
-	public Attribute(int id, String name, String description, String url, int namingAuthorityId, AttributeType attributeType, AttributeGroup attributeGroup, NamingAuthority namingAuthority) {
+	public Attribute(int id, String name, String description, String url, int idFromNamingAuthority, AttributeType attributeType, AttributeGroup attributeGroup, NamingAuthority namingAuthority) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.url = url;
-		this.namingAuthorityId = namingAuthorityId;
+		this.idFromNamingAuthority = idFromNamingAuthority;
 		this.attributeType = attributeType;
 		this.attributeGroup = attributeGroup;
 		this.namingAuthority = namingAuthority;
@@ -96,12 +96,12 @@ public class Attribute {
 		this.url = url;
 	}
 
-	public int getNamingAuthorityId() {
-		return namingAuthorityId;
+	public int getIdFromNamingAuthority() {
+		return idFromNamingAuthority;
 	}
 
-	public void setNamingAuthorityId(int namingAuthorityId) {
-		this.namingAuthorityId = namingAuthorityId;
+	public void setIdFromNamingAuthority(int namingAuthorityId) {
+		this.idFromNamingAuthority = namingAuthorityId;
 	}
 
 	public AttributeType getAttributeType() {

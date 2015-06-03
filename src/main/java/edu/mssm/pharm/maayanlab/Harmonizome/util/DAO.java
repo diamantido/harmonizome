@@ -7,8 +7,9 @@ import org.hibernate.criterion.Restrictions;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Metric;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Metric;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class DAO {
@@ -26,7 +27,8 @@ public class DAO {
 
 	public static Gene getGeneBySynonymSymbol(String symbol) {
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(GeneSynonym.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
-		return ((GeneSynonym) criteria.uniqueResult()).getGene();
+		GeneSynonym geneSynonym = (GeneSynonym) criteria.uniqueResult();
+		return (geneSynonym == null ? null : geneSynonym.getGene());
 	}
 
 	public static List<Metric> getAllMetrics() {
@@ -38,5 +40,10 @@ public class DAO {
 	public static Dataset getDatasetByName(String name) {
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Dataset.class).add(Restrictions.eq("name", name).ignoreCase());
 		return (Dataset) criteria.uniqueResult();		
+	}
+	
+	public static Protein getProteinBySymbol(String symbol) {
+		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Protein.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
+		return (Protein) criteria.uniqueResult();	
 	}
 }

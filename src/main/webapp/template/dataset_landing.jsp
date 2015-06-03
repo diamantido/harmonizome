@@ -1,12 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-Dataset Landing
-</body>
+	<head>
+		<%@include file="common_includes.html"%>
+	</head>
+	<body>
+		<%@include file="navbar.html"%>
+		<div class="wrapper">
+			<div class="content container">
+				<h3>Datasets</h3>
+				<div class="push"></div>
+			</div>
+		</div>
+		<%@include file="footer.html"%>
+	</body>
 </html>

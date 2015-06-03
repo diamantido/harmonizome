@@ -1,13 +1,32 @@
+/*"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+/* Structure all pages to allow for footer. Other styling for these elements is
+ * below.
+ */
+html,
+body {
+  height: 100%;
+}
+.wrapper {
+  min-height: 100%;
+  height: 100%;
+  margin-bottom: -50px;
+}
+.push,
+.footer {
+  height: 50px;
+}
+/* Tag selectors.
+ */
 html {
   font-family: arial, sans-serif;
 }
 a,
 a:link {
-  color: #222222;
+  color: #3593b1;
   text-decoration: none;
 }
 a:hover {
-  color: #aaaaaa;
+  color: #09505b;
 }
 a:visited,
 a:active {
@@ -16,8 +35,10 @@ a:active {
 h1,
 h2,
 h3,
-h4 {
-  font-family: 'Archivo Narrow', sans-serif;
+h4,
+h5,
+h6 {
+  font-family: Georgia, sans-serif;
 }
 input {
   border: 1px solid #aaa;
@@ -34,9 +55,27 @@ input {
 ul {
   padding-left: 15px;
 }
+/* Section selectors.
+ */
 .navbar {
-  background-color: #f1f1f1;
-  border-bottom: 1px solid #aaa;
+  /*background-color: @color-primary;
+    border-bottom: 5px solid @color-primary-dark;*/
+  background: #3593b1;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #3593b1 92%, #3593b1 92%, #26637f 100%);
+  /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(92%, #3593b1), color-stop(92%, #3593b1), color-stop(100%, #26637f));
+  /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #3593b1 92%, #3593b1 92%, #26637f 100%);
+  /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #3593b1 92%, #3593b1 92%, #26637f 100%);
+  /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #3593b1 92%, #3593b1 92%, #26637f 100%);
+  /* IE10+ */
+  background: linear-gradient(to bottom, #3593b1 92%, #3593b1 92%, #26637f 100%);
+  /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3593b1', endColorstr='#26637f', GradientType=0);
+  /* IE6-9 */
   height: 50px;
   padding: 10px;
   position: fixed;
@@ -48,19 +87,51 @@ ul {
   margin-bottom: 4px;
   margin-top: 0;
 }
+.navbar h3 a,
 .navbar h3 a:hover {
+  color: white;
   text-decoration: none;
 }
-.navbar #share a {
+/* Push all content out from under the fix nav. Do not use "margin-top" because
+ * this pushes the sticky footer down as well.
+ */
+.content {
+  position: relative;
+  top: 50px;
+}
+.footer {
+  background: #222222;
+  padding: 13px;
+}
+.footer ul {
+  list-style-type: none;
+}
+.footer li {
+  display: inline;
+}
+.footer li:first-child {
+  margin-right: 10px;
+}
+.footer a {
+  color: white;
+}
+.footer a:hover {
+  color: #599fb7;
+}
+.footer #share a {
   float: right;
 }
-.navbar #share img {
+.footer #share img {
   padding-left: 5px;
   width: 30px;
 }
-.navbar #share img:hover {
+.footer #share img:hover {
   opacity: 0.7;
 }
-.page {
-  margin-top: 50px;
+.note {
+  font-size: 12px;
+  font-style: italic;
+}
+.glyphicon-search {
+  cursor: pointer;
 }

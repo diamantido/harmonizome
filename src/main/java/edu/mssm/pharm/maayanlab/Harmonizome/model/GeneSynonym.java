@@ -21,7 +21,7 @@ public class GeneSynonym {
 	@Column(name = "symbol", unique = true)
 	private String symbol;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "gene_fk")
 	private Gene gene;
 

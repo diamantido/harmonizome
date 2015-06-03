@@ -4,10 +4,13 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,6 +40,14 @@ public class Gene {
 	@Column(name = "ncbi_entrez_gene_url", length = 2083)
 	private String ncbiEntrezGeneUrl;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idg_family_fk")
+	private IdgFamily idgFamily;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idg_tdl_class_fk")
+	private IdgTdlClass idgTdlClass;
+	
 	@OneToMany(mappedBy = "gene")
 	private Set<GeneSynonym> synonyms;
 
@@ -57,16 +68,22 @@ public class Gene {
 
 	@ManyToMany(mappedBy = "genes")
 	private Set<HgncTerminalFamily> hgncTerminalFamilies;
-
+	
 	public Gene() {
 	}
 
-	public Gene(String symbol, String name, String description, int ncbiEntrezGeneId, String ncbiEntrezGeneUrl) {
+	public Gene(String symbol, String name, String description, int ncbiEntrezGeneId, String ncbiEntrezGeneUrl, IdgFamily idgFamily, IdgTdlClass idgTdlClass, Set<GeneSynonym> synonyms, Set<Feature> features,
+			Set<Protein> protein) {
 		this.symbol = symbol;
 		this.name = name;
 		this.description = description;
 		this.ncbiEntrezGeneId = ncbiEntrezGeneId;
 		this.ncbiEntrezGeneUrl = ncbiEntrezGeneUrl;
+		this.idgFamily = idgFamily;
+		this.idgTdlClass = idgTdlClass;
+		this.synonyms = synonyms;
+		this.features = features;
+		this.protein = protein;
 	}
 
 	public int getId() {
@@ -113,6 +130,22 @@ public class Gene {
 		this.ncbiEntrezGeneUrl = ncbiEntrezGeneUrl;
 	}
 
+	public IdgFamily getIdgFamily() {
+		return idgFamily;
+	}
+
+	public void setIdgFamily(IdgFamily idgFamily) {
+		this.idgFamily = idgFamily;
+	}
+
+	public IdgTdlClass getIdgTdlClass() {
+		return idgTdlClass;
+	}
+
+	public void setIdgTdlClass(IdgTdlClass idgTdlClass) {
+		this.idgTdlClass = idgTdlClass;
+	}
+
 	public Set<GeneSynonym> getSynonyms() {
 		return synonyms;
 	}
@@ -129,11 +162,11 @@ public class Gene {
 		this.features = features;
 	}
 
-	public Set<Protein> getProtein() {
+	public Set<Protein> getProteins() {
 		return protein;
 	}
 
-	public void setProtein(Set<Protein> protein) {
+	public void setProteins(Set<Protein> protein) {
 		this.protein = protein;
 	}
 

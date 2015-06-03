@@ -2,18 +2,18 @@
 <html>
 	<head>
 		<%@include file="common_includes.html"%>
-		<script src="scripts/gene_landing.js"></script>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>Genes</h3>
-				<div>
-					<input type="text"></input>
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				</div>
-				<div class="push"></div>
+				<h3>${symbol}</h3>
+				<table class="table">
+					<tr>
+						<td class="col-sm-3">Name</td>
+						<td class="col-sm-9">${name}</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<%@include file="footer.html"%>

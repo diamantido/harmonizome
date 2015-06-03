@@ -36,7 +36,7 @@ public class Protein {
 	@Column(name = "uniprot_url")
 	private String uniprotUrl;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "gene_fk")
 	private Gene gene;
 

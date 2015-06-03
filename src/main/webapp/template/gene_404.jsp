@@ -8,11 +8,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>Genes</h3>
-				<div>
-					<input type="text"></input>
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				</div>
+				<h5>The gene "${symbol}" was not found.</h5>
 				<div class="push"></div>
 			</div>
 		</div>

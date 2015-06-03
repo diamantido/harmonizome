@@ -4,18 +4,15 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Harmonizome</title>
         <%@include file="common_includes.html" %>
-        <%@include file="base_tag.html" %>
-        <%@include file="favicon.html" %>
         <link rel="stylesheet" type="text/css" href="/Harmonizome/style/css/index.css">
     </head>
     <body>
 		<%@include file="navbar.html" %>
-        <div id="wrapper">
-            <div id="content" class="container">
-                <div class="row">
-				    <h2 class="col-sm-12 text-center">Harmonizome is a collection of processed data about genes and proteins from over 100 datasets provided by over 50 online resources.</h2>
+		<div class="wrapper">
+			<div class="content container">
+	               <div class="row">
+				    <h4 class="col-sm-12 text-center">Harmonizome is a collection of processed data about genes and proteins from over 100 datasets provided by over 50 online resources.</h4>
 				</div>
 				<div id="intro" class="row">
 				    <div class="col-sm-6">
@@ -37,7 +34,8 @@
 				        </div>
 				    </div>
 				</div>
-            </div>
+			</div>
+            <div class="push"></div>
         </div>
         <%@include file="footer.html" %>
     </body>
