@@ -1,6 +1,8 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,42 +12,46 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Query;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/protein/*" })
-public class ProteinPage extends HttpServlet {
+@WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/hgnc_root_family/*" })
+public class HgncFamilyRootPage extends HttpServlet {
 
-	private static final long serialVersionUID = 264508702310729565L;
+	private static final long serialVersionUID = -594042157095699907L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String queriedSymbol = Query.get(req);
+		String queriedSymbol = Query.get(req, true);
 		if (queriedSymbol.equals("")) {
 			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
 		} else {
-			Protein protein = null;
+			List<String> genes = new ArrayList<String>();
+			HgncRootFamily hrf = null;
 			try {
 				HibernateUtil.beginTransaction();
-				protein = DAO.getProteinBySymbol(queriedSymbol);
+				hrf = DAO.getHgncRootFamilyByName(queriedSymbol);
+				if (hrf != null) {
+					for (Gene g : hrf.getGenes()) {
+						genes.add(g.getSymbol());
+					}
+				}
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				HibernateUtil.rollbackTransaction();
 			}
 						
-			if (protein == null) {
+			if (hrf == null) {
 				req.setAttribute("query", queriedSymbol);
 				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "not_found.jsp").forward(req, resp);				
-			} else {
-				req.setAttribute("note", "protein");
-				req.setAttribute("symbol", protein.getSymbol());
-				req.setAttribute("name", protein.getName());
-				req.setAttribute("uniprotUrl", protein.getUniprotUrl());
-				req.setAttribute("gene", protein.getGene().getSymbol());
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "protein_page.jsp").forward(req, resp);
+			} else {				
+				req.setAttribute("name", hrf.getName());
+				req.setAttribute("genes", genes.toArray(new String[genes.size()]));
+				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "hgnc_root_family.jsp").forward(req, resp);
 			}
 		}
 	}

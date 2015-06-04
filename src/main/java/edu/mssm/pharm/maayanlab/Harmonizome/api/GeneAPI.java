@@ -62,7 +62,6 @@ public class GeneAPI extends HttpServlet {
 				if (gene == null) {
 					gene = DAO.getGeneBySynonymSymbol(symbol);
 				}
-				
 				json = gson.toJson(gene, Gene.class);
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {

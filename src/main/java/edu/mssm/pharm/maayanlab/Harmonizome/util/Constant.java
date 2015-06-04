@@ -7,5 +7,4 @@ public class Constant {
 	public static final String PAGES_BASE_URL = "";
 	
 	public static final String TEMPLATE_DIR = "/template/";
-
 }

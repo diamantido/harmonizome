@@ -9,18 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Query;
 
-@WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/dataset/*" })
-public class DatasetPage extends HttpServlet {
+@WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/search/*" })
+public class SearchLanding extends HttpServlet {
 
-	private static final long serialVersionUID = -652055513491031817L;
+	private static final long serialVersionUID = 8241820002853425713L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String queriedSymbol = Query.get(req);
-		if (queriedSymbol.equals("")) {
-			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
-		}
+		req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
 	}
 }

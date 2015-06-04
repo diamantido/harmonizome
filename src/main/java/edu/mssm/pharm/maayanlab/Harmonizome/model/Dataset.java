@@ -27,7 +27,7 @@ public class Dataset {
 	@Column(name = "name", unique = true)
 	private String name;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "resource_fk")
 	private Resource resource;
 
@@ -35,67 +35,34 @@ public class Dataset {
 	@Type(type = "text")
 	private String description;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dataset_type_fk")
 	private DatasetType datasetType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dataset_group_fk")
 	private DatasetGroup datasetGroup;
 
-	@Column(name="association")
+	@Column(name = "association")
 	private String association;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_type_fk")
 	private AttributeType attributeType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_group_fk")
 	private AttributeGroup attributeGroup;
 
 	@Column(name = "download_date")
 	private Timestamp downloadDate;
-	
-	@Column(name = "attribute_table_dl")
-	private String attributeTableDl;
 
-	@Column(name = "edge_list_dl")
-	private String edgeListDl;
+	@Column(name = "num_page_views")
+	private int numPageViews;
 
-	@Column(name = "gene_set_library_dl")
-	private String geneStLibraryDl;
+	@OneToMany(mappedBy = "dataset")
+	private Set<Download> downloads;
 
-	@Column(name = "up_gene_set_library_dl")
-	private String upGeneSetLibraryDl;
-
-	@Column(name = "down_gene_set_library_dl")
-	private String downGeneSetLibraryDl;
-
-	@Column(name = "attribute_set_library_dl")
-	private String attributeSetLibraryDl;
-
-	@Column(name = "up_attribute_set_library_dl")
-	private String upAttributeSetLibraryDl;
-
-	@Column(name = "down_attribute_set_library_dl")
-	private String downAttributeSetLibraryDl;
-
-	@Column(name = "gene_similarity_matrix_dl")
-	private String geneSimilarityMatrixDl;
-
-	@Column(name = "attribute_similarity_matrix_dl")
-	private String attributeSimilarityMatrixDl;
-
-	@Column(name = "gene_list_dl")
-	private String geneListDl;
-
-	@Column(name = "attribute_list_dl")
-	private String attributeListDl;
-
-	@Column(name = "processing_script_dl")
-	private String processingScriptDl;
-	
 	@OneToMany(mappedBy = "dataset")
 	private Set<Feature> features;
 
@@ -103,9 +70,7 @@ public class Dataset {
 	}
 
 	public Dataset(String name, Resource resource, String description, DatasetType datasetType, DatasetGroup datasetGroup, String association, AttributeType attributeType,
-			AttributeGroup attributeGroup, Timestamp downloadDate, String attributeTableDl, String edgeListDl, String geneStLibraryDl, String upGeneSetLibraryDl, String downGeneSetLibraryDl,
-			String attributeSetLibraryDl, String upAttributeSetLibraryDl, String downAttributeSetLibraryDl, String geneSimilarityMatrixDl, String attributeSimilarityMatrixDl, String geneListDl,
-			String attributeListDl, String processingScriptDl) {
+			AttributeGroup attributeGroup, Timestamp downloadDate, int numPageViews, String processingScriptDl) {
 		this.name = name;
 		this.resource = resource;
 		this.description = description;
@@ -115,19 +80,7 @@ public class Dataset {
 		this.attributeType = attributeType;
 		this.attributeGroup = attributeGroup;
 		this.downloadDate = downloadDate;
-		this.attributeTableDl = attributeTableDl;
-		this.edgeListDl = edgeListDl;
-		this.geneStLibraryDl = geneStLibraryDl;
-		this.upGeneSetLibraryDl = upGeneSetLibraryDl;
-		this.downGeneSetLibraryDl = downGeneSetLibraryDl;
-		this.attributeSetLibraryDl = attributeSetLibraryDl;
-		this.upAttributeSetLibraryDl = upAttributeSetLibraryDl;
-		this.downAttributeSetLibraryDl = downAttributeSetLibraryDl;
-		this.geneSimilarityMatrixDl = geneSimilarityMatrixDl;
-		this.attributeSimilarityMatrixDl = attributeSimilarityMatrixDl;
-		this.geneListDl = geneListDl;
-		this.attributeListDl = attributeListDl;
-		this.processingScriptDl = processingScriptDl;
+		this.numPageViews = numPageViews;
 	}
 
 	public int getId() {
@@ -182,11 +135,11 @@ public class Dataset {
 		this.association = association;
 	}
 
-	public AttributeType getAttrobiteType() {
+	public AttributeType getAttributeType() {
 		return attributeType;
 	}
 
-	public void setAttrobiteType(AttributeType attributeType) {
+	public void setAttributeType(AttributeType attributeType) {
 		this.attributeType = attributeType;
 	}
 
@@ -206,108 +159,12 @@ public class Dataset {
 		this.downloadDate = downloadDate;
 	}
 
-	public String getAttributeTableDl() {
-		return attributeTableDl;
+	public int getNumPageViews() {
+		return numPageViews;
 	}
 
-	public void setAttributeTableDl(String attributeTableDl) {
-		this.attributeTableDl = attributeTableDl;
-	}
-
-	public String getEdgeListDl() {
-		return edgeListDl;
-	}
-
-	public void setEdgeListDl(String edgeListDl) {
-		this.edgeListDl = edgeListDl;
-	}
-
-	public String getGeneStLibraryDl() {
-		return geneStLibraryDl;
-	}
-
-	public void setGeneStLibraryDl(String geneStLibraryDl) {
-		this.geneStLibraryDl = geneStLibraryDl;
-	}
-
-	public String getUpGeneSetLibraryDl() {
-		return upGeneSetLibraryDl;
-	}
-
-	public void setUpGeneSetLibraryDl(String upGeneSetLibraryDl) {
-		this.upGeneSetLibraryDl = upGeneSetLibraryDl;
-	}
-
-	public String getDownGeneSetLibraryDl() {
-		return downGeneSetLibraryDl;
-	}
-
-	public void setDownGeneSetLibraryDl(String downGeneSetLibraryDl) {
-		this.downGeneSetLibraryDl = downGeneSetLibraryDl;
-	}
-
-	public String getAttributeSetLibraryDl() {
-		return attributeSetLibraryDl;
-	}
-
-	public void setAttributeSetLibraryDl(String attributeSetLibraryDl) {
-		this.attributeSetLibraryDl = attributeSetLibraryDl;
-	}
-
-	public String getUpAttributeSetLibraryDl() {
-		return upAttributeSetLibraryDl;
-	}
-
-	public void setUpAttributeSetLibraryDl(String upAttributeSetLibraryDl) {
-		this.upAttributeSetLibraryDl = upAttributeSetLibraryDl;
-	}
-
-	public String getDownAttributeSetLibraryDl() {
-		return downAttributeSetLibraryDl;
-	}
-
-	public void setDownAttributeSetLibraryDl(String downAttributeSetLibraryDl) {
-		this.downAttributeSetLibraryDl = downAttributeSetLibraryDl;
-	}
-
-	public String getGeneSimilarityMatrixDl() {
-		return geneSimilarityMatrixDl;
-	}
-
-	public void setGeneSimilarityMatrixDl(String geneSimilarityMatrixDl) {
-		this.geneSimilarityMatrixDl = geneSimilarityMatrixDl;
-	}
-
-	public String getAttributeSimilarityMatrixDl() {
-		return attributeSimilarityMatrixDl;
-	}
-
-	public void setAttributeSimilarityMatrixDl(String attributeSimilarityMatrixDl) {
-		this.attributeSimilarityMatrixDl = attributeSimilarityMatrixDl;
-	}
-
-	public String getGeneListDl() {
-		return geneListDl;
-	}
-
-	public void setGeneListDl(String geneListDl) {
-		this.geneListDl = geneListDl;
-	}
-
-	public String getAttributeListDl() {
-		return attributeListDl;
-	}
-
-	public void setAttributeListDl(String attributeListDl) {
-		this.attributeListDl = attributeListDl;
-	}
-
-	public String getProcessingScriptDl() {
-		return processingScriptDl;
-	}
-
-	public void setProcessingScriptDl(String processingScriptDl) {
-		this.processingScriptDl = processingScriptDl;
+	public void setNumPageViews(int numPageViews) {
+		this.numPageViews = numPageViews;
 	}
 
 	public Set<Feature> getFeatures() {

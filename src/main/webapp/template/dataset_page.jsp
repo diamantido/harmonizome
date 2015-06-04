@@ -7,8 +7,11 @@
 	</head>
 	<body>
 		<%@include file="navbar.html" %>
-		<div class="container">
-			<h1>${name}</h1>
+		<div class="wrapper">
+			<div class="content container">
+				<h3>${name}</h3>
+			</div>
+			<%@include file="footer.html"%>
 		</div>
 	</body>
 </html>

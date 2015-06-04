@@ -9,7 +9,7 @@
 		<property name="hibernate.tomcatJdbcPool.validationQuery">SELECT 1</property>
 		<property name="hibernate.tomcatJdbcPool.testOnBorrow">true</property>
 		<property name="show_sql">true</property>
-		<property name="hibernate.hbm2ddl.auto">update</property>
+		<!--<property name="hibernate.hbm2ddl.auto">create</property>-->
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeSimilarity" />
@@ -17,6 +17,8 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Download" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DownloadType" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Feature" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSimilarity" />
@@ -25,7 +27,6 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.HgncTerminalFamily" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.IdgFamily" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.IdgTdlClass" />
-		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Metric" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.NamingAuthority" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Protein" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" />

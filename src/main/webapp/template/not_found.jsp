@@ -8,14 +8,9 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>Genes</h3>
-				<div>
-					<input type="text"></input>
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				</div>
-				<div class="push"></div>
+				<h5>The page "${query}" was not found.</h5>
 			</div>
+			<%@include file="footer.html"%>
 		</div>
-		<%@include file="footer.html"%>
 	</body>
 </html>
