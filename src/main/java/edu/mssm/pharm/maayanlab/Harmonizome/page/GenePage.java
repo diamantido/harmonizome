@@ -87,6 +87,10 @@ public class GenePage extends HttpServlet {
 				req.setAttribute("query", queriedSymbol);
 				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "not_found.jsp").forward(req, resp);
 			} else {
+				// Filter engine
+				req.setAttribute("pageType", "gene");
+				
+				// Information.
 				req.setAttribute("note", isSynonym ? "Gene; redirected from " + queriedSymbol : "Gene");
 				req.setAttribute("symbol", gene.getSymbol());
 				req.setAttribute("name", gene.getName());

@@ -128,3 +128,31 @@ ul {
 .glyphicon-search {
 	cursor: pointer;
 }
+
+/* Filter engine.
+ */
+.filter-engine {
+	border-bottom: 1px solid @color-gray-medium;
+	margin-bottom: 50px;
+	padding-bottom: 10px;
+	select {
+		background-color: @color-gray-light;
+		border: 1px solid @color-gray-medium;
+		margin: 3px 0;
+  		width: 100%;
+	}
+	.locked {
+		select {
+			color: @color-gray-medium;
+		}
+	}
+	button {
+		background-color: @color-primary-light;
+		border: none;
+		color: white;
+		margin-top: 10px;
+		&:hover {
+			background-color: @color-primary;
+		}
+	}
+}

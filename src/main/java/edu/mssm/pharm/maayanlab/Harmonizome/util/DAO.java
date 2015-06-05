@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
@@ -56,5 +57,36 @@ public class DAO {
 	public static HgncTerminalFamily getHgncTerminalFamilyByName(String name) {
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(HgncTerminalFamily.class).add(Restrictions.eq("name", name).ignoreCase());
 		return (HgncTerminalFamily) criteria.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Dataset> getDatasetsByFilters(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene,
+			String geneFamily) {
+		
+		Criteria featureCriteria = HibernateUtil.getCurrentSession().createCriteria(Feature.class);
+		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Dataset.class);
+		
+		if (dataset != null) {
+			featureCriteria.add(Restrictions.eq("name", dataset));
+			criteria.add(Restrictions.eq("name", dataset));
+		}
+		if (datasetGroup != null) {
+			criteria.createAlias("datasetGroup", "dsg");
+			criteria.add(Restrictions.eq("dsg.name", datasetGroup));
+		}
+		if (datasetType != null) {
+			criteria.createAlias("datasetType", "dst");
+			criteria.add(Restrictions.eq("dst.name", datasetType));
+		}
+		if (attributeType != null) {
+			criteria.createAlias("attributeType", "at");
+			criteria.add(Restrictions.eq("at.name", attributeType));
+		}
+		if (gene != null) {
+			featureCriteria.createAlias("feature", "f");
+			featureCriteria.add(Restrictions.eq("f.gene", gene));
+		}
+
+		return (List<Dataset>) criteria.list();
 	}
 }

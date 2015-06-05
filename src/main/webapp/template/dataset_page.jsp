@@ -9,7 +9,7 @@
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>${name}</h3>
+				<h3>${name} <span class="note">${note}</span></h3>
 			</div>
 			<%@include file="footer.html"%>
 		</div>

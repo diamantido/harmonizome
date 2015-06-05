@@ -130,3 +130,28 @@ ul {
 .glyphicon-search {
   cursor: pointer;
 }
+/* Filter engine.
+ */
+.filter-engine {
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 50px;
+  padding-bottom: 10px;
+}
+.filter-engine select {
+  background-color: #eeeeee;
+  border: 1px solid #dddddd;
+  margin: 3px 0;
+  width: 100%;
+}
+.filter-engine .locked select {
+  color: #dddddd;
+}
+.filter-engine button {
+  background-color: #599fb7;
+  border: none;
+  color: white;
+  margin-top: 10px;
+}
+.filter-engine button:hover {
+  background-color: #3593b1;
+}

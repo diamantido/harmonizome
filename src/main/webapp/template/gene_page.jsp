@@ -8,6 +8,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
+				<%@include file="filter_engine.jsp" %>
 				<h3>${symbol} <span class="note">${note}</span></h3>
 				<table class="table">
 					<tr>

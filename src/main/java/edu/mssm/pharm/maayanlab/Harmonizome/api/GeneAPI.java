@@ -49,7 +49,6 @@ public class GeneAPI extends HttpServlet {
 			} catch (HibernateException he) {
 				HibernateUtil.rollbackTransaction();
 			}
-	
 			PrintWriter out = resp.getWriter();
 			out.write(gson.toJson(genes));
 			out.flush();
