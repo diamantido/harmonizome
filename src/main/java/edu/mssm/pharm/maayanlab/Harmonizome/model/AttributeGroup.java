@@ -23,6 +23,9 @@ public class AttributeGroup {
 
 	@OneToMany(mappedBy = "attributeGroup")
 	private Set<Attribute> attributes;
+	
+	@OneToMany(mappedBy = "attributeGroup")
+	private Set<Dataset> datasets;
 
 	public AttributeGroup() {
 	}

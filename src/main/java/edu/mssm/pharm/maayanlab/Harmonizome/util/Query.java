@@ -17,4 +17,9 @@ public class Query {
 			return decodeUrl ? URLEncoder.decode(query) : query;
 		}
 	}
+	
+	public static String get(HttpServletRequest request, String param) {
+		String selectedParam = request.getParameter(param);
+		return selectedParam == null ? null : URLEncoder.decode(selectedParam);
+	}
 }

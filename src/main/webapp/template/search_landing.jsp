@@ -3,6 +3,9 @@
 	<head>
 		<%@include file="common_includes.html"%>
 		<script src="scripts/search_landing.js"></script>
+		<script>
+			var genes = ${genes};
+		</script>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
