@@ -2,7 +2,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class Query {
+public class URLUtil {
 
 	public static String get(HttpServletRequest request) {
 		return get(request, false);

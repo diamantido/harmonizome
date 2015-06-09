@@ -16,7 +16,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Query;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/hgnc_root_family/*" })
@@ -26,7 +26,7 @@ public class HgncFamilyRootPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String queriedSymbol = Query.get(req, true);
+		String queriedSymbol = URLUtil.get(req, true);
 		if (queriedSymbol.equals("")) {
 			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
 		} else {

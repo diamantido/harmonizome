@@ -3,14 +3,9 @@ package edu.mssm.pharm.maayanlab.Harmonizome.util;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
@@ -64,20 +59,21 @@ public class DAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Dataset> filterDataset(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene, String geneFamily) {
+	public static List<Dataset> filterDataset(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene, String idgFamily) {
 
-		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Dataset.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		Criteria featureCriteria = criteria.createCriteria("features");
-		Criteria attributeCriteria = featureCriteria.createCriteria("attribute");
-		Criteria geneCriteria = featureCriteria.createCriteria("gene");
+		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Dataset.class);//.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		//Criteria featureCriteria = criteria.createCriteria("features");
+		//System.out.println(featureCriteria == criteria);
+		/*Criteria attributeCriteria = featureCriteria.createCriteria("attribute");
+		Criteria geneCriteria = featureCriteria.createCriteria("gene");*/
 
 		if (dataset != null) {
 			criteria.add(Restrictions.eq("name", dataset));
 		}
-		if (datasetGroup != null) {
+		/*if (datasetGroup != null) {
 			criteria.createCriteria("datasetGroup").add(Restrictions.eq("name", datasetGroup));
-		}
-		if (datasetType != null) {
+		}*/
+		/*if (datasetType != null) {
 			criteria.createCriteria("datasetType").add(Restrictions.eq("name", datasetType));
 		}
 		if (attribute != null) {
@@ -85,23 +81,27 @@ public class DAO {
 		}
 		if (attributeGroup != null) {
 			attributeCriteria.createCriteria("attributeGroup").add(Restrictions.eq("name", attributeGroup));
-		}
+		}*/
 		if (attributeType != null) {
-			attributeCriteria.createCriteria("attributeType").add(Restrictions.eq("name", attributeType));
+			criteria.createCriteria("attributeType").add(Restrictions.eq("name", attributeType));
 		}
-		if (gene != null) {
-			geneCriteria.add(Restrictions.eq("symbol", gene));
-		}
-		if (geneFamily != null) {
-			geneCriteria.add(Restrictions.eq("idgFamily", geneFamily));
-		}
+		/*if (gene != null) {
+			criteria
+				.createCriteria("features")
+				.createCriteria("gene")
+					.add(Restrictions.eq("symbol", gene));
+		}*/
+		/*if (idgFamily != null) {
+			criteria.createCriteria("features").createCriteria("gene").add(Restrictions.eq("idgFamily", idgFamily));
+		}*/
 
 		return (List<Dataset>) criteria.list();
 	}
 
+	/*
 	@SuppressWarnings("unchecked")
 	public static List<DatasetGroup> filterDatasetGroup(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene,
-			String geneFamily) {
+			String idgFamily) {
 
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(DatasetGroup.class).setProjection(Projections.distinct(Projections.property("name")));
 		Criteria datasetCriteria = criteria.createCriteria("datasets");
@@ -130,8 +130,8 @@ public class DAO {
 		if (gene != null) {
 			geneCriteria.add(Restrictions.eq("symbol", gene));
 		}
-		if (geneFamily != null) {
-			geneCriteria.add(Restrictions.eq("idgFamily", geneFamily));
+		if (idgFamily != null) {
+			geneCriteria.add(Restrictions.eq("idgFamily", idgFamily));
 		}
 
 		return (List<DatasetGroup>) criteria.list();
@@ -139,7 +139,7 @@ public class DAO {
 
 	@SuppressWarnings("unchecked")
 	public static List<DatasetType> filterDatasetType(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene,
-			String geneFamily) {
+			String idgFamily) {
 
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(DatasetType.class).setProjection(Projections.distinct(Projections.property("name")));
 		Criteria datasetCriteria = criteria.createCriteria("datasets");
@@ -166,15 +166,15 @@ public class DAO {
 		if (gene != null) {
 			geneCriteria.add(Restrictions.eq("symbol", gene));
 		}
-		if (geneFamily != null) {
-			geneCriteria.add(Restrictions.eq("idgFamily", geneFamily));
+		if (idgFamily != null) {
+			geneCriteria.add(Restrictions.eq("idgFamily", idgFamily));
 		}
 
 		return (List<DatasetType>) criteria.list();
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Attribute> filterAttribute(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene, String geneFamily) {
+	public static List<Attribute> filterAttribute(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene, String idgFamily) {
 
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Attribute.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		Criteria featureCriteria = criteria.createCriteria("features");
@@ -202,8 +202,8 @@ public class DAO {
 		if (gene != null) {
 			geneCriteria.add(Restrictions.eq("symbol", gene));
 		}
-		if (geneFamily != null) {
-			geneCriteria.add(Restrictions.eq("idgFamily", geneFamily));
+		if (idgFamily != null) {
+			geneCriteria.add(Restrictions.eq("idgFamily", idgFamily));
 		}
 
 		return (List<Attribute>) criteria.list();
@@ -211,9 +211,9 @@ public class DAO {
 
 	@SuppressWarnings("unchecked")
 	public static List<AttributeGroup> filterAttributeGroup(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene,
-			String geneFamily) {
+			String idgFamily) {
 
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(AttributeGroup.class).setProjection(Projections.distinct(Projections.property("name")));
 		return (List<AttributeGroup>) criteria.list();
-	}
+	}*/
 }

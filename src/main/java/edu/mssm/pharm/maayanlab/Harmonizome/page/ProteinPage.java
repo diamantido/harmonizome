@@ -13,7 +13,7 @@ import org.hibernate.HibernateException;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Query;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/protein/*" })
@@ -23,7 +23,7 @@ public class ProteinPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String queriedSymbol = Query.get(req);
+		String queriedSymbol = URLUtil.get(req);
 		if (queriedSymbol.equals("")) {
 			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
 		} else {
