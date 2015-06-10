@@ -24,9 +24,9 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetDeserializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetGroupDeserializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetTypeDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeDeserializer;
 
 public class TestSearchAPIDatasetGroup extends Mockito {
 
@@ -56,7 +56,6 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		System.out.println(json);
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
 		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroups();
 		assertEquals(datasetGroups.get(0).getName(), "omics");
@@ -81,7 +80,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
 		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroups();
-		ArrayList<String> validDatasetGroupNames = new ArrayList<String>();
+		List<String> validDatasetGroupNames = new ArrayList<String>();
 		validDatasetGroupNames.add("structural or functional annotations");
 		validDatasetGroupNames.add("disease or phenotype associations");
 		for (DatasetGroup dsg : datasetGroups) {
@@ -98,7 +97,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
 		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroups();
 		assertEquals(datasetGroups.size(), 3);
-		ArrayList<String> validDatasetGroupNames = new ArrayList<String>();
+		List<String> validDatasetGroupNames = new ArrayList<String>();
 		validDatasetGroupNames.add("physical interactions");
 		validDatasetGroupNames.add("proteomics");
 		validDatasetGroupNames.add("transcriptomics");

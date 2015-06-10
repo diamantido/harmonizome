@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
@@ -142,51 +143,56 @@ public class DAO {
 			datasetCriteriaCreated = true;
 			criteria.createAlias("datasets", "ds").add(Restrictions.eq("ds.name", dataset));
 		}
+		if (datasetGroup != null) {
+			if (!datasetCriteriaCreated) {
+				datasetCriteriaCreated = true;
+				criteria.createAlias("datasets", "ds");
+			}
+			criteria.createAlias("ds.datasetGroup", "dsg").add(Restrictions.eq("dsg.name", datasetGroup));
+		}
+		if (datasetType != null) {
+			criteria.add(Restrictions.eq("name", datasetType));
+		}
+		if (attributeGroup != null) {
+			if (!datasetCriteriaCreated) {
+				datasetCriteriaCreated = true;
+				criteria.createAlias("datasets", "ds");
+			}
+			criteria.createAlias("ds.attributeGroup", "dsag").add(Restrictions.eq("dsag.name", attributeGroup));
+		}
+		if (attributeType != null) {
+			if (!datasetCriteriaCreated) {
+				datasetCriteriaCreated = true;
+				criteria.createAlias("datasets", "ds");
+			}
+			criteria.createAlias("ds.attributeType", "dsat").add(Restrictions.eq("dsat.name", attributeType));
+		}
 
 		return (List<DatasetType>) criteria.list();
 	}
 
 	/*@SuppressWarnings("unchecked")
 	public static List<Attribute> filterAttribute(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene, String idgFamily) {
-
-		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Attribute.class).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-		Criteria featureCriteria = criteria.createCriteria("features");
-		Criteria datasetCriteria = featureCriteria.createCriteria("dataset");
-		Criteria geneCriteria = featureCriteria.createCriteria("gene");
-
-		if (dataset != null) {
-			featureCriteria.add(Restrictions.eq("name", dataset));
-		}
-		if (datasetGroup != null) {
-			datasetCriteria.createCriteria("datasetGroup").add(Restrictions.eq("name", datasetGroup));
-		}
-		if (datasetType != null) {
-			datasetCriteria.createCriteria("datasetType").add(Restrictions.eq("name", datasetType));
-		}
-		if (attribute != null) {
-			criteria.add(Restrictions.eq("name", attribute));
-		}
-		if (attributeGroup != null) {
-			criteria.add(Restrictions.eq("attributeGroup", attributeGroup));
-		}
-		if (attributeType != null) {
-			criteria.add(Restrictions.eq("attributeType", attributeType));
-		}
-		if (gene != null) {
-			geneCriteria.add(Restrictions.eq("symbol", gene));
-		}
-		if (idgFamily != null) {
-			geneCriteria.add(Restrictions.eq("idgFamily", idgFamily));
-		}
-
+		Criteria criteria = HibernateUtil.getCurrentSession()
+			.createCriteria(Attribute.class)
+			.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		return (List<Attribute>) criteria.list();
-	}
+	}*/
 
 	@SuppressWarnings("unchecked")
 	public static List<AttributeGroup> filterAttributeGroup(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene,
 			String idgFamily) {
 
-		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(AttributeGroup.class).setProjection(Projections.distinct(Projections.property("name")));
+		Criteria criteria = HibernateUtil.getCurrentSession()
+				.createCriteria(AttributeGroup.class)
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+
+		boolean datasetCriteriaCreated = false;
+		if (dataset != null) {
+			datasetCriteriaCreated = true;
+			criteria.createAlias("datasets", "ds").add(Restrictions.eq("ds.name", dataset));
+		}
+		
 		return (List<AttributeGroup>) criteria.list();
-	}*/
+	}
 }

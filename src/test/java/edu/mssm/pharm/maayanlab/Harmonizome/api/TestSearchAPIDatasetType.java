@@ -1,10 +1,12 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,9 +24,9 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetDeserializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetGroupDeserializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetTypeDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeDeserializer;
 
 public class TestSearchAPIDatasetType extends Mockito {
 
@@ -54,7 +56,6 @@ public class TestSearchAPIDatasetType extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		System.out.println(json);
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
 		List<DatasetType> datasetTypes = jsonSchema.getDatasetTypes();
 		assertEquals(datasetTypes.get(0).getName(), "data aggregation");
@@ -62,17 +63,62 @@ public class TestSearchAPIDatasetType extends Mockito {
 
 	@Test
 	public void testByDatasetGroup() throws ServletException, IOException {
+		when(request.getParameter("datasetGroup")).thenReturn("disease_or_phenotype_associations");
+		new SearchAPI().doGet(request, response);
+		writer.flush();
+		String json = output.toString();
+		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		List<DatasetType> datasetTypes = jsonSchema.getDatasetTypes();
+		assertEquals(datasetTypes.size(), 5);
+		List<String> validDatasetTypeNames = new ArrayList<String>();
+		validDatasetTypeNames.add("data aggregation");
+		validDatasetTypeNames.add("genetic association");
+		validDatasetTypeNames.add("literature curation");
+		validDatasetTypeNames.add("phenotyping");
+		validDatasetTypeNames.add("text-mining");
+		for (DatasetType dst : jsonSchema.getDatasetTypes()) {
+			assertTrue(validDatasetTypeNames.contains(dst.getName()));
+		}
 	}
 
 	@Test
 	public void testByDatasetType() throws ServletException, IOException {
+		when(request.getParameter("datasetType")).thenReturn("DNA_methylation_bisulfite_sequencing,_MeDIP-seq,_or_MRE-seq"); 
+		new SearchAPI().doGet(request, response);
+		writer.flush();
+		String json = output.toString();
+		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		List<DatasetType> datasetTypes = jsonSchema.getDatasetTypes();
+		assertEquals(datasetTypes.size(), 1);
+		assertEquals(datasetTypes.get(0).getName(), "DNA methylation bisulfite sequencing, MeDIP-seq, or MRE-seq");
 	}
 
 	@Test
 	public void testByAttributeGroup() throws ServletException, IOException {
+		when(request.getParameter("attributeGroup")).thenReturn("sequence_feature"); 
+		new SearchAPI().doGet(request, response);
+		writer.flush();
+		String json = output.toString();
+		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		List<DatasetType> datasetTypes = jsonSchema.getDatasetTypes();
+		assertEquals(datasetTypes.size(), 1);
+		assertEquals(datasetTypes.get(0).getName(), "eQTL mapping");
 	}
 
 	@Test
 	public void testByAttributeType() throws ServletException, IOException {
+		when(request.getParameter("attributeType")).thenReturn("ligand_(protein)"); 
+		new SearchAPI().doGet(request, response);
+		writer.flush();
+		String json = output.toString();
+		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		List<DatasetType> datasetTypes = jsonSchema.getDatasetTypes();
+		assertEquals(datasetTypes.size(), 2);
+		List<String> validDatasetTypeNames = new ArrayList<String>();
+		validDatasetTypeNames.add("literature curation");
+		validDatasetTypeNames.add("protein phosphorylation SILAC");
+		for (DatasetType dst : jsonSchema.getDatasetTypes()) {
+			assertTrue(validDatasetTypeNames.contains(dst.getName()));
+		}
 	}
 }

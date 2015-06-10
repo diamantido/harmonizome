@@ -11,21 +11,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>Search</h3>
-				<table class="table">
-					<tr>
-						<td class="col-md-2">Genes</td>
-						<td class="col-md-6"><input type="text"></input></td>
-						<td class="col-md-4"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></td>
-					</tr>
-				</table>
-				<!--<table class="table">
-					<tr>
-						<td class="col-md-2">Proteins</td>
-						<td class="col-md-6"><input type="text"></input></td>
-						<td class="col-md-4"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></td>
-					</tr>
-				</table>-->
+				<%@include file="filter_engine.jsp"%>
 			</div>
 			<%@include file="footer.html"%>
 		</div>

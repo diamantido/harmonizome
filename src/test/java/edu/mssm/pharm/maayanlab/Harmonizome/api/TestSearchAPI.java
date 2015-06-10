@@ -23,9 +23,9 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetDeserializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetGroupDeserializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetTypeDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeDeserializer;
 
 public class TestSearchAPI extends Mockito {
 

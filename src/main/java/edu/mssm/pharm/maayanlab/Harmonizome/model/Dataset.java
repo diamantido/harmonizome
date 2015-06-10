@@ -167,6 +167,14 @@ public class Dataset {
 		this.numPageViews = numPageViews;
 	}
 
+	public Set<Download> getDownloads() {
+		return downloads;
+	}
+
+	public void setDownloads(Set<Download> downloads) {
+		this.downloads = downloads;
+	}
+
 	public Set<Feature> getFeatures() {
 		return features;
 	}

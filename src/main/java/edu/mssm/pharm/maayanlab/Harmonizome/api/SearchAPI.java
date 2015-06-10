@@ -2,8 +2,6 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +14,17 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Download;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetGroupSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeGroupSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DownloadSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
@@ -37,9 +40,12 @@ public class SearchAPI extends HttpServlet {
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSerializer());
+		gsonBuilder.registerTypeAdapter(Download.class, new DownloadSerializer());
 		gsonBuilder.registerTypeAdapter(DatasetGroup.class, new DatasetGroupSerializer());
-		//gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeSerializer());
-		//gsonBuilder.registerTypeAdapter(Feature.class, new FeatureSerializer());
+		gsonBuilder.registerTypeAdapter(DatasetType.class, new DatasetTypeSerializer());
+		// gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeSerializer());
+		gsonBuilder.registerTypeAdapter(AttributeGroup.class, new AttributeGroupSerializer());
+		// gsonBuilder.registerTypeAdapter(Feature.class, new FeatureSerializer());
 		gson = gsonBuilder.create();
 	}
 
@@ -55,36 +61,27 @@ public class SearchAPI extends HttpServlet {
 		String gene = URLUtil.get(request, "gene");
 		String idgFamily = URLUtil.get(request, "idgFamily");
 
-		// Datasets
-		List<Dataset> datasets = new ArrayList<Dataset>();
-		List<DatasetGroup> datasetGroups = new ArrayList<DatasetGroup>();
-		List<DatasetType> datasetTypes = new ArrayList<DatasetType>();
-		
 		// Attributes
-		//List<Attribute> attributeResults = new ArrayList<Attribute>();
-		//List<AttributeGroup> attributeGroupResults = new ArrayList<AttributeGroup>();
-		//List<AttributeType> attributeTypeResults = new ArrayList<AttributeType>();
+		// List<Attribute> attributeResults = new ArrayList<Attribute>();
+		// List<AttributeType> attributeTypeResults = new ArrayList<AttributeType>();
 
 		// Genes
-		//List<Gene> geneResults = new ArrayList<Gene>();
-		//List<IdgFamily> idgFamilyResults = new ArrayList<IdgFamily>();
+		// List<Gene> geneResults = new ArrayList<Gene>();
+		// List<IdgFamily> idgFamilyResults = new ArrayList<IdgFamily>();
 
 		JsonSchema results = new JsonSchema();
 		PrintWriter out = response.getWriter();
 		String json = "";
 		try {
 			HibernateUtil.beginTransaction();
-			
-			datasets = DAO.filterDataset(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
-			datasetGroups = DAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
-			datasetTypes = DAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
-			
-			//attributeResults = DAO.getAttributeByFilter(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
-			//attributeGroupResults = DAO.getAttributeGroupByFilter(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
-			
-			results.setDatasets(datasets);
-			results.setDatasetGroups(datasetGroups);
-			results.setDatasetTypes(datasetTypes);
+
+			results.setDatasets(DAO.filterDataset(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDatasetGroups(DAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDatasetTypes(DAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+
+			// attributeResults = DAO.getAttributeByFilter(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
+			results.setAttributeGroups(DAO.filterAttributeGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+
 			json = gson.toJson(results);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {

@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.GeneSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;

@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.serializer;
+package edu.mssm.pharm.maayanlab.Harmonizome.serdes;
 
 import java.lang.reflect.Type;
 

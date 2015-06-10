@@ -22,7 +22,7 @@ import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
 
 public class TestSearchAPIDataset extends Mockito {
 
@@ -64,7 +64,7 @@ public class TestSearchAPIDataset extends Mockito {
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
 		List<Dataset> datasets = jsonSchema.getDatasets();
 		assertEquals(datasets.size(), 6);
-		ArrayList<String> validDatasetNames = new ArrayList<String>();
+		List<String> validDatasetNames = new ArrayList<String>();
 		validDatasetNames.add("JASPAR Transcription Factor Targets");
 		validDatasetNames.add("MotifMap Transcription Factor Targets");
 		validDatasetNames.add("Recon X Biomolecular Interactions");
@@ -85,7 +85,7 @@ public class TestSearchAPIDataset extends Mockito {
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
 		List<Dataset> datasets = jsonSchema.getDatasets();
 		assertEquals(datasets.size(), 2);
-		ArrayList<String> validDatasetNames = new ArrayList<String>();
+		List<String> validDatasetNames = new ArrayList<String>();
 		validDatasetNames.add("ESCAPE Omics Signatures of Genes and Proteins for Stem Cells");
 		validDatasetNames.add("GeneSigDB Published Gene Signatures");
 		for (Dataset ds : datasets) {
