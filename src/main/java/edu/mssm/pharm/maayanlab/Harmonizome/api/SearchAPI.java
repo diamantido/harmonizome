@@ -17,15 +17,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetGroupSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serializer.DatasetSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.API_BASE_URL + "/query/*" })
-public class QueryAPI extends HttpServlet {
+@WebServlet(urlPatterns = { Constant.API_BASE_URL + "/q/*" })
+public class SearchAPI extends HttpServlet {
 
 	private static final long serialVersionUID = 778955897675398125L;
 
@@ -34,6 +37,7 @@ public class QueryAPI extends HttpServlet {
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSerializer());
+		gsonBuilder.registerTypeAdapter(DatasetGroup.class, new DatasetGroupSerializer());
 		//gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeSerializer());
 		//gsonBuilder.registerTypeAdapter(Feature.class, new FeatureSerializer());
 		gson = gsonBuilder.create();
@@ -52,9 +56,9 @@ public class QueryAPI extends HttpServlet {
 		String idgFamily = URLUtil.get(request, "idgFamily");
 
 		// Datasets
-		List<Dataset> datasetResults = new ArrayList<Dataset>();
-		//List<DatasetGroup> datasetGroupResults = new ArrayList<DatasetGroup>();
-		//List<DatasetType> datasetTypeResults = new ArrayList<DatasetType>();
+		List<Dataset> datasets = new ArrayList<Dataset>();
+		List<DatasetGroup> datasetGroups = new ArrayList<DatasetGroup>();
+		List<DatasetType> datasetTypes = new ArrayList<DatasetType>();
 		
 		// Attributes
 		//List<Attribute> attributeResults = new ArrayList<Attribute>();
@@ -71,14 +75,16 @@ public class QueryAPI extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 			
-			datasetResults = DAO.filterDataset(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
-			//datasetGroupResults = DAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
-			//datasetTypeResults = DAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
+			datasets = DAO.filterDataset(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
+			datasetGroups = DAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
+			datasetTypes = DAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
 			
 			//attributeResults = DAO.getAttributeByFilter(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
 			//attributeGroupResults = DAO.getAttributeGroupByFilter(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
 			
-			results.setDatasets(datasetResults);
+			results.setDatasets(datasets);
+			results.setDatasetGroups(datasetGroups);
+			results.setDatasetTypes(datasetTypes);
 			json = gson.toJson(results);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {

@@ -4,13 +4,14 @@ import java.util.List;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 
 public class JsonSchema {
 
 	private List<Dataset> datasets;
 	private List<DatasetGroup> datasetGroups;
-	/*private List<DatasetType> datasetTypes;
-	private List<Attribute> attributes;
+	private List<DatasetType> datasetTypes;
+	/*private List<Attribute> attributes;
 	private List<AttributeGroup> attributeGroups;
 	private List<AttributeType> attributeTypes;
 	private List<Gene> genes;
@@ -35,13 +36,15 @@ public class JsonSchema {
 		this.datasetGroups = datasetGroups;
 	}
 	
-	/*public List<DatasetType> getDatasetTypes() {
+	public List<DatasetType> getDatasetTypes() {
 		return datasetTypes;
 	}
+	
 	public void setDatasetTypes(List<DatasetType> datasetTypes) {
 		this.datasetTypes = datasetTypes;
 	}
-	public List<Attribute> getAttributes() {
+	
+	/*public List<Attribute> getAttributes() {
 		return attributes;
 	}
 	public void setAttributes(List<Attribute> attributes) {
