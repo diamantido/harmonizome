@@ -15,12 +15,14 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Download;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeGroupSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeTypeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeSerializer;
@@ -45,6 +47,7 @@ public class SearchAPI extends HttpServlet {
 		gsonBuilder.registerTypeAdapter(DatasetType.class, new DatasetTypeSerializer());
 		// gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeSerializer());
 		gsonBuilder.registerTypeAdapter(AttributeGroup.class, new AttributeGroupSerializer());
+		gsonBuilder.registerTypeAdapter(AttributeType.class, new AttributeTypeSerializer());
 		// gsonBuilder.registerTypeAdapter(Feature.class, new FeatureSerializer());
 		gson = gsonBuilder.create();
 	}
@@ -61,14 +64,6 @@ public class SearchAPI extends HttpServlet {
 		String gene = URLUtil.get(request, "gene");
 		String idgFamily = URLUtil.get(request, "idgFamily");
 
-		// Attributes
-		// List<Attribute> attributeResults = new ArrayList<Attribute>();
-		// List<AttributeType> attributeTypeResults = new ArrayList<AttributeType>();
-
-		// Genes
-		// List<Gene> geneResults = new ArrayList<Gene>();
-		// List<IdgFamily> idgFamilyResults = new ArrayList<IdgFamily>();
-
 		JsonSchema results = new JsonSchema();
 		PrintWriter out = response.getWriter();
 		String json = "";
@@ -79,8 +74,8 @@ public class SearchAPI extends HttpServlet {
 			results.setDatasetGroups(DAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
 			results.setDatasetTypes(DAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
 
-			// attributeResults = DAO.getAttributeByFilter(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily);
 			results.setAttributeGroups(DAO.filterAttributeGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setAttributeTypes(DAO.filterAttributeTypes(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
 
 			json = gson.toJson(results);
 			HibernateUtil.commitTransaction();

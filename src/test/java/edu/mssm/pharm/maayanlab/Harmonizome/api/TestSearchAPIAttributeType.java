@@ -20,12 +20,12 @@ import org.mockito.Mockito;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
 
-public class TestSearchAPIAttributeGroup extends Mockito {
+public class TestSearchAPIAttributeType extends Mockito {
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
@@ -47,65 +47,74 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 
 	@Test
 	public void testByDataset() throws IOException, ServletException {
-		when(request.getParameter("dataset")).thenReturn("Guide_to_Pharmacology_Protein_Ligands_of_Receptors"); 
+		when(request.getParameter("dataset")).thenReturn("CCLE_Cell_Line_Gene_Expression_Profiles"); 
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
-		assertEquals(attributeGroups.size(), 1);
-		assertEquals(attributeGroups.get(0).getName(), "gene");
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		assertEquals(attributeTypes.size(), 1);
+		assertEquals(attributeTypes.get(0).getName(), "cell");
 	}
 	
 	@Test
 	public void testByDatasetGroup() throws IOException, ServletException {
-		when(request.getParameter("datasetGroup")).thenReturn("physical_interactions"); 
+		when(request.getParameter("datasetGroup")).thenReturn("proteomics"); 
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
-		List<String> validAttribueGroupNames = new ArrayList<String>();
-		validAttribueGroupNames.add("gene");
-		validAttribueGroupNames.add("chemical");
-		for (AttributeGroup ag : attributeGroups) {
-			assertTrue(validAttribueGroupNames.contains(ag.getName()));
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		List<String> validAttribueTypeNames = new ArrayList<String>();
+		validAttribueTypeNames.add("cellular component");
+		validAttribueTypeNames.add("tissue");
+		validAttribueTypeNames.add("cell or tissue");
+		validAttribueTypeNames.add("protein complex");
+		validAttribueTypeNames.add("drug");
+		validAttribueTypeNames.add("gene");
+		validAttribueTypeNames.add("ligand (protein)");
+		for (AttributeType at : attributeTypes) {
+			assertTrue(validAttribueTypeNames.contains(at.getName()));
 		}
 	}
 
 	@Test
 	public void testByDatasetType() throws IOException, ServletException {
-		when(request.getParameter("datasetType")).thenReturn("protein_expression_immunohistochemistry"); 
+		when(request.getParameter("datasetType")).thenReturn("genetic_association"); 
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
-		assertEquals(attributeGroups.size(), 1);
-		assertEquals(attributeGroups.get(0).getName(), "cell or tissue");
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		List<String> validAttribueTypeNames = new ArrayList<String>();
+		validAttribueTypeNames.add("phenotype");
+		validAttribueTypeNames.add("disease");
+		for (AttributeType at : attributeTypes) {
+			assertTrue(validAttribueTypeNames.contains(at.getName()));
+		}
 	}
 
 	@Test
 	public void testByAttributeGroup() throws ServletException, IOException {
-		when(request.getParameter("attributeGroup")).thenReturn("sequence_feature"); 
+		when(request.getParameter("attributeGroup")).thenReturn("organism"); 
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
-		assertEquals(attributeGroups.size(), 1);
-		assertEquals(attributeGroups.get(0).getName(), "sequence feature");
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		assertEquals(attributeTypes.size(), 1);
+		assertEquals(attributeTypes.get(0).getName(), "virus");
 	}
 
 	@Test
 	public void testByAttributeType() throws ServletException, IOException {
-		when(request.getParameter("attributeType")).thenReturn("hub"); 
+		when(request.getParameter("attributeType")).thenReturn("molecular_function"); 
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
-		assertEquals(attributeGroups.size(), 1);
-		assertEquals(attributeGroups.get(0).getName(), "gene");
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		assertEquals(attributeTypes.size(), 1);
+		assertEquals(attributeTypes.get(0).getName(), "molecular function");
 	}
 }

@@ -24,6 +24,9 @@ public class AttributeType {
 	@OneToMany(mappedBy = "attributeType")
 	private Set<Attribute> attributes;
 
+	@OneToMany(mappedBy = "attributeType")
+	private Set<Dataset> datasets;
+	
 	public AttributeType() {
 	}
 
