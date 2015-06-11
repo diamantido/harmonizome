@@ -69,19 +69,19 @@ public class DAO {
 				.createCriteria(Dataset.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
-		if (dataset != null) {
+		if (dataset != null && dataset != "") {
 			criteria.add(Restrictions.eq("name", dataset));
 		}
-		if (datasetGroup != null) {
+		if (datasetGroup != null && datasetGroup != "") {
 			criteria.createCriteria("datasetGroup").add(Restrictions.eq("name", datasetGroup));
 		}
-		if (datasetType != null) {
+		if (datasetType != null && datasetType != "") {
 			criteria.createCriteria("datasetType").add(Restrictions.eq("name", datasetType));
 		}
-		if (attributeGroup != null) {
+		if (attributeGroup != null && attributeGroup != "") {
 			criteria.createCriteria("attributeGroup").add(Restrictions.eq("name", attributeGroup));
 		}
-		if (attributeType != null) {
+		if (attributeType != null && attributeType != "") {
 			criteria.createCriteria("attributeType").add(Restrictions.eq("name", attributeType));
 		}
 
@@ -98,28 +98,28 @@ public class DAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 		boolean datasetCriteriaCreated = false;
-		if (dataset != null) {
+		if (dataset != null && dataset != "") {
 			datasetCriteriaCreated = true;
 			criteria.createAlias("datasets", "ds").add(Restrictions.eq("ds.name", dataset));
 		}
-		if (datasetGroup != null) {
+		if (datasetGroup != null && datasetGroup != "") {
 			criteria.add(Restrictions.eq("name", datasetGroup));
 		}
-		if (datasetType != null) {
+		if (datasetType != null && datasetType != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.datasetType", "dst").add(Restrictions.eq("dst.name", datasetType));
 		}
-		if (attributeGroup != null) {
+		if (attributeGroup != null && attributeGroup != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.attributeGroup", "dsg").add(Restrictions.eq("dsg.name", attributeGroup));
 		}
-		if (attributeType != null) {
+		if (attributeType != null && attributeType != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
@@ -139,28 +139,28 @@ public class DAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 		boolean datasetCriteriaCreated = false;
-		if (dataset != null) {
+		if (dataset != null && dataset != "") {
 			datasetCriteriaCreated = true;
 			criteria.createAlias("datasets", "ds").add(Restrictions.eq("ds.name", dataset));
 		}
-		if (datasetGroup != null) {
+		if (datasetGroup != null && datasetGroup != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.datasetGroup", "dsg").add(Restrictions.eq("dsg.name", datasetGroup));
 		}
-		if (datasetType != null) {
+		if (datasetType != null && datasetType != "") {
 			criteria.add(Restrictions.eq("name", datasetType));
 		}
-		if (attributeGroup != null) {
+		if (attributeGroup != null && attributeGroup != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.attributeGroup", "dsag").add(Restrictions.eq("dsag.name", attributeGroup));
 		}
-		if (attributeType != null) {
+		if (attributeType != null && attributeType != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
@@ -188,32 +188,32 @@ public class DAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 		boolean datasetCriteriaCreated = false;
-		if (dataset != null) {
+		if (dataset != null && dataset != "") {
 			datasetCriteriaCreated = true;
 			criteria.createAlias("datasets", "ds").add(Restrictions.eq("ds.name", dataset));
 		}
-		if (datasetGroup != null) {
+		if (datasetGroup != null && datasetGroup != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.datasetGroup", "dsg").add(Restrictions.eq("dsg.name", datasetGroup));
 		}
-		if (datasetType != null) {
+		if (datasetType != null && datasetType != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.datasetType", "dst").add(Restrictions.eq("dst.name", datasetType));
 		}
-		if (attributeGroup != null) {
+		if (attributeGroup != null && attributeGroup != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.attributeGroup", "dsag").add(Restrictions.eq("dsag.name", attributeGroup));
 		}
-		if (attributeType != null) {
+		if (attributeType != null && attributeType != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
@@ -236,28 +236,28 @@ public class DAO {
 			datasetCriteriaCreated = true;
 			criteria.createAlias("datasets", "ds").add(Restrictions.eq("ds.name", dataset));
 		}
-		if (datasetGroup != null) {
+		if (datasetGroup != null && datasetGroup != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.datasetGroup", "dsg").add(Restrictions.eq("dsg.name", datasetGroup));
 		}
-		if (datasetType != null) {
+		if (datasetType != null && datasetType != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.datasetType", "dst").add(Restrictions.eq("dst.name", datasetType));
 		}
-		if (attributeGroup != null) {
+		if (attributeGroup != null && attributeGroup != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
 			criteria.createAlias("ds.attributeGroup", "dsag").add(Restrictions.eq("dsag.name", attributeGroup));
 		}
-		if (attributeType != null) {
+		if (attributeType != null && attributeType != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");

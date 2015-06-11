@@ -48,6 +48,15 @@ input {
 ul {
   padding-left: 15px;
 }
+button {
+  background-color: #599fb7;
+  border: none;
+  color: white;
+  margin-top: 10px;
+}
+button:hover {
+  background-color: #3593b1;
+}
 /* Section selectors.
  */
 .navbar {
@@ -132,26 +141,45 @@ ul {
 }
 /* Filter engine.
  */
-.filter-engine {
-  border-bottom: 1px solid #dddddd;
+.search {
+  border-bottom: 1px solid #aaaaaa;
   margin-bottom: 50px;
   padding-bottom: 10px;
 }
-.filter-engine select {
+.search select {
   background-color: #eeeeee;
-  border: 1px solid #dddddd;
+  border: 1px solid #aaaaaa;
   margin: 3px 0;
   width: 100%;
 }
-.filter-engine .locked select {
-  color: #dddddd;
+.search h4 {
+  display: inline-block;
 }
-.filter-engine button {
-  background-color: #599fb7;
-  border: none;
-  color: white;
-  margin-top: 10px;
+.search .locked select {
+  color: #aaaaaa;
 }
-.filter-engine button:hover {
-  background-color: #3593b1;
+.search button.reset {
+  background-color: white;
+  color: #666666;
+  font-style: italic;
+  font-size: 12px;
+  margin-left: 10px;
+}
+.search .locked {
+  color: #aaaaaa;
+}
+.browse input {
+  border: 1px solid #aaaaaa;
+}
+.browse thead td {
+  font-weight: bold;
+}
+.browse .dataTables_filter label {
+  font-weight: bold;
+}
+.browse .download {
+  color: #666666;
+}
+.browse .download:hover {
+  color: #aaaaaa;
 }

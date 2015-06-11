@@ -9,7 +9,9 @@
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>${name} <span class="note">${note}</span></h3>
+				<% if (request.getAttribute("useDataset") == "true") { %>
+					<%@include file="page_dataset.jsp" %>
+				<% } %>
 			</div>
 			<%@include file="footer.html"%>
 		</div>

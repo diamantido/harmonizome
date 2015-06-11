@@ -50,6 +50,15 @@ input {
 ul {
     padding-left: 15px;
 }
+button {
+	background-color: @color-primary-light;
+	border: none;
+	color: white;
+	margin-top: 10px;
+	&:hover {
+		background-color: @color-primary;
+	}
+}
 
 /* Section selectors.
  */
@@ -131,7 +140,7 @@ ul {
 
 /* Filter engine.
  */
-.filter-engine {
+.search {
 	border-bottom: 1px solid @color-gray-medium;
 	margin-bottom: 50px;
 	padding-bottom: 10px;
@@ -141,18 +150,43 @@ ul {
 		margin: 3px 0;
   		width: 100%;
 	}
+	h4 {
+		display: inline-block;
+	}
 	.locked {
 		select {
 			color: @color-gray-medium;
 		}
 	}
-	button {
-		background-color: @color-primary-light;
-		border: none;
-		color: white;
-		margin-top: 10px;
+	button.reset {
+		background-color: white;
+		color: @color-gray;
+		font-style: italic;
+		font-size: 12px;
+		margin-left: 10px;
+	}
+	.locked {
+		color: @color-gray-medium;
+	}
+}
+.browse {
+	input {
+		border: 1px solid @color-gray-medium;
+	}
+	thead {
+		td {
+			font-weight: bold;
+		}
+	}
+	.dataTables_filter {
+		label {
+			font-weight: bold;
+		}
+	}
+	.download {
+		color: @color-gray;
 		&:hover {
-			background-color: @color-primary;
+			color: @color-gray-medium;
 		}
 	}
 }

@@ -19,7 +19,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/search/*" })
-public class SearchLanding extends HttpServlet {
+public class Search extends HttpServlet {
 
 	private static final long serialVersionUID = 8241820002853425713L;
 
@@ -38,6 +38,6 @@ public class SearchLanding extends HttpServlet {
 
 		String json = "['" + StringUtils.join(genes.toArray(new String[genes.size()]), "','") + "']";
 		request.setAttribute("genes", json);
-		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(request, response);
+		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "search.jsp").forward(request, response);
 	}
 }

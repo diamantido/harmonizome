@@ -52,7 +52,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
+		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		assertEquals(attributeGroups.size(), 1);
 		assertEquals(attributeGroups.get(0).getName(), "gene");
 	}
@@ -64,7 +64,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
+		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		List<String> validAttribueGroupNames = new ArrayList<String>();
 		validAttribueGroupNames.add("gene");
 		validAttribueGroupNames.add("chemical");
@@ -80,7 +80,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
+		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		assertEquals(attributeGroups.size(), 1);
 		assertEquals(attributeGroups.get(0).getName(), "cell or tissue");
 	}
@@ -92,7 +92,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
+		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		assertEquals(attributeGroups.size(), 1);
 		assertEquals(attributeGroups.get(0).getName(), "sequence feature");
 	}
@@ -104,7 +104,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroups();
+		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		assertEquals(attributeGroups.size(), 1);
 		assertEquals(attributeGroups.get(0).getName(), "gene");
 	}

@@ -57,7 +57,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroups();
+		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		assertEquals(datasetGroups.get(0).getName(), "omics");
 	}
 	
@@ -68,7 +68,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroups();
+		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		assertEquals(datasetGroups.size(), 1);
 	}
 
@@ -79,7 +79,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroups();
+		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		List<String> validDatasetGroupNames = new ArrayList<String>();
 		validDatasetGroupNames.add("structural or functional annotations");
 		validDatasetGroupNames.add("disease or phenotype associations");
@@ -95,7 +95,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroups();
+		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		assertEquals(datasetGroups.size(), 3);
 		List<String> validDatasetGroupNames = new ArrayList<String>();
 		validDatasetGroupNames.add("physical interactions");
@@ -113,7 +113,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroups();
+		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		assertEquals(datasetGroups.get(0).getName(), "genomics");
 	}
 }

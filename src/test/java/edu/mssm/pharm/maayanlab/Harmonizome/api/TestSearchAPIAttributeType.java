@@ -52,7 +52,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeType();
 		assertEquals(attributeTypes.size(), 1);
 		assertEquals(attributeTypes.get(0).getName(), "cell");
 	}
@@ -64,7 +64,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeType();
 		List<String> validAttribueTypeNames = new ArrayList<String>();
 		validAttribueTypeNames.add("cellular component");
 		validAttribueTypeNames.add("tissue");
@@ -85,7 +85,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeType();
 		List<String> validAttribueTypeNames = new ArrayList<String>();
 		validAttribueTypeNames.add("phenotype");
 		validAttribueTypeNames.add("disease");
@@ -101,7 +101,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeType();
 		assertEquals(attributeTypes.size(), 1);
 		assertEquals(attributeTypes.get(0).getName(), "virus");
 	}
@@ -113,7 +113,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<AttributeType> attributeTypes = jsonSchema.getAttributeTypes();
+		List<AttributeType> attributeTypes = jsonSchema.getAttributeType();
 		assertEquals(attributeTypes.size(), 1);
 		assertEquals(attributeTypes.get(0).getName(), "molecular function");
 	}

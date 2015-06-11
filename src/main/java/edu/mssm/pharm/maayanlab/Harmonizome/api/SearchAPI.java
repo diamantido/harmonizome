@@ -70,12 +70,12 @@ public class SearchAPI extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 
-			results.setDatasets(DAO.filterDataset(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
-			results.setDatasetGroups(DAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
-			results.setDatasetTypes(DAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDataset(DAO.filterDataset(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDatasetGroup(DAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDatasetType(DAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
 
-			results.setAttributeGroups(DAO.filterAttributeGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
-			results.setAttributeTypes(DAO.filterAttributeTypes(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setAttributeGroup(DAO.filterAttributeGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setAttributeType(DAO.filterAttributeTypes(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
 
 			json = gson.toJson(results);
 			HibernateUtil.commitTransaction();

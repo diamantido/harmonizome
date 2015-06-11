@@ -10,75 +10,75 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 
 public class JsonSchema {
 
-	private List<Dataset> datasets;
-	private List<DatasetGroup> datasetGroups;
-	private List<DatasetType> datasetTypes;
-	//private List<Attribute> attributes;
-	private List<AttributeGroup> attributeGroups;
-	private List<AttributeType> attributeTypes;
-	/*private List<Gene> genes;
-	private List<IdgFamily> idgFamilies;*/
+	private List<Dataset> dataset;
+	private List<DatasetGroup> datasetGroup;
+	private List<DatasetType> datasetType;
+	//private List<Attribute> attribute;
+	private List<AttributeGroup> attributeGroup;
+	private List<AttributeType> attributeType;
+	/*private List<Gene> gene;
+	private List<IdgFamily> idgFamily;*/
 
 	public JsonSchema() {
 	}
 	
-	public List<Dataset> getDatasets() {
-		return datasets;
+	public List<Dataset> getDataset() {
+		return dataset;
 	}
 
-	public void setDatasets(List<Dataset> datasets) {
-		this.datasets = datasets;
+	public void setDataset(List<Dataset> dataset) {
+		this.dataset = dataset;
 	}
 
-	public List<DatasetGroup> getDatasetGroups() {
-		return datasetGroups;
+	public List<DatasetGroup> getDatasetGroup() {
+		return datasetGroup;
 	}
 	
-	public void setDatasetGroups(List<DatasetGroup> datasetGroups) {
-		this.datasetGroups = datasetGroups;
+	public void setDatasetGroup(List<DatasetGroup> datasetGroup) {
+		this.datasetGroup = datasetGroup;
 	}
 	
-	public List<DatasetType> getDatasetTypes() {
-		return datasetTypes;
+	public List<DatasetType> getDatasetType() {
+		return datasetType;
 	}
 	
-	public void setDatasetTypes(List<DatasetType> datasetTypes) {
-		this.datasetTypes = datasetTypes;
+	public void setDatasetType(List<DatasetType> datasetType) {
+		this.datasetType = datasetType;
 	}
 	
-	/*public List<Attribute> getAttributes() {
-		return attributes;
+	/*public List<Attribute> getAttribute() {
+		return attribute;
 	}
-	public void setAttributes(List<Attribute> attributes) {
-		this.attributes = attributes;
+	public void setAttribute(List<Attribute> attribute) {
+		this.attribute = attribute;
 	}*/
 
-	public List<AttributeGroup> getAttributeGroups() {
-		return attributeGroups;
+	public List<AttributeGroup> getAttributeGroup() {
+		return attributeGroup;
 	}
 	
-	public void setAttributeGroups(List<AttributeGroup> attributeGroups) {
-		this.attributeGroups = attributeGroups;
+	public void setAttributeGroup(List<AttributeGroup> attributeGroup) {
+		this.attributeGroup = attributeGroup;
 	}
 	
-	public List<AttributeType> getAttributeTypes() {
-		return attributeTypes;
+	public List<AttributeType> getAttributeType() {
+		return attributeType;
 	}
 	
-	public void setAttributeTypes(List<AttributeType> attributeTypes) {
-		this.attributeTypes = attributeTypes;
+	public void setAttributeType(List<AttributeType> attributeType) {
+		this.attributeType = attributeType;
 	}
 	
-	/*public List<Gene> getGenes() {
-		return genes;
+	/*public List<Gene> getGene() {
+		return gene;
 	}
-	public void setGenes(List<Gene> genes) {
-		this.genes = genes;
+	public void setGene(List<Gene> gene) {
+		this.gene = gene;
 	}
-	public List<IdgFamily> getIdgFamilies() {
-		return idgFamilies;
+	public List<IdgFamily> getIdgFamily() {
+		return idgFamily;
 	}
-	public void setIdgFamilies(List<IdgFamily> idgFamilies) {
-		this.idgFamilies = idgFamilies;
+	public void setIdgFamily(List<IdgFamily> idgFamily) {
+		this.idgFamily = idgFamily;
 	}*/
 }

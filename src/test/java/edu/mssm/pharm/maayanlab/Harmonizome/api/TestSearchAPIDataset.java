@@ -51,7 +51,7 @@ public class TestSearchAPIDataset extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<Dataset> datasets = jsonSchema.getDatasets();
+		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.get(0).getName(), "Achilles Cell Line Gene Essentiality Profiles");
 	}
 
@@ -62,7 +62,7 @@ public class TestSearchAPIDataset extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<Dataset> datasets = jsonSchema.getDatasets();
+		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.size(), 6);
 		List<String> validDatasetNames = new ArrayList<String>();
 		validDatasetNames.add("JASPAR Transcription Factor Targets");
@@ -83,7 +83,7 @@ public class TestSearchAPIDataset extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<Dataset> datasets = jsonSchema.getDatasets();
+		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.size(), 2);
 		List<String> validDatasetNames = new ArrayList<String>();
 		validDatasetNames.add("ESCAPE Omics Signatures of Genes and Proteins for Stem Cells");
@@ -100,7 +100,7 @@ public class TestSearchAPIDataset extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<Dataset> datasets = jsonSchema.getDatasets();
+		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.size(), 10);
 	}
 
@@ -111,7 +111,7 @@ public class TestSearchAPIDataset extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
-		List<Dataset> datasets = jsonSchema.getDatasets();
+		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.size(), 1);
 		assertEquals(datasets.get(0).getName(), "GO Biological Process Annotations");
 	}

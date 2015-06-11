@@ -17,7 +17,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/browse/*" })
-public class BrowseLanding extends HttpServlet {
+public class Browse extends HttpServlet {
 
 	private static final long serialVersionUID = 1469559115050948011L;
 
@@ -33,6 +33,6 @@ public class BrowseLanding extends HttpServlet {
 		}
 
 		req.setAttribute("datasets", datasets);
-		req.getRequestDispatcher(Constant.TEMPLATE_DIR + "browse_landing.jsp").forward(req, resp);
+		req.getRequestDispatcher(Constant.TEMPLATE_DIR + "browse.jsp").forward(req, resp);
 	}
 }
