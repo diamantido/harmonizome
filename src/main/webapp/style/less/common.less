@@ -63,15 +63,7 @@ button {
 /* Section selectors.
  */
 .navbar {
-	background: #3593b1; /* Old browsers */
-	background: -moz-linear-gradient(top,  #3593b1 0%, #2d7f96 75%, #26637f 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3593b1), color-stop(75%,#2d7f96), color-stop(100%,#26637f)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #3593b1 0%,#2d7f96 75%,#26637f 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #3593b1 0%,#2d7f96 75%,#26637f 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #3593b1 0%,#2d7f96 75%,#26637f 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #3593b1 0%,#2d7f96 75%,#26637f 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3593b1', endColorstr='#26637f',GradientType=0 ); /* IE6-9 */
-
+	background-color: @color-primary-dark;
     height: @dimension-nav-height;
     padding: 10px;
     position: fixed;
@@ -85,6 +77,10 @@ button {
         a:hover {
         	color: white;
             text-decoration: none;
+        }
+        em,
+        em:hover {
+        	color: @color-primary-very-light;   	
         }
     }
 }
@@ -113,8 +109,9 @@ button {
 	}
 	a {
 		color: white;
+		font-weight: bold;
 		&:hover {
-			color: @color-primary-light;
+			color: @color-primary-very-light;
 		}
 	}
 	#share {
@@ -137,14 +134,19 @@ button {
 .glyphicon-search {
 	cursor: pointer;
 }
+.accent {
+	color: @color-accent;
+}
 
 /* Filter engine.
  */
 .search {
+	background-color: @color-primary;
 	border-bottom: 1px solid @color-gray-medium;
-	margin-bottom: 50px;
+	color: white;
 	padding-bottom: 10px;
 	select {
+		color: black;
 		background-color: @color-gray-light;
 		border: 1px solid @color-gray-medium;
 		margin: 3px 0;
@@ -159,8 +161,8 @@ button {
 		}
 	}
 	button.reset {
-		background-color: white;
-		color: @color-gray;
+		background-color: @color-primary;
+		color: @color-primary-very-light;
 		font-style: italic;
 		font-size: 12px;
 		margin-left: 10px;

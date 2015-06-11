@@ -26,7 +26,7 @@ public class Page extends HttpServlet {
 		String queriedName = URLUtil.get(req, "dataset");
 		System.out.println(queriedName);
 		if (queriedName.equals("")) {
-			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
+			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search.jsp").forward(req, resp);
 		} else {
 			Dataset dataset = null;
 			try {
@@ -39,7 +39,6 @@ public class Page extends HttpServlet {
 					req.setAttribute("datasetDescription", dataset.getDescription());
 					req.setAttribute("datasetAssociation", dataset.getAssociation());
 					req.setAttribute("datasetAttribute", dataset.getAttributeType().getName());
-					
 				}
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {

@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "attribute_similarity")
-public class AttributeSimilarity {
+@Table(name = "attribute_similarity_matrix")
+public class AttributeSimilarityMatrix {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,10 +48,10 @@ public class AttributeSimilarity {
 	@JoinColumn(name = "dataset_fk")
 	private Dataset dataset;
 
-	public AttributeSimilarity() {
+	public AttributeSimilarityMatrix() {
 	}
 
-	public AttributeSimilarity(int id, double cosineValue, double standardizedCosineValue, double thresholdCosineValue, double miValue, double standardizedMiValue, double thresholdMiValue,
+	public AttributeSimilarityMatrix(int id, double cosineValue, double standardizedCosineValue, double thresholdCosineValue, double miValue, double standardizedMiValue, double thresholdMiValue,
 			Attribute attribute1, Attribute attribute2, Dataset dataset) {
 		this.id = id;
 		this.cosineValue = cosineValue;

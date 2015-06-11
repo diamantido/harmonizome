@@ -12,7 +12,7 @@
 		<property name="hibernate.hbm2ddl.auto">update</property>
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup" />
-		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeSimilarity" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeSimilarityMatrix" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup" />
@@ -21,7 +21,7 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DownloadType" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Feature" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" />
-		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSimilarity" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSimilarityMatrix" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.HgncTerminalFamily" />

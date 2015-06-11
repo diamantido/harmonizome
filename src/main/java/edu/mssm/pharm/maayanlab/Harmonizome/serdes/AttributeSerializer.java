@@ -26,9 +26,9 @@ public class AttributeSerializer implements JsonSerializer<Attribute> {
 			result.add("url", new JsonPrimitive(url));
 		}
 
-		Integer idFromNamingAuthority = attribute.getIdFromNamingAuthority();
+		String idFromNamingAuthority = attribute.getIdFromNamingAuthority();
 		if (idFromNamingAuthority != null) {
-			result.add("idFromNamingAuthority", new JsonPrimitive((int) idFromNamingAuthority));
+			result.add("idFromNamingAuthority", new JsonPrimitive(idFromNamingAuthority));
 		}
 		
 		return result;

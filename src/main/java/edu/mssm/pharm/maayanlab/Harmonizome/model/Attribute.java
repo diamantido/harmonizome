@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "attribute")
 public class Attribute {
@@ -25,13 +27,14 @@ public class Attribute {
 	private String name;
 
 	@Column(name = "description")
+	@Type(type = "text")
 	private String description;
 
 	@Column(name = "url", length = 2083)
 	private String url;
 
 	@Column(name = "id_from_naming_authority")
-	private Integer idFromNamingAuthority;
+	private String idFromNamingAuthority;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attribute_type_fk")
@@ -49,15 +52,15 @@ public class Attribute {
 	private Set<Feature> features;
 
 	@OneToMany(mappedBy = "attribute1")
-	private Set<AttributeSimilarity> attributeSimilarities1;
+	private Set<AttributeSimilarityMatrix> attributeSimilarities1;
 
 	@OneToMany(mappedBy = "attribute2")
-	private Set<AttributeSimilarity> attributeSimilarities2;
+	private Set<AttributeSimilarityMatrix> attributeSimilarities2;
 
 	public Attribute() {
 	}
 
-	public Attribute(int id, String name, String description, String url, Integer idFromNamingAuthority, AttributeType attributeType, AttributeGroup attributeGroup, NamingAuthority namingAuthority) {
+	public Attribute(int id, String name, String description, String url, String idFromNamingAuthority, AttributeType attributeType, AttributeGroup attributeGroup, NamingAuthority namingAuthority) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -96,11 +99,11 @@ public class Attribute {
 		this.url = url;
 	}
 
-	public Integer getIdFromNamingAuthority() {
+	public String getIdFromNamingAuthority() {
 		return idFromNamingAuthority;
 	}
 
-	public void setIdFromNamingAuthority(Integer namingAuthorityId) {
+	public void setIdFromNamingAuthority(String namingAuthorityId) {
 		this.idFromNamingAuthority = namingAuthorityId;
 	}
 
@@ -136,19 +139,19 @@ public class Attribute {
 		this.features = features;
 	}
 
-	public Set<AttributeSimilarity> getAttributeSimilarities1() {
+	public Set<AttributeSimilarityMatrix> getAttributeSimilarities1() {
 		return attributeSimilarities1;
 	}
 
-	public void setAttributeSimilarities1(Set<AttributeSimilarity> attributeSimilarities1) {
+	public void setAttributeSimilarities1(Set<AttributeSimilarityMatrix> attributeSimilarities1) {
 		this.attributeSimilarities1 = attributeSimilarities1;
 	}
 
-	public Set<AttributeSimilarity> getAttributeSimilarities2() {
+	public Set<AttributeSimilarityMatrix> getAttributeSimilarities2() {
 		return attributeSimilarities2;
 	}
 
-	public void setAttributeSimilarities2(Set<AttributeSimilarity> attributeSimilarities2) {
+	public void setAttributeSimilarities2(Set<AttributeSimilarityMatrix> attributeSimilarities2) {
 		this.attributeSimilarities2 = attributeSimilarities2;
 	}
 }

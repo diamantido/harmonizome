@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "gene_similarity")
-public class GeneSimilarity {
+@Table(name = "gene_similarity_matrix")
+public class GeneSimilarityMatrix {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,10 +48,10 @@ public class GeneSimilarity {
 	@JoinColumn(name = "dataset_fk")
 	private Dataset dataset;
 
-	public GeneSimilarity() {
+	public GeneSimilarityMatrix() {
 	}
 
-	public GeneSimilarity(int id, double cosineValue, double standardizedCosineValue, double thresholdCosineValue, double miValue, double standardizedMiValue, double thresholdMiValue, Gene gene1,
+	public GeneSimilarityMatrix(int id, double cosineValue, double standardizedCosineValue, double thresholdCosineValue, double miValue, double standardizedMiValue, double thresholdMiValue, Gene gene1,
 			Gene gene2, Dataset dataset) {
 		this.id = id;
 		this.cosineValue = cosineValue;

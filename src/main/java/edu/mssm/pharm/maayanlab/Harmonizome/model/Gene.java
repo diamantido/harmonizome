@@ -58,10 +58,10 @@ public class Gene {
 	private Set<Protein> protein;
 
 	@OneToMany(mappedBy = "gene1")
-	private Set<GeneSimilarity> geneSimilarities1;
+	private Set<GeneSimilarityMatrix> geneSimilarities1;
 
 	@OneToMany(mappedBy = "gene2")
-	private Set<GeneSimilarity> geneSimilarities2;
+	private Set<GeneSimilarityMatrix> geneSimilarities2;
 
 	@ManyToMany(mappedBy = "genes")
 	private Set<HgncRootFamily> hgncRootFamilies;
@@ -170,19 +170,19 @@ public class Gene {
 		this.protein = protein;
 	}
 
-	public Set<GeneSimilarity> getGeneSimilarities1() {
+	public Set<GeneSimilarityMatrix> getGeneSimilarities1() {
 		return geneSimilarities1;
 	}
 
-	public void setGeneSimilarities1(Set<GeneSimilarity> geneSimilarities1) {
+	public void setGeneSimilarities1(Set<GeneSimilarityMatrix> geneSimilarities1) {
 		this.geneSimilarities1 = geneSimilarities1;
 	}
 
-	public Set<GeneSimilarity> getGeneSimilarities2() {
+	public Set<GeneSimilarityMatrix> getGeneSimilarities2() {
 		return geneSimilarities2;
 	}
 
-	public void setGeneSimilarities2(Set<GeneSimilarity> geneSimilarities2) {
+	public void setGeneSimilarities2(Set<GeneSimilarityMatrix> geneSimilarities2) {
 		this.geneSimilarities2 = geneSimilarities2;
 	}
 

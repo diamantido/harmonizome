@@ -21,11 +21,11 @@ html {
 }
 a,
 a:link {
-  color: #3593b1;
+  color: #254657;
   text-decoration: none;
 }
 a:hover {
-  color: #09505b;
+  color: #1d3744;
 }
 a:visited,
 a:active {
@@ -55,27 +55,12 @@ button {
   margin-top: 10px;
 }
 button:hover {
-  background-color: #3593b1;
+  background-color: #254657;
 }
 /* Section selectors.
  */
 .navbar {
-  background: #3593b1;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #3593b1 0%, #2d7f96 75%, #26637f 100%);
-  /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3593b1), color-stop(75%, #2d7f96), color-stop(100%, #26637f));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #3593b1 0%, #2d7f96 75%, #26637f 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #3593b1 0%, #2d7f96 75%, #26637f 100%);
-  /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #3593b1 0%, #2d7f96 75%, #26637f 100%);
-  /* IE10+ */
-  background: linear-gradient(to bottom, #3593b1 0%, #2d7f96 75%, #26637f 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3593b1', endColorstr='#26637f', GradientType=0);
-  /* IE6-9 */
+  background-color: #1d3744;
   height: 50px;
   padding: 10px;
   position: fixed;
@@ -91,6 +76,10 @@ button:hover {
 .navbar h3 a:hover {
   color: white;
   text-decoration: none;
+}
+.navbar h3 em,
+.navbar h3 em:hover {
+  color: #8ad4ed;
 }
 /* Push all content out from under the fix nav. Do not use "margin-top" because
  * this pushes the sticky footer down as well.
@@ -118,9 +107,10 @@ button:hover {
 }
 .footer a {
   color: white;
+  font-weight: bold;
 }
 .footer a:hover {
-  color: #599fb7;
+  color: #8ad4ed;
 }
 .footer #share a {
   float: right;
@@ -139,14 +129,19 @@ button:hover {
 .glyphicon-search {
   cursor: pointer;
 }
+.accent {
+  color: #e15829;
+}
 /* Filter engine.
  */
 .search {
+  background-color: #254657;
   border-bottom: 1px solid #aaaaaa;
-  margin-bottom: 50px;
+  color: white;
   padding-bottom: 10px;
 }
 .search select {
+  color: black;
   background-color: #eeeeee;
   border: 1px solid #aaaaaa;
   margin: 3px 0;
@@ -159,8 +154,8 @@ button:hover {
   color: #aaaaaa;
 }
 .search button.reset {
-  background-color: white;
-  color: #666666;
+  background-color: #254657;
+  color: #8ad4ed;
   font-style: italic;
   font-size: 12px;
   margin-left: 10px;
