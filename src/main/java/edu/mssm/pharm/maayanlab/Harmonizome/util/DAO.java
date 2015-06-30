@@ -3,6 +3,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.util;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
@@ -19,8 +20,8 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class DAO {
 
+	@SuppressWarnings("unchecked")
 	public static List<Gene> getAllGenes() {
-		@SuppressWarnings("unchecked")
 		List<Gene> genes = (List<Gene>) HibernateUtil.getAll(Gene.class);
 		return genes;
 	}
@@ -29,6 +30,13 @@ public class DAO {
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Gene.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
 		return (Gene) criteria.uniqueResult();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Gene> getGenesByPrefix(String prefix) {
+		System.out.println(prefix);
+		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Gene.class).add(Restrictions.like("symbol", prefix, MatchMode.END).ignoreCase());
+		return (List<Gene>) criteria.list();
+	}
 
 	public static Gene getGeneBySynonymSymbol(String symbol) {
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(GeneSynonym.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
@@ -36,8 +44,8 @@ public class DAO {
 		return (geneSynonym == null ? null : geneSynonym.getGene());
 	}
 
+	@SuppressWarnings("unchecked")
 	public static List<Dataset> getAllDatasets() {
-		@SuppressWarnings("unchecked")
 		List<Dataset> datasets = (List<Dataset>) HibernateUtil.getAll(Dataset.class);
 		return datasets;
 	}

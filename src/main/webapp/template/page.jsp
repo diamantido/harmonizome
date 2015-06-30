@@ -2,15 +2,13 @@
 <html>
 	<head>
 		<%@include file="common_includes.html" %>
-		<base href="/Harmonizome/" />
-		<link rel="stylesheet" type="text/css" href="style/css/dataset-page.css">
 	</head>
 	<body>
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<% if (request.getAttribute("useDataset") == "true") { %>
-					<%@include file="page_dataset.jsp" %>
+				<% if (request.getAttribute("useGene") == "true") { %>
+					<%@include file="page_gene.jsp" %>
 				<% } %>
 			</div>
 			<%@include file="footer.html"%>

@@ -23,7 +23,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/gene/*" })
+@WebServlet(urlPatterns = { Constant.PAGE_BASE_URL + "/gene/*" })
 public class GenePage extends HttpServlet {
 
 	private static final long serialVersionUID = 4256183225988457817L;

@@ -6,7 +6,7 @@
     "container": {
         "type": "DOCKER",
         "docker": {
-            "image": "maayanlab/harmonizome:1.0",
+            "image": "146.203.54.165:5000/harmonizome:latest",
             "forcePullImage": true,
             "network": "BRIDGE",
             "portMappings": [

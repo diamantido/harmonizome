@@ -1,3 +1,4 @@
+/* Georgia, sans-serif; */
 /*"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
 /* Structure all pages to allow for footer. Other styling for these elements is
  * below.
@@ -37,7 +38,8 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Georgia, sans-serif;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
 }
 input {
   width: 100%;
@@ -72,13 +74,17 @@ button:hover {
   margin-bottom: 4px;
   margin-top: 0;
 }
-.navbar h3 a,
-.navbar h3 a:hover {
-  color: white;
-  text-decoration: none;
-}
 .navbar h3 em,
 .navbar h3 em:hover {
+  color: #8ad4ed;
+}
+.navbar a {
+  color: white;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  text-decoration: none;
+}
+.navbar a:hover {
   color: #8ad4ed;
 }
 /* Push all content out from under the fix nav. Do not use "margin-top" because
@@ -107,7 +113,8 @@ button:hover {
 }
 .footer a {
   color: white;
-  font-weight: bold;
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 400;
 }
 .footer a:hover {
   color: #8ad4ed;
@@ -146,6 +153,9 @@ button:hover {
   border: 1px solid #aaaaaa;
   margin: 3px 0;
   width: 100%;
+}
+.search input {
+  color: black;
 }
 .search h4 {
   display: inline-block;

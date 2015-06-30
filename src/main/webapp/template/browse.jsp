@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
 		<%@include file="common_includes.html"%>
 		<script src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
-		<script src="scripts/browse.js"></script>
+		<script src="script/browse.js"></script>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
@@ -23,6 +23,7 @@
 							<td>Dataset Type</td>
 							<td>AttributeType</td>
 							<td>Downloads</td>
+							<td>Views</td>
 				    	</tr>
 					</thead>
 					<tbody>
@@ -36,10 +37,11 @@
 								<td><%= dataset.getDatasetType().getName() %></td>
 								<td><%= dataset.getAttributeType().getName() %></td>
 								<td>
-									<a href="page?dataset=<%= URLEncoder.encode(dataset.getName()) %>">
+									<a href="dataset/<%= URLEncoder.encode(dataset.getName()) %>">
 					                	<span class="download glyphicon glyphicon-file" aria-hidden="true"></span>
 					            	</a>
 					            </td>
+					            <td><%= dataset.getNumPageViews() %></td>
 							</tr>
 						<% } %>
 					</tbody>

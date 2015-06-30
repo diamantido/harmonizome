@@ -18,7 +18,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/search/*" })
+@WebServlet(urlPatterns = { "/search/*" })
 public class Search extends HttpServlet {
 
 	private static final long serialVersionUID = 8241820002853425713L;

@@ -7,11 +7,11 @@ public class URLUtil {
 	public static String get(HttpServletRequest request) {
 		return get(request, false);
 	}
-	
+
 	public static String get(HttpServletRequest request, boolean decodeUrl) {
 		String path = request.getPathInfo();
-		if (path.equals("/")) {
-			return "";
+		if (path == null || path.equals("/") || path.equals("")) {
+			return null;
 		} else {
 			String query = path.substring(1);
 			return decodeUrl ? URLEncoder.decode(query) : query;

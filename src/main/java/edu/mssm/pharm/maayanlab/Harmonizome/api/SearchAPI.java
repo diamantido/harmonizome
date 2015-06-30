@@ -20,13 +20,15 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Download;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeGroupSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeTypeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSimpleSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DownloadSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
@@ -41,7 +43,7 @@ public class SearchAPI extends HttpServlet {
 
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSerializer());
+		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSimpleSerializer());
 		gsonBuilder.registerTypeAdapter(Download.class, new DownloadSerializer());
 		gsonBuilder.registerTypeAdapter(DatasetGroup.class, new DatasetGroupSerializer());
 		gsonBuilder.registerTypeAdapter(DatasetType.class, new DatasetTypeSerializer());
@@ -49,6 +51,7 @@ public class SearchAPI extends HttpServlet {
 		gsonBuilder.registerTypeAdapter(AttributeGroup.class, new AttributeGroupSerializer());
 		gsonBuilder.registerTypeAdapter(AttributeType.class, new AttributeTypeSerializer());
 		// gsonBuilder.registerTypeAdapter(Feature.class, new FeatureSerializer());
+		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSimpleSerializer());
 		gson = gsonBuilder.create();
 	}
 
@@ -76,6 +79,9 @@ public class SearchAPI extends HttpServlet {
 
 			results.setAttributeGroup(DAO.filterAttributeGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
 			results.setAttributeType(DAO.filterAttributeTypes(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			
+			// TODO: Implement a real query for the relevant genes.
+			results.setGene(DAO.getAllGenes());
 
 			json = gson.toJson(results);
 			HibernateUtil.commitTransaction();

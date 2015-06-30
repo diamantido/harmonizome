@@ -22,8 +22,10 @@ import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleDeserializer;
 
 public class TestSearchAPIAttributeGroup extends Mockito {
 
@@ -42,6 +44,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		when(response.getWriter()).thenReturn(writer);
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetDeserializer());
+		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSimpleDeserializer());
 		gson = gsonBuilder.create();
 	}
 

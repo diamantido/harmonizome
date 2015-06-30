@@ -19,7 +19,7 @@ public class DownloadType {
 	private int id;
 
 	@Column(name = "name", unique = true)
-	private String typeName;
+	private String name;
 	
 	@Column(name = "filename", unique = true)
 	private String filename;
@@ -30,8 +30,8 @@ public class DownloadType {
 	public DownloadType() {
 	}
 
-	public DownloadType(String typeName, String filename, Set<Download> downloads) {
-		this.typeName = typeName;
+	public DownloadType(String name, String filename, Set<Download> downloads) {
+		this.name = name;
 		this.filename = filename;
 		this.downloads = downloads;
 	}
@@ -40,12 +40,12 @@ public class DownloadType {
 		return id;
 	}
 
-	public String getTypeName() {
-		return typeName;
+	public String getName() {
+		return name;
 	}
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getFilename() {

@@ -19,7 +19,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.PAGES_BASE_URL + "/hgnc_root_family/*" })
+@WebServlet(urlPatterns = { Constant.PAGE_BASE_URL + "/hgnc_root_family/*" })
 public class HgncFamilyRootPage extends HttpServlet {
 
 	private static final long serialVersionUID = -594042157095699907L;
