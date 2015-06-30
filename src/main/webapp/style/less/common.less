@@ -78,6 +78,10 @@ button {
         em:hover {
         	color: @color-primary-very-light;   	
         }
+        span {
+        	font-size: 19px;
+        	margin-left: 10px;
+        }
     }
     a {
     	color: white;
@@ -88,7 +92,20 @@ button {
         	color: @color-primary-very-light;
         }
     }
+    ul {
+    	text-transform: uppercase;
+    }
 }
+@media (max-width: 768px) {
+	.navbar {
+		h3 {
+			span {
+				display: none;
+			}
+		}
+	}
+}
+
 /* Push all content out from under the fix nav. Do not use "margin-top" because
  * this pushes the sticky footer down as well.
  */

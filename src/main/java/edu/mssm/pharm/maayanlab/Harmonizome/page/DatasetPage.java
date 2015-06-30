@@ -19,14 +19,13 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = {  "/dataset", "/dataset/*" })
+@WebServlet(urlPatterns = { "/dataset", "/dataset/*" })
 public class DatasetPage extends HttpServlet {
 
 	private static final long serialVersionUID = -652055513491031817L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("path: " + request.getPathInfo());
 		String query = URLUtil.get(request, true);
 		Dataset dataset = null;
 		List<Dataset> datasets = null;

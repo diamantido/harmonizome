@@ -1,7 +1,27 @@
 @import "variable.less";
 
+body {
+	background-image: url(http://localhost:8080/Harmonizome/image/harmonizome-01.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
 .portal {
+	background: white;
+	border: 1px solid @color-gray-light;
+	margin-top: 10%;
+	opacity: .8;
+	padding: 10px;
+	width: 60%;
 	a {
 		color: black;
+	}
+}
+
+@media (max-width: 768px) {
+	.portal {
+		margin-top: 0% !important;
+		margin-bottom: 10%;
+		width: 100% !important;
 	}
 }
