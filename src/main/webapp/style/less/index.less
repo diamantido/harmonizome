@@ -1,11 +1,11 @@
 @import "variable.less";
 
-body {
+/*body {
 	background-image: url(http://localhost:8080/Harmonizome/image/harmonizome-01.png);
 	background-repeat: no-repeat;
 	background-size: contain;
 	background-position: center;
-}
+}*/
 .portal {
 	background: white;
 	border: 1px solid @color-gray-light;
@@ -17,11 +17,84 @@ body {
 		color: black;
 	}
 }
-
 @media (max-width: 768px) {
 	.portal {
 		margin-top: 0% !important;
 		margin-bottom: 10%;
 		width: 100% !important;
+	}
+}
+.col-fixed-200 {
+	display: inline-block;
+    height:100%;
+    width: 200px;
+}
+.resource {
+	background-color: white;
+	border: 1px solid @color-gray-light;
+	height: 220px;
+	margin-bottom: 20px;
+	padding: 20px;
+	h4 {
+		border-bottom: 1px solid @color-gray-light;
+		margin-top: 0;
+		min-height: 50px;
+		a {
+			color: @color-primary-light;
+			display: inline-block;
+			width: 65%;
+			&:hover {
+				color: @color-primary;
+			}
+		}
+		.count {
+			color: @color-primary;
+			float: right;
+			font-size: 10px;
+			text-align: right;
+			text-transform: uppercase;
+			width: 30%;
+		}
+		.logo {
+			border: 1px solid @color-gray-light;
+			display: inline-block;
+			height: 50px;
+			width: 30%;
+			overflow: hidden;
+		}
+	}
+	.labels {
+		position: absolute;
+		bottom: 40px;
+		.label {
+			color: white;
+			display: inline-block;
+			font-size: 12px;
+			margin-right: 4px;
+			padding: 2px 5px;
+		}
+		.structural-or-functional-annotations {
+			background: #fece06;
+		}
+		.proteomics {
+			background: #6e3e98;
+		}
+		.physical-interactions {
+			background: #437cbf;
+		}
+		.transcriptomics {
+			background: #2aaa49;
+		}
+		.genomics {
+			background: orange;
+		}
+		.disease-or-phenotype-associations {
+			background: #ed1f24;
+		}
+	}
+}
+@media (max-width: 768px) {
+	.resource {
+		height: auto;
 	}
 }

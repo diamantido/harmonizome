@@ -1,11 +1,11 @@
 /* Georgia, sans-serif; */
 /*"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
-body {
-  background-image: url(http://localhost:8080/Harmonizome/image/harmonizome-01.png);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
+/*body {
+	background-image: url(http://localhost:8080/Harmonizome/image/harmonizome-01.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}*/
 .portal {
   background: white;
   border: 1px solid #eeeeee;
@@ -22,5 +22,79 @@ body {
     margin-top: 0% !important;
     margin-bottom: 10%;
     width: 100% !important;
+  }
+}
+.col-fixed-200 {
+  display: inline-block;
+  height: 100%;
+  width: 200px;
+}
+.resource {
+  background-color: white;
+  border: 1px solid #eeeeee;
+  height: 220px;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.resource h4 {
+  border-bottom: 1px solid #eeeeee;
+  margin-top: 0;
+  min-height: 50px;
+}
+.resource h4 a {
+  color: #599fb7;
+  display: inline-block;
+  width: 65%;
+}
+.resource h4 a:hover {
+  color: #254657;
+}
+.resource h4 .count {
+  color: #254657;
+  float: right;
+  font-size: 10px;
+  text-align: right;
+  text-transform: uppercase;
+  width: 30%;
+}
+.resource h4 .logo {
+  border: 1px solid #eeeeee;
+  display: inline-block;
+  height: 50px;
+  width: 30%;
+  overflow: hidden;
+}
+.resource .labels {
+  position: absolute;
+  bottom: 40px;
+}
+.resource .labels .label {
+  color: white;
+  display: inline-block;
+  font-size: 12px;
+  margin-right: 4px;
+  padding: 2px 5px;
+}
+.resource .labels .structural-or-functional-annotations {
+  background: #fece06;
+}
+.resource .labels .proteomics {
+  background: #6e3e98;
+}
+.resource .labels .physical-interactions {
+  background: #437cbf;
+}
+.resource .labels .transcriptomics {
+  background: #2aaa49;
+}
+.resource .labels .genomics {
+  background: orange;
+}
+.resource .labels .disease-or-phenotype-associations {
+  background: #ed1f24;
+}
+@media (max-width: 768px) {
+  .resource {
+    height: auto;
   }
 }

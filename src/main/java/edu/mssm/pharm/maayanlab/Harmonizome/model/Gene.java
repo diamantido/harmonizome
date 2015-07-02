@@ -35,7 +35,7 @@ public class Gene {
 	private String description;
 
 	@Column(name = "ncbi_entrez_gene_id")
-	private int ncbiEntrezGeneId;
+	private Integer ncbiEntrezGeneId;
 
 	@Column(name = "ncbi_entrez_gene_url", length = 2083)
 	private String ncbiEntrezGeneUrl;

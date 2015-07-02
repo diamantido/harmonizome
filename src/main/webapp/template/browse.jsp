@@ -8,6 +8,7 @@
 		<%@include file="common_includes.html"%>
 		<script src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
 		<script src="script/browse.js"></script>
+		<link rel="stylesheet" href="style/css/browse.css">
 	</head>
 	<body>
 		<%@include file="navbar.html"%>

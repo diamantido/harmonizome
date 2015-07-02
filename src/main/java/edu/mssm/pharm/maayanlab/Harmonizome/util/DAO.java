@@ -1,11 +1,13 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
@@ -16,6 +18,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncTerminalFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class DAO {
@@ -29,6 +32,12 @@ public class DAO {
 	public static Gene getGeneBySymbol(String symbol) {
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Gene.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
 		return (Gene) criteria.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Resource> getAllResources() {
+		List<Resource> resources = (List<Resource>) HibernateUtil.getAll(Resource.class);
+		return resources;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -274,5 +283,9 @@ public class DAO {
 		}
 		
 		return (List<AttributeType>) criteria.list();
+	}
+
+	public static Attribute getAttributeByDatasetAndGene(String dataset, String gene) {
+		return null;
 	}
 }
