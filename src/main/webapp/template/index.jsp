@@ -42,19 +42,12 @@
 						for (Resource r : resources) { 
 							String description = r.getShortDescription();
 						%>
-							<div class="col-sm-4">
+							<div class="col-sm-3">
 								<div class="resource">
 									<h4>
 										<a href="<%= r.getUrl() %>" target="_blank"><%= r.getName() %></a>
-										<% String image = r.getImage();
-										if (image != "") { %>
-											<div class="logo pull-right">
-												<img src="image/resource/<%= r.getImage() %>">
-											</div>
-										<% } %>
-										<%--<span class="count"><%= r.getDatasets().size() dataset(s)</span>--%>
+										<span class="count"><%= r.getDatasets().size() %> dataset(s)</span>
 									</h4>
-									<p class="description"><%= StringUtils.capitalize(description) %></p>
 									<div class="labels">
 										<% Set<String> categories = new TreeSet<String>();
 										for (Dataset ds : r.getDatasets()) {
@@ -67,16 +60,11 @@
 											</span>
 										<% } %>
 									</div>
-
 								</div>
 							</div>
 						<% } %>
 					</div>
 
-					
-					
-					
-					
 					<!--<div id="intro" class="row">
 					    <div class="col-sm-6">
 					        <div class="portal pull-left">

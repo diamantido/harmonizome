@@ -111,12 +111,17 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 	
 	@Test
 	public void testByAttributeType() throws ServletException, IOException {
-		when(request.getParameter("attributeType")).thenReturn("cell sample");
+		when(request.getParameter("attributeType")).thenReturn("cellular_component");
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
 		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
-		assertEquals(datasetGroups.get(0).getName(), "genomics");
+		List<String> validDatasetGroupNames = new ArrayList<String>();
+		validDatasetGroupNames.add("structural or functional annotations");
+		validDatasetGroupNames.add("proteomics");
+		for (DatasetGroup dsg : datasetGroups) {
+			assertTrue(validDatasetGroupNames.contains(dsg.getName()));
+		}
 	}
 }

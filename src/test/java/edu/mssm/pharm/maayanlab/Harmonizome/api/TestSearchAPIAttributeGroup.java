@@ -71,6 +71,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		List<String> validAttribueGroupNames = new ArrayList<String>();
 		validAttribueGroupNames.add("gene");
 		validAttribueGroupNames.add("chemical");
+		validAttribueGroupNames.add("molecular profile");
 		for (AttributeGroup ag : attributeGroups) {
 			assertTrue(validAttribueGroupNames.contains(ag.getName()));
 		}

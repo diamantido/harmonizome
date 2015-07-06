@@ -66,7 +66,7 @@ public class TestSearchAPI extends Mockito {
 		String json = output.toString();
 		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
 		List<Dataset> datasets = jsonSchema.getDataset();
-		assertEquals(datasets.size(), 119);
+		assertEquals(datasets.size(), 125);
 	}
 	
 	// TODO: Add checks for other classes.

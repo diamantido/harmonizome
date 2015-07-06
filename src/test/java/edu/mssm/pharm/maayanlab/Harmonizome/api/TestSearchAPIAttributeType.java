@@ -92,6 +92,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 		List<String> validAttribueTypeNames = new ArrayList<String>();
 		validAttribueTypeNames.add("phenotype");
 		validAttribueTypeNames.add("disease");
+		validAttribueTypeNames.add("trait");
 		for (AttributeType at : attributeTypes) {
 			assertTrue(validAttribueTypeNames.contains(at.getName()));
 		}
