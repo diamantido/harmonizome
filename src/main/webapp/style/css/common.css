@@ -21,7 +21,7 @@ html {
   font-family: arial, sans-serif;
 }
 body {
-  background-color: #f8fafc;
+  /*background-color: @color-background;*/
 }
 a,
 a:link {

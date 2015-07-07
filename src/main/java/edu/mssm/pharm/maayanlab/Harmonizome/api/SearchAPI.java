@@ -14,6 +14,7 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.json.JsonSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
@@ -21,7 +22,6 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Download;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeGroupSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeTypeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupSerializer;

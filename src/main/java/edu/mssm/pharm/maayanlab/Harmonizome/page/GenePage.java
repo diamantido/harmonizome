@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
@@ -29,29 +30,46 @@ public class GenePage extends HttpServlet {
 	private static final long serialVersionUID = 4256183225988457817L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String queriedSymbol = URLUtil.get(req);
-		if (queriedSymbol.equals("")) {
-			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
-		} else {
-			Gene gene = null;
-			boolean isSynonym = false;
-			String idgFamily = "";
-			String idgTdlClass = "";
-			List<String> proteins = new ArrayList<String>();
-			List<String> geneSynonyms = new ArrayList<String>();
-			List<String> hgncRootFamilies = new ArrayList<String>();
-			List<String> hgncTerminalFamilies = new ArrayList<String>();
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-			try {
-				HibernateUtil.beginTransaction();
-				gene = DAO.getGeneBySymbol(queriedSymbol);
+		String query = URLUtil.get(request, true);
+		Gene gene = null;
+		boolean isSynonym = false;
+		
+		try {
+			HibernateUtil.beginTransaction();
+			if (query != null) {
+				gene = DAO.getGeneBySymbol(query);
 				if (gene == null) {
-					gene = DAO.getGeneBySynonymSymbol(queriedSymbol);
+					gene = DAO.getGeneBySynonymSymbol(query);
 					if (gene != null) {
 						isSynonym = true;
 					}
 				}
+				if (gene != null) {
+					
+				}
+			}
+			HibernateUtil.commitTransaction();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			HibernateUtil.rollbackTransaction();
+		}
+
+		if (query == null) {
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "gene_search.jsp").forward(request, response);			
+		} else {
+			if (gene == null) {
+				request.setAttribute("queryType", "gene");
+				request.setAttribute("query", query);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "not_found.jsp").forward(request, response);
+			} else {
+				String idgFamily = "";
+				String idgTdlClass = "";
+				List<String> proteins = new ArrayList<String>();
+				List<String> geneSynonyms = new ArrayList<String>();
+				List<String> hgncRootFamilies = new ArrayList<String>();
+				List<String> hgncTerminalFamilies = new ArrayList<String>();
 				if (gene != null) {
 					if (gene.getIdgFamily() != null) {
 						idgFamily = gene.getIdgFamily().getName();
@@ -78,32 +96,24 @@ public class GenePage extends HttpServlet {
 						}
 					}
 				}
-				HibernateUtil.commitTransaction();
-			} catch (HibernateException he) {
-				HibernateUtil.rollbackTransaction();
-			}
 
-			if (gene == null) {
-				req.setAttribute("query", queriedSymbol);
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "not_found.jsp").forward(req, resp);
-			} else {
 				// Filter engine
-				req.setAttribute("pageType", "gene");
+				request.setAttribute("pageType", "gene");
 				
 				// Information.
-				req.setAttribute("note", isSynonym ? "Gene; redirected from " + queriedSymbol : "Gene");
-				req.setAttribute("symbol", gene.getSymbol());
-				req.setAttribute("name", gene.getName());
-				req.setAttribute("description", gene.getDescription());
-				req.setAttribute("synonyms", StringUtils.join(geneSynonyms, ", "));
-				req.setAttribute("proteins", proteins.toArray(new String[proteins.size()]));
-				req.setAttribute("ncbiEntrezGeneId", gene.getNcbiEntrezGeneId());
-				req.setAttribute("ncbiEntrezGeneUrl", gene.getNcbiEntrezGeneUrl());
-				req.setAttribute("idgFamily", idgFamily);
-				req.setAttribute("idgTdlClass", idgTdlClass);
-				req.setAttribute("hgncRootFamilies", hgncRootFamilies.toArray(new String[hgncRootFamilies.size()]));
-				req.setAttribute("hgncTerminalFamilies", hgncTerminalFamilies.toArray(new String[hgncTerminalFamilies.size()]));
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "gene_page.jsp").forward(req, resp);
+				request.setAttribute("note", isSynonym ? "Gene; redirected from " + query : "Gene");
+				request.setAttribute("symbol", gene.getSymbol());
+				request.setAttribute("name", gene.getName());
+				request.setAttribute("description", gene.getDescription());
+				request.setAttribute("synonyms", StringUtils.join(geneSynonyms, ", "));
+				request.setAttribute("proteins", proteins.toArray(new String[proteins.size()]));
+				request.setAttribute("ncbiEntrezGeneId", gene.getNcbiEntrezGeneId());
+				request.setAttribute("ncbiEntrezGeneUrl", gene.getNcbiEntrezGeneUrl());
+				request.setAttribute("idgFamily", idgFamily);
+				request.setAttribute("idgTdlClass", idgTdlClass);
+				request.setAttribute("hgncRootFamilies", hgncRootFamilies.toArray(new String[hgncRootFamilies.size()]));
+				request.setAttribute("hgncTerminalFamilies", hgncTerminalFamilies.toArray(new String[hgncTerminalFamilies.size()]));
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "gene_page.jsp").forward(request, response);
 			}
 		}
 	}

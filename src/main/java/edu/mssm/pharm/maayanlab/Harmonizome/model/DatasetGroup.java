@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @Entity
 @Table(name = "dataset_group")
 public class DatasetGroup {
@@ -49,5 +52,22 @@ public class DatasetGroup {
 
 	public void setDatasets(Set<Dataset> datasets) {
 		this.datasets = datasets;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof DatasetGroup)) {
+			return false;
+		}
+        if (obj == this) {
+        	return true;
+        }
+        DatasetGroup dsg = (DatasetGroup) obj;
+        return new EqualsBuilder().append(this.name, dsg.name).isEquals();
+	}
+	
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 31).append(this.name).toHashCode();
 	}
 }

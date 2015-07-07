@@ -14,7 +14,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container browse">
-				<h3>Datasets</h3>
+				<h3>Browse datasets</h3>
 				<table class="table">
 					<thead>
 						<tr>

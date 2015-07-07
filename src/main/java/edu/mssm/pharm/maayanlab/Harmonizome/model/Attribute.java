@@ -36,15 +36,15 @@ public class Attribute {
 	@Column(name = "id_from_naming_authority")
 	private String idFromNamingAuthority;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_type_fk")
 	private AttributeType attributeType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_group_fk")
 	private AttributeGroup attributeGroup;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "naming_authority_fk")
 	private NamingAuthority namingAuthority;
 

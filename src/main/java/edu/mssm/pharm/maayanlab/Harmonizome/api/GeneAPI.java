@@ -3,7 +3,9 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,10 +18,15 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.json.GenePageSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { Constant.API_BASE_URL + "/gene/*" })
@@ -36,9 +43,9 @@ public class GeneAPI extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String symbol = req.getParameter("symbol");
-		if (symbol == null) {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String query = URLUtil.get(request);
+		if (query == null) {
 			List<String> genes = new ArrayList<String>();
 			try {
 				HibernateUtil.beginTransaction();
@@ -49,26 +56,55 @@ public class GeneAPI extends HttpServlet {
 			} catch (HibernateException he) {
 				HibernateUtil.rollbackTransaction();
 			}
-			PrintWriter out = resp.getWriter();
+			PrintWriter out = response.getWriter();
 			out.write(gson.toJson(genes));
 			out.flush();
 		} else {
-			String json = "";
 			Gene gene = null;
 			try {
 				HibernateUtil.beginTransaction();
-				gene = DAO.getGeneBySymbol(symbol);
+				gene = DAO.getGeneBySymbol(query);
 				if (gene == null) {
-					gene = DAO.getGeneBySynonymSymbol(symbol);
+					gene = DAO.getGeneBySynonymSymbol(query);
 				}
-				json = gson.toJson(gene, Gene.class);
+				if (gene != null) {
+					for (Feature f : gene.getFeatures()) {
+						System.out.println(f.getAttribute().getAttributeGroup());
+					}
+				}
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				HibernateUtil.rollbackTransaction();
 			}
-	
-			PrintWriter out = resp.getWriter();
-			out.write(json);
+			
+			/*Set<DatasetGroup> dsgs = new HashSet<DatasetGroup>();
+			Set<AttributeGroup> ags = new HashSet<AttributeGroup>();
+			Set<String> test = new HashSet<String>();
+			for (Feature f : gene.getFeatures()) {
+				dsgs.add(f.getDataset().getDatasetGroup());
+				ags.add(f.getAttribute().getAttributeGroup());
+				System.out.println(f.getAttribute().getAttributeGroup());
+			}
+			
+			System.out.println("-----");
+			for (DatasetGroup dsg : dsgs) {
+				System.out.println(dsg.getName());
+			}
+			System.out.println("-----");
+			for (AttributeGroup ag : ags) {
+				System.out.println(ag);
+			}
+			System.out.println("-----");
+			for (String s : test) {
+				System.out.println(s);
+			}
+			System.out.println("-----");*/
+			
+			GenePageSchema gps = new GenePageSchema();
+			gps.setGene(gene);
+			
+			PrintWriter out = response.getWriter();
+			out.write(gson.toJson(gps, GenePageSchema.class));
 			out.flush();
 		}
 	}

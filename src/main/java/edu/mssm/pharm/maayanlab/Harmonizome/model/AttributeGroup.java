@@ -10,6 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 @Entity
 @Table(name = "attribute_group")
 public class AttributeGroup {
@@ -52,5 +55,22 @@ public class AttributeGroup {
 
 	public void setAttributes(Set<Attribute> attributes) {
 		this.attributes = attributes;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof AttributeGroup)) {
+			return false;
+		}
+        if (obj == this) {
+        	return true;
+        }
+        AttributeGroup ag = (AttributeGroup) obj;
+        return new EqualsBuilder().append(this.name, ag.name).isEquals();
+	}
+	
+	@Override
+	public int hashCode() {
+		return new HashCodeBuilder(17, 31).append(this.name).toHashCode();
 	}
 }

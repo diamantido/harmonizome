@@ -48,7 +48,7 @@ public class DatasetPage extends HttpServlet {
 		
 		if (query == null) {
 			request.setAttribute("datasets", datasets);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "browse.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset_search.jsp").forward(request, response);
 		} else if (dataset == null) {
 			request.setAttribute("query", query);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "not_found.jsp").forward(request, response);

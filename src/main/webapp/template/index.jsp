@@ -29,7 +29,6 @@
 			<div class="content container-full">
 				<div class="container">
 					<div class="row">
-						<h1 class="col-sm-12 text-center">The Harmonizome</h1>
 						<h3 class="col-sm-12 text-center">Search a collection of processed data about genes and proteins from over 100 datasets provided by over 50 online resources.</h3>
 						<p class="col-sm-12 text-center">
 							Thanks to technological advances in genomics, transcriptomics, proteomics, metabolomics, and related fields, projects that generate a large number of measurements of the properties of cells, tissues, model organisms, and patients are becoming commonplace in biomedical research. In addition, curation projects are making great progress mining biomedical literature to extract and aggregate decades worth of research findings into online databases. Such projects are generating a wealth of information that potentially can guide research toward novel biomedical discoveries and advances in healthcare. To facilitate access to and learning from biomedical Big Data, we created the Harmonizome: a collection of information about genes and proteins from over 100 datasets provided by over 50 online resources.
@@ -64,29 +63,74 @@
 							</div>
 						<% } %>
 					</div>
-
-					<!--<div id="intro" class="row">
-					    <div class="col-sm-6">
-					        <div class="portal pull-left">
-					            <h3>Browse datasets</h3>
-					            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-					            <a href="dataset/">
-					                <button>Browse</button>
-					            </a>
-					        </div>
-					    </div>
-					    <div class="col-sm-6">
-					        <div class="portal pull-right">
-					            <h3>Search data</h3>
-					            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-					            <a href="search">
-					                <button>Search</button>
-					            </a>
-					        </div>
-					    </div>
-					</div>-->
 				</div>
 			</div>
+			
+			<div id="wrapper" class='toggled'>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+
+      <!-- Initial Content --> 
+      <div id='main_container'>
+
+        <!-- this row is required, -fluid causes problems --> 
+        <div class="row" > 
+
+          <div class="col-lg-12">
+
+            <!-- visualization -->
+            <div id='viz_container'>
+
+              <div class='row'>
+                <div id='clust_instruct_container' >
+                  <h1 id='viz_website_title'>D3 Clustergram</h1>
+
+                  <div id='viz_gmt_labels'></div>
+
+                  <div id='title_viz_instruct_text'>About:</div>
+                  <div class='viz_instruct_text'> Zoom into the clustergram using scroll. Reorder the clustergram using the toggle buttons or by clicking rows or columns. Double-click to programatically reset zoom/panning.  Search for a gene to zoom into the matrix. </div>
+                  <div class='viz_instruct_text'> D3 Clustergram is developed by Nick Fernandez at the <a href="http://icahn.mssm.edu/">Icahn School of Medicine at Mount Sinai</a> in the <a href="http://icahn.mssm.edu/research/labs/maayan-laboratory">Ma'ayan Lab</a> a <a href="http://lincs-dcic.org/">DCIC BD2K-LINCS</a> center. </div>
+
+                  <!-- input box for gene search -->  
+                  <div id='gene_search_container' class='row'>
+                      <input id='gene_search_box' type="text" class="form-control" placeholder="Input Gene" aria-describedby="sizing-addon2">
+
+                      <div id='gene_search_button' class="btn-group" data-toggle="buttons" >
+                        <label id='gene_search_submit' class="btn btn-primary active " onclick="find_gene_in_clust();">
+                          <input type="radio" name="options" id="" autocomplete="off" checked > Search
+                        </label>
+                      </div>
+                  </div>
+
+                  <div id='toggle_order' class="btn-group" data-toggle="buttons" >
+                      <label class="btn btn-primary active prot_class" onclick="reorder_clust_rank('clust');">
+                        <input type="radio" name="options" id="clust_button" autocomplete="off" checked > Cluster
+                      </label>
+                      <label class="btn btn-primary prot_class" onclick="reorder_clust_rank('rank');">
+                        <input type="radio" name="options" id="rank_button" autocomplete="off" > Rank
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div id='clustergram_container' >
+                  <div id='col_title'>Columns</div>
+                  <div id='clust_and_row_container'>
+                    <div id='row_title'>Rows</div>
+                    <div id='svg_div'></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end visualization -->
+
+          </div>
+        </div> <!-- end row -->
+      </div>
+    </div>
+			
+			
 			<%@include file="footer.html" %>
         </div>
     </body>

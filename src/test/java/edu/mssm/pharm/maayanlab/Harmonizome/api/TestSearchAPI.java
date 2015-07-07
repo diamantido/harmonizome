@@ -19,11 +19,11 @@ import org.mockito.Mockito;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.json.JsonSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.Harmonizome.pojo.JsonSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupDeserializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeDeserializer;

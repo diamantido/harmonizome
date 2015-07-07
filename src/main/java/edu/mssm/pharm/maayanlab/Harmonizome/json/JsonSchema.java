@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.pojo;
+package edu.mssm.pharm.maayanlab.Harmonizome.json;
 
 import java.util.List;
 
