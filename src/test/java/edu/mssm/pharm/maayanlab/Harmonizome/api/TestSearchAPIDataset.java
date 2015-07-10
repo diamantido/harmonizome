@@ -20,7 +20,7 @@ import org.mockito.Mockito;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.json.JsonSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.SuggestSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
@@ -53,7 +53,7 @@ public class TestSearchAPIDataset extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.get(0).getName(), "Achilles Cell Line Gene Essentiality Profiles");
 	}
@@ -64,7 +64,7 @@ public class TestSearchAPIDataset extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.size(), 6);
 		List<String> validDatasetNames = new ArrayList<String>();
@@ -85,7 +85,7 @@ public class TestSearchAPIDataset extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.size(), 2);
 		List<String> validDatasetNames = new ArrayList<String>();
@@ -102,7 +102,7 @@ public class TestSearchAPIDataset extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.size(), 9);
 	}
@@ -113,7 +113,7 @@ public class TestSearchAPIDataset extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.size(), 1);
 		assertEquals(datasets.get(0).getName(), "GO Biological Process Annotations");

@@ -9,7 +9,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 
-public class JsonSchema {
+public class SuggestSchema {
 
 	private List<Dataset> dataset;
 	private List<DatasetGroup> datasetGroup;
@@ -20,7 +20,7 @@ public class JsonSchema {
 	private List<Gene> gene;
 	/*private List<IdgFamily> idgFamily;*/
 
-	public JsonSchema() {
+	public SuggestSchema() {
 	}
 	
 	public List<Dataset> getDataset() {

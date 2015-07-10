@@ -15,10 +15,10 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneralDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -42,7 +42,7 @@ public class SuggestAPI extends HttpServlet {
 		String json = "";
 		try {
 			HibernateUtil.beginTransaction();
-			List<Gene> genes = DAO.getGenesByPrefix(genePrefix);
+			List<Gene> genes = GeneralDAO.getGenesByPrefix(genePrefix);
 			for (Gene g : genes) {
 				System.out.println(g.getSymbol());
 			}

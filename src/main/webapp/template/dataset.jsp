@@ -10,12 +10,10 @@
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				
-				<!-- Dataset content -->
+				<h3><%= request.getAttribute("name") %> <span class="note">Dataset</span></h3>
 				<section>
-					<h3><%= request.getAttribute("name") %> <span class="note">Dataset</span></h3>
+					<h4>Details</h4>	
 				    <table class="table">
-				    	<caption>Details</caption>
 				    	<tr>
 				    		<td>Resource</td>
 				    		<td><%= request.getAttribute("resource") %></td>
@@ -41,43 +39,44 @@
 				    		<td><%= request.getAttribute("download_date") %></td>
 				    	</tr>
 				    </table>
-				    <table class="table">
-				    	<caption>Downloads</caption>
-				    	<tr>
-				    		<% Set<Download> downloads = (Set<Download>) request.getAttribute("downloads");
-				    		for (Download dl : downloads) { 
-				    			String downloadType = dl.getType().getName();
-					    		String glypiconType;
-					    		if (downloadType.equals("gene list") || downloadType.equals("edge list") || downloadType.equals("attribute list")) {
-					    			glypiconType = "glyphicon-align-justify";
-					    		} else if (downloadType.equals("gene similarity matrix") || downloadType.equals("attribute similarity matrix") || downloadType.equals("attribute table")) {
-					    			glypiconType = "glyphicon-th";
-					    		} else if (
-				    				downloadType.equals("gene set library") ||
-				    				downloadType.equals("down gene set library") ||
-				    				downloadType.equals("up gene set library") ||
-				    				downloadType.equals("attribute set library") ||
-				    				downloadType.equals("down attribute set library") ||
-				    				downloadType.equals("up attribute set library")
-				    			) {
-					    			glypiconType = "glyphicon-th-list";
-					    		} else if (downloadType.equals("processing script")) {
-					    			glypiconType = "glyphicon-wrench";
-					    		} else {
-					    			glypiconType = "glyphicon-download";
-					    		}
-				    		%>
-				    			<tr>
-				    				<td><%= StringUtils.capitalize(downloadType) %></td>
-				    				<td>
-				    					<a href="download/<%= dl.getDirectory() + "/" + dl.getName() %>">
-				    						<span class="glyphicon <%= glypiconType %>" aria-hidden="true"></span>
-				    					</a>
-				    				</td>
-				    				<td><%= dl.getCount() %></td>
-				    			</tr>
-				    		<% } %>
-				    	</tr>
+				</section>
+				<section>
+					<h4>Downloads</h4>
+				    <table class="table">	
+			    		<% @SuppressWarnings("unchecked")
+			    		Set<Download> downloads = (Set<Download>) request.getAttribute("downloads");
+			    		for (Download dl : downloads) { 
+			    			String downloadType = dl.getType().getName();
+				    		String glypiconType;
+				    		if (downloadType.equals("gene list") || downloadType.equals("edge list") || downloadType.equals("attribute list")) {
+				    			glypiconType = "glyphicon-align-justify";
+				    		} else if (downloadType.equals("gene similarity matrix") || downloadType.equals("attribute similarity matrix") || downloadType.equals("attribute table")) {
+				    			glypiconType = "glyphicon-th";
+				    		} else if (
+			    				downloadType.equals("gene set library") ||
+			    				downloadType.equals("down gene set library") ||
+			    				downloadType.equals("up gene set library") ||
+			    				downloadType.equals("attribute set library") ||
+			    				downloadType.equals("down attribute set library") ||
+			    				downloadType.equals("up attribute set library")
+			    			) {
+				    			glypiconType = "glyphicon-th-list";
+				    		} else if (downloadType.equals("processing script")) {
+				    			glypiconType = "glyphicon-wrench";
+				    		} else {
+				    			glypiconType = "glyphicon-download";
+				    		}
+			    		%>
+			    			<tr>
+			    				<td><%= StringUtils.capitalize(downloadType) %></td>
+			    				<td>
+			    					<a href="download/<%= dl.getDirectory() + "/" + dl.getName() %>">
+			    						<span class="glyphicon <%= glypiconType %>" aria-hidden="true"></span>
+			    					</a>
+			    				</td>
+			    				<td><%= dl.getCount() %></td>
+			    			</tr>
+			    		<% } %>
 				    </table>
 				</section>
 				<!-- End dataset content -->

@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneralDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -33,9 +33,9 @@ public class DatasetPage extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 			if (query == null) {
-				datasets = DAO.getAllDatasets();
+				datasets = GeneralDAO.getAllDatasets();
 			} else {
-				dataset = DAO.getDatasetByName(query);
+				dataset = GeneralDAO.getDatasetByName(query);
 				if (dataset != null) {
 					dataset.setNumPageViews(dataset.getNumPageViews() + 1);
 				}

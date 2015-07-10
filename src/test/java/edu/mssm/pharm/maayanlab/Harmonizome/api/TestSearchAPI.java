@@ -19,7 +19,7 @@ import org.mockito.Mockito;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.json.JsonSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.SuggestSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
@@ -64,7 +64,7 @@ public class TestSearchAPI extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<Dataset> datasets = jsonSchema.getDataset();
 		assertEquals(datasets.size(), 125);
 	}

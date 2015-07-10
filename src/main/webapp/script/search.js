@@ -1,4 +1,4 @@
-var App = {
+/*var App = {
     Collection: {},
     Model: {},
     View: {},
@@ -64,4 +64,4 @@ $(function() {
 	
 	queryAPI();
 	App.EventAggregator.on('queryAPI', queryAPI);
-});
+});*/

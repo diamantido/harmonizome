@@ -28,6 +28,9 @@ public class AttributeGroup {
 	private Set<Attribute> attributes;
 	
 	@OneToMany(mappedBy = "attributeGroup")
+	private Set<AttributeType> attributeTypes;
+	
+	@OneToMany(mappedBy = "attributeGroup")
 	private Set<Dataset> datasets;
 
 	public AttributeGroup() {
@@ -56,7 +59,23 @@ public class AttributeGroup {
 	public void setAttributes(Set<Attribute> attributes) {
 		this.attributes = attributes;
 	}
-	
+
+	public Set<Dataset> getDatasets() {
+		return datasets;
+	}
+
+	public void setDatasets(Set<Dataset> datasets) {
+		this.datasets = datasets;
+	}
+
+	public Set<AttributeType> getAttributeTypes() {
+		return attributeTypes;
+	}
+
+	public void setAttributeTypes(Set<AttributeType> attributeTypes) {
+		this.attributeTypes = attributeTypes;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof AttributeGroup)) {

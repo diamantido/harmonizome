@@ -2,9 +2,6 @@
 <html>
 	<head>
 		<%@include file="common_includes.html"%>
-		<script>
-			var genes = ${genes};
-		</script>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>

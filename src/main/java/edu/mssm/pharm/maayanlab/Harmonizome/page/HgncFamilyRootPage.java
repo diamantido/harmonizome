@@ -12,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneralDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -34,7 +34,7 @@ public class HgncFamilyRootPage extends HttpServlet {
 			HgncRootFamily hrf = null;
 			try {
 				HibernateUtil.beginTransaction();
-				hrf = DAO.getHgncRootFamilyByName(queriedSymbol);
+				hrf = GeneralDAO.getHgncRootFamilyByName(queriedSymbol);
 				if (hrf != null) {
 					for (Gene g : hrf.getGenes()) {
 						genes.add(g.getSymbol());

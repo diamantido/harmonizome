@@ -20,7 +20,7 @@ import org.mockito.Mockito;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.json.JsonSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.SuggestSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
@@ -54,7 +54,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		assertEquals(attributeGroups.size(), 1);
 		assertEquals(attributeGroups.get(0).getName(), "gene");
@@ -66,7 +66,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		List<String> validAttribueGroupNames = new ArrayList<String>();
 		validAttribueGroupNames.add("gene");
@@ -83,7 +83,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		assertEquals(attributeGroups.size(), 1);
 		assertEquals(attributeGroups.get(0).getName(), "cell or tissue");
@@ -95,7 +95,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		assertEquals(attributeGroups.size(), 1);
 		assertEquals(attributeGroups.get(0).getName(), "sequence feature");
@@ -107,7 +107,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<AttributeGroup> attributeGroups = jsonSchema.getAttributeGroup();
 		assertEquals(attributeGroups.size(), 1);
 		assertEquals(attributeGroups.get(0).getName(), "gene");

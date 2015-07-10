@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneralDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "" })
@@ -26,7 +26,7 @@ public class Index extends HttpServlet {
 		List<Resource> resources = null;
 		try {
 			HibernateUtil.beginTransaction();
-			resources = DAO.getAllResources();
+			resources = GeneralDAO.getAllResources();
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {
 			e.printStackTrace();

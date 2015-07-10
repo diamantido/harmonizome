@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneralDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -35,7 +35,7 @@ public class AttributePage extends HttpServlet {
 
 			try {
 				HibernateUtil.beginTransaction();
-				attribute = DAO.getAttributeByDatasetAndGene(dataset, gene);
+				attribute = GeneralDAO.getAttributeByDatasetAndGene(dataset, gene);
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				HibernateUtil.rollbackTransaction();

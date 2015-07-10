@@ -3,9 +3,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,14 +16,11 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.GenePageSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -49,7 +44,7 @@ public class GeneAPI extends HttpServlet {
 			List<String> genes = new ArrayList<String>();
 			try {
 				HibernateUtil.beginTransaction();
-				for (Gene g : DAO.getAllGenes()) {
+				for (Gene g : GeneDAO.getAllGenes()) {
 					genes.add(g.getSymbol());
 				}
 				HibernateUtil.commitTransaction();
@@ -63,45 +58,82 @@ public class GeneAPI extends HttpServlet {
 			Gene gene = null;
 			try {
 				HibernateUtil.beginTransaction();
-				gene = DAO.getGeneBySymbol(query);
+				gene = GeneDAO.getGeneBySymbol(query);
 				if (gene == null) {
-					gene = DAO.getGeneBySynonymSymbol(query);
-				}
-				if (gene != null) {
-					for (Feature f : gene.getFeatures()) {
-						System.out.println(f.getAttribute().getAttributeGroup());
-					}
+					gene = GeneDAO.getGeneBySynonymSymbol(query);
 				}
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				HibernateUtil.rollbackTransaction();
 			}
 			
-			/*Set<DatasetGroup> dsgs = new HashSet<DatasetGroup>();
+			/*
+			// TODO: Make this a separate API endpoint for constructing matrices.
+			Set<DatasetGroup> dsgs = new HashSet<DatasetGroup>();
 			Set<AttributeGroup> ags = new HashSet<AttributeGroup>();
-			Set<String> test = new HashSet<String>();
 			for (Feature f : gene.getFeatures()) {
 				dsgs.add(f.getDataset().getDatasetGroup());
 				ags.add(f.getAttribute().getAttributeGroup());
-				System.out.println(f.getAttribute().getAttributeGroup());
 			}
 			
-			System.out.println("-----");
+			Map<String, Object> summaryMatrix = new HashMap<String, Object>();
+			
+			// Column and row labels.
+			Map<String, List<String>> labels = new HashMap<String, List<String>>();
+			List<String> colLabels = new ArrayList<String>();
 			for (DatasetGroup dsg : dsgs) {
-				System.out.println(dsg.getName());
+				colLabels.add(dsg.getName());
 			}
-			System.out.println("-----");
+			labels.put("cols", colLabels);
+			List<String> rowLabels = new ArrayList<String>();
 			for (AttributeGroup ag : ags) {
-				System.out.println(ag);
+				rowLabels.add(ag.getName());
 			}
-			System.out.println("-----");
-			for (String s : test) {
-				System.out.println(s);
+			labels.put("rows", rowLabels);
+			summaryMatrix.put("labels", labels);
+
+			// Calculate average of threshold value for summary matrix.
+			Map<String, Map<String, List<Double>>> runningStats = new HashMap<String, Map<String, List<Double>>>();
+			for (DatasetGroup dsg : dsgs) {
+				Map<String, List<Double>> dsgm = new HashMap<String, List<Double>>();
+				for (AttributeGroup ag : ags) {
+					List<Double> l = new ArrayList<Double>();
+					l.add(0, 0.0);
+					l.add(1, 0.0);
+					dsgm.put(ag.getName(), l);
+				}
+				runningStats.put(dsg.getName(), dsgm);
 			}
-			System.out.println("-----");*/
+			
+			for (Feature f : gene.getFeatures()) {
+				String datasetGroup = f.getDataset().getDatasetGroup().getName();
+				String attributeGroup = f.getAttribute().getAttributeGroup().getName();
+				List<Double> stats = runningStats.get(datasetGroup).get(attributeGroup);
+				double newThresholdValue = stats.get(0) + Math.abs(f.getThresholdValue());
+				stats.set(0, newThresholdValue);
+				double newCount = stats.get(1) + 1;
+				stats.set(1, newCount);
+			}
+			
+			List<MatrixCell> cells = new ArrayList<MatrixCell>();
+			for (DatasetGroup dsg : dsgs) {
+				for (AttributeGroup ag : ags) {
+					List<Double> stats = runningStats.get(dsg.getName()).get(ag.getName());
+					double averageThresholdValue = stats.get(0) / stats.get(1);
+					MatrixCell mn = new MatrixCell(
+						dsg.getName(),
+						ag.getName(),
+						averageThresholdValue
+					);
+					cells.add(mn);
+				}
+			}
+			
+			summaryMatrix.put("cells", cells);*/
 			
 			GenePageSchema gps = new GenePageSchema();
 			gps.setGene(gene);
+			//gps.setSummaryMatrix(summaryMatrix);
 			
 			PrintWriter out = response.getWriter();
 			out.write(gson.toJson(gps, GenePageSchema.class));

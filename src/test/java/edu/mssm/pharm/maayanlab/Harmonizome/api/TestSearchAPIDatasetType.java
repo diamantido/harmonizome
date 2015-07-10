@@ -20,7 +20,7 @@ import org.mockito.Mockito;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.json.JsonSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.SuggestSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
@@ -59,7 +59,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
 		assertEquals(datasetTypes.get(0).getName(), "data aggregation");
 	}
@@ -70,7 +70,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
 		assertEquals(datasetTypes.size(), 5);
 		List<String> validDatasetTypeNames = new ArrayList<String>();
@@ -90,7 +90,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
 		assertEquals(datasetTypes.size(), 1);
 		assertEquals(datasetTypes.get(0).getName(), "DNA methylation bisulfite sequencing, MeDIP-seq, or MRE-seq");
@@ -102,7 +102,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
 		assertEquals(datasetTypes.size(), 1);
 		assertEquals(datasetTypes.get(0).getName(), "eQTL mapping");
@@ -114,7 +114,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
 		assertEquals(datasetTypes.size(), 2);
 		List<String> validDatasetTypeNames = new ArrayList<String>();

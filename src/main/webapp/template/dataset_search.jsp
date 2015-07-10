@@ -14,7 +14,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container browse">
-				<h3>Browse datasets</h3>
+				<h3>Datasets</h3>
 				<table class="table">
 					<thead>
 						<tr>
@@ -28,7 +28,8 @@
 				    	</tr>
 					</thead>
 					<tbody>
-						<% List<Dataset> datasets = (List<Dataset>) request.getAttribute("datasets");
+						<% @SuppressWarnings("unchecked")
+						List<Dataset> datasets = (List<Dataset>) request.getAttribute("datasets");
 						for (int i = 0; i < datasets.size(); i++) { %>
 							<% Dataset dataset = datasets.get(i); %>
 							<tr>

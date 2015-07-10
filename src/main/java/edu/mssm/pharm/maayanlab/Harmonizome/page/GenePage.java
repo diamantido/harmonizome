@@ -3,6 +3,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.page;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,14 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncTerminalFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -35,19 +37,20 @@ public class GenePage extends HttpServlet {
 		String query = URLUtil.get(request, true);
 		Gene gene = null;
 		boolean isSynonym = false;
+		Map<String, Map<String, List<Attribute>>> organizedAttributes = null;
 		
 		try {
 			HibernateUtil.beginTransaction();
 			if (query != null) {
-				gene = DAO.getGeneBySymbol(query);
+				gene = GeneDAO.getGeneBySymbol(query);
 				if (gene == null) {
-					gene = DAO.getGeneBySynonymSymbol(query);
+					gene = GeneDAO.getGeneBySynonymSymbol(query);
 					if (gene != null) {
 						isSynonym = true;
-					}
+					} 
 				}
 				if (gene != null) {
-					
+					organizedAttributes = AttributeDAO.getAttributesByGroupAndTypeFromGene(query);
 				}
 			}
 			HibernateUtil.commitTransaction();
@@ -97,9 +100,6 @@ public class GenePage extends HttpServlet {
 					}
 				}
 
-				// Filter engine
-				request.setAttribute("pageType", "gene");
-				
 				// Information.
 				request.setAttribute("note", isSynonym ? "Gene; redirected from " + query : "Gene");
 				request.setAttribute("symbol", gene.getSymbol());
@@ -113,6 +113,7 @@ public class GenePage extends HttpServlet {
 				request.setAttribute("idgTdlClass", idgTdlClass);
 				request.setAttribute("hgncRootFamilies", hgncRootFamilies.toArray(new String[hgncRootFamilies.size()]));
 				request.setAttribute("hgncTerminalFamilies", hgncTerminalFamilies.toArray(new String[hgncTerminalFamilies.size()]));
+				request.setAttribute("organizedAttributes", organizedAttributes);
 				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "gene_page.jsp").forward(request, response);
 			}
 		}

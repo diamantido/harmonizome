@@ -20,7 +20,7 @@ import org.mockito.Mockito;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.json.JsonSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.SuggestSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
@@ -59,7 +59,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		assertEquals(datasetGroups.get(0).getName(), "omics");
 	}
@@ -70,7 +70,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		assertEquals(datasetGroups.size(), 1);
 	}
@@ -81,7 +81,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		List<String> validDatasetGroupNames = new ArrayList<String>();
 		validDatasetGroupNames.add("structural or functional annotations");
@@ -97,7 +97,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		assertEquals(datasetGroups.size(), 3);
 		List<String> validDatasetGroupNames = new ArrayList<String>();
@@ -115,7 +115,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 		new SearchAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
-		JsonSchema jsonSchema = gson.fromJson(json, JsonSchema.class);
+		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
 		List<DatasetGroup> datasetGroups = jsonSchema.getDatasetGroup();
 		List<String> validDatasetGroupNames = new ArrayList<String>();
 		validDatasetGroupNames.add("structural or functional annotations");

@@ -14,7 +14,9 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.json.JsonSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneralDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.SuggestSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
@@ -30,7 +32,6 @@ import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DownloadSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.DAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -67,21 +68,21 @@ public class SearchAPI extends HttpServlet {
 		String gene = URLUtil.get(request, "gene");
 		String idgFamily = URLUtil.get(request, "idgFamily");
 
-		JsonSchema results = new JsonSchema();
+		SuggestSchema results = new SuggestSchema();
 		PrintWriter out = response.getWriter();
 		String json = "";
 		try {
 			HibernateUtil.beginTransaction();
 
-			results.setDataset(DAO.filterDataset(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
-			results.setDatasetGroup(DAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
-			results.setDatasetType(DAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDataset(GeneralDAO.filterDataset(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDatasetGroup(GeneralDAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDatasetType(GeneralDAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
 
-			results.setAttributeGroup(DAO.filterAttributeGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
-			results.setAttributeType(DAO.filterAttributeTypes(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setAttributeGroup(GeneralDAO.filterAttributeGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setAttributeType(GeneralDAO.filterAttributeTypes(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
 			
 			// TODO: Implement a real query for the relevant genes.
-			results.setGene(DAO.getAllGenes());
+			results.setGene(GeneDAO.getAllGenes());
 
 			json = gson.toJson(results);
 			HibernateUtil.commitTransaction();
