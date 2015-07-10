@@ -1,10 +1,19 @@
 function showAttributesByGroup(group) {
 	console.log(group);
-	var $group = $('.' + group);
-	//$('.attributes-data').addClass('hidden');
-	if ($group.hasClass('hidden')) {
-		$group.removeClass('hidden');
+	var $attributes = $('.' + group).next();
+	if ($attributes.hasClass('active')) {
+		$attributes.fadeOut();
 	} else {
-		$group.addClass('hidden');
+		$attributes.fadeIn();
 	}
+	$attributes.toggleClass('active');
+	/*if ($attributes.hasClass('data-hidden')) {
+		$attributes.removeClass('hidden');
+	} else {
+		$attributes.addClass('hidden');
+	}*/
 }
+
+/*$(function() {
+	$('.attributes').dataTable();
+});*/

@@ -2,13 +2,16 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
+<%@ page import="org.apache.commons.lang3.tuple.Pair" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.URLEncoder" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
+<%@ page import="java.net.URLEncoder" %>
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
+		<script src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
 		<link rel="stylesheet" href="style/css/gene.css">
 		<script src="script/gene.js"></script>
 	</head>
@@ -16,10 +19,9 @@
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>${symbol} <span class="note">${note}</span></h3>
+				<h1>${symbol} <span class="note">${note}</span></h1>
 				<section>
-					<h4>Metadata</h4>
-					<table class="table row">
+					<table class="table">
 						<tr>
 							<td class="col-sm-3">Name</td>
 							<td class="col-sm-9">${name}</td>
@@ -76,48 +78,72 @@
 					</table>
 				</section>
 				<section>
-					<h4>Attributes</h4>
-					<table class="table row attributes">
-						<% @SuppressWarnings("unchecked")
-						Map<String, Map<String, List<Attribute>>> organizedAttributes = (Map<String, Map<String, List<Attribute>>>) request.getAttribute("organizedAttributes");
-						for (Map.Entry<String, Map<String, List<Attribute>>> groups : organizedAttributes.entrySet()) {
-							String agName = groups.getKey();
-							String className = StringUtils.join(agName.replace(",", "").split(" "), "-");
-						%>
+					<h2>Attributes by dataset</h2>
+					<p class="instruction">Click on a dataset to see attributes for ${symbol}.</p>
+					<table class="table attributes">
+						<thead>
 							<tr>
-								<td class="col-sm-3">
-									<%= agName %>
+								<th>Dataset</th>
+								<th>Description</th>
+								<th>Collection Method</th>
+								<th>Attribute</th>
+							</tr>
+						</thead>
+						<% @SuppressWarnings("unchecked")
+						List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDataset = (List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>>) request.getAttribute("attributesByDataset");
+						for (Pair<Dataset, Pair<List<Attribute>, List<Attribute>>> pair : attributesByDataset) {
+							Dataset dataset = pair.getLeft();
+							Pair<List<Attribute>, List<Attribute>> attributes = pair.getRight();
+							String datasetName = dataset.getName();
+							String datasetURL = URLEncoder.encode(datasetName);
+							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
+						%>
+							<tr class="<%= className %>">
+								<td>
+									<a href="dataset/<%= datasetURL %>"><%= dataset.getName() %></a>
 								</td>
-								<td class="types col-sm-9" onclick="showAttributesByGroup('<%= className %>')">
-									<% Map<String, List<Attribute>> attributesByType = groups.getValue();
-									for (Map.Entry<String, List<Attribute>> types : attributesByType.entrySet()) {
-										String atName = types.getKey();
-									%>
-										<%= atName %>
-									<% } %>
+								<td class="cursor-pointer" onclick="showAttributesByGroup('<%= className %>')">
+									<%= StringUtils.capitalize(dataset.getDescription()) %>
+								</td>
+								<td class="cursor-pointer" onclick="showAttributesByGroup('<%= className %>')">
+									<%= dataset.getDatasetType().getName() %>
+								</td>
+								<td class="cursor-pointer" onclick="showAttributesByGroup('<%= className %>')">
+									<%= dataset.getAttributeType().getName() %>
 								</td>
 							</tr>
-							<tr class="<%= className %> attributes-data hidden">
-								<td class="col-sm-3"></td>
-								<td class="col-sm-9">
-									<% Map<String, List<Attribute>> attributesByType2 = groups.getValue();
-									for (Map.Entry<String, List<Attribute>> types : attributesByType2.entrySet()) {
-										String atName = types.getKey();
-										List<Attribute> attributes = types.getValue();
-										Iterator<Attribute> iter = attributes.iterator();
-										
-										while (iter.hasNext()) {
-											String name = iter.next().getName();
-										%>
-											<a href="attribute/<%= URLEncoder.encode(name) %>">
-												<%= name %><% if (iter.hasNext()) { %>, <% } %>
-											</a>
-										<% }
-									} %>
+							<tr class="attribute-list">
+								<td colspan="5">
+									<div><em><%= StringUtils.capitalize(dataset.getAttributeType().getName()) + "s:" %></em></div>
+									<div>
+										<% Iterator<Attribute> posIter = attributes.getLeft().iterator();
+										if (posIter.hasNext()) { %>
+											Up:
+											<% while (posIter.hasNext()) {
+												Attribute attribute = posIter.next();
+												String name = attribute.getName();
+											%>
+												<a href="attribute/<%= URLEncoder.encode(name, "UTF-8") %>">
+													<%= name %></a><% if (posIter.hasNext()) { %>, <% } %>
+											<% }
+										} %>
+									</div>
+									<div>
+										<% Iterator<Attribute> negIter = attributes.getRight().iterator();
+										if (negIter.hasNext()) { %>
+											Down:
+											<% while (negIter.hasNext()) {
+												Attribute attribute = negIter.next();
+												String name = attribute.getName();
+											%>
+												<a href="attribute/<%= URLEncoder.encode(name, "UTF-8") %>"><%= name %></a><% if (negIter.hasNext()) { %>, <% } %>
+											<% }
+										} %>
+									</div>
 								</td>
 							</tr>
 						<% } %>
-					</table>
+					</table>				
 				</section>
 			</div>
 			<%@include file="footer.html" %>

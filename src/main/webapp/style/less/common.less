@@ -44,6 +44,7 @@ h5,
 h6 {
     font-family: @font-family-primary;
     font-weight: @font-weight-primary;
+    border-bottom: 1px solid @color-gray-medium;
 }
 input {
 	width: 100%;
@@ -75,6 +76,7 @@ button {
     width: 100%;
     z-index: 999;
     h3 {
+    	border: none;
         margin-bottom: 4px;
         margin-top: 0;
         em,
@@ -120,6 +122,7 @@ button {
 .footer {
 	background: @color-charcoal;
 	bottom: 0;
+	color: white;
 	padding: 13px;
 	position: absolute;
 	width: 100%;
@@ -127,7 +130,6 @@ button {
 		list-style-type: none;
 	}
 	li {
-		display: inline;
 		&:first-child {
 			margin-right: 10px;
 		}
@@ -162,6 +164,9 @@ button {
 }
 .accent {
 	color: @color-accent;
+}
+.instruction {
+	font-style: italic;
 }
 
 /* Filter engine.
@@ -220,4 +225,10 @@ button {
 			color: @color-gray-medium;
 		}
 	}
+}
+
+/* Bootstrap overwrites.
+ */
+.table > tbody > tr:first-child > td {
+    border: none;
 }

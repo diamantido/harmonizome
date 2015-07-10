@@ -9,11 +9,11 @@ body {
 }
 .wrapper {
   min-height: 100%;
-  padding-bottom: 50px;
+  padding-bottom: 90px;
   position: relative;
 }
 .footer {
-  height: 50px;
+  height: 90px;
 }
 /* Tag selectors.
  */
@@ -43,6 +43,7 @@ h5,
 h6 {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
+  border-bottom: 1px solid #aaaaaa;
 }
 input {
   width: 100%;
@@ -74,6 +75,7 @@ button:hover {
   z-index: 999;
 }
 .navbar h3 {
+  border: none;
   margin-bottom: 4px;
   margin-top: 0;
 }
@@ -108,20 +110,18 @@ button:hover {
 .content {
   position: relative;
   top: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 90px;
 }
 .footer {
   background: #222222;
   bottom: 0;
+  color: white;
   padding: 13px;
   position: absolute;
   width: 100%;
 }
 .footer ul {
   list-style-type: none;
-}
-.footer li {
-  display: inline;
 }
 .footer li:first-child {
   margin-right: 10px;
@@ -153,6 +153,9 @@ button:hover {
 }
 .accent {
   color: #e15829;
+}
+.instruction {
+  font-style: italic;
 }
 /* Filter engine.
  */
@@ -202,4 +205,9 @@ button:hover {
 }
 .browse .download:hover {
   color: #aaaaaa;
+}
+/* Bootstrap overwrites.
+ */
+.table > tbody > tr:first-child > td {
+  border: none;
 }

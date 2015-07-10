@@ -27,7 +27,7 @@ public class AttributePage extends HttpServlet {
 		Attribute attribute = null;
 		try {
 			HibernateUtil.beginTransaction();
-			attribute = AttributeDAO.getAttributeByName(query);
+			attribute = AttributeDAO.getByName(query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();

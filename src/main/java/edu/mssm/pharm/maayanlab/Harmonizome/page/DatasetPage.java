@@ -66,7 +66,7 @@ public class DatasetPage extends HttpServlet {
 				request.setAttribute("download_date", new SimpleDateFormat("MM/dd/yyyy").format(downloadDate));
 			}
 			request.setAttribute("downloads", dataset.getDownloads());
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "datasetPage.jsp").forward(request, response);
 		}
 	}
 }

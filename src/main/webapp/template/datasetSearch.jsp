@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <%@ page import="java.util.List" %>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.URLEncoder" %>
 <html>
 	<head>
 		<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
@@ -15,6 +15,7 @@
 		<div class="wrapper">
 			<div class="content container browse">
 				<h3>Datasets</h3>
+				<p class="instruction">Sort the table below clicking on the headers or type in the search bar.</p>
 				<table class="table">
 					<thead>
 						<tr>
@@ -39,7 +40,7 @@
 								<td><%= dataset.getDatasetType().getName() %></td>
 								<td><%= dataset.getAttributeType().getName() %></td>
 								<td>
-									<a href="dataset/<%= URLEncoder.encode(dataset.getName()) %>">
+									<a href="dataset/<%= URLEncoder.encode(dataset.getName(), "UTF-8") %>">
 					                	<span class="download glyphicon glyphicon-file" aria-hidden="true"></span>
 					            	</a>
 					            </td>

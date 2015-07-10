@@ -10,9 +10,8 @@
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<h3><%= request.getAttribute("name") %> <span class="note">Dataset</span></h3>
+				<h1><%= request.getAttribute("name") %> <span class="note">Dataset</span></h1>
 				<section>
-					<h4>Details</h4>	
 				    <table class="table">
 				    	<tr>
 				    		<td>Resource</td>
@@ -41,8 +40,16 @@
 				    </table>
 				</section>
 				<section>
-					<h4>Downloads</h4>
-				    <table class="table">	
+					<h2>Downloads</h2>
+				    <table class="table">
+				    	<thead>
+				    		<tr>
+				    			<th>Content</th>
+				    			<th>Download link</th>
+				    			<th>Number of downloads</th>
+				    		</tr>
+				    	</thead>
+				    	<tbody>
 			    		<% @SuppressWarnings("unchecked")
 			    		Set<Download> downloads = (Set<Download>) request.getAttribute("downloads");
 			    		for (Download dl : downloads) { 
@@ -77,6 +84,7 @@
 			    				<td><%= dl.getCount() %></td>
 			    			</tr>
 			    		<% } %>
+				    	</tbody>
 				    </table>
 				</section>
 				<!-- End dataset content -->
