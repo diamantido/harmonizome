@@ -14,7 +14,6 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneralDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.SuggestSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
@@ -82,7 +81,7 @@ public class SearchAPI extends HttpServlet {
 			results.setAttributeType(GeneralDAO.filterAttributeTypes(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
 			
 			// TODO: Implement a real query for the relevant genes.
-			results.setGene(GeneDAO.getAllGenes());
+			//results.setGene(GeneDAO.getGenes());
 
 			json = gson.toJson(results);
 			HibernateUtil.commitTransaction();

@@ -38,6 +38,7 @@ public class GenePage extends HttpServlet {
 		Gene gene = null;
 		boolean isSynonym = false;
 		Map<String, Map<String, List<Attribute>>> organizedAttributes = null;
+		List<String> genes = null;
 		
 		try {
 			HibernateUtil.beginTransaction();
@@ -52,6 +53,8 @@ public class GenePage extends HttpServlet {
 				if (gene != null) {
 					organizedAttributes = AttributeDAO.getAttributesByGroupAndTypeFromGene(query);
 				}
+			} else {
+				genes = GeneDAO.getGeneSymbols();
 			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {
@@ -60,12 +63,13 @@ public class GenePage extends HttpServlet {
 		}
 
 		if (query == null) {
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "gene_search.jsp").forward(request, response);			
+			request.setAttribute("genes", genes);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "geneSearch.jsp").forward(request, response);
 		} else {
 			if (gene == null) {
 				request.setAttribute("queryType", "gene");
 				request.setAttribute("query", query);
-				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "not_found.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
 			} else {
 				String idgFamily = "";
 				String idgTdlClass = "";
@@ -114,7 +118,7 @@ public class GenePage extends HttpServlet {
 				request.setAttribute("hgncRootFamilies", hgncRootFamilies.toArray(new String[hgncRootFamilies.size()]));
 				request.setAttribute("hgncTerminalFamilies", hgncTerminalFamilies.toArray(new String[hgncTerminalFamilies.size()]));
 				request.setAttribute("organizedAttributes", organizedAttributes);
-				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "gene_page.jsp").forward(request, response);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "genePage.jsp").forward(request, response);
 			}
 		}
 	}

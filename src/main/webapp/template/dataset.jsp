@@ -4,7 +4,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Download" %>
 <html>
 	<head>
-		<%@include file="common_includes.html" %>
+		<%@include file="commonIncludes.html" %>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>

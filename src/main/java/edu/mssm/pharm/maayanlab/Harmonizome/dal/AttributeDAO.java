@@ -100,4 +100,15 @@ public class AttributeDAO {
 		}
 		return organizedAttributes;
 	}
+
+	public static Attribute getAttributeByName(String name) {
+		return (Attribute) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT attr FROM Attribute AS attr " +
+				"WHERE attr.name = :name"
+			)
+			.setString("name", name)
+			.uniqueResult();
+	}
 }

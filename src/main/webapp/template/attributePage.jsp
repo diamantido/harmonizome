@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<%@include file="common_includes.html"%>
+		<%@include file="commonIncludes.html" %>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>${symbol} <span class="note">${note}</span></h3>
+				<h3>${name} <span class="note">Attribute</span></h3>
 				<table class="table">
 					<tr>
 						<td class="col-sm-3"></td>

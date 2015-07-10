@@ -8,7 +8,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.URLEncoder" %>
 <html>
 	<head>
-		<%@include file="common_includes.html" %>
+		<%@include file="commonIncludes.html" %>
 		<link rel="stylesheet" href="style/css/gene.css">
 		<script src="script/gene.js"></script>
 	</head>
@@ -109,7 +109,7 @@
 										while (iter.hasNext()) {
 											String name = iter.next().getName();
 										%>
-											<a href="attribute/<%= name %>">
+											<a href="attribute/<%= URLEncoder.encode(name) %>">
 												<%= name %><% if (iter.hasNext()) { %>, <% } %>
 											</a>
 										<% }

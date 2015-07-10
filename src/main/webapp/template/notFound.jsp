@@ -1,8 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<%@include file="common_includes.html"%>
-		<script src="scripts/gene_landing.js"></script>
+		<%@include file="commonIncludes.html" %>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>

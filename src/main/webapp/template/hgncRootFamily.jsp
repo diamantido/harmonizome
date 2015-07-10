@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<%@include file="common_includes.html"%>
+		<%@include file="commonIncludes.html" %>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>

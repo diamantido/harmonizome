@@ -12,9 +12,11 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class GeneDAO {
 
 	@SuppressWarnings("unchecked")
-	public static List<Gene> getAllGenes() {
-		List<Gene> genes = (List<Gene>) HibernateUtil.getAll(Gene.class);
-		return genes;
+	public static List<String> getGeneSymbols() {
+		return (List<String>) HibernateUtil
+			.getCurrentSession()
+			.createQuery("SELECT gene.symbol FROM Gene AS gene")
+			.list();
 	}
 
 	public static Gene getGeneBySymbol(String symbol) {

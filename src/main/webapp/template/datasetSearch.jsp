@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
-		<%@include file="common_includes.html"%>
+		<%@include file="commonIncludes.html" %>
 		<script src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
 		<script src="script/browse.js"></script>
 		<link rel="stylesheet" href="style/css/browse.css">

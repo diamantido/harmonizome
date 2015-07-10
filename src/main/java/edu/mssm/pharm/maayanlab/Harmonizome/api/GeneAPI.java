@@ -2,7 +2,6 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -41,12 +40,10 @@ public class GeneAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = URLUtil.get(request);
 		if (query == null) {
-			List<String> genes = new ArrayList<String>();
+			List<String> genes = null;//new ArrayList<String>();
 			try {
 				HibernateUtil.beginTransaction();
-				for (Gene g : GeneDAO.getAllGenes()) {
-					genes.add(g.getSymbol());
-				}
+				genes = GeneDAO.getGeneSymbols();
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				HibernateUtil.rollbackTransaction();
