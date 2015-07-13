@@ -43,7 +43,7 @@ public class GeneAPI extends HttpServlet {
 			List<String> genes = null;//new ArrayList<String>();
 			try {
 				HibernateUtil.beginTransaction();
-				genes = GeneDAO.getGeneSymbols();
+				genes = GeneDAO.getSymbols();
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				HibernateUtil.rollbackTransaction();
@@ -55,9 +55,9 @@ public class GeneAPI extends HttpServlet {
 			Gene gene = null;
 			try {
 				HibernateUtil.beginTransaction();
-				gene = GeneDAO.getGeneBySymbol(query);
+				gene = GeneDAO.getBySymbol(query);
 				if (gene == null) {
-					gene = GeneDAO.getGeneBySynonymSymbol(query);
+					gene = GeneDAO.getBySynonymSymbol(query);
 				}
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {

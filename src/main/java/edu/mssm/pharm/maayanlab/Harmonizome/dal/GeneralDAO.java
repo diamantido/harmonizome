@@ -34,17 +34,6 @@ public class GeneralDAO {
 		return (List<Gene>) criteria.list();
 	}
 
-	@SuppressWarnings("unchecked")
-	public static List<Dataset> getAllDatasets() {
-		List<Dataset> datasets = (List<Dataset>) HibernateUtil.getAll(Dataset.class);
-		return datasets;
-	}
-
-	public static Dataset getDatasetByName(String name) {
-		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Dataset.class).add(Restrictions.eq("name", name).ignoreCase());
-		return (Dataset) criteria.uniqueResult();
-	}
-
 	public static Protein getProteinBySymbol(String symbol) {
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Protein.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
 		return (Protein) criteria.uniqueResult();

@@ -153,15 +153,15 @@ public class AttributeDAO {
 	
 	public static List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> getAttributesByDatasetsFromGene(String geneSymbol) {
 		List<Dataset> datasetsByGene = DatasetDAO.getDatasetsByGene(geneSymbol);
-		List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDatasets2 = new ArrayList<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>>();
+		List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDatasets = new ArrayList<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>>();
 		for (Dataset dataset : datasetsByGene) {
 			String datasetName = dataset.getName();
 			List<Attribute> pos = getFromDatasetAndGeneAndValue(datasetName, geneSymbol, 1);
 			List<Attribute> neg = getFromDatasetAndGeneAndValue(datasetName, geneSymbol, -1);
 			Pair<List<Attribute>, List<Attribute>> attributes = new ImmutablePair<List<Attribute>, List<Attribute>>(pos, neg);
 			Pair<Dataset, Pair<List<Attribute>, List<Attribute>>> pair = new ImmutablePair<Dataset, Pair<List<Attribute>, List<Attribute>>>(dataset, attributes); 
-			attributesByDatasets2.add(pair);
+			attributesByDatasets.add(pair);
 		}
-		return attributesByDatasets2;
+		return attributesByDatasets;
 	}
 }

@@ -1,4 +1,5 @@
 <!DOCTYPE HTML>
+<%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
@@ -7,13 +8,12 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
-<%@ page import="java.net.URLEncoder" %>
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
 		<script src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
-		<link rel="stylesheet" href="style/css/gene.css">
-		<script src="script/gene.js"></script>
+		<link rel="stylesheet" href="style/css/show.css">
+		<script src="script/show.js"></script>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>
@@ -60,7 +60,7 @@
 							<td class="col-sm-9">
 								<% String[] hgncRootFamilies = (String[]) request.getAttribute("hgncRootFamilies");
 								for (int i = 0; i < hgncRootFamilies.length; i++) { %>
-									<a href="hgnc_root_family/<%= URLEncoder.encode(hgncRootFamilies[i]) %>">
+									<a href="hgnc_root_family/<%= URLEncoder.encode(hgncRootFamilies[i], "UTF-8") %>">
 									<%= hgncRootFamilies[i] %></a><%= i != hgncRootFamilies.length-1 ? "," : "" %>
 								<% } %>
 							</td>
@@ -70,7 +70,7 @@
 							<td class="col-sm-9">
 								<% String[] hgncTerminalFamilies = (String[]) request.getAttribute("hgncTerminalFamilies");
 								for (int i = 0; i < hgncRootFamilies.length; i++) { %>
-									<a href="hgnc_terminal_family/<%= URLEncoder.encode(hgncTerminalFamilies[i]) %>">
+									<a href="hgnc_terminal_family/<%= URLEncoder.encode(hgncTerminalFamilies[i], "UTF-8") %>">
 									<%= hgncTerminalFamilies[i] %></a><%= i != hgncTerminalFamilies.length-1 ? "," : "" %>
 								<% } %>
 							</td>
@@ -83,9 +83,8 @@
 					<table class="table attributes">
 						<thead>
 							<tr>
+								<th></th>
 								<th>Dataset</th>
-								<th>Description</th>
-								<th>Collection Method</th>
 								<th>Attribute</th>
 							</tr>
 						</thead>
@@ -95,27 +94,25 @@
 							Dataset dataset = pair.getLeft();
 							Pair<List<Attribute>, List<Attribute>> attributes = pair.getRight();
 							String datasetName = dataset.getName();
-							String datasetURL = URLEncoder.encode(datasetName);
+							String datasetURL = URLEncoder.encode(datasetName, "UTF-8");
 							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
 						%>
 							<tr class="<%= className %>">
-								<td>
+								<td class="col-sm-1">
+									<span class="glyphicon glyphicon-plus cursor-pointer" aria-hidden="true" onclick="showByGroup('<%= className %>')"></span>
+									<span class="glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true" onclick="showByGroup('<%= className %>')"></span>
+								</td>
+								<td class="col-sm-6">
 									<a href="dataset/<%= datasetURL %>"><%= dataset.getName() %></a>
 								</td>
-								<td class="cursor-pointer" onclick="showAttributesByGroup('<%= className %>')">
-									<%= StringUtils.capitalize(dataset.getDescription()) %>
-								</td>
-								<td class="cursor-pointer" onclick="showAttributesByGroup('<%= className %>')">
-									<%= dataset.getDatasetType().getName() %>
-								</td>
-								<td class="cursor-pointer" onclick="showAttributesByGroup('<%= className %>')">
+								<td class="col-sm-5">
 									<%= dataset.getAttributeType().getName() %>
 								</td>
 							</tr>
-							<tr class="attribute-list">
+							<tr class="item-list">
 								<td colspan="5">
 									<div><em><%= StringUtils.capitalize(dataset.getAttributeType().getName()) + "s:" %></em></div>
-									<div>
+									<div class="first">
 										<% Iterator<Attribute> posIter = attributes.getLeft().iterator();
 										if (posIter.hasNext()) { %>
 											Up:

@@ -44,9 +44,9 @@ public class GenePage extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 			if (query != null) {
-				gene = GeneDAO.getGeneBySymbol(query);
+				gene = GeneDAO.getBySymbol(query);
 				if (gene == null) {
-					gene = GeneDAO.getGeneBySynonymSymbol(query);
+					gene = GeneDAO.getBySynonymSymbol(query);
 					if (gene != null) {
 						isSynonym = true;
 					} 
@@ -55,7 +55,7 @@ public class GenePage extends HttpServlet {
 					attributesByDataset = AttributeDAO.getAttributesByDatasetsFromGene(query);
 				}
 			} else {
-				genes = GeneDAO.getGeneSymbols();
+				genes = GeneDAO.getSymbols();
 			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {
@@ -105,7 +105,6 @@ public class GenePage extends HttpServlet {
 					}
 				}
 
-				// Information.
 				request.setAttribute("note", isSynonym ? "Gene; redirected from " + query : "Gene");
 				request.setAttribute("symbol", gene.getSymbol());
 				request.setAttribute("name", gene.getName());
