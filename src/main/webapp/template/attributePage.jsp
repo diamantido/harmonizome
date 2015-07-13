@@ -1,5 +1,4 @@
 <!DOCTYPE HTML>
-<%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
@@ -10,6 +9,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.NamingAuthority" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
@@ -33,14 +33,14 @@
 							<% String ag = (String) request.getAttribute("attributeGroup"); %>
 							<td class="col-sm-3">Attribute group</td>
 							<td class="col-sm-9">
-								<a href="attribute_group/<%= URLEncoder.encode(ag, "UTF-8") %>"><%= ag %></a>
+								<a href="attribute_group/<%= URLCodec.encode(ag) %>"><%= ag %></a>
 							</td>
 						</tr>
 						<tr>
 							<% String at = (String) request.getAttribute("attributeType"); %>
 							<td class="col-sm-3">Attribute type</td>
 							<td class="col-sm-9">
-								<a href="attribute_type/<%= URLEncoder.encode(at, "UTF-8") %>"><%= at %></a>
+								<a href="attribute_type/<%= URLCodec.encode(at) %>"><%= at %></a>
 							</td>
 						</tr>
 						<tr>
@@ -84,7 +84,7 @@
 							Dataset dataset = pair.getLeft();
 							Pair<List<Gene>, List<Gene>> attributes = pair.getRight();
 							String datasetName = dataset.getName();
-							String datasetURL = URLEncoder.encode(datasetName, "UTF-8");
+							String datasetURL = URLCodec.encode(datasetName);
 							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
 						%>
 							<tr class="<%= className %>">
@@ -106,7 +106,7 @@
 												Gene gene = posIter.next();
 												String symbol = gene.getSymbol();
 											%>
-												<a href="gene/<%= URLEncoder.encode(symbol, "UTF-8") %>">
+												<a href="gene/<%= URLCodec.encode(symbol) %>">
 													<%= symbol %></a><% if (posIter.hasNext()) { %>, <% } %>
 											<% }
 										} %>
@@ -119,7 +119,7 @@
 												Gene gene = negIter.next();
 												String symbol = gene.getSymbol();
 											%>
-												<a href="gene/<%= URLEncoder.encode(symbol, "UTF-8") %>"><%= symbol %></a><% if (negIter.hasNext()) { %>, <% } %>
+												<a href="gene/<%= URLCodec.encode(symbol) %>"><%= symbol %></a><% if (negIter.hasNext()) { %>, <% } %>
 											<% }
 										} %>
 									</div>

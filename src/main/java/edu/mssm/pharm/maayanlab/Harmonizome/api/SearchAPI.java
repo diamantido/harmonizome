@@ -23,6 +23,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Download;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeGroupSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeTypeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupSerializer;
@@ -31,7 +32,6 @@ import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DownloadSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.URLUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { Constant.API_BASE_URL + "/q/*" })

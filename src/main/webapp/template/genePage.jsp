@@ -1,5 +1,4 @@
 <!DOCTYPE HTML>
-<%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
@@ -8,6 +7,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
@@ -60,7 +60,7 @@
 							<td class="col-sm-9">
 								<% String[] hgncRootFamilies = (String[]) request.getAttribute("hgncRootFamilies");
 								for (int i = 0; i < hgncRootFamilies.length; i++) { %>
-									<a href="hgnc_root_family/<%= URLEncoder.encode(hgncRootFamilies[i], "UTF-8") %>">
+									<a href="hgnc_root_family/<%= URLCodec.encode(hgncRootFamilies[i]) %>">
 									<%= hgncRootFamilies[i] %></a><%= i != hgncRootFamilies.length-1 ? "," : "" %>
 								<% } %>
 							</td>
@@ -70,7 +70,7 @@
 							<td class="col-sm-9">
 								<% String[] hgncTerminalFamilies = (String[]) request.getAttribute("hgncTerminalFamilies");
 								for (int i = 0; i < hgncRootFamilies.length; i++) { %>
-									<a href="hgnc_terminal_family/<%= URLEncoder.encode(hgncTerminalFamilies[i], "UTF-8") %>">
+									<a href="hgnc_terminal_family/<%= URLCodec.encode(hgncTerminalFamilies[i]) %>">
 									<%= hgncTerminalFamilies[i] %></a><%= i != hgncTerminalFamilies.length-1 ? "," : "" %>
 								<% } %>
 							</td>
@@ -94,7 +94,7 @@
 							Dataset dataset = pair.getLeft();
 							Pair<List<Attribute>, List<Attribute>> attributes = pair.getRight();
 							String datasetName = dataset.getName();
-							String datasetURL = URLEncoder.encode(datasetName, "UTF-8");
+							String datasetURL = URLCodec.encode(datasetName);
 							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
 						%>
 							<tr class="<%= className %>">
@@ -120,7 +120,7 @@
 												Attribute attribute = posIter.next();
 												String name = attribute.getName();
 											%>
-												<a href="attribute/<%= URLEncoder.encode(name, "UTF-8") %>">
+												<a href="attribute/<%= URLCodec.encode(name) %>">
 													<%= name %></a><% if (posIter.hasNext()) { %>, <% } %>
 											<% }
 										} %>
@@ -133,7 +133,7 @@
 												Attribute attribute = negIter.next();
 												String name = attribute.getName();
 											%>
-												<a href="attribute/<%= URLEncoder.encode(name, "UTF-8") %>"><%= name %></a><% if (negIter.hasNext()) { %>, <% } %>
+												<a href="attribute/<%= URLCodec.encode(name) %>"><%= name %></a><% if (negIter.hasNext()) { %>, <% } %>
 											<% }
 										} %>
 									</div>

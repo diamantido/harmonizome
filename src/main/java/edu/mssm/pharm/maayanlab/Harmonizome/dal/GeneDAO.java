@@ -42,9 +42,9 @@ public class GeneDAO {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT gene FROM Gene AS gene " +
-				"JOIN gene.features AS features " +
-				"JOIN features.dataset AS dataset " +
-				"JOIN features.attribute AS attr " +
+				"JOIN gene.features AS feats " +
+				"JOIN feats.dataset AS dataset " +
+				"JOIN feats.attribute AS attr " +
 				"WHERE dataset.name = :datasetName AND attr.name = :attributeName AND feats.thresholdValue = :thresholdValue"
 			)
 			.setString("datasetName", datasetName)
@@ -73,8 +73,8 @@ public class GeneDAO {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT gene FROM Gene AS gene " +
-				"JOIN gene.features AS features " +
-				"JOIN features.dataset AS dataset " +
+				"JOIN gene.features AS feats " +
+				"JOIN feats.dataset AS dataset " +
 				"WHERE dataset.name = :datasetName"
 			)
 			.setString("datasetName", datasetName)
