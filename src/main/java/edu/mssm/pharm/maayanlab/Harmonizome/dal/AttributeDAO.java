@@ -94,7 +94,6 @@ public class AttributeDAO {
 
 	public static Map<String, Map<String, List<Attribute>>> getByGroupAndTypeFromGene(String geneSymbol) {
 		Map<String, Map<String, List<Attribute>>> organizedAttributes = new HashMap<String, Map<String, List<Attribute>>>();
-		//List<AttributeGroup> attributeGroups = AttributeDAO.getAttributeGroups();
 		List<AttributeGroup> attributeGroups = getAttributeGroupsFromGene(geneSymbol);
 		for (AttributeGroup ag : attributeGroups) {
 			String agName = ag.getName();
@@ -169,8 +168,10 @@ public class AttributeDAO {
 	}
 
 	public static Map<String, Set<Attribute>> getByGeneFromDataset(String datasetName) {
+		System.out.println("Getting genes by dataset");
 		List<Gene> genesFromDataset = GeneDAO.getFromDataset(datasetName);
-		Map<String, Set<Attribute>> attributesByGene = new HashMap<String, Set<Attribute>>();
+		System.out.println("Number of datasets: " + genesFromDataset.size());
+		/*Map<String, Set<Attribute>> attributesByGene = new HashMap<String, Set<Attribute>>();
 		for (Gene gene : genesFromDataset) {
 			String geneSymbol = gene.getSymbol();
 			Set<Attribute> attributes = new HashSet<Attribute>(
@@ -178,6 +179,7 @@ public class AttributeDAO {
 			);
 			attributesByGene.put(geneSymbol, attributes);
 		}
-		return attributesByGene;
+		return attributesByGene;*/
+		return null;
 	}
 }
