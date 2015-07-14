@@ -6,17 +6,14 @@
 	<head>
 		<link rel="stylesheet" href="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
 		<%@include file="commonIncludes.html" %>
-		<script src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
-		<script src="script/browse.js"></script>
-		<link rel="stylesheet" href="style/css/browse.css">
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container browse">
-				<h3>Datasets</h3>
+				<h1>Datasets</h1>
 				<p class="instruction">Sort the table below clicking on the headers or type in the search bar.</p>
-				<table class="table">
+				<table class="data-table table">
 					<thead>
 						<tr>
 							<td>Name</td>
@@ -40,9 +37,9 @@
 								<td><%= dataset.getDatasetType().getName() %></td>
 								<td><%= dataset.getAttributeType().getName() %></td>
 								<td>
-									<a href="dataset/<%= URLEncoder.encode(dataset.getName(), "UTF-8") %>">
-					                	<span class="download glyphicon glyphicon-file" aria-hidden="true"></span>
-					            	</a>
+									<a href="dataset/<%= URLEncoder.encode(dataset.getName(), "UTF-8") %>" type="button" class="btn btn-default download" aria-label="Left Align">
+										<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+						            </a>
 					            </td>
 					            <td><%= dataset.getNumPageViews() %></td>
 							</tr>

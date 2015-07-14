@@ -13,14 +13,12 @@
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
-		<link rel="stylesheet" href="style/css/show.css">
-		<script src="script/show.js"></script>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
-		<div class="wrapper">
+		<div class="wrapper attribute-page">
 			<div class="content container">
-				<h1>${name} <span class="note">Attribute</span></h1>
+				<h1 data-entity-name="${name}">${name} <span class="note">Attribute</span></h1>
 				<section>
 					<table class="table">
 						<% if (request.getAttribute("description") != "") { %>
@@ -71,48 +69,65 @@
 				<section>
 					<h2>Genes by dataset</h2>
 					<p class="instruction">Click on a dataset to see genes for ${name}.</p>
-					<table class="table attributes">
+					<table class="table entities-by-dataset attributes">
 						<thead>
 							<tr>
 								<th></th>
 								<th>Dataset</th>
+								<th>Download gene set</th>
+								<th>Downstream analysis tools</th>
 							</tr>
 						</thead>
 						<% @SuppressWarnings("unchecked")
 						List<Pair<Dataset, Pair<List<Gene>, List<Gene>>>> genesByDataset = (List<Pair<Dataset, Pair<List<Gene>, List<Gene>>>>) request.getAttribute("genesByDataset");
 						for (Pair<Dataset, Pair<List<Gene>, List<Gene>>> pair : genesByDataset) {
 							Dataset dataset = pair.getLeft();
-							Pair<List<Gene>, List<Gene>> attributes = pair.getRight();
+							Pair<List<Gene>, List<Gene>> genes = pair.getRight();
 							String datasetName = dataset.getName();
 							String datasetURL = URLCodec.encode(datasetName);
 							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
 						%>
-							<tr class="<%= className %>">
-								<td class="col-sm-1">
-									<span class="glyphicon glyphicon-plus cursor-pointer" aria-hidden="true" onclick="showByGroup('<%= className %>')"></span>
-									<span class="glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true" onclick="showByGroup('<%= className %>')"></span>
+							<tr class="dataset-row <%= className %>">
+								<td class="col-sm-1" data-dataset-group='<%= className %>'">
+									<button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true" ></button>
+									<button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
 								</td>
-								<td class="col-sm-11">
+								<td class="col-sm-4">
 									<a href="dataset/<%= datasetURL %>"><%= datasetName %></a>
+									<span class="badge"><%= genes.getLeft().size() + genes.getRight().size() %> genes</span>
+								</td>
+								<td class="col-sm-4">
+									<div class="tool-tip">
+										<button class="btn btn-default glyphicon glyphicon-download-alt" aria-hidden="true"></button>
+										<span class="tool-tip-text">Download the gene set as a plain text, newline separated list of genes.</span>
+									</div>
+								</td>
+								<td class="col-sm-3 tools">
+									<div class="tool enrichr">
+										<div class="tool-tip">
+											<img src="http://amp.pharm.mssm.edu/Enrichr/images/enrichr.png">
+											<span class="tool-tip-text">Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.</span>
+										</div>
+									</div>
 								</td>
 							</tr>
-							<tr class="item-list">
+							<tr class="entity-list">
 								<td colspan="5">
 									<div class="first">
-										<% Iterator<Gene> posIter = attributes.getLeft().iterator();
+										<% Iterator<Gene> posIter = genes.getLeft().iterator();
 										if (posIter.hasNext()) { %>
 											Up:
 											<% while (posIter.hasNext()) {
 												Gene gene = posIter.next();
 												String symbol = gene.getSymbol();
 											%>
-												<a href="gene/<%= URLCodec.encode(symbol) %>">
+												<a href="gene/<%= URLCodec.encode(symbol) %>" data-gene="<%= symbol %>">
 													<%= symbol %></a><% if (posIter.hasNext()) { %>, <% } %>
 											<% }
 										} %>
 									</div>
 									<div>
-										<% Iterator<Gene> negIter = attributes.getRight().iterator();
+										<% Iterator<Gene> negIter = genes.getRight().iterator();
 										if (negIter.hasNext()) { %>
 											Down:
 											<% while (negIter.hasNext()) {

@@ -17,11 +17,22 @@
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>Search Genes</h3>
-				<form>
+				
+				<!--<form>
 					<input type="text">
 					<button type="submit">Go</button>
-				</form>
+				</form> -->
+				<div class="row">
+					<div class="col-md-12">
+						<h1>Search Genes</h1>
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Please enter a gene symbol...">
+							<span class="input-group-btn">
+								<button class="btn btn-default" type="button">Go!</button>
+							</span>
+						</div>
+					</div>
+				</div>
 			</div>
 			<%@include file="footer.html"%>
 		</div>

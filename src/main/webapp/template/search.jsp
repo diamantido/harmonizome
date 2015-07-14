@@ -15,27 +15,21 @@
 					        <div class="portal">
 					            <h3>Datasets</h3>
 					            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-					            <a href="dataset/">
-					                <button>Browse datasets</button>
-					            </a>
+				                <a href="dataset/" class="btn btn-default">Browse datasets</a>
 					        </div>
 					    </div>
 					    <div class="col-sm-4">
 					        <div class="portal">
 					            <h3>Genes</h3>
 					            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-					            <a href="gene/">
-					                <button>Search genes</button>
-					            </a>
+					            <a href="gene/" class="btn btn-default">Search genes</a>
 					        </div>
 					    </div>
 					    <div class="col-sm-4">
 					        <div class="portal">
 					            <h3>Attributes</h3>
 					            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-					            <a href="attribute/">
-					                <button>Browse attribute categories</button>
-					            </a>
+					            <a href="attribute/" class="btn btn-default">Browse attribute categories</a>
 					        </div>
 					    </div>
 					</div>

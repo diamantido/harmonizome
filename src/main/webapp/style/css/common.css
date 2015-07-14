@@ -35,6 +35,9 @@ a:visited,
 a:active {
   text-decoration: none;
 }
+a.btn {
+  color: black;
+}
 h1,
 h2,
 h3,
@@ -53,15 +56,6 @@ input {
 }
 ul {
   padding-left: 15px;
-}
-button {
-  background-color: #599fb7;
-  border: none;
-  color: white;
-  margin-top: 10px;
-}
-button:hover {
-  background-color: #254657;
 }
 /* Section selectors.
  */
@@ -144,6 +138,35 @@ button:hover {
 .footer #share img:hover {
   opacity: 0.7;
 }
+.browse input {
+  border: 1px solid #aaaaaa;
+}
+.browse thead td {
+  font-weight: bold;
+}
+.browse .dataTables_filter label {
+  font-weight: bold;
+}
+.browse .dataTables_wrapper {
+  margin-bottom: 30px;
+}
+table.entities-by-dataset td {
+  vertical-align: middle !important;
+}
+table.entities-by-dataset .entity-list {
+  display: none;
+}
+table.entities-by-dataset .entity-list td {
+  padding-left: 20px !important;
+}
+table.entities-by-dataset .entity-list div {
+  padding-bottom: 10px;
+}
+table.entities-by-dataset .tools img {
+  height: 35px;
+}
+/* Generic classes
+ */
 .note {
   font-size: 12px;
   font-style: italic;
@@ -157,57 +180,45 @@ button:hover {
 .instruction {
   font-style: italic;
 }
-/* Filter engine.
- */
-.search {
-  background-color: #254657;
-  border-bottom: 1px solid #aaaaaa;
-  color: white;
-  padding-bottom: 10px;
+/* The "tooltip" class name is used by Bootstrap.js. */
+.tool-tip {
+  cursor: pointer;
 }
-.search select {
-  color: black;
-  background-color: #eeeeee;
-  border: 1px solid #aaaaaa;
-  margin: 3px 0;
-  width: 100%;
-}
-.search input {
-  color: black;
-}
-.search h4 {
-  display: inline-block;
-}
-.search .locked select {
-  color: #aaaaaa;
-}
-.search button.reset {
-  background-color: #254657;
-  color: #8ad4ed;
-  font-style: italic;
-  font-size: 12px;
+.tool-tip .tool-tip-text {
+  display: none;
+  line-height: 1.1em;
   margin-left: 10px;
+  padding: 10px 15px;
 }
-.search .locked {
-  color: #aaaaaa;
+.tool-tip:hover .tool-tip-text {
+  display: inline;
+  position: absolute;
+  border: 1px solid #fff169;
+  background: #fffac7;
 }
-.browse input {
-  border: 1px solid #aaaaaa;
+.cursor-pointer {
+  cursor: pointer;
 }
-.browse thead td {
-  font-weight: bold;
+.item-list {
+  display: none;
 }
-.browse .dataTables_filter label {
-  font-weight: bold;
+.item-list td {
+  padding-left: 20px !important;
 }
-.browse .download {
-  color: #666666;
-}
-.browse .download:hover {
-  color: #aaaaaa;
+.item-list div {
+  padding-bottom: 10px;
 }
 /* Bootstrap overwrites.
  */
 .table > tbody > tr:first-child > td {
   border: none;
+}
+.form-control {
+  border-radius: 0;
+}
+.btn {
+  border-radius: 0;
+}
+.badge {
+  background-color: #599fb7;
 }

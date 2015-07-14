@@ -168,9 +168,7 @@ public class AttributeDAO {
 	}
 
 	public static Map<String, Set<Attribute>> getByGeneFromDataset(String datasetName) {
-		System.out.println("Getting genes by dataset");
 		List<Gene> genesFromDataset = GeneDAO.getFromDataset(datasetName);
-		System.out.println("Number of datasets: " + genesFromDataset.size());
 		/*Map<String, Set<Attribute>> attributesByGene = new HashMap<String, Set<Attribute>>();
 		for (Gene gene : genesFromDataset) {
 			String geneSymbol = gene.getSymbol();

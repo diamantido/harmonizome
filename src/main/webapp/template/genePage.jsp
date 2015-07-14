@@ -11,9 +11,6 @@
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
-		<script src="http://cdn.datatables.net/1.10.5/js/jquery.dataTables.js"></script>
-		<link rel="stylesheet" href="style/css/show.css">
-		<script src="script/show.js"></script>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>
@@ -27,7 +24,7 @@
 							<td class="col-sm-9">${name}</td>
 						</tr>
 						<tr>
-							<td class="col-sm-3">Description</td>
+							<td class="col-sm-3">NCBI Entrez Gene Description</td>
 							<td class="col-sm-9">${description}</td>
 						</tr>
 						<tr>
@@ -80,7 +77,7 @@
 				<section>
 					<h2>Attributes by dataset</h2>
 					<p class="instruction">Click on a dataset to see attributes for ${symbol}.</p>
-					<table class="table attributes">
+					<table class="table entities-by-dataset genes">
 						<thead>
 							<tr>
 								<th></th>
@@ -97,19 +94,20 @@
 							String datasetURL = URLCodec.encode(datasetName);
 							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
 						%>
-							<tr class="<%= className %>">
-								<td class="col-sm-1">
-									<span class="glyphicon glyphicon-plus cursor-pointer" aria-hidden="true" onclick="showByGroup('<%= className %>')"></span>
-									<span class="glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true" onclick="showByGroup('<%= className %>')"></span>
+							<tr class="dataset-row <%= className %>">
+								<td class="col-sm-1" data-dataset-group="<%= className %>">
+									<button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true"></button>
+									<button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
 								</td>
 								<td class="col-sm-6">
 									<a href="dataset/<%= datasetURL %>"><%= dataset.getName() %></a>
+									<span class="badge"><%= attributes.getLeft().size() + attributes.getRight().size() %> attributes</span>
 								</td>
 								<td class="col-sm-5">
 									<%= dataset.getAttributeType().getName() %>
 								</td>
 							</tr>
-							<tr class="item-list">
+							<tr class="entity-list">
 								<td colspan="5">
 									<div><em><%= StringUtils.capitalize(dataset.getAttributeType().getName()) + "s:" %></em></div>
 									<div class="first">

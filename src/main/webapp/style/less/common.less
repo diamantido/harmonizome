@@ -36,6 +36,9 @@ a:visited,
 a:active {
     text-decoration: none;
 }
+a.btn {
+	color: black;
+}
 h1,
 h2,
 h3,
@@ -56,13 +59,7 @@ ul {
     padding-left: 15px;
 }
 button {
-	background-color: @color-primary-light;
-	border: none;
-	color: white;
-	margin-top: 10px;
-	&:hover {
-		background-color: @color-primary;
-	}
+	
 }
 
 /* Section selectors.
@@ -155,56 +152,6 @@ button {
         }
 	}
 }
-.note {
-	font-size: 12px;
-	font-style: italic;
-}
-.glyphicon-search {
-	cursor: pointer;
-}
-.accent {
-	color: @color-accent;
-}
-.instruction {
-	font-style: italic;
-}
-
-/* Filter engine.
- */
-.search {
-	background-color: @color-primary;
-	border-bottom: 1px solid @color-gray-medium;
-	color: white;
-	padding-bottom: 10px;
-	select {
-		color: black;
-		background-color: @color-gray-light;
-		border: 1px solid @color-gray-medium;
-		margin: 3px 0;
-  		width: 100%;
-	}
-	input {
-		color: black;
-	}
-	h4 {
-		display: inline-block;
-	}
-	.locked {
-		select {
-			color: @color-gray-medium;
-		}
-	}
-	button.reset {
-		background-color: @color-primary;
-		color: @color-primary-very-light;
-		font-style: italic;
-		font-size: 12px;
-		margin-left: 10px;
-	}
-	.locked {
-		color: @color-gray-medium;
-	}
-}
 .browse {
 	input {
 		border: 1px solid @color-gray-medium;
@@ -219,11 +166,73 @@ button {
 			font-weight: bold;
 		}
 	}
-	.download {
-		color: @color-gray;
-		&:hover {
-			color: @color-gray-medium;
+	.dataTables_wrapper {
+		margin-bottom: 30px;
+	}
+}
+table.entities-by-dataset {
+	td {
+		vertical-align: middle !important;
+	}
+	.entity-list {
+		display: none;
+		td {
+			padding-left: 20px !important;
 		}
+		div {
+			padding-bottom: 10px;
+		}
+	}
+	.tools {
+		img {
+			height: 35px;
+		}
+	}
+}
+
+/* Generic classes
+ */
+.note {
+	font-size: 12px;
+	font-style: italic;
+}
+.glyphicon-search {
+	cursor: pointer;
+}
+.accent {
+	color: @color-accent;
+}
+.instruction {
+	font-style: italic;
+}
+/* The "tooltip" class name is used by Bootstrap.js. */
+.tool-tip {
+	cursor: pointer;
+	.tool-tip-text {
+		display: none;
+		line-height: 1.1em;
+		margin-left: 10px;
+	    padding: 10px 15px;
+	}
+	&:hover {
+		.tool-tip-text {
+	        display: inline;
+	        position: absolute;
+	    	border: 1px solid @color-yellow;
+	    	background: @color-yellow-light;
+	    }
+	}
+}
+.cursor-pointer {
+	cursor: pointer;
+}
+.item-list {
+	display: none;
+	td {
+		padding-left: 20px !important;
+	}
+	div {
+		padding-bottom: 10px;
 	}
 }
 
@@ -231,4 +240,13 @@ button {
  */
 .table > tbody > tr:first-child > td {
     border: none;
+}
+.form-control {
+	border-radius: 0;
+}
+.btn {
+	border-radius: 0;
+}
+.badge {
+	background-color: @color-primary-light;
 }
