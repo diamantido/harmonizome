@@ -138,20 +138,11 @@ ul {
 .footer #share img:hover {
   opacity: 0.7;
 }
-.entities-by-dataset td {
-  vertical-align: middle !important;
-}
-.entities-by-dataset .entity-list {
-  display: none;
-}
-.entities-by-dataset .entity-list td {
-  padding-left: 20px !important;
-}
-.entities-by-dataset .entity-list div {
-  padding-bottom: 10px;
-}
-.entities-by-dataset .tools img {
+.table .tools img {
   height: 35px;
+}
+.attribute-list {
+  display: none;
 }
 /* Generic classes
  */

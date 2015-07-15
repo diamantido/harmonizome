@@ -1,17 +1,40 @@
-$(function() {
-	
-	var ENTITY_NAME = $('h1').attr('data-entity-name');
-	
-	/* Setup datasets table if it exists.
-	 */
-	function setupDataTables() {
-		if (!_.isUndefined($().dataTable)) {
-			$('.data-table').dataTable({
-				bPaginate: true
-			});
-		}
-	};
+var HMZ = function(config) {
 
+	/* Code executes here
+	 * --------------------------------------------------------------------- */
+	config = config || {};
+	setupDataTables();
+	setupShowByGroupFunctionality();
+	//showAttributesByDataset($('.dataset-row'));
+	if (config.UP_GENES) {
+		setupDownloadLinks(config.UP_GENES);
+		setupEnrichrLink(config.UP_GENES);
+		
+	}
+	if (config.DOWN_GENES) {
+		setupDownloadLinks(config.DOWN_GENES);
+		setupEnrichrLink(config.DOWN_GENES);
+	}
+	if (config.ALL_GENES) {
+		setupGeneSearch(config.ALL_GENES);
+	}
+	/* --------------------------------------------------------------------- */
+
+	/* Utility function for getting the list of genes from the page.
+	 */
+	function getGeneSet($el) {
+		var genes = [],
+			firstRowSkipped = false;
+		_.each($el.find('tr'), function(tr) {
+			if (firstRowSkipped) {
+				var symbol = $(tr).find('td a').html();
+				genes.push(symbol);
+			}
+			firstRowSkipped = true;
+		});
+		return genes;
+	};
+	
 	/* Bind events for showing genes and attributes by group.
 	 */
 	function setupShowByGroupFunctionality() {
@@ -37,40 +60,32 @@ $(function() {
 		$plusButton.toggleClass('hidden');
 		$minusButton.toggleClass('hidden');
 		$items.toggleClass('active');
-	}
-	
-	/* Utility function for getting the list of genes from an attribute page.
-	 */
-	function getGeneSetFromDatasetGroupEl($el) {
-		var items = $el.find('a'),
-			genes = [];
-		_.each(items, function(obj) {
-			var symbol = $(obj).attr('data-gene');
-			genes.push(symbol);
-		});
-		return genes;
 	};
-	
+
+	/* Setup datasets table if it exists.
+	 */
+	function setupDataTables() {
+		if (!_.isUndefined($().dataTable)) {
+			$('.data-table').dataTable({
+				bPaginate: true,
+				iDisplayLength: 25
+			});
+		}
+	};
+
 	/* Utility function for building names for filenames and Enrichr descriptions.
 	 */
-	function getDescriptionOfSelectedData($dataset) {
-		return ['harmonizome', ENTITY_NAME, $dataset[0].classList[1]].join('_');
+	function getDescription() {
+		return ['harmonizome', ATTRIBUTE_NAME, DATASET_NAME].join('_');
 	};
-	
-	/* Utility function for finding which row the user clicked on.
-	 */
-	function getDatasetFromEvent(evt) {
-		return $(evt.target).closest('.dataset-row').first();
-	}
-	
+
 	/* Bind events for sending data to Enrichr.
 	 */
-	function setupEnrichrLink() {
-		$('.dataset-row').find('.enrichr').click(function(evt) {
-			var $dataset = getDatasetFromEvent(evt);
+	function setupEnrichrLink(genes) {
+		$('.enrichr').click(function(evt) {
 			enrich({
-				description: getDescriptionOfSelectedData($dataset),
-				list: getGeneSetFromDatasetGroupEl($dataset.next())
+				description: getDescription(),
+				list: genes
 			})
 		});
 	};
@@ -124,32 +139,25 @@ $(function() {
 	
 	/* Setup download links on gene page.
 	 */
-	function setupDownloadLinks() {
+	function setupDownloadLinks(genes) {
 		$('.glyphicon-download-alt').click(function(evt) {
-			var $dataset = getDatasetFromEvent(evt),
-				genes = getGeneSetFromDatasetGroupEl(
-					$dataset.next()
-				),
-				filename = getDescriptionOfSelectedData($dataset);
-			download(filename + ".txt", genes.join("\n"));
+			download(getDescription() + ".txt", genes.join("\n"));
 		});
 	};
 	
-	function setupGeneSearch() {
-		if (!_.isUndefined(window.global_genes)) {
-			var $input = $('input')
-				.first()
-				.autocomplete({
-					minLength: 3,
-					source: window.global_genes
-				})
-				.keypress(function(evt) {
-					if (evt.which === 13) {
-						loadGenePage();
-					}
-				});
-			$(':submit').click(loadGenePage);
-		}
+	function setupGeneSearch(genes) {
+		var $input = $('input')
+			.first()
+			.autocomplete({
+				minLength: 3,
+				source: genes
+			})
+			.keypress(function(evt) {
+				if (evt.which === 13) {
+					loadGenePage();
+				}
+			});
+		$(':submit').click(loadGenePage);
 		
 		function loadGenePage(evt) {
 			if (evt) {
@@ -158,12 +166,4 @@ $(function() {
 			window.location.href = "gene/" + $input.val();
 		};
 	};
-	
-	/* Explicit call stack for clarity.
-	 */
-	setupDataTables();
-	setupEnrichrLink();
-	setupShowByGroupFunctionality();
-	setupDownloadLinks();
-	setupGeneSearch();
-});
+};

@@ -13,12 +13,36 @@
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
+		<script>
+			<%
+			@SuppressWarnings("unchecked") 
+			List<String> upGenesArray = (List<String>) request.getAttribute("upGenes");
+			String upGenesStr = "['" + StringUtils.join(upGenesArray, "', '") + "']";
+			@SuppressWarnings("unchecked") 
+			List<String> downGenesArray = (List<String>) request.getAttribute("downGenes");
+			String downGenesStr = "['" + StringUtils.join(downGenesArray, "', '") + "']";
+			%>
+			
+			$(function() {
+				HMZ({
+					ATTRIBUTE_NAME: "<%= request.getAttribute("attributeName") %>",
+					DATASET_NAME: "<%= request.getAttribute("datasetName") %>",
+					UP_GENES: <%= upGenesStr %>,
+					DOWN_GENES: <%= downGenesStr %>
+				});
+			});
+		</script>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
 		<div class="wrapper attribute-page">
 			<div class="content container">
-				<h1><em>${attributeName}</em> ${attributeType} from <em>${datasetName}</em> <span class="note">Gene Set</span></h1>
+				<h1>
+					<em id="attribute-name">${attributeName}</em>
+					${attributeType} from
+					<em  id="dataset-name">${datasetName}</em>
+					<span class="note">Gene Set</span>
+				</h1>
 				<section>
 					<table class="table">
 						<% if (request.getAttribute("datasetDescription") != "") { %>
@@ -73,10 +97,38 @@
 					</table>
 				</section>
 				<section>
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Downloads</th>
+								<th>Downstream Analysis Tools</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="col-sm-4">
+									<div class="tool-tip">
+										<button class="btn btn-default glyphicon glyphicon-download-alt" aria-hidden="true"></button>
+										<span class="tool-tip-text">Download the gene set as a plain text, newline separated list of genes.</span>
+									</div>
+								</td>
+								<td class="col-sm-3 tools">
+									<div class="tool enrichr">
+										<div class="tool-tip">
+											<img src="http://amp.pharm.mssm.edu/Enrichr/images/enrichr.png">
+											<span class="tool-tip-text">Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</section>
+				<section>
 					<% @SuppressWarnings("unchecked")
 					List<Gene> upGenes = (List<Gene>) request.getAttribute("upGenes"); %>
 					<h2>Genes <span class="badge"><%= upGenes.size() %></span></h2>
-					<table class="table data-table">
+					<table id="gene-set" class="table data-table">
 						<thead>
 							<tr>
 								<th>Symbol</th>

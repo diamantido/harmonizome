@@ -5,6 +5,11 @@
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
+		<script>
+			$(function() {
+				HMZ();
+			});
+		</script>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>

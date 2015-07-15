@@ -11,6 +11,11 @@
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
+		<script>
+			$(function() {
+				HMZ();
+			});
+		</script>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>
@@ -107,7 +112,7 @@
 									<%= dataset.getAttributeType().getName() %>
 								</td>
 							</tr>
-							<tr class="entity-list">
+							<tr class="attribute-list">
 								<td colspan="5">
 									<div><em><%= StringUtils.capitalize(dataset.getAttributeType().getName()) + "s:" %></em></div>
 									<div class="first">
