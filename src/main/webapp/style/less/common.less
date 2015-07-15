@@ -104,7 +104,6 @@ ul {
 		}
 	}
 }
-
 /* Push all content out from under the fix nav. Do not use "margin-top" because
  * this pushes the sticky footer down as well.
  */
@@ -159,11 +158,24 @@ ul {
 .attribute-list {
 	display: none;
 }
+.dataset-row {
+	td {
+		vertical-align: middle !important;
+	}
+}
+.attribute-page {
+	h2 {
+		.badge {
+			position: relative;
+			bottom: 3px;
+		}
+	}
+}
 
 /* Generic classes
  */
 .note {
-	font-size: 12px;
+	font-size: 14px;
 	font-style: italic;
 }
 .highlight {

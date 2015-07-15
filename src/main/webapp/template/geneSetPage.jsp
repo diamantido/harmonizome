@@ -37,11 +37,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper attribute-page">
 			<div class="content container">
-				<h1>
-					<em id="attribute-name">${attributeName}</em>
-					${attributeType} from
-					<em  id="dataset-name">${datasetName}</em>
-					<span class="note">Gene Set</span>
+				<h1>${attributeName} <span class="note">Gene Set</span>
 				</h1>
 				<section>
 					<table class="table">
@@ -97,6 +93,7 @@
 					</table>
 				</section>
 				<section>
+					<h2>Downloads & Tools</h2>
 					<table class="table">
 						<thead>
 							<tr>

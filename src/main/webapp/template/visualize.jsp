@@ -82,12 +82,12 @@
 	    	</div>
 
     		<!-- Visualization -->
-    		<div class="col-sm-10">
-    			<div id='col_title'>Resources</div>
+    		<div id="visualization" class="col-sm-10">
+    			<!--<div id='col_title'>Resources</div>
     			<div id='clust_and_row_container'>
 	    			<div id='row_title'>Genes</div>
 	    			<div id='svg_div'></div>
-	    		</div>
+	    		</div>-->
     		</div>
     	</div>
 		<%@include file="footer.html"%>
@@ -110,6 +110,16 @@
 		<!-- Clustergram Scripts -->
 		<script src='script/lib/d3_clustergram.js'></script>
 		<script src='script/lib/load_local_network.js'></script>
+		<script src="script/lib/helper.js"></script>
+		<script src="script/clustergram/Svg.js"></script>
+		<script src="script/clustergram/Viz.js"></script>
+		<script src="script/clustergram/Labels.js"></script>
+		<script src="script/clustergram/Matrix.js"></script>
+		<script src="script/clustergram/Orders.js"></script>
+		<script src="script/clustergram/Margins.js"></script>
+		<script src="script/clustergram/Legend.js"></script>
+		<script src="script/clustergram/FontScale.js"></script>
+		<script src="script/clustergram/Frame.js"></script>
 	  	<script src="script/visualize.js"></script>
 	</body>
 </html>

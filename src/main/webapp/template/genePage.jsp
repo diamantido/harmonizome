@@ -106,7 +106,7 @@
 								</td>
 								<td class="col-sm-6">
 									<a href="dataset/<%= datasetURL %>"><%= dataset.getName() %></a>
-									<span class="badge"><%= attributes.getLeft().size() + attributes.getRight().size() %> attributes</span>
+									<span class="badge">${symbol} is in <%= attributes.getLeft().size() + attributes.getRight().size() %> gene set(s)</span>
 								</td>
 								<td class="col-sm-5">
 									<%= dataset.getAttributeType().getName() %>

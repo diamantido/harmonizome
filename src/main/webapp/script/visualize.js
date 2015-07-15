@@ -27,8 +27,8 @@ function buildMatrix(networkData) {
 	blockUI();
 	networkData = networkData || global_network_data;
 
-	var d3_parentEl = d3.select("#svg_div");
-	make_d3_clustergram(networkData, d3_parentEl);
+	var d3_parentEl = d3.select("#visualization");
+	Clustergram(networkData, d3_parentEl);
 	
 	// once everything has been set up show color key and search box
 	d3.select('#res_color_key_title').style('display', 'block');
@@ -42,7 +42,7 @@ function buildMatrix(networkData) {
 	d3.select(window).on('resize', function() {
 		blockUI();
 		console.log('resizing');
-		make_d3_clustergram(networkData, d3_parentEl);
+		Clustergram(networkData, d3_parentEl);
 		unblockUI();
 	}); 
 };

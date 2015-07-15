@@ -2,10 +2,13 @@ var HMZ = function(config) {
 
 	/* Code executes here
 	 * --------------------------------------------------------------------- */
+	$.fn.noop = function() {
+		return this;
+	};
+	
 	config = config || {};
 	setupDataTables();
 	setupShowByGroupFunctionality();
-	//showAttributesByDataset($('.dataset-row'));
 	if (config.UP_GENES) {
 		setupDownloadLinks(config.UP_GENES);
 		setupEnrichrLink(config.UP_GENES);
@@ -15,9 +18,17 @@ var HMZ = function(config) {
 		setupDownloadLinks(config.DOWN_GENES);
 		setupEnrichrLink(config.DOWN_GENES);
 	}
-	if (config.ALL_GENES) {
-		setupGeneSearch(config.ALL_GENES);
+
+	var $geneSearchEl = $('#gene-search');
+	if ($geneSearchEl.length && config.ALL_GENES) {
+		setupGeneSearch($geneSearchEl, config.ALL_GENES);
 	}
+	
+	var $attributeSearchEl = $('#attribute-search');
+	if ($attributeSearchEl.length) {
+		setupAttributeSearch($attributeSearchEl);
+	}
+	
 	/* --------------------------------------------------------------------- */
 
 	/* Utility function for getting the list of genes from the page.
@@ -68,7 +79,7 @@ var HMZ = function(config) {
 		if (!_.isUndefined($().dataTable)) {
 			$('.data-table').dataTable({
 				bPaginate: true,
-				iDisplayLength: 25
+				iDisplayLength: 10
 			});
 		}
 	};
@@ -145,25 +156,37 @@ var HMZ = function(config) {
 		});
 	};
 	
-	function setupGeneSearch(genes) {
-		var $input = $('input')
-			.first()
-			.autocomplete({
-				minLength: 3,
-				source: genes
-			})
-			.keypress(function(evt) {
-				if (evt.which === 13) {
-					loadGenePage();
-				}
+	/* Curries a function to handle searching.
+	 */
+	function curryEntitySearch($parentEl, fn, fnArgs, entityType) {
+		return function() {
+			var $input = $parentEl
+				.find('input')
+				[fn](fnArgs)
+				.keypress(function(evt) {
+					if (evt.which === 13) {
+						loadPage(entityType, $input.val());
+					}
+				});
+			$input.find(':submit').click(function(evt) {
+				evt.preventDefault();
+				loadPage(entityType, $input.val());
 			});
-		$(':submit').click(loadGenePage);
-		
-		function loadGenePage(evt) {
-			if (evt) {
-				evt.originalEvent.preventDefault();
-			}
-			window.location.href = "gene/" + $input.val();
 		};
+		function loadPage(pageType, entity) {
+			window.location.href = [pageType, entity].join('/');
+		};
+	};
+	
+	function setupGeneSearch($geneSearchEl, genes) {
+		curryEntitySearch($geneSearchEl, 'autocomplete', {
+			minLength: 3,
+			source: genes
+		}, 'gene')();
+	};
+	
+	
+	function setupAttributeSearch($attributeSearchEl) {
+		curryEntitySearch($attributeSearchEl, 'noop', {}, 'attribute')();
 	};
 };

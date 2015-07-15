@@ -34,7 +34,7 @@
 					        <div class="portal">
 					            <h2>Genes</h2>
 					            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-					            <div class="input-group">
+					            <div id="gene-search" class="input-group">
 									<input type="text" class="form-control" placeholder="Start typing a gene symbol">
 									<span class="input-group-btn">
 										<button class="btn btn-default" type="submit">Go!</button>
@@ -46,7 +46,7 @@
 					        <div class="portal">
 					            <h2>Attributes</h2>
 					            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-					            <div class="input-group">
+					            <div id="attribute-search" class="input-group">
 									<input type="text" class="form-control" placeholder="Please enter an attribute">
 									<span class="input-group-btn">
 										<button class="btn btn-default" type="submit">Go!</button>
@@ -54,6 +54,7 @@
 								</div>
 					        </div>
 					    </div>
+					    examples
 					</div>
 				</div>
 			</div>
