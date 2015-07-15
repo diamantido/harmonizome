@@ -154,7 +154,7 @@ public class AttributeDAO {
 	}
 	
 	public static List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> getAttributesByDatasetsFromGene(String geneSymbol) {
-		List<Dataset> datasetsByGene = DatasetDAO.getDatasetsByGene(geneSymbol);
+		List<Dataset> datasetsByGene = DatasetDAO.getByGene(geneSymbol);
 		List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDatasets = new ArrayList<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>>();
 		for (Dataset dataset : datasetsByGene) {
 			String datasetName = dataset.getName();

@@ -58,14 +58,14 @@ public class SearchAPI extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String dataset = URLUtil.get(request, "dataset");
-		String datasetGroup = URLUtil.get(request, "datasetGroup");
-		String datasetType = URLUtil.get(request, "datasetType");
-		String attribute = URLUtil.get(request, "attribute");
-		String attributeGroup = URLUtil.get(request, "attributeGroup");
-		String attributeType = URLUtil.get(request, "attributeType");
-		String gene = URLUtil.get(request, "gene");
-		String idgFamily = URLUtil.get(request, "idgFamily");
+		String dataset = URLUtil.getParameter(request, "dataset");
+		String datasetGroup = URLUtil.getParameter(request, "datasetGroup");
+		String datasetType = URLUtil.getParameter(request, "datasetType");
+		String attribute = URLUtil.getParameter(request, "attribute");
+		String attributeGroup = URLUtil.getParameter(request, "attributeGroup");
+		String attributeType = URLUtil.getParameter(request, "attributeType");
+		String gene = URLUtil.getParameter(request, "gene");
+		String idgFamily = URLUtil.getParameter(request, "idgFamily");
 
 		SuggestSchema results = new SuggestSchema();
 		PrintWriter out = response.getWriter();

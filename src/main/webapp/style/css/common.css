@@ -18,14 +18,14 @@ body {
 /* Tag selectors.
  */
 html {
-  font-family: arial, sans-serif;
+  font-family: Arial, sans-serif;
 }
 body {
   /*background-color: @color-background;*/
 }
 a,
 a:link {
-  color: #599fb7;
+  color: #38829b;
   text-decoration: none;
 }
 a:hover {
@@ -138,31 +138,19 @@ ul {
 .footer #share img:hover {
   opacity: 0.7;
 }
-.browse input {
-  border: 1px solid #aaaaaa;
-}
-.browse thead td {
-  font-weight: bold;
-}
-.browse .dataTables_filter label {
-  font-weight: bold;
-}
-.browse .dataTables_wrapper {
-  margin-bottom: 30px;
-}
-table.entities-by-dataset td {
+.entities-by-dataset td {
   vertical-align: middle !important;
 }
-table.entities-by-dataset .entity-list {
+.entities-by-dataset .entity-list {
   display: none;
 }
-table.entities-by-dataset .entity-list td {
+.entities-by-dataset .entity-list td {
   padding-left: 20px !important;
 }
-table.entities-by-dataset .entity-list div {
+.entities-by-dataset .entity-list div {
   padding-bottom: 10px;
 }
-table.entities-by-dataset .tools img {
+.entities-by-dataset .tools img {
   height: 35px;
 }
 /* Generic classes
@@ -170,6 +158,9 @@ table.entities-by-dataset .tools img {
 .note {
   font-size: 12px;
   font-style: italic;
+}
+.highlight {
+  color: #fff169;
 }
 .glyphicon-search {
   cursor: pointer;
@@ -220,5 +211,55 @@ table.entities-by-dataset .tools img {
   border-radius: 0;
 }
 .badge {
-  background-color: #599fb7;
+  background-color: #38829b;
+}
+/* jQuery UI overwrites.
+ */
+.ui-autocomplete {
+  background: white;
+  border-radius: 0px;
+}
+.ui-autocomplete.source:hover {
+  background: #454545;
+}
+.ui-widget-content .ui-menu-item {
+  font-size: 12px;
+  font-family: Arial, sans-serif;
+}
+.ui-widget-content .ui-menu-item.ui-state-focus {
+  background: #eeeeee;
+  border: 1px solid #aaaaaa;
+  color: #38829b;
+  font-weight: normal;
+}
+/* DataTable overwrites.
+ */
+.dataTables_filter label {
+  font-weight: bold !important;
+}
+.dataTables_wrapper {
+  margin-bottom: 30px;
+}
+.dataTables_wrapper input {
+  border: 1px solid #aaaaaa;
+}
+.dataTables_wrapper thead td {
+  font-weight: bold;
+}
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  border-radius: 0;
+}
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+  background-color: #38829b;
+  border-color: #38829b;
+}
+.pagination > li > a,
+.pagination > li > span {
+  color: #254657;
 }

@@ -54,7 +54,7 @@ public class GeneDAO {
 	}
 	
 	public static List<Pair<Dataset, Pair<List<Gene>, List<Gene>>>> getByDatasetsFromAttribute(String attributeName) {
-		List<Dataset> datasetsByAttribute = DatasetDAO.getDatasetsByAttribute(attributeName);
+		List<Dataset> datasetsByAttribute = DatasetDAO.getByAttribute(attributeName);
 		List<Pair<Dataset, Pair<List<Gene>, List<Gene>>>> genesByDatasets = new ArrayList<Pair<Dataset, Pair<List<Gene>, List<Gene>>>>();
 		for (Dataset dataset : datasetsByAttribute) {
 			String datasetName = dataset.getName();
@@ -78,6 +78,23 @@ public class GeneDAO {
 				"WHERE dataset.name = :datasetName"
 			)
 			.setString("datasetName", datasetName)
+			.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Gene> getByAttributeAndDatasetAndValue(String attributeName, String datasetName, int thresholdValue) {
+		return (List<Gene>) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT gene FROM Gene AS gene " +
+				"JOIN gene.features AS features " +
+				"JOIN features.attribute AS attribute " +
+				"JOIN features.dataset AS dataset " +
+				"WHERE attribute.name = :attributeName AND dataset.name = :datasetName AND features.thresholdValue = :thresholdValue"
+			)
+			.setString("datasetName", datasetName)
+			.setString("attributeName", attributeName)
+			.setInteger("thresholdValue", thresholdValue)
 			.list();
 	}
 }

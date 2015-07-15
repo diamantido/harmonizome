@@ -16,7 +16,7 @@ public class DatasetDAO {
 		return datasets;
 	}
 
-	public static Dataset getDatasetByName(String name) {
+	public static Dataset getByName(String name) {
 		Criteria criteria = HibernateUtil.getCurrentSession()
 			.createCriteria(Dataset.class)
 			.add(Restrictions.eq("name", name).ignoreCase());
@@ -24,7 +24,7 @@ public class DatasetDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Dataset> getDatasetsByGene(String geneSymbol) {
+	public static List<Dataset> getByGene(String geneSymbol) {
 		return (List<Dataset>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
@@ -38,7 +38,7 @@ public class DatasetDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Dataset> getDatasetsByAttribute(String attributeName) {
+	public static List<Dataset> getByAttribute(String attributeName) {
 		return (List<Dataset>) HibernateUtil
 				.getCurrentSession()
 				.createQuery(

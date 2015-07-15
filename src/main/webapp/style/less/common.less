@@ -19,14 +19,14 @@ body {
 /* Tag selectors.
  */
 html {
-    font-family: arial, sans-serif;
+    font-family: @font-family-base;
 }
 body {
 	/*background-color: @color-background;*/
 }
 a,
 a:link {
-    color: @color-primary-light;
+    color: @color-primary-medium;
     text-decoration: none;
 }
 a:hover {
@@ -58,9 +58,6 @@ input {
 ul {
     padding-left: 15px;
 }
-button {
-	
-}
 
 /* Section selectors.
  */
@@ -78,7 +75,7 @@ button {
         margin-top: 0;
         em,
         em:hover {
-        	color: @color-primary-very-light;   	
+        	color: @color-primary-light;   	
         }
         span {
         	font-size: 19px;
@@ -91,7 +88,7 @@ button {
     	font-weight: @font-weight-primary;
         text-decoration: none;
         &:hover {
-        	color: @color-primary-very-light;
+        	color: @color-primary-light;
         }
     }
     ul {
@@ -136,7 +133,7 @@ button {
 		font-family: @font-family-primary;
 		font-weight: @font-weight-primary;
 		&:hover {
-			color: @color-primary-very-light;
+			color: @color-primary-light;
 		}
 	}
 	#share {
@@ -152,25 +149,7 @@ button {
         }
 	}
 }
-.browse {
-	input {
-		border: 1px solid @color-gray-medium;
-	}
-	thead {
-		td {
-			font-weight: bold;
-		}
-	}
-	.dataTables_filter {
-		label {
-			font-weight: bold;
-		}
-	}
-	.dataTables_wrapper {
-		margin-bottom: 30px;
-	}
-}
-table.entities-by-dataset {
+.entities-by-dataset {
 	td {
 		vertical-align: middle !important;
 	}
@@ -195,6 +174,9 @@ table.entities-by-dataset {
 .note {
 	font-size: 12px;
 	font-style: italic;
+}
+.highlight {
+	color: @color-yellow;
 }
 .glyphicon-search {
 	cursor: pointer;
@@ -248,5 +230,63 @@ table.entities-by-dataset {
 	border-radius: 0;
 }
 .badge {
-	background-color: @color-primary-light;
+	background-color: @color-primary-medium;
+}
+
+/* jQuery UI overwrites.
+ */
+.ui-autocomplete {
+	background: white;
+	border-radius: 0px;
+	&.source:hover {
+    	background: #454545;
+	}
+}
+.ui-widget-content {
+	.ui-menu-item {
+		font-size: 12px;
+		font-family: @font-family-base;
+		&.ui-state-focus {
+			background: @color-gray-light;
+			border: 1px solid @color-gray-medium;
+			color: @color-primary-medium;
+			font-weight: normal;
+		}
+	}
+}
+
+/* DataTable overwrites.
+ */
+.dataTables_filter {
+	label {
+		font-weight: bold !important;
+	}
+}
+.dataTables_wrapper {
+	margin-bottom: 30px;
+	input {
+		border: 1px solid @color-gray-medium;
+	}
+	thead {
+		td {
+			font-weight: bold;
+		}
+	}
+}
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+	border-radius: 0;
+}
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+	background-color: @color-primary-medium;
+	border-color: @color-primary-medium;
+}
+.pagination > li > a,
+.pagination > li > span {
+	color: @color-primary;
 }

@@ -82,7 +82,7 @@
 							<tr>
 								<th></th>
 								<th>Dataset</th>
-								<th>Attribute</th>
+								<th>Attribute Type</th>
 							</tr>
 						</thead>
 						<% @SuppressWarnings("unchecked")
@@ -116,10 +116,10 @@
 											Up:
 											<% while (posIter.hasNext()) {
 												Attribute attribute = posIter.next();
-												String name = attribute.getName();
+												String attributeName = attribute.getName();
 											%>
-												<a href="attribute/<%= URLCodec.encode(name) %>">
-													<%= name %></a><% if (posIter.hasNext()) { %>, <% } %>
+												<a href="gene_set/<%= URLCodec.encode(attributeName) %>/<%= URLCodec.encode(datasetName) %>">
+													<%= attributeName %></a><% if (posIter.hasNext()) { %>, <% } %>
 											<% }
 										} %>
 									</div>

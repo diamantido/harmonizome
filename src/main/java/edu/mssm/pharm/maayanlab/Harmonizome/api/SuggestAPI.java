@@ -37,7 +37,7 @@ public class SuggestAPI extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String genePrefix = URLUtil.get(request, "gene");
+		String genePrefix = URLUtil.getParameter(request, "gene");
 		PrintWriter out = response.getWriter();
 		String json = "";
 		try {

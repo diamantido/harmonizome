@@ -26,7 +26,7 @@ public class DatasetPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.get(request, true);
+		String query = URLUtil.getPath(request, true);
 		Dataset dataset = null;
 		List<Dataset> datasets = null;
 		
@@ -35,7 +35,7 @@ public class DatasetPage extends HttpServlet {
 			if (query == null) {
 				datasets = DatasetDAO.getAllDatasets();
 			} else {
-				dataset = DatasetDAO.getDatasetByName(query);
+				dataset = DatasetDAO.getByName(query);
 				if (dataset != null) {
 					dataset.setNumPageViews(dataset.getNumPageViews() + 1);
 				}

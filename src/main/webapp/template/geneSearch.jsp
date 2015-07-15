@@ -4,13 +4,12 @@
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>
-		<script src="script/geneSearch.js"></script>
 		<script>
 			<% @SuppressWarnings("unchecked") 
 			List<String> genesArray = (List<String>) request.getAttribute("genes");
 			String genes = "['" + StringUtils.join(genesArray, "', '") + "']";
 			%>
-			var genes = <%= genes %>;
+			window.global_genes = <%= genes %>;
 		</script>
 	</head>
 	<body>
@@ -28,7 +27,7 @@
 						<div class="input-group">
 							<input type="text" class="form-control" placeholder="Please enter a gene symbol...">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="button">Go!</button>
+								<button class="btn btn-default" type="submit">Go!</button>
 							</span>
 						</div>
 					</div>

@@ -26,7 +26,7 @@ public class HgncTerminalFamilyPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String queriedSymbol = URLUtil.get(req, true);
+		String queriedSymbol = URLUtil.getPath(req, true);
 		if (queriedSymbol.equals("")) {
 			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
 		} else {

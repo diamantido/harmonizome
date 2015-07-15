@@ -35,7 +35,7 @@ public class GenePage extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String query = URLUtil.get(request, true);
+		String query = URLUtil.getPath(request, true);
 		Gene gene = null;
 		boolean isSynonym = false;
 		List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDataset = null;

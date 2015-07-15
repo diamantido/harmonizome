@@ -27,8 +27,8 @@ public class SimilarityMatrixAPI extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String geneSymbol = URLUtil.get(request, "gene");
-		String datasetName = URLUtil.get(request, "dataset");
+		String geneSymbol = URLUtil.getParameter(request, "gene");
+		String datasetName = URLUtil.getParameter(request, "dataset");
 		System.out.println(datasetName);
 		Map<String, Set<Attribute>> attributesByGene = null;
 		Gene baseGene = null;

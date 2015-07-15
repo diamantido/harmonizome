@@ -38,7 +38,7 @@ public class GeneAPI extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.get(request);
+		String query = URLUtil.getPath(request);
 		if (query == null) {
 			List<String> genes = null;//new ArrayList<String>();
 			try {

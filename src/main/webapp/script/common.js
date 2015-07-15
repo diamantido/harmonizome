@@ -7,7 +7,7 @@ $(function() {
 	function setupDataTables() {
 		if (!_.isUndefined($().dataTable)) {
 			$('.data-table').dataTable({
-				bPaginate: false
+				bPaginate: true
 			});
 		}
 	};
@@ -70,7 +70,7 @@ $(function() {
 			var $dataset = getDatasetFromEvent(evt);
 			enrich({
 				description: getDescriptionOfSelectedData($dataset),
-				list: getGeneSetFromDatasetGroupEl($dataset)
+				list: getGeneSetFromDatasetGroupEl($dataset.next())
 			})
 		});
 	};
@@ -135,10 +135,35 @@ $(function() {
 		});
 	};
 	
+	function setupGeneSearch() {
+		if (!_.isUndefined(window.global_genes)) {
+			var $input = $('input')
+				.first()
+				.autocomplete({
+					minLength: 3,
+					source: window.global_genes
+				})
+				.keypress(function(evt) {
+					if (evt.which === 13) {
+						loadGenePage();
+					}
+				});
+			$(':submit').click(loadGenePage);
+		}
+		
+		function loadGenePage(evt) {
+			if (evt) {
+				evt.originalEvent.preventDefault();
+			}
+			window.location.href = "gene/" + $input.val();
+		};
+	};
+	
 	/* Explicit call stack for clarity.
 	 */
 	setupDataTables();
 	setupEnrichrLink();
 	setupShowByGroupFunctionality();
 	setupDownloadLinks();
+	setupGeneSearch();
 });

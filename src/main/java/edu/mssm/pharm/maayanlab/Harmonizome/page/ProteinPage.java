@@ -23,7 +23,7 @@ public class ProteinPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String queriedSymbol = URLUtil.get(req);
+		String queriedSymbol = URLUtil.getPath(req);
 		if (queriedSymbol.equals("")) {
 			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
 		} else {
