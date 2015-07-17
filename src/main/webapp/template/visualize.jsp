@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    	<%@include file="globalIncludes.html" %>
         <%@include file="commonIncludes.html" %>
 		<%--<link rel="stylesheet" href="style/lib/bootstrap-switch.css">
 		<link rel="stylesheet" href="style/lib/dc.css">

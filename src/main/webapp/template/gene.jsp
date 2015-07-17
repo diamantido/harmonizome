@@ -11,6 +11,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<%@include file="globalIncludes.html" %>
 		<%@include file="commonIncludes.html" %>
 		<script>
 			$(function() {

@@ -4,6 +4,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <html>
 	<head>
+		<%@include file="globalIncludes.html" %>
 		<%@include file="commonIncludes.html" %>
 		<script>
 			$(function() {
@@ -24,7 +25,7 @@
 							<th>Resource</th>
 							<th>Description</th>
 							<th>Dataset Type</th>
-							<th>AttributeType</th>
+							<th>Attribute Type</th>
 							<th>Downloads</th>
 							<th>Views</th>
 				    	</tr>

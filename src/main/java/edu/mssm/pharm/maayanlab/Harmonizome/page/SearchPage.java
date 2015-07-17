@@ -21,7 +21,7 @@ public class SearchPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.getPath(request, true);
+		String query = URLUtil.getParameter(request, "q");
 		SearchResults searchResults = new SearchResults(query);
 		if (searchResults.noMatches()) {
 			showNotFound(request, response, query);
@@ -40,7 +40,6 @@ public class SearchPage extends HttpServlet {
 	}
 	
 	private void showNotFound(HttpServletRequest request, HttpServletResponse response, String query) throws ServletException, IOException {
-		request.setAttribute("queryType", "entity");
 		request.setAttribute("query", query);
 		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
 	}

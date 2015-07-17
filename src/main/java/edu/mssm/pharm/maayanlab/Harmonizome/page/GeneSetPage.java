@@ -46,9 +46,7 @@ public class GeneSetPage extends HttpServlet {
 		}
 
 		if (attribute == null || dataset == null) {
-			request.setAttribute("queryType", "gene set");
-			request.setAttribute("query", query[0] + " + " + query[1]);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
 		} else {
 			request.setAttribute("attributeName", attribute.getName());
 			request.setAttribute("datasetName", dataset.getName());

@@ -47,7 +47,7 @@ public class HgncFamilyRootPage extends HttpServlet {
 						
 			if (hrf == null) {
 				req.setAttribute("query", queriedSymbol);
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(req, resp);				
+				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(req, resp);				
 			} else {				
 				req.setAttribute("name", hrf.getName());
 				req.setAttribute("genes", genes.toArray(new String[genes.size()]));

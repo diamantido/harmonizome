@@ -7,7 +7,11 @@ var HMZ = function(config) {
 	};
 	
 	config = config || {};
-	setupDataTables();
+	
+	var $dataTables = $('.data-table');
+	if ($dataTables.length && typeof $().dataTable !== 'undefined') {
+		setupDataTables($dataTables);
+	}
 	setupShowByGroupFunctionality();
 	if (config.UP_GENES) {
 		setupDownloadLinks(config.UP_GENES);
@@ -32,7 +36,7 @@ var HMZ = function(config) {
 	function getGeneSet($el) {
 		var genes = [],
 			firstRowSkipped = false;
-		_.each($el.find('tr'), function(tr) {
+		$.each(i, $el.find('tr'), function(tr) {
 			if (firstRowSkipped) {
 				var symbol = $(tr).find('td a').html();
 				genes.push(symbol);
@@ -71,14 +75,15 @@ var HMZ = function(config) {
 
 	/* Setup datasets table if it exists.
 	 */
-	function setupDataTables() {
-		if (!_.isUndefined($().dataTable)) {
-			$('.data-table').dataTable({
-				bPaginate: true,
-				bSort: false,
-				iDisplayLength: 20
-			});
-		}
+	function setupDataTables($dataTables) {
+		$dataTables.dataTable({
+			bPaginate: true,
+			bSort: false,
+			iDisplayLength: 20,
+			oLanguage: {
+				sSearch: "Filter"
+			}
+		});
 	};
 
 	/* Utility function for building names for filenames and Enrichr descriptions.
@@ -156,23 +161,10 @@ var HMZ = function(config) {
 	/* Setups search bar.
 	 */
 	function setupSearch($parentEl, geneDictionary) {
-		var $input = $parentEl
-				.find('input')
-				.autocomplete({
-					minLength: 3,
-					source: geneDictionary
-				})
-				.keypress(function(evt) {
-					if (evt.which === 13) {
-						loadPage($input.val());
-					}
-				});
-		$input.find(':submit').click(function(evt) {
-			evt.preventDefault();
-			loadPage($input.val());
-		});
-		function loadPage(entity) {
-			window.location.href = ['search', entity].join('/');
-		};
+		var $input = $parentEl.find('input')
+			.autocomplete({
+				minLength: 3,
+				source: geneDictionary
+			});
 	};
 };

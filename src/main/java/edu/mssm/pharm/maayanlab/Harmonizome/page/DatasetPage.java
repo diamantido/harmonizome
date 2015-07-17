@@ -1,9 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,21 +40,9 @@ public class DatasetPage extends HttpServlet {
 		
 		if (query == null || dataset == null) {
 			request.setAttribute("query", query);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
 		} else {
-			request.setAttribute("name", dataset.getName());
-			request.setAttribute("resource", dataset.getResource().getName());
-			request.setAttribute("description", dataset.getDescription());
-			request.setAttribute("association", dataset.getAssociation());
-			request.setAttribute("attribute", dataset.getAttributeType().getName());
-			request.setAttribute("citation", "");
-			Timestamp downloadDate = dataset.getDownloadDate();
-			if (downloadDate == null) {
-				request.setAttribute("download_date", "");
-			} else {
-				request.setAttribute("download_date", new SimpleDateFormat("MM/dd/yyyy").format(downloadDate));
-			}
-			request.setAttribute("downloads", dataset.getDownloads());
+			request.setAttribute("dataset", dataset);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp").forward(request, response);
 		}
 	}

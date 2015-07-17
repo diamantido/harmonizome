@@ -38,7 +38,7 @@ public class ProteinPage extends HttpServlet {
 						
 			if (protein == null) {
 				req.setAttribute("query", queriedSymbol);
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(req, resp);				
+				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(req, resp);				
 			} else {
 				req.setAttribute("note", "protein");
 				req.setAttribute("symbol", protein.getSymbol());

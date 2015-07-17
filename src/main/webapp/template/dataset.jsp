@@ -1,45 +1,61 @@
 <!DOCTYPE HTML>
 <%@ page import="java.util.Set" %>
+<%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Download" %>
+
+<%
+Dataset dataset = (Dataset) request.getAttribute("dataset");
+Timestamp downloadDate = dataset.getDownloadDate();
+String downloadDateStr = "";
+if (downloadDate == null) {
+	downloadDateStr = "";
+} else {
+	downloadDateStr = new SimpleDateFormat("MM/dd/yyyy").format(downloadDate);
+}
+
+%>
 <html>
 	<head>
+		<%@include file="globalIncludes.html" %>
 		<%@include file="commonIncludes.html" %>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<h1><%= request.getAttribute("name") %> <span class="note">Dataset</span></h1>
+				<h1><%= dataset.getName() %> <span class="note">Dataset</span></h1>
 				<section>
 				    <table class="table">
 				    	<tr>
 				    		<td>Resource</td>
 				    		<td>
-				    			<a href="< %>">
-				    				<%= request.getAttribute("resource") %>
+				    			<a href="<%= dataset.getResource().getUrl() %>" target="_blank">
+				    				<%= dataset.getResource().getName() %>
 				    			</a>	
 				    		</td>
 				    	</tr>
 				    	<tr>
 				    		<td>Data Description</td>
-				    		<td><%= request.getAttribute("description") %></td>
+				    		<td><%= dataset.getDescription() %></td>
 				    	</tr>
 				    	<tr>
 				    		<td>Association</td>
-				    		<td><%= request.getAttribute("association") %></td>
+				    		<td><%= dataset.getAssociation() %></td>
 				    	</tr>
 				    	<tr>
 				    		<td>Attribute type</td>
-				    		<td><%= request.getAttribute("attribute") %></td>
+				    		<td><%= dataset.getAttributeType() %></td>
 				    	</tr>
 				    	<tr>
 				    		<td>Citation(s)</td>
-				    		<td><%= request.getAttribute("citation") %></td>
+				    		<td></td>
 				    	</tr>
 				    	<tr>
 				    		<td>Created</td>
-				    		<td><%= request.getAttribute("download_date") %></td>
+				    		<td><%= downloadDateStr %></td>
 				    	</tr>
 				    </table>
 				</section>
@@ -55,7 +71,7 @@
 				    	</thead>
 				    	<tbody>
 			    		<% @SuppressWarnings("unchecked")
-			    		Set<Download> downloads = (Set<Download>) request.getAttribute("downloads");
+			    		Set<Download> downloads = dataset.getDownloads();
 			    		for (Download dl : downloads) { 
 			    			String downloadType = dl.getType().getName();
 				    		String glypiconType;
@@ -82,7 +98,7 @@
 			    				<td><%= StringUtils.capitalize(downloadType) %></td>
 			    				<td>
 			    					<a href="download/<%= dl.getDirectory() + "/" + dl.getName() %>">
-			    						<span class="glyphicon <%= glypiconType %>" aria-hidden="true"></span>
+			    						<span class="btn btn-default glyphicon <%= glypiconType %>" aria-hidden="true"></span>
 			    					</a>
 			    				</td>
 			    				<td><%= dl.getCount() %></td>

@@ -4,6 +4,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <html lang="en">
     <head>
+    	<%@include file="globalIncludes.html" %>
 		<%@include file="commonIncludes.html" %>
 		<script>
 			<% @SuppressWarnings("unchecked") 
@@ -30,11 +31,8 @@
 							<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources.</p>
 						</div>
 						<div class="row">
-							<div id="search" class="col-md-offset-2 col-md-8 input-group">
-								<input type="text" class="form-control" placeholder="">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="submit">Go!</button>
-								</span>
+							<div class="col-md-offset-2 col-md-8 input-group">
+								<%@include file="searchBar.html" %>
 							</div>	
 						</div>
 						<div class="row">
@@ -42,13 +40,13 @@
 								<strong>Example searches</strong>
 								<ul class="list-inline">
 									<li>
-										<a href="<%= Constant.SEARCH_URL %>/achilles">achilles</a>
+										<a href="<%= Constant.SEARCH_URL %>?q=achilles">achilles</a>
 									</li>
 									<li>
-										<a href="<%= Constant.SEARCH_URL %>/STAT3">STAT3</a>
+										<a href="<%= Constant.SEARCH_URL %>?q=STAT3">STAT3</a>
 									</li>
 									<li>
-										<a href="<%= Constant.SEARCH_URL %>/breast+cancer">breast cancer</a>
+										<a href="<%= Constant.SEARCH_URL %>?q=breast+cancer">breast cancer</a>
 									</li>
 								</ul>
 							</div>

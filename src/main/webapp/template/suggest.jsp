@@ -14,6 +14,7 @@ List<String> attributeSuggestions = (List<String>) request.getAttribute("attribu
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    	<%@include file="globalIncludes.html" %>
         <%@include file="commonIncludes.html" %>
         <script>
 			$(function() {

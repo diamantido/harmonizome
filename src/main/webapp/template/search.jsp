@@ -18,6 +18,7 @@ int MAX_DESCRIPTION_LENGTH = 200;
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    	<%@include file="globalIncludes.html" %>
         <%@include file="commonIncludes.html" %>
         <script>
 			$(function() {

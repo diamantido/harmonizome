@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    	<%@include file="globalIncludes.html" %>
         <%@include file="commonIncludes.html" %>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
         <link rel="stylesheet" type="text/css" href="style/css/about.css">
