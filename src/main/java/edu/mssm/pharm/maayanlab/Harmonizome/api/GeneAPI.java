@@ -23,7 +23,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.API_BASE_URL + "/gene/*" })
+@WebServlet(urlPatterns = { Constant.API_URL + "/gene/*" })
 public class GeneAPI extends HttpServlet {
 
 	private static final long serialVersionUID = -5484736863604374714L;

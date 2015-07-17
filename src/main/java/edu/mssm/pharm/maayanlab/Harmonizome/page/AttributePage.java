@@ -53,7 +53,7 @@ public class AttributePage extends HttpServlet {
 			request.setAttribute("idFromNamingAuthority", attribute.getIdFromNamingAuthority());
 			request.setAttribute("url", attribute.getUrl());
 			request.setAttribute("genesByDataset", genesByDataset);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "attributePage.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "attribute.jsp").forward(request, response);
 		}
 	}
 }

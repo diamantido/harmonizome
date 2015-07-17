@@ -28,17 +28,12 @@ public class DatasetPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = URLUtil.getPath(request, true);
 		Dataset dataset = null;
-		List<Dataset> datasets = null;
-		
+
 		try {
 			HibernateUtil.beginTransaction();
-			if (query == null) {
-				datasets = DatasetDAO.getAllDatasets();
-			} else {
-				dataset = DatasetDAO.getByName(query);
-				if (dataset != null) {
-					dataset.setNumPageViews(dataset.getNumPageViews() + 1);
-				}
+			dataset = DatasetDAO.getByName(query);
+			if (dataset != null) {
+				dataset.setNumPageViews(dataset.getNumPageViews() + 1);
 			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {
@@ -46,10 +41,7 @@ public class DatasetPage extends HttpServlet {
 			HibernateUtil.rollbackTransaction();
 		}
 		
-		if (query == null) {
-			request.setAttribute("datasets", datasets);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "datasetSearch.jsp").forward(request, response);
-		} else if (dataset == null) {
+		if (query == null || dataset == null) {
 			request.setAttribute("query", query);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
 		} else {
@@ -66,7 +58,7 @@ public class DatasetPage extends HttpServlet {
 				request.setAttribute("download_date", new SimpleDateFormat("MM/dd/yyyy").format(downloadDate));
 			}
 			request.setAttribute("downloads", dataset.getDownloads());
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "datasetPage.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp").forward(request, response);
 		}
 	}
 }

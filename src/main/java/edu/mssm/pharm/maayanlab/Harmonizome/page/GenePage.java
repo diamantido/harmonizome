@@ -111,7 +111,7 @@ public class GenePage extends HttpServlet {
 			request.setAttribute("hgncRootFamilies", hgncRootFamilies.toArray(new String[hgncRootFamilies.size()]));
 			request.setAttribute("hgncTerminalFamilies", hgncTerminalFamilies.toArray(new String[hgncTerminalFamilies.size()]));
 			request.setAttribute("attributesByDataset", attributesByDataset);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "genePage.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "gene.jsp").forward(request, response);
 		}
 	}
 }

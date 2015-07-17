@@ -135,9 +135,6 @@ ul {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
-.footer a:hover {
-  color: #eeeeee;
-}
 .footer #share a {
   float: right;
 }
@@ -148,11 +145,15 @@ ul {
 .footer #share img:hover {
   opacity: 0.7;
 }
+.footer em {
+  margin-bottom: 2px;
+}
 #landing {
   margin-top: 100px;
 }
 #landing h1 {
   border: none;
+  color: #555;
   font-size: 40px;
 }
 #landing .instruction {
@@ -189,6 +190,10 @@ ul {
 }
 .search-description {
   color: #666666;
+}
+#suggest-page ul li {
+  margin-bottom: 2px;
+  padding: 0;
 }
 /* Generic classes
  * ------------------------------------------------------------------------- */
@@ -243,6 +248,9 @@ ul {
   border-radius: 0;
   color: #444444;
 }
+.badge a {
+  color: #444444;
+}
 .badge.dataset {
   background-color: #e65848;
 }
@@ -252,7 +260,14 @@ ul {
 .badge.attribute {
   background-color: #2f77a3;
 }
-.badge a {
+.badge.dataset,
+.badge.gene,
+.badge.attribute {
+  color: white;
+}
+.badge.dataset a,
+.badge.gene a,
+.badge.attribute a {
   color: white;
 }
 /* jQuery UI overwrites.

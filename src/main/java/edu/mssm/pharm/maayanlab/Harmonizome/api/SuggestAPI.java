@@ -34,7 +34,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.API_BASE_URL + "/suggest/q/*" })
+@WebServlet(urlPatterns = { Constant.API_URL + "/suggest/q/*" })
 public class SuggestAPI extends HttpServlet {
 
 	private static final long serialVersionUID = 778955897675398125L;

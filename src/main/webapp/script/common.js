@@ -20,8 +20,9 @@ var HMZ = function(config) {
 	}
 
 	var $searchEl = $('#search');
-	if ($searchEl.length && config.ALL_GENES) {
-		setupSearch($searchEl, config.ALL_GENES);
+	if ($searchEl.length) {
+		var geneDictionary = config.ALL_GENES ? config.ALL_GENES : [];
+		setupSearch($searchEl, geneDictionary);
 	}
 	
 	/* --------------------------------------------------------------------- */
@@ -154,18 +155,18 @@ var HMZ = function(config) {
 	
 	/* Setups search bar.
 	 */
-	function setupSearch($parentEl, genes) {
+	function setupSearch($parentEl, geneDictionary) {
 		var $input = $parentEl
-			.find('input')
-			.autocomplete({
-				minLength: 3,
-				source: genes
-			})
-			.keypress(function(evt) {
-				if (evt.which === 13) {
-					loadPage($input.val());
-				}
-			});
+				.find('input')
+				.autocomplete({
+					minLength: 3,
+					source: geneDictionary
+				})
+				.keypress(function(evt) {
+					if (evt.which === 13) {
+						loadPage($input.val());
+					}
+				});
 		$input.find(':submit').click(function(evt) {
 			evt.preventDefault();
 			loadPage($input.val());

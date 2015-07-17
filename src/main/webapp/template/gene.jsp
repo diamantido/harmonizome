@@ -81,14 +81,14 @@
 					</table>
 				</section>
 				<section>
-					<h2>Attributes by dataset</h2>
-					<p class="instruction">Click on a dataset to see attributes for ${symbol}.</p>
+					<h2>Functional associations (membership in gene sets)</h2>
+					<p class="instruction">Click on a dataset to see its gene set for ${symbol}.</p>
 					<table class="table entities-by-dataset genes">
 						<thead>
 							<tr>
 								<th></th>
 								<th>Dataset</th>
-								<th>Attribute Type</th>
+								<th>Gene Set Type</th>
 							</tr>
 						</thead>
 						<% @SuppressWarnings("unchecked")
@@ -107,7 +107,7 @@
 								</td>
 								<td class="col-sm-6">
 									<a href="dataset/<%= datasetURL %>"><%= dataset.getName() %></a>
-									<span class="badge">${symbol} is in <%= attributes.getLeft().size() + attributes.getRight().size() %> gene set(s)</span>
+									<span class="badge">${symbol} has <%= attributes.getLeft().size() + attributes.getRight().size() %> <%= dataset.getAttributeType().getName() %> association(s)</span>
 								</td>
 								<td class="col-sm-5">
 									<%= dataset.getAttributeType().getName() %>

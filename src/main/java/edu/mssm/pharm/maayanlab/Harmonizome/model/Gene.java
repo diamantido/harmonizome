@@ -114,7 +114,7 @@ public class Gene {
 		this.description = description;
 	}
 
-	public int getNcbiEntrezGeneId() {
+	public Integer getNcbiEntrezGeneId() {
 		return ncbiEntrezGeneId;
 	}
 

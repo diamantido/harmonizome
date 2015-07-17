@@ -1,8 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.serdes;
 
 import java.lang.reflect.Type;
-import java.util.HashSet;
-import java.util.Set;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -11,10 +9,9 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 public class GeneSerializer implements JsonSerializer<Gene> {
 
@@ -31,8 +28,14 @@ public class GeneSerializer implements JsonSerializer<Gene> {
 
 		result.add("name", new JsonPrimitive(gene.getName()));
 		result.add("description", new JsonPrimitive(gene.getDescription()));
-		result.add("ncbiEntrezGeneId", new JsonPrimitive(gene.getNcbiEntrezGeneId()));
-		result.add("ncbiEntrezGeneUrl", new JsonPrimitive(gene.getNcbiEntrezGeneUrl()));
+		if (gene.getNcbiEntrezGeneId() != null) {
+			result.add("ncbiEntrezGeneId", new JsonPrimitive(gene.getNcbiEntrezGeneId()));
+		}
+		if (gene.getNcbiEntrezGeneUrl() != "") {
+			result.add("ncbiEntrezGeneUrl", new JsonPrimitive(gene.getNcbiEntrezGeneUrl()));
+		}
+		String href = Constant.API_URL + Constant.GENE_URL + "/" + gene.getSymbol();
+		result.add(Constant.REST_LOCATION_PROP, new JsonPrimitive(href));
 
 		return result;
 	}

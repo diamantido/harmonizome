@@ -60,7 +60,7 @@ public class GeneSetPage extends HttpServlet {
 			request.setAttribute("idFromNamingAuthority", attribute.getIdFromNamingAuthority());
 			request.setAttribute("url", attribute.getUrl());
 			request.setAttribute("upGenes", upGenes);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "geneSetPage.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "geneSet.jsp").forward(request, response);
 		}
 	}
 }

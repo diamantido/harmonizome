@@ -124,7 +124,7 @@
 				<section>
 					<% @SuppressWarnings("unchecked")
 					List<Gene> upGenes = (List<Gene>) request.getAttribute("upGenes"); %>
-					<h2>Genes <span class="badge"><%= upGenes.size() %></span></h2>
+					<h2>Gene Set <span class="badge"><%= upGenes.size() %> genes</span></h2>
 					<table id="gene-set" class="table data-table">
 						<thead>
 							<tr>

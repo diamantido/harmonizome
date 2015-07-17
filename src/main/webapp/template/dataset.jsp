@@ -15,7 +15,11 @@
 				    <table class="table">
 				    	<tr>
 				    		<td>Resource</td>
-				    		<td><%= request.getAttribute("resource") %></td>
+				    		<td>
+				    			<a href="< %>">
+				    				<%= request.getAttribute("resource") %>
+				    			</a>	
+				    		</td>
 				    	</tr>
 				    	<tr>
 				    		<td>Data Description</td>

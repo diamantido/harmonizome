@@ -36,7 +36,11 @@
 						<% Dataset dataset = datasets.get(i); %>
 						<tr>
 							<td><%= dataset.getName() %></td>
-							<td><%= dataset.getResource().getName() %></td>
+							<td>
+								<a href="<%= dataset.getResource().getUrl() %>" target="_blank">
+									<%= dataset.getResource().getName() %>
+								</a>
+							</td>
 							<td><%= dataset.getDescription() %></td>
 							<td><%= dataset.getDatasetType().getName() %></td>
 							<td><%= dataset.getAttributeType().getName() %></td>

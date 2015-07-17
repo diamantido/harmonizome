@@ -27,7 +27,7 @@
 						<div class="col-md-12 text-center">
 							<img src="image/logo_100x96.png">
 							<h1 class="project-title">Harmonizome</h1>
-							<p class="instruction">Search datasets, genes, and gene sets organized by attributes such as genes, proteins, cell lines, tissues, experimental perturbations, diseases, phenotypes, and drugs.</p>
+							<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources.</p>
 						</div>
 						<div class="row">
 							<div id="search" class="col-md-offset-2 col-md-8 input-group">
@@ -42,13 +42,13 @@
 								<strong>Example searches</strong>
 								<ul class="list-inline">
 									<li>
-										<a href="<%= Constant.SEARCH_BASE_URL %>/achilles">achilles</a>
+										<a href="<%= Constant.SEARCH_URL %>/achilles">achilles</a>
 									</li>
 									<li>
-										<a href="<%= Constant.SEARCH_BASE_URL %>/STAT3">STAT3</a>
+										<a href="<%= Constant.SEARCH_URL %>/STAT3">STAT3</a>
 									</li>
 									<li>
-										<a href="<%= Constant.SEARCH_BASE_URL %>/breast+cancer">breast cancer</a>
+										<a href="<%= Constant.SEARCH_URL %>/breast+cancer">breast cancer</a>
 									</li>
 								</ul>
 							</div>

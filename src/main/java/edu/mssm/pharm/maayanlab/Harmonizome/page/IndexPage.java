@@ -17,7 +17,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "" })
-public class Index extends HttpServlet {
+public class IndexPage extends HttpServlet {
 
 	private static final long serialVersionUID = 6276133214992931402L;
 

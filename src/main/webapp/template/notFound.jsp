@@ -7,7 +7,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h5>The ${queryType} "${query}" was not found.</h5>
+				<h4 class="note">The ${queryType} "${query}" was not found.</h4>
 			</div>
 			<%@include file="footer.html"%>
 		</div>

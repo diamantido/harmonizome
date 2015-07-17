@@ -139,9 +139,6 @@ ul {
 		color: @color-charcoal;
 		font-family: @font-family-primary;
 		font-weight: @font-weight-primary;
-		&:hover {
-			color: @color-gray-light;
-		}
 	}
 	#share {
         a {
@@ -155,11 +152,15 @@ ul {
             }
         }
 	}
+	em {
+		margin-bottom: 2px;
+	}
 }
 #landing {
 	margin-top: 100px;
 	h1 {
 		border: none;
+		color: #555;
 		font-size: 40px;
 	}
 	.instruction {
@@ -207,6 +208,14 @@ ul {
 }
 .search-description {
 	color: @color-gray;
+}
+#suggest-page {
+	ul {
+		li {
+			margin-bottom: 2px;
+			padding: 0;
+		}
+	}
 }
 
 /* Generic classes
@@ -264,6 +273,12 @@ ul {
 	background-color: @color-gray-light;
 	border-radius: 0;
 	color: @color-charcoal;
+	a {
+		color: @color-charcoal;
+		&:hover {
+			@color: charcoal;
+		}
+	}
 	&.dataset {
 		background-color: @color-red;
 	}
@@ -273,8 +288,13 @@ ul {
 	&.attribute {
 		background-color: @color-blue;
 	}
-	a {
+	&.dataset,
+	&.gene,
+	&.attribute {
 		color: white;
+		a {
+			color: white;
+		}
 	}
 }
 
