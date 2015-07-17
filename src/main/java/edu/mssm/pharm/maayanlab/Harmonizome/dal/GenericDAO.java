@@ -2,6 +2,9 @@ package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
+
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class GenericDAO {
@@ -33,5 +36,13 @@ public class GenericDAO {
 			.createSQLQuery(sql)
 			.addEntity(klass)
 			.list();
+	}
+
+	public static <E> Long getCount(Class<E> klass) {
+		Criteria criteria = HibernateUtil
+			.getCurrentSession()
+			.createCriteria(klass);
+		criteria.setProjection(Projections.rowCount());
+		return (Long) criteria.uniqueResult();
 	}
 }

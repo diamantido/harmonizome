@@ -57,13 +57,14 @@ public class SearchAPI extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.getPath(request, true);
+		String query = URLUtil.getParameter(request, "q");
+		String type = URLUtil.getParameter(request, "t");
 		String json;
 		if (query == null) {
 			BaseJSON baseJson = new BaseJSON();
 			json = gson.toJson(baseJson);
 		} else {
-			SearchResults searchResults = new SearchResults(query);
+			SearchResults searchResults = new SearchResults(query, type);
 			json = gson.toJson(searchResults, SearchResults.class);
 		}
 		PrintWriter out = response.getWriter();

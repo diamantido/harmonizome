@@ -22,7 +22,8 @@ public class SearchPage extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = URLUtil.getParameter(request, "q");
-		SearchResults searchResults = new SearchResults(query);
+		String type = URLUtil.getParameter(request, "t");
+		SearchResults searchResults = new SearchResults(query, type);
 		if (searchResults.noMatches()) {
 			showNotFound(request, response, query);
 		} else if (searchResults.onlySuggestions()) {
@@ -32,6 +33,7 @@ public class SearchPage extends HttpServlet {
 			request.setAttribute("attributeSuggestions", suggestions.get("attributes"));
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "suggest.jsp").forward(request, response);
 		} else {
+			request.setAttribute("query", query);
 			request.setAttribute("datasets", searchResults.getDatasets());
 			request.setAttribute("genes", searchResults.getGenes());
 			request.setAttribute("attributes", searchResults.getAttributes());

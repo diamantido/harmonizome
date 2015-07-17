@@ -10,6 +10,8 @@
 
 		<link rel="shortcut icon" href="image/logo_16x16.png?v=c">
 		<link rel="stylesheet" type='text/css' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<!-- We need jQuery UI's CSS to hide aria elements. -->
+		<link rel="stylesheet" type='text/css' href="http://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css">
 		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="/Harmonizome/style/css/common.css">
 
@@ -25,11 +27,8 @@
 				<div class="container">
 					<h1>404 Error</h1>
 					<p class="instruction">Search below or <a href="">return to the homepage</a>.</p>
-					<div id="search" class="col-md-6 input-group">
-						<input type="text" class="form-control" placeholder="">
-						<span class="input-group-btn">
-							<button class="btn btn-default" type="submit">Go!</button>
-						</span>
+					<div class="col-md-6 input-group">
+						<%@include file="searchBar.html" %>
 					</div>
 				</div>
 			</div>

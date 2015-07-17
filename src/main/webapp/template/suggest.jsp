@@ -27,26 +27,27 @@ List<String> attributeSuggestions = (List<String>) request.getAttribute("attribu
 		<div class="wrapper">
 			<div class="content container-full">
 				<div id="suggest-page" class="container">
-					<h4 class="note">Did you mean...</h4>
+					<h1>Suggestions</h1>
+					<p class="note">Did you mean...</p>
 					<ul class="list-inline">
 					<% for (String name : datasetSuggestions) { %>
 						<li>
 							<span class="badge dataset">
-								<a href="<%= Constant.SEARCH_URL %>/<%= URLCodec.encode(name) %>"><%= name %></a>
+								<a href="<%= Constant.SEARCH_URL %>?q=<%= URLCodec.encode(name) %>"><%= name %></a>
 							</span>
 						</li>
 					<% } %>
 					<% for (String symbol : geneSuggestions) { %>
 						<li>
 							<span class="badge gene">
-								<a href="<%= Constant.SEARCH_URL %>/<%= URLCodec.encode(symbol) %>"><%= symbol %></a>
+								<a href="<%= Constant.SEARCH_URL %>?q=<%= URLCodec.encode(symbol) %>"><%= symbol %></a>
 							</span>
 						</li>
 					<% } %>
 					<% for (String name : attributeSuggestions) { %>
 						<li>
 							<span class="badge attribute">
-								<a href="<%= Constant.SEARCH_URL %>/<%= URLCodec.encode(name) %>"><%= name %></a>
+								<a href="<%= Constant.SEARCH_URL %>?q=<%= URLCodec.encode(name) %>"><%= name %></a>
 							</span>
 						</li>
 					<% } %>

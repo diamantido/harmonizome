@@ -34,9 +34,15 @@ int MAX_DESCRIPTION_LENGTH = 200;
 					<div class="col-md-12">
 						<h1>Search results</h1>
 						<p>
-							<span class="badge dataset"><%= datasets.size() %> datasets</span>
-							<span class="badge gene"><%= genes.size() %> genes</span>
-							<span class="badge attribute"><%= attributes.size() %> gene sets</span>
+							<span class="badge dataset">
+								<a href="search?q=${query}&t=dataset"><%= datasets.size() %> datasets</a>
+							</span>
+							<span class="badge gene">
+								<a href="search?q=${query}&t=gene"><%= genes.size() %> genes</a>
+							</span>
+							<span class="badge attribute">
+								<a href="search?q=${query}&t=attribute"><%= attributes.size() %> gene sets</a>
+							</span>
 						</p>
 					</div>
 					<div class="col-md-12">
