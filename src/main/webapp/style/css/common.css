@@ -239,8 +239,9 @@ ul {
   border-radius: 0;
 }
 .badge {
-  background-color: #e65848;
+  background-color: #eeeeee;
   border-radius: 0;
+  color: #444444;
 }
 .badge.dataset {
   background-color: #e65848;
@@ -249,7 +250,7 @@ ul {
   background-color: #2ab69d;
 }
 .badge.attribute {
-  background-color: #fdc536;
+  background-color: #2f77a3;
 }
 .badge a {
   color: white;

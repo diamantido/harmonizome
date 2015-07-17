@@ -12,32 +12,68 @@
 <html lang="en">
     <head>
         <%@include file="commonIncludes.html" %>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
         <link rel="stylesheet" type="text/css" href="style/css/about.css">
+        <style>
+		form {
+		  	position: absolute;
+		  	right: 10px;
+		  	top: 10px;
+		}
+		.node {
+		    border: solid 1px white;
+		    line-height: 0.95;
+		    overflow: hidden;
+		    position: absolute;
+		}
+		.node div {
+		   	padding: 6px 4%;
+		}
+		#treemap {
+			width: 100%;
+			height: 1000px;
+			color: white;
+		}
+        </style>
         <script>
         $(function() {
-        	var width = innerWidth-40,
-	            height = innerHeight-40,
-	            color = d3.scale.category20c(),
-	            div = d3.select("body").append("div")
-	               .style("position", "relative");
+	
+        	var tree = {
+        		name: 'tree',
+        		children: <%= request.getAttribute("resources") %>
+        	};
+
+        	var $parentEl = $('#treemap'),
+        		MARGIN = 40,
+	            color = d3.scale.ordinal()
+	            	.domain(["disease or phenotype associations", "transcriptomics", "structural or functional annotations", "physical interactions", "genomics", "proteomics"])
+	            	.range(["#2AB69D", "#E65848", "#FDC536", "#2F77A3", "#8BE3E8", "#EB7F00"])
+	            div = d3.select("#treemap").append('div').style("position", "relative"),
+	          	width = $parentEl.width() - MARGIN,
+		       	height = $parentEl.height() - MARGIN;
 
 	        var treemap = d3.layout.treemap()
 	            .size([width, height])
 	            .sticky(true)
 	            .value(function(d) { return d.size; });
-	         
+	        
 	        var node = div.datum(tree).selectAll(".node")
 	              .data(treemap.nodes)
 	            .enter().append("div")
 	              .attr("class", "node")
 	              .call(position)
 	              .style("background-color", function(d) {
-	                  return d.name == 'tree' ? '#fff' : color(d.name); })
+	                  return d.name == 'tree' ? '#fff' : color(d.group); })
 	              .append('div')
 	              .style("font-size", function(d) {
-	                  // compute font size based on sqrt(area)
-	                  return Math.max(20, 0.18*Math.sqrt(d.area))+'px'; })
-	              .text(function(d) { return d.children ? null : d.name; });
+	                  return "12px"; 
+	              })
+	              .attr("title", function(d) {
+	            	  return d.size + " datasets";
+	              })
+	              .text(function(d) {
+	            	  return d.children ? null : d.name;
+	           		});
 	         
 	        function position() {
 	          	this.style("left", function(d) { return d.x + "px"; })
@@ -56,7 +92,8 @@
 					<h1>About</h1>
 					<p>Thanks to technological advances in genomics, transcriptomics, proteomics, metabolomics, and related fields, projects that generate a large number of measurements of the properties of cells, tissues, model organisms, and patients are becoming commonplace in biomedical research. In addition, curation projects are making great progress mining biomedical literature to extract and aggregate decades worth of research findings into online databases. Such projects are generating a wealth of information that potentially can guide research toward novel biomedical discoveries and advances in healthcare. To facilitate access to and learning from biomedical Big Data, we created the Harmonizome: a collection of information about genes and proteins from over 100 datasets provided by over 50 online resources.</p>
 					<p>To create the Harmonizome, we distilled information from original datasets into attribute tables that define significant associations between genes and attributes, where attributes could be genes, proteins, cell lines, tissues, experimental perturbations, diseases, phenotypes, or drugs, depending on the dataset. Gene and protein identifiers were mapped to NCBI Entrez Gene Symbols and attributes were mapped to appropriate ontologies. We also computed gene-gene and attribute-attribute similarity networks from the attribute tables. These attribute tables and similarity networks can be integrated to perform many types of computational analyses for knowledge discovery and hypothesis generation.</p>
-					<% @SuppressWarnings("unchecked")
+					<div id="treemap"></div>
+					<%--<% @SuppressWarnings("unchecked")
 						List<Resource> resources = (List<Resource>) request.getAttribute("resources");
 						//Collections.sort(resources, new ResourceComparator());
 						for (Resource r : resources) { 
@@ -82,7 +119,7 @@
 									</div>
 								</div>
 							</div>
-						<% } %>
+						<% } %>--%>
 				</div>
 			</div>
 			<%@include file="footer.html" %>
