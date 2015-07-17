@@ -97,4 +97,16 @@ public class GeneDAO {
 			.setInteger("thresholdValue", thresholdValue)
 			.list();
 	}
+
+	public static List<Gene> getByWordInSymbol(String query) {
+		return GenericDAO.getBySubstringInField(Gene.class, "gene", "symbol", query);
+	}
+
+	public static List<Gene> getByWordInSymbolButIgnoreExactMatch(String query, int idToIgnore) {
+		return GenericDAO.getBySubstringInFieldButIgnoreId(Gene.class, "gene", "symbol", query, idToIgnore);
+	}
+	
+	public static List<String> getSuggestions(String query) {
+		return GenericDAO.getSuggestions("gene", "symbol", query);
+	}
 }

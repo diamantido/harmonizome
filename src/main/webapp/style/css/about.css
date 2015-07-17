@@ -1,3 +1,7 @@
+/* https://color.adobe.com/21-Flat-Business-Icons-color-theme-6339907/?showPublished=true
+ * https://color.adobe.com/Aspirin-C-color-theme-251864/?showPublished=true
+ */
+/* Logo colors */
 /* Georgia, sans-serif; */
 /*"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
 /*body {
@@ -44,7 +48,7 @@
   width: 65%;
 }
 .resource h4 .count {
-  color: #254657;
+  color: #38829b;
   float: right;
   font-size: 12px;
   text-align: right;
@@ -70,22 +74,22 @@
   padding: 2px 5px;
 }
 .resource .labels .structural-or-functional-annotations {
-  background: #fece06;
+  background: #e65848;
 }
 .resource .labels .proteomics {
-  background: #6e3e98;
+  background: #fdc536;
 }
 .resource .labels .physical-interactions {
-  background: #437cbf;
+  background: #2f77a3;
 }
 .resource .labels .transcriptomics {
-  background: #2aaa49;
+  background: #2ab69d;
 }
 .resource .labels .genomics {
-  background: orange;
+  background: #8be3e8;
 }
 .resource .labels .disease-or-phenotype-associations {
-  background: #ed1f24;
+  background: #eb7f00;
 }
 @media (max-width: 768px) {
   .resource {

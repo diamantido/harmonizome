@@ -51,7 +51,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 	@Test
 	public void testByDataset() throws IOException, ServletException {
 		when(request.getParameter("dataset")).thenReturn("CCLE_Cell_Line_Gene_Expression_Profiles"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -63,7 +63,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 	@Test
 	public void testByDatasetGroup() throws IOException, ServletException {
 		when(request.getParameter("datasetGroup")).thenReturn("proteomics"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -84,7 +84,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 	@Test
 	public void testByDatasetType() throws IOException, ServletException {
 		when(request.getParameter("datasetType")).thenReturn("genetic_association"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -101,7 +101,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 	@Test
 	public void testByAttributeGroup() throws ServletException, IOException {
 		when(request.getParameter("attributeGroup")).thenReturn("organism"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -113,7 +113,7 @@ public class TestSearchAPIAttributeType extends Mockito {
 	@Test
 	public void testByAttributeType() throws ServletException, IOException {
 		when(request.getParameter("attributeType")).thenReturn("molecular_function"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);

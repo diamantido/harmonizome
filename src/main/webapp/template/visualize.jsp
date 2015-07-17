@@ -2,21 +2,36 @@
 <html lang="en">
     <head>
         <%@include file="commonIncludes.html" %>
-		<link rel="stylesheet" href="style/lib/bootstrap-switch.css">
+		<%--<link rel="stylesheet" href="style/lib/bootstrap-switch.css">
 		<link rel="stylesheet" href="style/lib/dc.css">
 		<link rel="stylesheet" href="style/lib/jquery.accordion.css">
 		<link rel="stylesheet" href="style/lib/custom.css">
 		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-		
-		
-		<link rel="stylesheet" href="style/css/visualize.css">
+		<link rel="stylesheet" href="style/css/visualize.css">--%>
+		<style>
+			/* Inline as a temporary fix. */
+			iframe {
+				border: none;
+				height: 100%;
+				width: 100%;
+			}
+			.content {
+				height: 100%;
+			}
+			.footer {
+				bottom: -50px;
+			}
+		</style>
 	</head>
-
 <body>
 	<body>
 		<%@include file="navbar.html"%>
 		<div class="content container-full">
-		
+			<iframe src="http://cleopatra.1425mad.mssm.edu:31001/harmonogram/"></iframe>
+		</div>
+		<%@include file="footer.html"%>
+
+			<%--
 			<!-- Sidebar -->
 			<div class="col-sm-2">
 				<p class="instruction">
@@ -90,8 +105,7 @@
 	    		</div>-->
     		</div>
     	</div>
-		<%@include file="footer.html"%>
-
+		
 		<!-- Libraries -->
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src='script/lib/jquery.accordion.js'></script>
@@ -120,6 +134,6 @@
 		<script src="script/clustergram/Legend.js"></script>
 		<script src="script/clustergram/FontScale.js"></script>
 		<script src="script/clustergram/Frame.js"></script>
-	  	<script src="script/visualize.js"></script>
+	  	<script src="script/visualize.js"></script>--%>
 	</body>
 </html>

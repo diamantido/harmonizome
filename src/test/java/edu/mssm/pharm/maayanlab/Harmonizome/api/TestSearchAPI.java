@@ -54,14 +54,14 @@ public class TestSearchAPI extends Mockito {
 
 	@Test
 	public void testResponseFields() throws IOException, ServletException {
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		assertTrue(output.toString().contains("dataset"));
 	}
 
 	@Test
 	public void testDatasetAll() throws IOException, ServletException {
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);

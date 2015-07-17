@@ -19,7 +19,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.PAGE_BASE_URL + "/hgnc_root_family/*" })
+@WebServlet(urlPatterns = { "/hgnc_root_family/*" })
 public class HgncFamilyRootPage extends HttpServlet {
 
 	private static final long serialVersionUID = -594042157095699907L;
@@ -47,11 +47,11 @@ public class HgncFamilyRootPage extends HttpServlet {
 						
 			if (hrf == null) {
 				req.setAttribute("query", queriedSymbol);
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "not_found.jsp").forward(req, resp);				
+				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(req, resp);				
 			} else {				
 				req.setAttribute("name", hrf.getName());
 				req.setAttribute("genes", genes.toArray(new String[genes.size()]));
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "hgnc_root_family.jsp").forward(req, resp);
+				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "hgncRootFamily.jsp").forward(req, resp);
 			}
 		}
 	}

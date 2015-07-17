@@ -10,6 +10,13 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class DatasetDAO {
 
+	public static Long getCount() {
+		return (Long) HibernateUtil
+			.getCurrentSession()
+			.createQuery("SELECT COUNT(*) FROM Dataset")
+			.uniqueResult();
+	}
+
 	@SuppressWarnings("unchecked")
 	public static List<Dataset> getAllDatasets() {
 		List<Dataset> datasets = (List<Dataset>) HibernateUtil.getAll(Dataset.class);
@@ -40,14 +47,26 @@ public class DatasetDAO {
 	@SuppressWarnings("unchecked")
 	public static List<Dataset> getByAttribute(String attributeName) {
 		return (List<Dataset>) HibernateUtil
-				.getCurrentSession()
-				.createQuery(
-					"SELECT DISTINCT dataset FROM Dataset AS dataset " +
-					"JOIN dataset.features AS feats " +
-					"JOIN feats.attribute AS attr " +
-					"WHERE attr.name = :name"
-				)
-				.setString("name", attributeName)
-				.list();
+			.getCurrentSession()
+			.createQuery(
+				"SELECT DISTINCT dataset FROM Dataset AS dataset " +
+				"JOIN dataset.features AS feats " +
+				"JOIN feats.attribute AS attr " +
+				"WHERE attr.name = :name"
+			)
+			.setString("name", attributeName)
+			.list();
+	}
+
+	public static List<Dataset> getByWordInName(String query) {
+		return GenericDAO.getBySubstringInField(Dataset.class, "dataset", "name", query);
+	}
+
+	public static List<Dataset> getByWordInNameButIgnoreExactMatch(String query, int idToIgnore) {
+		return GenericDAO.getBySubstringInFieldButIgnoreId(Dataset.class, "dataset", "name", query, idToIgnore);
+	}
+
+	public static List<String> getSuggestions(String query) {
+		return GenericDAO.getSuggestions("dataset", "name", query);
 	}
 }

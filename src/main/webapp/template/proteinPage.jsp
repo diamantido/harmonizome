@@ -7,7 +7,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>${symbol} <span class="note">${note}</span></h3>
+				<h1>${symbol} <span class="note">${note}</span></h1>
 				<table class="table">
 					<tr>
 						<td class="col-sm-3">Name</td>

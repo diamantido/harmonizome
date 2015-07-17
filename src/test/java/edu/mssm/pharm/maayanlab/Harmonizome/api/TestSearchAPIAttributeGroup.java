@@ -51,7 +51,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 	@Test
 	public void testByDataset() throws IOException, ServletException {
 		when(request.getParameter("dataset")).thenReturn("Guide_to_Pharmacology_Protein_Ligands_of_Receptors"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -63,7 +63,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 	@Test
 	public void testByDatasetGroup() throws IOException, ServletException {
 		when(request.getParameter("datasetGroup")).thenReturn("physical_interactions"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -80,7 +80,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 	@Test
 	public void testByDatasetType() throws IOException, ServletException {
 		when(request.getParameter("datasetType")).thenReturn("protein_expression_immunohistochemistry"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -92,7 +92,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 	@Test
 	public void testByAttributeGroup() throws ServletException, IOException {
 		when(request.getParameter("attributeGroup")).thenReturn("sequence_feature"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -104,7 +104,7 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 	@Test
 	public void testByAttributeType() throws ServletException, IOException {
 		when(request.getParameter("attributeType")).thenReturn("hub"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);

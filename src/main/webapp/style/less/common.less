@@ -2,7 +2,7 @@
 
 /* Structure all pages to allow for footer. Other styling for these elements is
  * below.
- */
+ * ------------------------------------------------------------------------- */
 html,
 body {
 	height: 100%;
@@ -15,22 +15,28 @@ body {
 .footer {
 	height: @dimension-footer-height;
 }
+/* Push all content out from under the fix nav. Do not use "margin-top" because
+ * this pushes the sticky footer down as well.
+ */
+.content {
+	position: relative;
+	top: @dimension-nav-height;
+	padding-bottom: @dimension-footer-height;
+}
 
 /* Tag selectors.
- */
+ * ------------------------------------------------------------------------- */
 html {
     font-family: @font-family-base;
 }
-body {
-	/*background-color: @color-background;*/
-}
 a,
 a:link {
-    color: @color-primary-medium;
+    color: @color-link-blue;
     text-decoration: none;
 }
 a:hover {
-    color: @color-primary;
+    color: @color-link-blue;
+    text-decoration: underline;
 }
 a:visited,
 a:active {
@@ -60,38 +66,48 @@ ul {
 }
 
 /* Section selectors.
- */
+ * ------------------------------------------------------------------------- */
 .navbar {
-	background-color: @color-primary-dark;
+	background-color: @color-navbar-background;
     height: @dimension-nav-height;
     padding: 10px;
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 999;
-    h3 {
+    h1 {
     	border: none;
+    	font-size: 25px;
         margin-bottom: 4px;
         margin-top: 0;
-        em,
-        em:hover {
-        	color: @color-primary-light;   	
-        }
-        span {
+        span.credits {
+        	font-family: @font-family-accent;
         	font-size: 19px;
         	margin-left: 10px;
         }
+        a {
+        	&:hover {
+        		text-decoration: none;
+        	}
+        }
+    }
+    img {
+    	bottom: 2px;
+    	position: relative;
+    	margin-right: 14px;
     }
     a {
     	color: white;
     	font-family: @font-family-primary;
     	font-weight: @font-weight-primary;
-        text-decoration: none;
         &:hover {
-        	color: @color-primary-light;
+        	color: @color-gray-light;
         }
     }
     ul {
+    	/* Line up with title text */
+    	position: relative;
+    	top: 3px;
     	text-transform: uppercase;
     }
 }
@@ -104,18 +120,10 @@ ul {
 		}
 	}
 }
-/* Push all content out from under the fix nav. Do not use "margin-top" because
- * this pushes the sticky footer down as well.
- */
-.content {
-	position: relative;
-	top: @dimension-nav-height;
-	padding-bottom: @dimension-footer-height;
-}
 .footer {
-	background: @color-charcoal;
+	background: @color-gray-light;
 	bottom: 0;
-	color: white;
+	color: @color-charcoal;
 	padding: 13px;
 	position: absolute;
 	width: 100%;
@@ -128,11 +136,11 @@ ul {
 		}
 	}
 	a {
-		color: white;
+		color: @color-charcoal;
 		font-family: @font-family-primary;
 		font-weight: @font-weight-primary;
 		&:hover {
-			color: @color-primary-light;
+			color: @color-gray-light;
 		}
 	}
 	#share {
@@ -147,6 +155,23 @@ ul {
             }
         }
 	}
+}
+#landing {
+	margin-top: 100px;
+	h1 {
+		border: none;
+		font-size: 40px;
+	}
+	.instruction {
+		bottom: 2px;
+		color: @color-charcoal;
+		font-style: normal;
+		margin-right: 14px;
+		position: relative;
+	}
+}
+.project-title {
+	font-family: @font-family-accent;
 }
 .table {
 	.tools {
@@ -171,21 +196,27 @@ ul {
 		}
 	}
 }
+.item-list {
+	display: none;
+	td {
+		padding-left: 20px !important;
+	}
+	div {
+		padding-bottom: 10px;
+	}
+}
+.search-description {
+	color: @color-gray;
+}
 
 /* Generic classes
- */
+ * ------------------------------------------------------------------------- */
 .note {
 	font-size: 14px;
 	font-style: italic;
 }
-.highlight {
-	color: @color-yellow;
-}
 .glyphicon-search {
 	cursor: pointer;
-}
-.accent {
-	color: @color-accent;
 }
 .instruction {
 	font-style: italic;
@@ -203,26 +234,23 @@ ul {
 		.tool-tip-text {
 	        display: inline;
 	        position: absolute;
-	    	border: 1px solid @color-yellow;
-	    	background: @color-yellow-light;
+	    	border: 1px solid @color-info-yellow;
+	    	background: @color-info-yellow-light;
 	    }
 	}
 }
 .cursor-pointer {
 	cursor: pointer;
 }
-.item-list {
-	display: none;
-	td {
-		padding-left: 20px !important;
-	}
-	div {
-		padding-bottom: 10px;
-	}
+.top-buffer {
+	margin-top: 20px;
+}
+.bottom-buffer {
+	margin-bottom: 20px;
 }
 
 /* Bootstrap overwrites.
- */
+ * ------------------------------------------------------------------------- */
 .table > tbody > tr:first-child > td {
     border: none;
 }
@@ -233,11 +261,24 @@ ul {
 	border-radius: 0;
 }
 .badge {
-	background-color: @color-primary-medium;
+	background-color: @color-red;
+	border-radius: 0;
+	&.dataset {
+		background-color: @color-red;
+	}
+	&.gene {
+		background-color: @color-green;
+	}
+	&.attribute {
+		background-color: @color-yellow;
+	}
+	a {
+		color: white;
+	}
 }
 
 /* jQuery UI overwrites.
- */
+ * ------------------------------------------------------------------------- */
 .ui-autocomplete {
 	background: white;
 	border-radius: 0px;
@@ -259,7 +300,7 @@ ul {
 }
 
 /* DataTable overwrites.
- */
+ * ------------------------------------------------------------------------- */
 .dataTables_filter {
 	label {
 		font-weight: bold !important;
@@ -280,16 +321,30 @@ ul {
 .pagination > li:first-child > span {
 	border-radius: 0;
 }
+.pagination > li > a,
+.pagination > li > span {
+	border-color: @color-gray-light;
+}
 .pagination > .active > a,
 .pagination > .active > a:focus,
 .pagination > .active > a:hover,
 .pagination > .active > span,
 .pagination > .active > span:focus,
 .pagination > .active > span:hover {
-	background-color: @color-primary-medium;
-	border-color: @color-primary-medium;
+	background-color: @color-gray-light;
+	border-color: @color-gray-light;
+	color: @color-charcoal;
 }
 .pagination > li > a,
 .pagination > li > span {
-	color: @color-primary;
+	color: @color-link-blue;
+}
+@media (max-width: 767px) {
+	div.dataTables_wrapper > div.row > div,
+	div.dataTables_length,
+	div.dataTables_filter,
+	div.dataTables_info,
+	div.dataTables_paginate {
+		text-align: left;
+	}
 }

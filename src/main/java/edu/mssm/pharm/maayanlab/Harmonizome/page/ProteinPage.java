@@ -16,7 +16,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.PAGE_BASE_URL + "/protein/*" })
+@WebServlet(urlPatterns = { "/protein/*" })
 public class ProteinPage extends HttpServlet {
 
 	private static final long serialVersionUID = 264508702310729565L;
@@ -38,14 +38,14 @@ public class ProteinPage extends HttpServlet {
 						
 			if (protein == null) {
 				req.setAttribute("query", queriedSymbol);
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "not_found.jsp").forward(req, resp);				
+				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(req, resp);				
 			} else {
 				req.setAttribute("note", "protein");
 				req.setAttribute("symbol", protein.getSymbol());
 				req.setAttribute("name", protein.getName());
 				req.setAttribute("uniprotUrl", protein.getUniprotUrl());
 				req.setAttribute("gene", protein.getGene().getSymbol());
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "protein_page.jsp").forward(req, resp);
+				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "proteinPage.jsp").forward(req, resp);
 			}
 		}
 	}

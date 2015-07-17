@@ -19,14 +19,9 @@ var HMZ = function(config) {
 		setupEnrichrLink(config.DOWN_GENES);
 	}
 
-	var $geneSearchEl = $('#gene-search');
-	if ($geneSearchEl.length && config.ALL_GENES) {
-		setupGeneSearch($geneSearchEl, config.ALL_GENES);
-	}
-	
-	var $attributeSearchEl = $('#attribute-search');
-	if ($attributeSearchEl.length) {
-		setupAttributeSearch($attributeSearchEl);
+	var $searchEl = $('#search');
+	if ($searchEl.length && config.ALL_GENES) {
+		setupSearch($searchEl, config.ALL_GENES);
 	}
 	
 	/* --------------------------------------------------------------------- */
@@ -79,7 +74,8 @@ var HMZ = function(config) {
 		if (!_.isUndefined($().dataTable)) {
 			$('.data-table').dataTable({
 				bPaginate: true,
-				iDisplayLength: 10
+				bSort: false,
+				iDisplayLength: 20
 			});
 		}
 	};
@@ -156,37 +152,26 @@ var HMZ = function(config) {
 		});
 	};
 	
-	/* Curries a function to handle searching.
+	/* Setups search bar.
 	 */
-	function curryEntitySearch($parentEl, fn, fnArgs, entityType) {
-		return function() {
-			var $input = $parentEl
-				.find('input')
-				[fn](fnArgs)
-				.keypress(function(evt) {
-					if (evt.which === 13) {
-						loadPage(entityType, $input.val());
-					}
-				});
-			$input.find(':submit').click(function(evt) {
-				evt.preventDefault();
-				loadPage(entityType, $input.val());
+	function setupSearch($parentEl, genes) {
+		var $input = $parentEl
+			.find('input')
+			.autocomplete({
+				minLength: 3,
+				source: genes
+			})
+			.keypress(function(evt) {
+				if (evt.which === 13) {
+					loadPage($input.val());
+				}
 			});
+		$input.find(':submit').click(function(evt) {
+			evt.preventDefault();
+			loadPage($input.val());
+		});
+		function loadPage(entity) {
+			window.location.href = ['search', entity].join('/');
 		};
-		function loadPage(pageType, entity) {
-			window.location.href = [pageType, entity].join('/');
-		};
-	};
-	
-	function setupGeneSearch($geneSearchEl, genes) {
-		curryEntitySearch($geneSearchEl, 'autocomplete', {
-			minLength: 3,
-			source: genes
-		}, 'gene')();
-	};
-	
-	
-	function setupAttributeSearch($attributeSearchEl) {
-		curryEntitySearch($attributeSearchEl, 'noop', {}, 'attribute')();
 	};
 };

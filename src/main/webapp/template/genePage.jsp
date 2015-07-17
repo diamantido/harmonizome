@@ -1,4 +1,3 @@
-<!DOCTYPE HTML>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
@@ -8,6 +7,8 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
+
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<%@include file="commonIncludes.html" %>

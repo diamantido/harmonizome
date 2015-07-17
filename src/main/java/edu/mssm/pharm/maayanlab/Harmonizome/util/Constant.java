@@ -4,7 +4,8 @@ public class Constant {
 	
 	public static final String API_BASE_URL = "/api";
 	
-	public static final String PAGE_BASE_URL = "/page";
+	// This has no preceding slash because we typically use it as a relative URL in JSP templates.
+	public static final String SEARCH_BASE_URL = "search";
 	
 	public static final String TEMPLATE_DIR = "/template/";
 }

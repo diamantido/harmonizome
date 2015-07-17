@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneralDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -23,17 +23,19 @@ public class Index extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Resource> resources = null;
+		List<String> genes = null;
+		Long numberOfDatasets = null;
 		try {
 			HibernateUtil.beginTransaction();
-			resources = GeneralDAO.getAllResources();
+			genes = GeneDAO.getSymbols();
+			numberOfDatasets = DatasetDAO.getCount();
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
-
-		request.setAttribute("resources", resources);
+		request.setAttribute("genes", genes);
+		request.setAttribute("numberOfDatasets", numberOfDatasets);
 		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "index.jsp").forward(request, response);
 	}
 }

@@ -56,7 +56,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 	@Test
 	public void testByDataset() throws ServletException, IOException {
 		when(request.getParameter("dataset")).thenReturn("PC_Protein-Protein_Interactions");
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -67,7 +67,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 	@Test
 	public void testByDatasetGroup() throws ServletException, IOException {
 		when(request.getParameter("datasetGroup")).thenReturn("disease_or_phenotype_associations");
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -87,7 +87,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 	@Test
 	public void testByDatasetType() throws ServletException, IOException {
 		when(request.getParameter("datasetType")).thenReturn("DNA_methylation_bisulfite_sequencing,_MeDIP-seq,_or_MRE-seq"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -99,7 +99,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 	@Test
 	public void testByAttributeGroup() throws ServletException, IOException {
 		when(request.getParameter("attributeGroup")).thenReturn("sequence_feature"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -111,7 +111,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 	@Test
 	public void testByAttributeType() throws ServletException, IOException {
 		when(request.getParameter("attributeType")).thenReturn("ligand_(protein)"); 
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);

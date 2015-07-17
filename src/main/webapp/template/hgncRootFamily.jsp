@@ -7,17 +7,23 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h3>${name}</h3>
+				<h1>${name}</h1>
 				<table class="table">
-					<tr>
-						<td>Genes</td>
-						<td>
-							<% String[] genes = (String[]) request.getAttribute("genes");
-							for (int i = 0; i < genes.length; i++) { %>
-								<a href="gene/<%= genes[i] %>"><%= genes[i] %></a><%= i != genes.length-1 ? "," : "" %>
-							<% } %>
-						</td>
-					</tr>
+					<thead>
+						<tr>
+							<th>Genes</th>
+						</tr>
+					</thead>
+					</tbody>
+						<tr>
+							<td>
+								<% String[] genes = (String[]) request.getAttribute("genes");
+								for (int i = 0; i < genes.length; i++) { %>
+									<a href="gene/<%= genes[i] %>"><%= genes[i] %></a><%= i != genes.length-1 ? "," : "" %>
+								<% } %>
+							</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 			<%@include file="footer.html"%>

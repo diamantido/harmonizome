@@ -2,10 +2,8 @@ package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
@@ -14,7 +12,6 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class AttributeDAO {
@@ -29,13 +26,6 @@ public class AttributeDAO {
 	
 	@SuppressWarnings("unchecked")
 	public static List<AttributeGroup> getAttributeGroupsFromGene(String geneSymbol) {
-		/*
-		SELECT DISTINCT(attribute_group.name) FROM `attribute_group`
-		  JOIN attribute ON attribute.attribute_group_fk = attribute_group.id
-		  JOIN feature ON feature.attribute_fk = attribute.id
-		  JOIN gene ON feature.gene_fk = gene.id
-		  WHERE gene.symbol = "HS6ST2";
-		 */
 		return (List<AttributeGroup>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
@@ -167,17 +157,15 @@ public class AttributeDAO {
 		return attributesByDatasets;
 	}
 
-	public static Map<String, Set<Attribute>> getByGeneFromDataset(String datasetName) {
-		List<Gene> genesFromDataset = GeneDAO.getFromDataset(datasetName);
-		/*Map<String, Set<Attribute>> attributesByGene = new HashMap<String, Set<Attribute>>();
-		for (Gene gene : genesFromDataset) {
-			String geneSymbol = gene.getSymbol();
-			Set<Attribute> attributes = new HashSet<Attribute>(
-				AttributeDAO.getFromDatasetAndGeneAndValue(datasetName, geneSymbol, 1)
-			);
-			attributesByGene.put(geneSymbol, attributes);
-		}
-		return attributesByGene;*/
-		return null;
+	public static List<Attribute> getByWordInName(String query) {
+		return GenericDAO.getBySubstringInField(Attribute.class, "attribute", "name", query);
+	}
+
+	public static List<Attribute> getByWordInNameButIgnoreExactMatch(String query, int idToIgnore) {
+		return GenericDAO.getBySubstringInFieldButIgnoreId(Attribute.class, "attribute", "name", query, idToIgnore);
+	}
+
+	public static List<String> getSuggestions(String query) {
+		return GenericDAO.getSuggestions("attribute", "name", query);
 	}
 }

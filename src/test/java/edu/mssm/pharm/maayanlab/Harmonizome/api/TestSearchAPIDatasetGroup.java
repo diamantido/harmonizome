@@ -56,7 +56,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 	@Test
 	public void testByDataset() throws ServletException, IOException {
 		when(request.getParameter("dataset")).thenReturn("GeneSigDB_Published_Gene_Signatures");
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -67,7 +67,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 	@Test
 	public void testByDatasetGroup() throws ServletException, IOException {
 		when(request.getParameter("datasetGroup")).thenReturn("omics");
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -78,7 +78,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 	@Test
 	public void testByDatasetType() throws ServletException, IOException {
 		when(request.getParameter("datasetType")).thenReturn("text-mining");
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -94,7 +94,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 	@Test
 	public void testByAttributeGroup() throws ServletException, IOException {
 		when(request.getParameter("attributeGroup")).thenReturn("chemical");
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
@@ -112,7 +112,7 @@ public class TestSearchAPIDatasetGroup extends Mockito {
 	@Test
 	public void testByAttributeType() throws ServletException, IOException {
 		when(request.getParameter("attributeType")).thenReturn("cellular_component");
-		new SearchAPI().doGet(request, response);
+		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);

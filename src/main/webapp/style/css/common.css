@@ -1,8 +1,12 @@
+/* https://color.adobe.com/21-Flat-Business-Icons-color-theme-6339907/?showPublished=true
+ * https://color.adobe.com/Aspirin-C-color-theme-251864/?showPublished=true
+ */
+/* Logo colors */
 /* Georgia, sans-serif; */
 /*"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
 /* Structure all pages to allow for footer. Other styling for these elements is
  * below.
- */
+ * ------------------------------------------------------------------------- */
 html,
 body {
   height: 100%;
@@ -15,21 +19,27 @@ body {
 .footer {
   height: 90px;
 }
-/* Tag selectors.
+/* Push all content out from under the fix nav. Do not use "margin-top" because
+ * this pushes the sticky footer down as well.
  */
+.content {
+  position: relative;
+  top: 50px;
+  padding-bottom: 90px;
+}
+/* Tag selectors.
+ * ------------------------------------------------------------------------- */
 html {
   font-family: Arial, sans-serif;
 }
-body {
-  /*background-color: @color-background;*/
-}
 a,
 a:link {
-  color: #38829b;
+  color: #1a0dab;
   text-decoration: none;
 }
 a:hover {
-  color: #254657;
+  color: #1a0dab;
+  text-decoration: underline;
 }
 a:visited,
 a:active {
@@ -58,9 +68,9 @@ ul {
   padding-left: 15px;
 }
 /* Section selectors.
- */
+ * ------------------------------------------------------------------------- */
 .navbar {
-  background-color: #1d3744;
+  background-color: #343844;
   height: 50px;
   padding: 10px;
   position: fixed;
@@ -68,29 +78,37 @@ ul {
   width: 100%;
   z-index: 999;
 }
-.navbar h3 {
+.navbar h1 {
   border: none;
+  font-size: 25px;
   margin-bottom: 4px;
   margin-top: 0;
 }
-.navbar h3 em,
-.navbar h3 em:hover {
-  color: #8ad4ed;
-}
-.navbar h3 span {
+.navbar h1 span.credits {
+  font-family: Georgia, sans-serif;
   font-size: 19px;
   margin-left: 10px;
+}
+.navbar h1 a:hover {
+  text-decoration: none;
+}
+.navbar img {
+  bottom: 2px;
+  position: relative;
+  margin-right: 14px;
 }
 .navbar a {
   color: white;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
-  text-decoration: none;
 }
 .navbar a:hover {
-  color: #8ad4ed;
+  color: #eeeeee;
 }
 .navbar ul {
+  /* Line up with title text */
+  position: relative;
+  top: 3px;
   text-transform: uppercase;
 }
 @media (max-width: 768px) {
@@ -98,18 +116,10 @@ ul {
     display: none;
   }
 }
-/* Push all content out from under the fix nav. Do not use "margin-top" because
- * this pushes the sticky footer down as well.
- */
-.content {
-  position: relative;
-  top: 50px;
-  padding-bottom: 90px;
-}
 .footer {
-  background: #222222;
+  background: #eeeeee;
   bottom: 0;
-  color: white;
+  color: #444444;
   padding: 13px;
   position: absolute;
   width: 100%;
@@ -121,12 +131,12 @@ ul {
   margin-right: 10px;
 }
 .footer a {
-  color: white;
+  color: #444444;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
 .footer a:hover {
-  color: #8ad4ed;
+  color: #eeeeee;
 }
 .footer #share a {
   float: right;
@@ -137,6 +147,23 @@ ul {
 }
 .footer #share img:hover {
   opacity: 0.7;
+}
+#landing {
+  margin-top: 100px;
+}
+#landing h1 {
+  border: none;
+  font-size: 40px;
+}
+#landing .instruction {
+  bottom: 2px;
+  color: #444444;
+  font-style: normal;
+  margin-right: 14px;
+  position: relative;
+}
+.project-title {
+  font-family: Georgia, sans-serif;
 }
 .table .tools img {
   height: 35px;
@@ -151,20 +178,26 @@ ul {
   position: relative;
   bottom: 3px;
 }
+.item-list {
+  display: none;
+}
+.item-list td {
+  padding-left: 20px !important;
+}
+.item-list div {
+  padding-bottom: 10px;
+}
+.search-description {
+  color: #666666;
+}
 /* Generic classes
- */
+ * ------------------------------------------------------------------------- */
 .note {
   font-size: 14px;
   font-style: italic;
 }
-.highlight {
-  color: #fff169;
-}
 .glyphicon-search {
   cursor: pointer;
-}
-.accent {
-  color: #e15829;
 }
 .instruction {
   font-style: italic;
@@ -188,17 +221,14 @@ ul {
 .cursor-pointer {
   cursor: pointer;
 }
-.item-list {
-  display: none;
+.top-buffer {
+  margin-top: 20px;
 }
-.item-list td {
-  padding-left: 20px !important;
-}
-.item-list div {
-  padding-bottom: 10px;
+.bottom-buffer {
+  margin-bottom: 20px;
 }
 /* Bootstrap overwrites.
- */
+ * ------------------------------------------------------------------------- */
 .table > tbody > tr:first-child > td {
   border: none;
 }
@@ -209,10 +239,23 @@ ul {
   border-radius: 0;
 }
 .badge {
-  background-color: #38829b;
+  background-color: #e65848;
+  border-radius: 0;
+}
+.badge.dataset {
+  background-color: #e65848;
+}
+.badge.gene {
+  background-color: #2ab69d;
+}
+.badge.attribute {
+  background-color: #fdc536;
+}
+.badge a {
+  color: white;
 }
 /* jQuery UI overwrites.
- */
+ * ------------------------------------------------------------------------- */
 .ui-autocomplete {
   background: white;
   border-radius: 0px;
@@ -227,11 +270,11 @@ ul {
 .ui-widget-content .ui-menu-item.ui-state-focus {
   background: #eeeeee;
   border: 1px solid #aaaaaa;
-  color: #38829b;
+  color: #4aabcc;
   font-weight: normal;
 }
 /* DataTable overwrites.
- */
+ * ------------------------------------------------------------------------- */
 .dataTables_filter label {
   font-weight: bold !important;
 }
@@ -248,16 +291,30 @@ ul {
 .pagination > li:first-child > span {
   border-radius: 0;
 }
+.pagination > li > a,
+.pagination > li > span {
+  border-color: #eeeeee;
+}
 .pagination > .active > a,
 .pagination > .active > a:focus,
 .pagination > .active > a:hover,
 .pagination > .active > span,
 .pagination > .active > span:focus,
 .pagination > .active > span:hover {
-  background-color: #38829b;
-  border-color: #38829b;
+  background-color: #eeeeee;
+  border-color: #eeeeee;
+  color: #444444;
 }
 .pagination > li > a,
 .pagination > li > span {
-  color: #254657;
+  color: #1a0dab;
+}
+@media (max-width: 767px) {
+  div.dataTables_wrapper > div.row > div,
+  div.dataTables_length,
+  div.dataTables_filter,
+  div.dataTables_info,
+  div.dataTables_paginate {
+    text-align: left;
+  }
 }
