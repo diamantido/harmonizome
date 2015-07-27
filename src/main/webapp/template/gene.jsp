@@ -27,20 +27,26 @@
 				<section>
 					<table class="table">
 						<tr>
+							<td class="col-sm-3">Families (from HGNC)</td>
+							<td class="col-sm-9">
+								<% String[] hgncRootFamilies = (String[]) request.getAttribute("hgncRootFamilies");
+								for (int i = 0; i < hgncRootFamilies.length; i++) { %>
+									<a href="hgnc_root_family/<%= URLCodec.encode(hgncRootFamilies[i]) %>">
+									<%= hgncRootFamilies[i] %></a><%= i != hgncRootFamilies.length-1 ? "," : "" %>
+								<% } %>
+							</td>
+						</tr>
+						<tr>
 							<td class="col-sm-3">Name</td>
 							<td class="col-sm-9">${name}</td>
 						</tr>
 						<tr>
-							<td class="col-sm-3">NCBI Entrez Gene Description</td>
+							<td class="col-sm-3">Description (from NCBI)</td>
 							<td class="col-sm-9">${description}</td>
 						</tr>
 						<tr>
 							<td class="col-sm-3">Synonyms</td>
 							<td class="col-sm-9">${synonyms}</td>
-						</tr>
-						<tr>
-							<td class="col-sm-3">NCBI Entrez Gene URL</td>
-							<td class="col-sm-9"><a href="${ncbiEntrezGeneUrl}" target="_blank">${ncbiEntrezGeneUrl}</a></td>
 						</tr>
 						<tr>
 							<td class="col-sm-3">Proteins</td>
@@ -52,44 +58,21 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="col-sm-3">IDG Family</td>
-							<td class="col-sm-9">${idgFamily}</td>
-						</tr>
-						<tr>
-							<td class="col-sm-3">IDG TDL Class</td>
-							<td class="col-sm-9">${idgTdlClass}</td>
-						</tr>
-						<tr>
-							<td class="col-sm-3">HGNC Root Families</td>
-							<td class="col-sm-9">
-								<% String[] hgncRootFamilies = (String[]) request.getAttribute("hgncRootFamilies");
-								for (int i = 0; i < hgncRootFamilies.length; i++) { %>
-									<a href="hgnc_root_family/<%= URLCodec.encode(hgncRootFamilies[i]) %>">
-									<%= hgncRootFamilies[i] %></a><%= i != hgncRootFamilies.length-1 ? "," : "" %>
-								<% } %>
-							</td>
-						</tr>
-						<tr>
-							<td class="col-sm-3">HGNC Terminal Families</td>
-							<td class="col-sm-9">
-								<% String[] hgncTerminalFamilies = (String[]) request.getAttribute("hgncTerminalFamilies");
-								for (int i = 0; i < hgncRootFamilies.length; i++) { %>
-									<a href="hgnc_terminal_family/<%= URLCodec.encode(hgncTerminalFamilies[i]) %>">
-									<%= hgncTerminalFamilies[i] %></a><%= i != hgncTerminalFamilies.length-1 ? "," : "" %>
-								<% } %>
-							</td>
+							<td class="col-sm-3">External Link</td>
+							<td class="col-sm-9"><a href="${ncbiEntrezGeneUrl}" target="_blank">National Center for Biotechnology Information (NCBI)</a></td>
 						</tr>
 					</table>
 				</section>
 				<section>
-					<h2>Functional associations (membership in gene sets)</h2>
-					<p class="instruction">Click on a dataset to see its gene set for ${symbol}.</p>
+					<h2>Knowledge</h2>
+					<p class="instruction">Click the + buttons to view associations for ${symbol} from each dataset.</p>
 					<table class="table entities-by-dataset genes">
 						<thead>
 							<tr>
 								<th></th>
 								<th>Dataset</th>
-								<th>Gene Set Type</th>
+								<th>Summary</th>
+								<th>Downloads</th>
 							</tr>
 						</thead>
 						<% @SuppressWarnings("unchecked")
@@ -100,28 +83,30 @@
 							String datasetName = dataset.getName();
 							String datasetURL = URLCodec.encode(datasetName);
 							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
+							String symbol = (String) request.getAttribute("symbol");
+							String attributeSetDescription = dataset.getAttributeSetDescription().replace("{0}", symbol);
 						%>
 							<tr class="dataset-row <%= className %>">
 								<td class="col-md-1" data-dataset-group="<%= className %>">
 									<button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true"></button>
 									<button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
 								</td>
-								<td class="col-md-9">
+								<td class="col-md-3">
 									<a href="dataset/<%= datasetURL %>"><%= dataset.getName() %></a>
-									<span class="badge">${symbol} has <%= attributes.getLeft().size() + attributes.getRight().size() %> <%= dataset.getAttributeType().getName() %> association(s)</span>
+								</td>
+								<td class="col-md-6">
+									<%= attributes.getLeft().size() + attributes.getRight().size() + " " + attributeSetDescription %>
 								</td>
 								<td class="col-md-2">
-									<%= dataset.getAttributeType().getName() %>
 								</td>
 							</tr>
 							<tr class="attribute-list">
 								<td class="col-md-1"></td>
-								<td class="col-md-9">
-									<div><em><%= StringUtils.capitalize(dataset.getAttributeType().getName()) + "s:" %></em></div>
-									<div class="first">
+								<td class="col-md-9" colspan="2">
+									<div>
 										<% Iterator<Attribute> posIter = attributes.getLeft().iterator();
 										if (posIter.hasNext()) { %>
-											Up:
+											<div><strong><%= StringUtils.capitalize(dataset.getPositiveAssociation()) %></strong></div>
 											<% while (posIter.hasNext()) {
 												Attribute attribute = posIter.next();
 												String attributeName = attribute.getNameFromDataset();
@@ -131,18 +116,18 @@
 											<% }
 										} %>
 									</div>
-									<div>
-										<% Iterator<Attribute> negIter = attributes.getRight().iterator();
-										if (negIter.hasNext()) { %>
-											Down:
-											<% while (negIter.hasNext()) {
-												Attribute attribute = negIter.next();
-												String name = attribute.getNameFromDataset();
-											%>
-												<a href="attribute/<%= URLCodec.encode(name) %>"><%= name %></a><% if (negIter.hasNext()) { %>, <% } %>
-											<% }
-										} %>
+									<% Iterator<Attribute> negIter = attributes.getRight().iterator();
+									if (negIter.hasNext()) { %>
+									<div class="last">
+										<div><strong><%= StringUtils.capitalize(dataset.getNegativeAssociation()) %></strong></div>
+										<% while (negIter.hasNext()) {
+											Attribute attribute = negIter.next();
+											String name = attribute.getNameFromDataset();
+										%>
+											<a href="attribute/<%= URLCodec.encode(name) %>"><%= name %></a><% if (negIter.hasNext()) { %>, <% } %>
+										<% } %>
 									</div>
+									<% } %>
 									<td class="col-md-2"></td>
 								</td>
 							</tr>

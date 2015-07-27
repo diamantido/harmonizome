@@ -36,6 +36,18 @@ public class Dataset {
 	
 	@Column(name = "association")
 	private String association;
+	
+	@Column(name = "gene_set_description")
+	private String geneSetDescription;
+	
+	@Column(name = "attribute_set_description")
+	private String attributeSetDescription;
+	
+	@Column(name = "positive_association")
+	private String positiveAssociation;
+	
+	@Column(name = "negative_association")
+	private String negativeAssociation;
 
 	/* Foreign key relationships
 	 * ------------------------- */
@@ -76,12 +88,16 @@ public class Dataset {
 	public Dataset() {
 	}
 
-	public Dataset(String name, String nameWithoutResource, String description, String association, Measurement measurement, DatasetGroup datasetGroup, Resource resource, AttributeType attributeType,
-			AttributeGroup attributeGroup, Timestamp downloadDate, int numPageViews) {
+	public Dataset(int id, String name, String nameWithoutResource, String description, String association, String geneSetDescription, String positiveAssociation, String negativeAssociation,
+			Measurement measurement, DatasetGroup datasetGroup, Resource resource, AttributeType attributeType, AttributeGroup attributeGroup, Timestamp downloadDate, int numPageViews) {
+		this.id = id;
 		this.name = name;
 		this.nameWithoutResource = nameWithoutResource;
 		this.description = description;
 		this.association = association;
+		this.geneSetDescription = geneSetDescription;
+		this.positiveAssociation = positiveAssociation;
+		this.negativeAssociation = negativeAssociation;
 		this.measurement = measurement;
 		this.datasetGroup = datasetGroup;
 		this.resource = resource;
@@ -125,6 +141,38 @@ public class Dataset {
 
 	public void setAssociation(String association) {
 		this.association = association;
+	}
+
+	public String getGeneSetDescription() {
+		return geneSetDescription;
+	}
+
+	public void setGeneSetDescription(String geneSetDescription) {
+		this.geneSetDescription = geneSetDescription;
+	}
+
+	public String getAttributeSetDescription() {
+		return attributeSetDescription;
+	}
+
+	public void setAttributeSetDescription(String attributeSetDescription) {
+		this.attributeSetDescription = attributeSetDescription;
+	}
+
+	public String getPositiveAssociation() {
+		return positiveAssociation;
+	}
+
+	public void setPositiveAssociation(String positiveAssociation) {
+		this.positiveAssociation = positiveAssociation;
+	}
+
+	public String getNegativeAssociation() {
+		return negativeAssociation;
+	}
+
+	public void setNegativeAssociation(String negativeAssociation) {
+		this.negativeAssociation = negativeAssociation;
 	}
 
 	public Measurement getMeasurement() {
