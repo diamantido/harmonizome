@@ -21,7 +21,6 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncTerminalFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -63,19 +62,10 @@ public class GenePage extends HttpServlet {
 		if (gene == null) {
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
 		} else {
-			String idgFamily = "";
-			String idgTdlClass = "";
 			List<String> proteins = new ArrayList<String>();
 			List<String> geneSynonyms = new ArrayList<String>();
 			List<String> hgncRootFamilies = new ArrayList<String>();
-			List<String> hgncTerminalFamilies = new ArrayList<String>();
 			if (gene != null) {
-				if (gene.getIdgFamily() != null) {
-					idgFamily = gene.getIdgFamily().getName();
-				}
-				if (gene.getIdgTdlClass() != null) {
-					idgTdlClass = gene.getIdgTdlClass().getName();
-				}
 				for (GeneSynonym gs : gene.getSynonyms()) {
 					geneSynonyms.add(gs.getSymbol());
 				}
@@ -87,11 +77,6 @@ public class GenePage extends HttpServlet {
 				if (gene.getHgncRootFamilies() != null) {
 					for (HgncRootFamily rf : gene.getHgncRootFamilies()) {
 						hgncRootFamilies.add(rf.getName());
-					}
-				}
-				if (gene.getHgncTerminalFamilies() != null) {
-					for (HgncTerminalFamily rf : gene.getHgncTerminalFamilies()) {
-						hgncTerminalFamilies.add(rf.getName());
 					}
 				}
 			}

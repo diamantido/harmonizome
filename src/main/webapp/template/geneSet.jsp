@@ -10,6 +10,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.NamingAuthority" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
+
 <html>
 	<head>
 		<%@include file="globalIncludes.html" %>

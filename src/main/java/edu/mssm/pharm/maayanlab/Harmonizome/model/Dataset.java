@@ -85,6 +85,9 @@ public class Dataset {
 	@OneToMany(mappedBy = "dataset")
 	private Set<Attribute> attributes;
 	
+	@OneToMany(mappedBy = "resource")
+	private Set<Publication> publications;
+	
 	public Dataset() {
 	}
 
@@ -245,5 +248,13 @@ public class Dataset {
 
 	public void setAttributes(Set<Attribute> attributes) {
 		this.attributes = attributes;
+	}
+
+	public Set<Publication> getPublications() {
+		return publications;
+	}
+
+	public void setPublications(Set<Publication> publications) {
+		this.publications = publications;
 	}
 }

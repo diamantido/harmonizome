@@ -31,6 +31,20 @@ public class GeneDAO {
 		GeneSynonym geneSynonym = (GeneSynonym) criteria.uniqueResult();
 		return (geneSynonym == null ? null : geneSynonym.getGene());
 	}
+	
+	public static Long getCountByDataset(String datasetName) {
+		return (Long) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT COUNT(gene) FROM Gene AS gene " +
+				"JOIN gene.features AS feats " +
+				"JOIN feats.attribute AS attr " +
+				"JOIN attr.dataset AS dataset " +
+				"WHERE dataset.name = :datasetName"
+			)
+			.setString("datasetName", datasetName)
+			.uniqueResult();
+	}
 
 	@SuppressWarnings("unchecked")
 	public static List<Gene> getFromDatasetAndAttributeAndValue(String datasetName, String attributeName, int thresholdValue) {

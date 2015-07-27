@@ -18,27 +18,42 @@ public class Publication {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name = "citation")
-	private String citation;
+	@Column(name = "long_citation")
+	private String longCitation;
 
+	@Column(name = "short_citation")
+	private String shortCitation;
+	
 	@Column(name = "url", length = 2083)
 	private String url;
 
 	@Column(name = "pmid")
 	private int pmid;
 
-	@Column(name = "pub_med_url", length = 2083)
-	private String pubMedUrl;
+	@Column(name = "pubmed_url", length = 2083)
+	private String pubmedUrl;
 
 	@Column(name = "first_author_last_name")
 	private String firstAuthorLastName;
 
+	@Column(name = "last_author_initials")
+	private String lastAuthorInitials;
+	
 	@Column(name = "journal_abbreviation")
 	private String journalAbbreviation;
 
 	@Column(name = "year")
 	private int year;
 
+	@Column(name = "title")
+	private String title;
+	
+	@Column(name = "volume")
+	private String volume;
+	
+	@Column(name = "pages")
+	private String pages;
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "resource_fk")
 	private Resource resource;
@@ -54,31 +69,24 @@ public class Publication {
 	public Publication() {
 	}
 
-	public Publication(String citation, String url, int pmid, String pubMedUrl, String firstAuthorLastName, String journalAbbreviation, int year, Resource resource, Dataset dataset,
-			NamingAuthority namingAuthority) {
-
-		this.citation = citation;
-		this.url = url;
-		this.pmid = pmid;
-		this.pubMedUrl = pubMedUrl;
-		this.firstAuthorLastName = firstAuthorLastName;
-		this.journalAbbreviation = journalAbbreviation;
-		this.year = year;
-		this.resource = resource;
-		this.dataset = dataset;
-		this.namingAuthority = namingAuthority;
-	}
-
 	public int getId() {
 		return id;
 	}
 
-	public String getCitation() {
-		return citation;
+	public String getLongCitation() {
+		return longCitation;
 	}
 
-	public void setCitation(String citation) {
-		this.citation = citation;
+	public void setLongCitation(String longCitation) {
+		this.longCitation = longCitation;
+	}
+
+	public String getShortCitation() {
+		return shortCitation;
+	}
+
+	public void setShortCitation(String shortCitation) {
+		this.shortCitation = shortCitation;
 	}
 
 	public String getUrl() {
@@ -97,12 +105,12 @@ public class Publication {
 		this.pmid = pmid;
 	}
 
-	public String getPubMedUrl() {
-		return pubMedUrl;
+	public String getPubmedUrl() {
+		return pubmedUrl;
 	}
 
-	public void setPubMedUrl(String pubMedUrl) {
-		this.pubMedUrl = pubMedUrl;
+	public void setPubmedUrl(String pubmedUrl) {
+		this.pubmedUrl = pubmedUrl;
 	}
 
 	public String getFirstAuthorLastName() {
@@ -111,6 +119,14 @@ public class Publication {
 
 	public void setFirstAuthorLastName(String firstAuthorLastName) {
 		this.firstAuthorLastName = firstAuthorLastName;
+	}
+
+	public String getLastAuthorInitials() {
+		return lastAuthorInitials;
+	}
+
+	public void setLastAuthorInitials(String lastAuthorInitials) {
+		this.lastAuthorInitials = lastAuthorInitials;
 	}
 
 	public String getJournalAbbreviation() {
@@ -127,6 +143,30 @@ public class Publication {
 
 	public void setYear(int year) {
 		this.year = year;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getVolume() {
+		return volume;
+	}
+
+	public void setVolume(String volume) {
+		this.volume = volume;
+	}
+
+	public String getPages() {
+		return pages;
+	}
+
+	public void setPages(String pages) {
+		this.pages = pages;
 	}
 
 	public Resource getResource() {

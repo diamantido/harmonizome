@@ -89,7 +89,7 @@
 							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
 						%>
 							<tr class="dataset-row <%= className %>">
-								<td class="col-sm-1" data-dataset-group='<%= className %>'">
+								<td class="col-sm-1" data-dataset-group="<%= className %>">
 									<button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true" ></button>
 									<button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
 								</td>

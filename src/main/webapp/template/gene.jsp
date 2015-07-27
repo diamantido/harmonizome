@@ -128,8 +128,8 @@
 										<% } %>
 									</div>
 									<% } %>
-									<td class="col-md-2"></td>
 								</td>
+								<td class="col-md-2"></td>
 							</tr>
 						<% } %>
 					</table>				

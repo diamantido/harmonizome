@@ -45,7 +45,7 @@ public class ProteinPage extends HttpServlet {
 				req.setAttribute("name", protein.getName());
 				req.setAttribute("uniprotUrl", protein.getUniprotUrl());
 				req.setAttribute("gene", protein.getGene().getSymbol());
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "proteinPage.jsp").forward(req, resp);
+				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "protein.jsp").forward(req, resp);
 			}
 		}
 	}

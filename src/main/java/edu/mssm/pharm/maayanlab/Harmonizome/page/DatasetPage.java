@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.hibernate.HibernateException;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -25,12 +26,14 @@ public class DatasetPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = URLUtil.getPath(request, true);
 		Dataset dataset = null;
+		Long numberOfGenes = null;
 
 		try {
 			HibernateUtil.beginTransaction();
 			dataset = DatasetDAO.getByName(query);
 			if (dataset != null) {
 				dataset.setNumPageViews(dataset.getNumPageViews() + 1);
+				numberOfGenes = GeneDAO.getCountByDataset(query);
 			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {
@@ -42,6 +45,7 @@ public class DatasetPage extends HttpServlet {
 			request.setAttribute("query", query);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
 		} else {
+			request.setAttribute("numberOfGenes", numberOfGenes);
 			request.setAttribute("dataset", dataset);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp").forward(request, response);
 		}

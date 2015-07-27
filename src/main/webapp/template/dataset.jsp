@@ -1,11 +1,14 @@
 <!DOCTYPE HTML>
+<%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Download" %>
-
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" %>
 <%
 Dataset dataset = (Dataset) request.getAttribute("dataset");
 Timestamp downloadDate = dataset.getDownloadDate();
@@ -30,32 +33,57 @@ if (downloadDate == null) {
 				<section>
 				    <table class="table">
 				    	<tr>
-				    		<td>Resource</td>
-				    		<td>
-				    			<a href="<%= dataset.getResource().getUrl() %>" target="_blank">
-				    				<%= dataset.getResource().getName() %>
-				    			</a>	
-				    		</td>
+				    		<td>Description</td>
+				    		<td><%= dataset.getDescription() %></td>
 				    	</tr>
 				    	<tr>
-				    		<td>Data Description</td>
-				    		<td><%= dataset.getDescription() %></td>
+				    		<td>Measurement</td>
+				    		<td><%= dataset.getMeasurement().getName() %></td>
 				    	</tr>
 				    	<tr>
 				    		<td>Association</td>
 				    		<td><%= dataset.getAssociation() %></td>
 				    	</tr>
 				    	<tr>
-				    		<td>Attribute type</td>
-				    		<td><%= dataset.getAttributeType() %></td>
+				    		<td>Category</td>
+				    		<td><%= dataset.getDatasetGroup().getName() %></td>
+				    	</tr>
+				    	<tr>
+				    		<td>Resource</td>
+				    		<td>
+				    			<a href="resource/<%= URLCodec.encode(dataset.getResource().getName()) %>">
+				    				<%= dataset.getResource().getName() %>
+				    			</a>	
+				    		</td>
 				    	</tr>
 				    	<tr>
 				    		<td>Citation(s)</td>
+				    		<td>
+							<% 
+							Iterator<Publication> pubIter = dataset.getPublications().iterator();
+							while (pubIter.hasNext()) {
+								Publication pub = pubIter.next();
+							%>
+								<a href="<%= pub.getPubmedUrl() %>"><%= pub.getLongCitation() %></a>
+								<% if (pubIter.hasNext()) { %>, <% } %>
+							<% } %>
+				    		</td>
+				    	</tr>
+				    	<tr>
+				    		<td>Last Updated</td>
 				    		<td></td>
 				    	</tr>
 				    	<tr>
-				    		<td>Created</td>
-				    		<td><%= downloadDateStr %></td>
+				    		<td>No. Gene</td>
+				    		<td>${numberOfGenes}</td>
+				    	</tr>
+				    	<tr>
+				    		<td>No. Attributes</td>
+				    		<td><%= dataset.getAttributes().size() %></td>
+				    	</tr>
+				    	<tr>
+				    		<td>No. Gene-Attribute Associations</td>
+				    		<td>${numberOfGeneAttributeAssociations}</td>
 				    	</tr>
 				    </table>
 				</section>
