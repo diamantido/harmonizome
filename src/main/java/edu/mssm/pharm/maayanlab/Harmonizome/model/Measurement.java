@@ -11,23 +11,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "dataset_type")
-public class DatasetType {
+@Table(name = "measurement")
+public class Measurement {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "name")
 	private String name;
 	
-	@OneToMany(mappedBy = "datasetType")
+	@OneToMany(mappedBy = "measurement")
 	private Set<Dataset> datasets;
 
-	public DatasetType() {
+	public Measurement() {
 	}
 
-	public DatasetType(String name) {
+	public Measurement(String name) {
 		this.name = name;
 	}
 

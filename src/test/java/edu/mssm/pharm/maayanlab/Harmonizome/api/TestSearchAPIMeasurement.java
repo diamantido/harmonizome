@@ -23,14 +23,14 @@ import com.google.gson.GsonBuilder;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.SuggestSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupDeserializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.MeasurementDeserializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleDeserializer;
 
-public class TestSearchAPIDatasetType extends Mockito {
+public class TestSearchAPIMeasurement extends Mockito {
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
@@ -48,7 +48,7 @@ public class TestSearchAPIDatasetType extends Mockito {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetDeserializer());
 		gsonBuilder.registerTypeAdapter(DatasetGroup.class, new DatasetGroupDeserializer());
-		gsonBuilder.registerTypeAdapter(DatasetType.class, new DatasetTypeDeserializer());
+		gsonBuilder.registerTypeAdapter(Measurement.class, new MeasurementDeserializer());
 		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSimpleDeserializer());
 		gson = gsonBuilder.create();
 	}
@@ -60,8 +60,8 @@ public class TestSearchAPIDatasetType extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
-		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
-		assertEquals(datasetTypes.get(0).getName(), "data aggregation");
+		List<Measurement> measurements = jsonSchema.getMeasurements();
+		assertEquals(measurements.get(0).getName(), "data aggregation");
 	}
 
 	@Test
@@ -71,29 +71,29 @@ public class TestSearchAPIDatasetType extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
-		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
-		assertEquals(datasetTypes.size(), 5);
-		List<String> validDatasetTypeNames = new ArrayList<String>();
-		validDatasetTypeNames.add("data aggregation");
-		validDatasetTypeNames.add("genetic association");
-		validDatasetTypeNames.add("literature curation");
-		validDatasetTypeNames.add("phenotyping");
-		validDatasetTypeNames.add("text-mining");
-		for (DatasetType dst : jsonSchema.getDatasetType()) {
-			assertTrue(validDatasetTypeNames.contains(dst.getName()));
+		List<Measurement> measurements = jsonSchema.getMeasurements();
+		assertEquals(measurements.size(), 5);
+		List<String> validMeasurementNames = new ArrayList<String>();
+		validMeasurementNames.add("data aggregation");
+		validMeasurementNames.add("genetic association");
+		validMeasurementNames.add("literature curation");
+		validMeasurementNames.add("phenotyping");
+		validMeasurementNames.add("text-mining");
+		for (Measurement measurement : jsonSchema.getMeasurements()) {
+			assertTrue(validMeasurementNames.contains(measurement.getName()));
 		}
 	}
 
 	@Test
-	public void testByDatasetType() throws ServletException, IOException {
-		when(request.getParameter("datasetType")).thenReturn("DNA_methylation_bisulfite_sequencing,_MeDIP-seq,_or_MRE-seq"); 
+	public void testByMeasurement() throws ServletException, IOException {
+		when(request.getParameter("measurement")).thenReturn("DNA_methylation_bisulfite_sequencing,_MeDIP-seq,_or_MRE-seq"); 
 		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
-		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
-		assertEquals(datasetTypes.size(), 1);
-		assertEquals(datasetTypes.get(0).getName(), "DNA methylation bisulfite sequencing, MeDIP-seq, or MRE-seq");
+		List<Measurement> measurements = jsonSchema.getMeasurements();
+		assertEquals(measurements.size(), 1);
+		assertEquals(measurements.get(0).getName(), "DNA methylation bisulfite sequencing, MeDIP-seq, or MRE-seq");
 	}
 
 	@Test
@@ -103,9 +103,9 @@ public class TestSearchAPIDatasetType extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
-		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
-		assertEquals(datasetTypes.size(), 1);
-		assertEquals(datasetTypes.get(0).getName(), "eQTL mapping");
+		List<Measurement> measurements = jsonSchema.getMeasurements();
+		assertEquals(measurements.size(), 1);
+		assertEquals(measurements.get(0).getName(), "eQTL mapping");
 	}
 
 	@Test
@@ -115,13 +115,13 @@ public class TestSearchAPIDatasetType extends Mockito {
 		writer.flush();
 		String json = output.toString();
 		SuggestSchema jsonSchema = gson.fromJson(json, SuggestSchema.class);
-		List<DatasetType> datasetTypes = jsonSchema.getDatasetType();
-		assertEquals(datasetTypes.size(), 2);
+		List<Measurement> measurements = jsonSchema.getMeasurements();
+		assertEquals(measurements.size(), 2);
 		List<String> validDatasetTypeNames = new ArrayList<String>();
 		validDatasetTypeNames.add("literature curation");
 		validDatasetTypeNames.add("protein phosphorylation SILAC");
-		for (DatasetType dst : jsonSchema.getDatasetType()) {
-			assertTrue(validDatasetTypeNames.contains(dst.getName()));
+		for (Measurement measurement : jsonSchema.getMeasurements()) {
+			assertTrue(validDatasetTypeNames.contains(measurement.getName()));
 		}
 	}
 }

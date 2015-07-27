@@ -78,8 +78,8 @@ public class TestSearchAPIAttributeGroup extends Mockito {
 	}
 
 	@Test
-	public void testByDatasetType() throws IOException, ServletException {
-		when(request.getParameter("datasetType")).thenReturn("protein_expression_immunohistochemistry"); 
+	public void testByMeasurement() throws IOException, ServletException {
+		when(request.getParameter("measurement")).thenReturn("protein_expression_immunohistochemistry"); 
 		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();

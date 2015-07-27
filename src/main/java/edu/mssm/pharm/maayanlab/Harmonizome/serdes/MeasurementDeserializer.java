@@ -7,15 +7,15 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 
-public class DatasetTypeDeserializer implements JsonDeserializer<DatasetType>  {
+public class MeasurementDeserializer implements JsonDeserializer<Measurement>  {
 
-	public DatasetType deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
+	public Measurement deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) {
 		JsonObject jsonObject = json.getAsJsonObject();
-		DatasetType datasetType = new DatasetType();
+		Measurement measurement = new Measurement();
 		String name = jsonObject.get("name").getAsString();
-		datasetType.setName(name);
-		return datasetType;
+		measurement.setName(name);
+		return measurement;
 	}
 }

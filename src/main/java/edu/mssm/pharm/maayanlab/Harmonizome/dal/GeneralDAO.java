@@ -11,7 +11,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncTerminalFamily;
@@ -50,7 +50,7 @@ public class GeneralDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<Dataset> filterDataset(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene, String idgFamily) {
+	public static List<Dataset> filterDataset(String dataset, String datasetGroup, String measurement, String attribute, String attributeGroup, String attributeType, String gene, String idgFamily) {
 
 		Criteria criteria = HibernateUtil.getCurrentSession()
 				.createCriteria(Dataset.class)
@@ -62,8 +62,8 @@ public class GeneralDAO {
 		if (datasetGroup != null && datasetGroup != "") {
 			criteria.createCriteria("datasetGroup").add(Restrictions.eq("name", datasetGroup));
 		}
-		if (datasetType != null && datasetType != "") {
-			criteria.createCriteria("datasetType").add(Restrictions.eq("name", datasetType));
+		if (measurement != null && measurement != "") {
+			criteria.createCriteria("measurement").add(Restrictions.eq("name", measurement));
 		}
 		if (attributeGroup != null && attributeGroup != "") {
 			criteria.createCriteria("attributeGroup").add(Restrictions.eq("name", attributeGroup));
@@ -77,7 +77,7 @@ public class GeneralDAO {
 
 
 	@SuppressWarnings("unchecked")
-	public static List<DatasetGroup> filterDatasetGroup(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene,
+	public static List<DatasetGroup> filterDatasetGroup(String dataset, String datasetGroup, String measurement, String attribute, String attributeGroup, String attributeType, String gene,
 			String idgFamily) {
 
 		Criteria criteria = HibernateUtil.getCurrentSession()
@@ -92,12 +92,12 @@ public class GeneralDAO {
 		if (datasetGroup != null && datasetGroup != "") {
 			criteria.add(Restrictions.eq("name", datasetGroup));
 		}
-		if (datasetType != null && datasetType != "") {
+		if (measurement != null && measurement != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
-			criteria.createAlias("ds.datasetType", "dst").add(Restrictions.eq("dst.name", datasetType));
+			criteria.createAlias("ds.measurement", "dst").add(Restrictions.eq("dst.name", measurement));
 		}
 		if (attributeGroup != null && attributeGroup != "") {
 			if (!datasetCriteriaCreated) {
@@ -118,11 +118,11 @@ public class GeneralDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<DatasetType> filterDatasetType(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene,
+	public static List<Measurement> filterMeasurement(String dataset, String datasetGroup, String measurement, String attribute, String attributeGroup, String attributeType, String gene,
 			String idgFamily) {
 
 		Criteria criteria = HibernateUtil.getCurrentSession()
-				.createCriteria(DatasetType.class)
+				.createCriteria(Measurement.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 
 		boolean datasetCriteriaCreated = false;
@@ -137,8 +137,8 @@ public class GeneralDAO {
 			}
 			criteria.createAlias("ds.datasetGroup", "dsg").add(Restrictions.eq("dsg.name", datasetGroup));
 		}
-		if (datasetType != null && datasetType != "") {
-			criteria.add(Restrictions.eq("name", datasetType));
+		if (measurement != null && measurement != "") {
+			criteria.add(Restrictions.eq("name", measurement));
 		}
 		if (attributeGroup != null && attributeGroup != "") {
 			if (!datasetCriteriaCreated) {
@@ -155,11 +155,11 @@ public class GeneralDAO {
 			criteria.createAlias("ds.attributeType", "dsat").add(Restrictions.eq("dsat.name", attributeType));
 		}
 
-		return (List<DatasetType>) criteria.list();
+		return (List<Measurement>) criteria.list();
 	}
 
 	/*@SuppressWarnings("unchecked")
-	public static List<Attribute> filterAttribute(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene, String idgFamily) {
+	public static List<Attribute> filterAttribute(String dataset, String datasetGroup, String measurement, String attribute, String attributeGroup, String attributeType, String gene, String idgFamily) {
 		Criteria criteria = HibernateUtil.getCurrentSession()
 			.createCriteria(Attribute.class)
 			.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
@@ -167,7 +167,7 @@ public class GeneralDAO {
 	}*/
 
 	@SuppressWarnings("unchecked")
-	public static List<AttributeGroup> filterAttributeGroup(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene,
+	public static List<AttributeGroup> filterAttributeGroup(String dataset, String datasetGroup, String measurement, String attribute, String attributeGroup, String attributeType, String gene,
 			String idgFamily) {
 
 		Criteria criteria = HibernateUtil.getCurrentSession()
@@ -186,12 +186,12 @@ public class GeneralDAO {
 			}
 			criteria.createAlias("ds.datasetGroup", "dsg").add(Restrictions.eq("dsg.name", datasetGroup));
 		}
-		if (datasetType != null && datasetType != "") {
+		if (measurement != null && measurement != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
-			criteria.createAlias("ds.datasetType", "dst").add(Restrictions.eq("dst.name", datasetType));
+			criteria.createAlias("ds.measurement", "dst").add(Restrictions.eq("dst.name", measurement));
 		}
 		if (attributeGroup != null && attributeGroup != "") {
 			if (!datasetCriteriaCreated) {
@@ -212,7 +212,7 @@ public class GeneralDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<AttributeType> filterAttributeTypes(String dataset, String datasetGroup, String datasetType, String attribute, String attributeGroup, String attributeType, String gene, String idgFamily) {
+	public static List<AttributeType> filterAttributeTypes(String dataset, String datasetGroup, String measurement, String attribute, String attributeGroup, String attributeType, String gene, String idgFamily) {
 		
 		Criteria criteria = HibernateUtil.getCurrentSession()
 				.createCriteria(AttributeType.class)
@@ -230,12 +230,12 @@ public class GeneralDAO {
 			}
 			criteria.createAlias("ds.datasetGroup", "dsg").add(Restrictions.eq("dsg.name", datasetGroup));
 		}
-		if (datasetType != null && datasetType != "") {
+		if (measurement != null && measurement != "") {
 			if (!datasetCriteriaCreated) {
 				datasetCriteriaCreated = true;
 				criteria.createAlias("datasets", "ds");
 			}
-			criteria.createAlias("ds.datasetType", "dst").add(Restrictions.eq("dst.name", datasetType));
+			criteria.createAlias("ds.measurement", "dst").add(Restrictions.eq("dst.name", measurement));
 		}
 		if (attributeGroup != null && attributeGroup != "") {
 			if (!datasetCriteriaCreated) {

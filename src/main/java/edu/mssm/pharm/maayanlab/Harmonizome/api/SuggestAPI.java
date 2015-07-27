@@ -20,7 +20,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Download;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
@@ -28,7 +28,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeGroupSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeTypeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSimpleSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.MeasurementSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DownloadSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -46,7 +46,7 @@ public class SuggestAPI extends HttpServlet {
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSimpleSerializer());
 		gsonBuilder.registerTypeAdapter(Download.class, new DownloadSerializer());
 		gsonBuilder.registerTypeAdapter(DatasetGroup.class, new DatasetGroupSerializer());
-		gsonBuilder.registerTypeAdapter(DatasetType.class, new DatasetTypeSerializer());
+		gsonBuilder.registerTypeAdapter(Measurement.class, new MeasurementSerializer());
 		// gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeSerializer());
 		gsonBuilder.registerTypeAdapter(AttributeGroup.class, new AttributeGroupSerializer());
 		gsonBuilder.registerTypeAdapter(AttributeType.class, new AttributeTypeSerializer());
@@ -60,7 +60,7 @@ public class SuggestAPI extends HttpServlet {
 
 		String dataset = URLUtil.getParameter(request, "dataset");
 		String datasetGroup = URLUtil.getParameter(request, "datasetGroup");
-		String datasetType = URLUtil.getParameter(request, "datasetType");
+		String measurement = URLUtil.getParameter(request, "measurement");
 		String attribute = URLUtil.getParameter(request, "attribute");
 		String attributeGroup = URLUtil.getParameter(request, "attributeGroup");
 		String attributeType = URLUtil.getParameter(request, "attributeType");
@@ -73,12 +73,12 @@ public class SuggestAPI extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 
-			results.setDataset(GeneralDAO.filterDataset(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
-			results.setDatasetGroup(GeneralDAO.filterDatasetGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
-			results.setDatasetType(GeneralDAO.filterDatasetType(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDataset(GeneralDAO.filterDataset(dataset, datasetGroup, measurement, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setDatasetGroup(GeneralDAO.filterDatasetGroup(dataset, datasetGroup, measurement, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setMeasurements(GeneralDAO.filterMeasurement(dataset, datasetGroup, measurement, attribute, attributeGroup, attributeType, gene, idgFamily));
 
-			results.setAttributeGroup(GeneralDAO.filterAttributeGroup(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
-			results.setAttributeType(GeneralDAO.filterAttributeTypes(dataset, datasetGroup, datasetType, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setAttributeGroup(GeneralDAO.filterAttributeGroup(dataset, datasetGroup, measurement, attribute, attributeGroup, attributeType, gene, idgFamily));
+			results.setAttributeType(GeneralDAO.filterAttributeTypes(dataset, datasetGroup, measurement, attribute, attributeGroup, attributeType, gene, idgFamily));
 			
 			// TODO: Implement a real query for the relevant genes.
 			//results.setGene(GeneDAO.getGenes());

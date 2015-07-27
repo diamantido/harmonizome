@@ -102,20 +102,21 @@
 							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
 						%>
 							<tr class="dataset-row <%= className %>">
-								<td class="col-sm-1" data-dataset-group="<%= className %>">
+								<td class="col-md-1" data-dataset-group="<%= className %>">
 									<button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true"></button>
 									<button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
 								</td>
-								<td class="col-sm-6">
+								<td class="col-md-9">
 									<a href="dataset/<%= datasetURL %>"><%= dataset.getName() %></a>
 									<span class="badge">${symbol} has <%= attributes.getLeft().size() + attributes.getRight().size() %> <%= dataset.getAttributeType().getName() %> association(s)</span>
 								</td>
-								<td class="col-sm-5">
+								<td class="col-md-2">
 									<%= dataset.getAttributeType().getName() %>
 								</td>
 							</tr>
 							<tr class="attribute-list">
-								<td colspan="5">
+								<td class="col-md-1"></td>
+								<td class="col-md-9">
 									<div><em><%= StringUtils.capitalize(dataset.getAttributeType().getName()) + "s:" %></em></div>
 									<div class="first">
 										<% Iterator<Attribute> posIter = attributes.getLeft().iterator();
@@ -123,7 +124,7 @@
 											Up:
 											<% while (posIter.hasNext()) {
 												Attribute attribute = posIter.next();
-												String attributeName = attribute.getName();
+												String attributeName = attribute.getNameFromDataset();
 											%>
 												<a href="gene_set/<%= URLCodec.encode(attributeName) %>/<%= URLCodec.encode(datasetName) %>">
 													<%= attributeName %></a><% if (posIter.hasNext()) { %>, <% } %>
@@ -136,12 +137,13 @@
 											Down:
 											<% while (negIter.hasNext()) {
 												Attribute attribute = negIter.next();
-												String name = attribute.getName();
+												String name = attribute.getNameFromDataset();
 											%>
 												<a href="attribute/<%= URLCodec.encode(name) %>"><%= name %></a><% if (negIter.hasNext()) { %>, <% } %>
 											<% }
 										} %>
 									</div>
+									<td class="col-md-2"></td>
 								</td>
 							</tr>
 						<% } %>

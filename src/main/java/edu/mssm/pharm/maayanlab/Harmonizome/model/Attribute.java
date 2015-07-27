@@ -20,91 +20,151 @@ import org.hibernate.annotations.Type;
 public class Attribute {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name = "name")
-	private String name;
-
-	@Column(name = "description")
+	/* From datasets
+	 * ------------- */
+	@Column(name = "name_from_dataset")
+	private String nameFromDataset;
+	
+	@Column(name = "id_from_dataset")
+	private String idFromDataset;
+	
+	@Column(name = "description_from_dataset")
 	@Type(type = "text")
-	private String description;
+	private String descriptionFromDataset;
 
-	@Column(name = "url", length = 2083)
-	private String url;
-
+	@Column(name = "url_from_dataset", length = 2083)
+	private String urlFromDataset;
+	
+	/* From naming authority
+	 * --------------------- */
+	@Column(name = "name_from_naming_authority")
+	private String nameFromNamingAuthority;
+	
 	@Column(name = "id_from_naming_authority")
 	private String idFromNamingAuthority;
+	
+	@Column(name = "description_from_naming_authority")
+	@Type(type = "text")
+	private String descriptionFromNamingAuthority;
+
+	@Column(name = "url_from_naming_authority", length = 2083)
+	private String urlFromNamingAuthority;
+	
+	/* Foreign key relationships
+	 * ------------------------- */
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "dataset_fk")
+	private Dataset dataset;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_type_fk")
 	private AttributeType attributeType;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "attribute_group_fk")
-	private AttributeGroup attributeGroup;
-
-	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "naming_authority_fk")
 	private NamingAuthority namingAuthority;
 
+	/* Back references
+	 * --------------- */
 	@OneToMany(mappedBy = "attribute")
 	private Set<Feature> features;
-
-	@OneToMany(mappedBy = "attribute1")
-	private Set<AttributeSimilarityMatrix> attributeSimilarities1;
-
-	@OneToMany(mappedBy = "attribute2")
-	private Set<AttributeSimilarityMatrix> attributeSimilarities2;
 
 	public Attribute() {
 	}
 
-	public Attribute(int id, String name, String description, String url, String idFromNamingAuthority, AttributeType attributeType, AttributeGroup attributeGroup, NamingAuthority namingAuthority) {
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.url = url;
+	public Attribute(String nameFromDataset, String idFromDataset, String descriptionFromDataset, String urlFromDataset, String nameFromNamingAuthority, String idFromNamingAuthority,
+			String descriptionFromNamingAuthority, String urlFromNamingAuthority, Dataset dataset, AttributeType attributeType, NamingAuthority namingAuthority, Set<Feature> features) {
+		this.nameFromDataset = nameFromDataset;
+		this.idFromDataset = idFromDataset;
+		this.descriptionFromDataset = descriptionFromDataset;
+		this.urlFromDataset = urlFromDataset;
+		this.nameFromNamingAuthority = nameFromNamingAuthority;
 		this.idFromNamingAuthority = idFromNamingAuthority;
+		this.descriptionFromNamingAuthority = descriptionFromNamingAuthority;
+		this.urlFromNamingAuthority = urlFromNamingAuthority;
+		this.dataset = dataset;
 		this.attributeType = attributeType;
-		this.attributeGroup = attributeGroup;
 		this.namingAuthority = namingAuthority;
+		this.features = features;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public String getNameFromDataset() {
+		return nameFromDataset;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setNameFromDataset(String nameFromDataset) {
+		this.nameFromDataset = nameFromDataset;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getIdFromDataset() {
+		return idFromDataset;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setIdFromDataset(String idFromDataset) {
+		this.idFromDataset = idFromDataset;
 	}
 
-	public String getUrl() {
-		return url;
+	public String getDescriptionFromDataset() {
+		return descriptionFromDataset;
 	}
 
-	public void setUrl(String url) {
-		this.url = url;
+	public void setDescriptionFromDataset(String descriptionFromDataset) {
+		this.descriptionFromDataset = descriptionFromDataset;
+	}
+
+	public String getUrlFromDataset() {
+		return urlFromDataset;
+	}
+
+	public void setUrlFromDataset(String urlFromDataset) {
+		this.urlFromDataset = urlFromDataset;
+	}
+
+	public String getNameFromNamingAuthority() {
+		return nameFromNamingAuthority;
+	}
+
+	public void setNameFromNamingAuthority(String nameFromNamingAuthority) {
+		this.nameFromNamingAuthority = nameFromNamingAuthority;
 	}
 
 	public String getIdFromNamingAuthority() {
 		return idFromNamingAuthority;
 	}
 
-	public void setIdFromNamingAuthority(String namingAuthorityId) {
-		this.idFromNamingAuthority = namingAuthorityId;
+	public void setIdFromNamingAuthority(String idFromNamingAuthority) {
+		this.idFromNamingAuthority = idFromNamingAuthority;
+	}
+
+	public String getDescriptionFromNamingAuthority() {
+		return descriptionFromNamingAuthority;
+	}
+
+	public void setDescriptionFromNamingAuthority(String descriptionFromNamingAuthority) {
+		this.descriptionFromNamingAuthority = descriptionFromNamingAuthority;
+	}
+
+	public String getUrlFromNamingAuthority() {
+		return urlFromNamingAuthority;
+	}
+
+	public void setUrlFromNamingAuthority(String urlFromNamingAuthority) {
+		this.urlFromNamingAuthority = urlFromNamingAuthority;
+	}
+
+	public Dataset getDataset() {
+		return dataset;
+	}
+
+	public void setDataset(Dataset dataset) {
+		this.dataset = dataset;
 	}
 
 	public AttributeType getAttributeType() {
@@ -113,14 +173,6 @@ public class Attribute {
 
 	public void setAttributeType(AttributeType attributeType) {
 		this.attributeType = attributeType;
-	}
-
-	public AttributeGroup getAttributeGroup() {
-		return attributeGroup;
-	}
-
-	public void setAttributeGroup(AttributeGroup attributeGroup) {
-		this.attributeGroup = attributeGroup;
 	}
 
 	public NamingAuthority getNamingAuthority() {
@@ -137,21 +189,5 @@ public class Attribute {
 
 	public void setFeatures(Set<Feature> features) {
 		this.features = features;
-	}
-
-	public Set<AttributeSimilarityMatrix> getAttributeSimilarities1() {
-		return attributeSimilarities1;
-	}
-
-	public void setAttributeSimilarities1(Set<AttributeSimilarityMatrix> attributeSimilarities1) {
-		this.attributeSimilarities1 = attributeSimilarities1;
-	}
-
-	public Set<AttributeSimilarityMatrix> getAttributeSimilarities2() {
-		return attributeSimilarities2;
-	}
-
-	public void setAttributeSimilarities2(Set<AttributeSimilarityMatrix> attributeSimilarities2) {
-		this.attributeSimilarities2 = attributeSimilarities2;
 	}
 }

@@ -22,11 +22,11 @@ import com.google.gson.GsonBuilder;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.SuggestSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetDeserializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupDeserializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeDeserializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.MeasurementDeserializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleDeserializer;
 
 public class TestSearchAPI extends Mockito {
@@ -47,7 +47,7 @@ public class TestSearchAPI extends Mockito {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetDeserializer());
 		gsonBuilder.registerTypeAdapter(DatasetGroup.class, new DatasetGroupDeserializer());
-		gsonBuilder.registerTypeAdapter(DatasetType.class, new DatasetTypeDeserializer());
+		gsonBuilder.registerTypeAdapter(Measurement.class, new MeasurementDeserializer());
 		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSimpleDeserializer());
 		gson = gsonBuilder.create();
 	}

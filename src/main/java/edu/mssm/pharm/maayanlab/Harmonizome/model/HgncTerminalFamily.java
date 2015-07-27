@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class HgncTerminalFamily {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "family_id", unique = true)
@@ -26,17 +26,21 @@ public class HgncTerminalFamily {
 
 	@Column(name = "name", unique = true)
 	private String name;
+	
+	@Column(name = "url", length = 2083)
+	private String url;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "hgnc_terminal_families_to_genes", joinColumns = { @JoinColumn(name = "hgnc_terminal_family_id") }, inverseJoinColumns = { @JoinColumn(name = "gene_id") })
+	@JoinTable(name = "hgnc_terminal_families_to_genes", joinColumns = { @JoinColumn(name = "hgnc_terminal_family_fk") }, inverseJoinColumns = { @JoinColumn(name = "gene_fk") })
 	private Set<Gene> genes;
 
 	public HgncTerminalFamily() {
 	}
 
-	public HgncTerminalFamily(int familyId, String name, Set<Gene> genes) {
+	public HgncTerminalFamily(int familyId, String name, String url, Set<Gene> genes) {
 		this.familyId = familyId;
 		this.name = name;
+		this.url = url;
 		this.genes = genes;
 	}
 
@@ -58,6 +62,14 @@ public class HgncTerminalFamily {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Set<Gene> getGenes() {

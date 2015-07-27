@@ -20,7 +20,7 @@ public class DatasetSerializer implements JsonSerializer<Dataset> {
 		result.add("association", new JsonPrimitive(dataset.getAssociation()));
 		result.add("description", new JsonPrimitive(dataset.getDescription()));
 		result.add("datasetGroup", new JsonPrimitive(dataset.getDatasetGroup().getName()));
-		result.add("datasetType", new JsonPrimitive(dataset.getDatasetType().getName()));
+		result.add("measurement", new JsonPrimitive(dataset.getMeasurement().getName()));
 		result.add("attributeGroup", new JsonPrimitive(dataset.getAttributeGroup().getName()));
 		result.add("attributeType", new JsonPrimitive(dataset.getAttributeType().getName()));
 		JsonArray downloads = new JsonArray();

@@ -18,7 +18,7 @@ import javax.persistence.Table;
 public class HgncRootFamily {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "family_id", unique = true)
@@ -28,7 +28,7 @@ public class HgncRootFamily {
 	private String name;
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "hgnc_root_families_to_genes", joinColumns = { @JoinColumn(name = "hgnc_root_family_id") }, inverseJoinColumns = { @JoinColumn(name = "gene_id") })
+	@JoinTable(name = "hgnc_root_families_to_genes", joinColumns = { @JoinColumn(name = "hgnc_root_family_fk") }, inverseJoinColumns = { @JoinColumn(name = "gene_fk") })
 	private Set<Gene> genes;
 
 	public HgncRootFamily() {

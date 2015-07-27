@@ -33,7 +33,6 @@ public class URLUtil {
 			return null;
 		} else {
 			String query = path.substring(1);
-			System.out.println(query);
 			return decodeUrl ? URLCodec.decode(query) : query;
 		}
 	}

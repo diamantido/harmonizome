@@ -11,6 +11,9 @@ public class Ellipsizer {
 	}
 
 	public static String trim(String text, int max) {
+		if (text == null) {
+			return "";
+		}
 
 	    if (textWidth(text) <= max)
 	        return text;

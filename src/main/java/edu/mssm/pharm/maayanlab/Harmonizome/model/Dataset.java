@@ -21,31 +21,36 @@ import org.hibernate.annotations.Type;
 public class Dataset {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "name", unique = true)
 	private String name;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "resource_fk")
-	private Resource resource;
+	
+	@Column(name = "name_without_resource", unique = true)
+	private String nameWithoutResource;
 
 	@Column(name = "description")
 	@Type(type = "text")
 	private String description;
+	
+	@Column(name = "association")
+	private String association;
 
+	/* Foreign key relationships
+	 * ------------------------- */
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "dataset_type_fk")
-	private DatasetType datasetType;
+	@JoinColumn(name = "measurement_fk")
+	private Measurement measurement;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dataset_group_fk")
 	private DatasetGroup datasetGroup;
-
-	@Column(name = "association")
-	private String association;
-
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "resource_fk")
+	private Resource resource;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_type_fk")
 	private AttributeType attributeType;
@@ -60,23 +65,26 @@ public class Dataset {
 	@Column(name = "num_page_views")
 	private int numPageViews;
 
+	/* Back references
+	 * --------------- */
 	@OneToMany(mappedBy = "dataset")
 	private Set<Download> downloads;
 
 	@OneToMany(mappedBy = "dataset")
-	private Set<Feature> features;
-
+	private Set<Attribute> attributes;
+	
 	public Dataset() {
 	}
 
-	public Dataset(String name, Resource resource, String description, DatasetType datasetType, DatasetGroup datasetGroup, String association, AttributeType attributeType,
-			AttributeGroup attributeGroup, Timestamp downloadDate, int numPageViews, String processingScriptDl) {
+	public Dataset(String name, String nameWithoutResource, String description, String association, Measurement measurement, DatasetGroup datasetGroup, Resource resource, AttributeType attributeType,
+			AttributeGroup attributeGroup, Timestamp downloadDate, int numPageViews) {
 		this.name = name;
-		this.resource = resource;
+		this.nameWithoutResource = nameWithoutResource;
 		this.description = description;
-		this.datasetType = datasetType;
-		this.datasetGroup = datasetGroup;
 		this.association = association;
+		this.measurement = measurement;
+		this.datasetGroup = datasetGroup;
+		this.resource = resource;
 		this.attributeType = attributeType;
 		this.attributeGroup = attributeGroup;
 		this.downloadDate = downloadDate;
@@ -95,12 +103,12 @@ public class Dataset {
 		this.name = name;
 	}
 
-	public Resource getResource() {
-		return resource;
+	public String getNameWithoutResource() {
+		return nameWithoutResource;
 	}
 
-	public void setResource(Resource resource) {
-		this.resource = resource;
+	public void setNameWithoutResource(String nameWithoutResource) {
+		this.nameWithoutResource = nameWithoutResource;
 	}
 
 	public String getDescription() {
@@ -111,12 +119,20 @@ public class Dataset {
 		this.description = description;
 	}
 
-	public DatasetType getDatasetType() {
-		return datasetType;
+	public String getAssociation() {
+		return association;
 	}
 
-	public void setDatasetType(DatasetType datasetType) {
-		this.datasetType = datasetType;
+	public void setAssociation(String association) {
+		this.association = association;
+	}
+
+	public Measurement getMeasurement() {
+		return measurement;
+	}
+
+	public void setMeasurement(Measurement measurement) {
+		this.measurement = measurement;
 	}
 
 	public DatasetGroup getDatasetGroup() {
@@ -127,12 +143,12 @@ public class Dataset {
 		this.datasetGroup = datasetGroup;
 	}
 
-	public String getAssociation() {
-		return association;
+	public Resource getResource() {
+		return resource;
 	}
 
-	public void setAssociation(String association) {
-		this.association = association;
+	public void setResource(Resource resource) {
+		this.resource = resource;
 	}
 
 	public AttributeType getAttributeType() {
@@ -175,13 +191,11 @@ public class Dataset {
 		this.downloads = downloads;
 	}
 
-	public Set<Feature> getFeatures() {
-		return features;
+	public Set<Attribute> getAttributes() {
+		return attributes;
 	}
 
-	public void setFeatures(Set<Feature> features) {
-		this.features = features;
+	public void setAttributes(Set<Attribute> attributes) {
+		this.attributes = attributes;
 	}
-	
-
 }

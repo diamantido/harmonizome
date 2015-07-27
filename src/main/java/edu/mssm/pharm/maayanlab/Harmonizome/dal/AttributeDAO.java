@@ -104,7 +104,7 @@ public class AttributeDAO {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT attr FROM Attribute AS attr " +
-				"WHERE attr.name = :name"
+				"WHERE attr.nameFromDataset = :name"
 			)
 			.setString("name", name)
 			.uniqueResult();
@@ -117,7 +117,7 @@ public class AttributeDAO {
 			.createQuery(
 				"SELECT attr FROM Attribute AS attr " +
 				"JOIN attr.features AS feats " +
-				"JOIN feats.dataset AS dataset " +
+				"JOIN attr.dataset AS dataset " +
 				"JOIN feats.gene AS gene " +
 				"WHERE dataset.name = :datasetName AND gene.symbol = :geneSymbol AND feats.thresholdValue != 0"
 			)
@@ -133,7 +133,7 @@ public class AttributeDAO {
 			.createQuery(
 				"SELECT attr FROM Attribute AS attr " +
 				"JOIN attr.features AS feats " +
-				"JOIN feats.dataset AS dataset " +
+				"JOIN attr.dataset AS dataset " +
 				"JOIN feats.gene AS gene " +
 				"WHERE dataset.name = :datasetName AND gene.symbol = :geneSymbol AND feats.thresholdValue = :thresholdValue"
 			)
@@ -158,14 +158,14 @@ public class AttributeDAO {
 	}
 
 	public static List<Attribute> getByWordInName(String query) {
-		return GenericDAO.getBySubstringInField(Attribute.class, "attribute", "name", query);
+		return GenericDAO.getBySubstringInField(Attribute.class, "attribute", "name_from_dataset", query);
 	}
 
 	public static List<Attribute> getByWordInNameButIgnoreExactMatch(String query, int idToIgnore) {
-		return GenericDAO.getBySubstringInFieldButIgnoreId(Attribute.class, "attribute", "name", query, idToIgnore);
+		return GenericDAO.getBySubstringInFieldButIgnoreId(Attribute.class, "attribute", "name_from_dataset", query, idToIgnore);
 	}
 
 	public static List<String> getSuggestions(String query) {
-		return GenericDAO.getSuggestions("attribute", "name", query);
+		return GenericDAO.getSuggestions("attribute", "name_from_dataset", query);
 	}
 }

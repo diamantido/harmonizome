@@ -82,8 +82,8 @@ public class TestSearchAPIAttributeType extends Mockito {
 	}
 
 	@Test
-	public void testByDatasetType() throws IOException, ServletException {
-		when(request.getParameter("datasetType")).thenReturn("genetic_association"); 
+	public void testByMeasurement() throws IOException, ServletException {
+		when(request.getParameter("measurement")).thenReturn("genetic_association"); 
 		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();

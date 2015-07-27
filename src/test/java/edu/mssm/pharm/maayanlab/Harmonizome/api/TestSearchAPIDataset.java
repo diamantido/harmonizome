@@ -59,8 +59,8 @@ public class TestSearchAPIDataset extends Mockito {
 	}
 
 	@Test
-	public void testByDatasetType() throws IOException, ServletException {
-		when(request.getParameter("datasetType")).thenReturn("prediction");
+	public void testByMeasurement() throws IOException, ServletException {
+		when(request.getParameter("measurement")).thenReturn("prediction");
 		new SuggestAPI().doGet(request, response);
 		writer.flush();
 		String json = output.toString();

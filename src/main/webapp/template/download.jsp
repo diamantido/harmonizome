@@ -24,7 +24,7 @@
 							<th>Name</th>
 							<th>Resource</th>
 							<th>Description</th>
-							<th>Dataset Type</th>
+							<th>Measurement</th>
 							<th>Attribute Type</th>
 							<th>Downloads</th>
 							<th>Views</th>
@@ -43,7 +43,7 @@
 								</a>
 							</td>
 							<td><%= dataset.getDescription() %></td>
-							<td><%= dataset.getDatasetType().getName() %></td>
+							<td><%= dataset.getMeasurement().getName() %></td>
 							<td><%= dataset.getAttributeType().getName() %></td>
 							<td>
 								<a href="dataset/<%= URLEncoder.encode(dataset.getName(), "UTF-8") %>" type="button" class="btn btn-default download" aria-label="Left Align">

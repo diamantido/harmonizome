@@ -21,7 +21,7 @@ import org.hibernate.annotations.Type;
 public class Gene {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "symbol", unique = true)
@@ -40,6 +40,8 @@ public class Gene {
 	@Column(name = "ncbi_entrez_gene_url", length = 2083)
 	private String ncbiEntrezGeneUrl;
 
+	/* Foreign key relationships
+	 * ------------------------- */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "idg_family_fk")
 	private IdgFamily idgFamily;
@@ -48,6 +50,8 @@ public class Gene {
 	@JoinColumn(name = "idg_tdl_class_fk")
 	private IdgTdlClass idgTdlClass;
 	
+	/* Back references
+	 * --------------- */
 	@OneToMany(mappedBy = "gene")
 	private Set<GeneSynonym> synonyms;
 
@@ -56,13 +60,7 @@ public class Gene {
 
 	@OneToMany(mappedBy = "gene")
 	private Set<Protein> protein;
-
-	@OneToMany(mappedBy = "gene1")
-	private Set<GeneSimilarityMatrix> geneSimilarities1;
-
-	@OneToMany(mappedBy = "gene2")
-	private Set<GeneSimilarityMatrix> geneSimilarities2;
-
+	
 	@ManyToMany(mappedBy = "genes")
 	private Set<HgncRootFamily> hgncRootFamilies;
 
@@ -168,22 +166,6 @@ public class Gene {
 
 	public void setProteins(Set<Protein> protein) {
 		this.protein = protein;
-	}
-
-	public Set<GeneSimilarityMatrix> getGeneSimilarities1() {
-		return geneSimilarities1;
-	}
-
-	public void setGeneSimilarities1(Set<GeneSimilarityMatrix> geneSimilarities1) {
-		this.geneSimilarities1 = geneSimilarities1;
-	}
-
-	public Set<GeneSimilarityMatrix> getGeneSimilarities2() {
-		return geneSimilarities2;
-	}
-
-	public void setGeneSimilarities2(Set<GeneSimilarityMatrix> geneSimilarities2) {
-		this.geneSimilarities2 = geneSimilarities2;
 	}
 
 	public Set<HgncRootFamily> getHgncRootFamilies() {

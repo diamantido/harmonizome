@@ -73,7 +73,7 @@ int MAX_DESCRIPTION_LENGTH = 200;
 												<span class="badge">
 													<a href="<%= dataset.getResource().getUrl() %>" target="_blank"><%= dataset.getResource().getName() %></a>
 												</span>
-												<span class="badge"><%= dataset.getDatasetType().getName() %></span>
+												<span class="badge"><%= dataset.getMeasurement().getName() %></span>
 												<p class="search-description"><%= Ellipsizer.trim(dataset.getDescription(), MAX_DESCRIPTION_LENGTH) %></p>
 											</td>
 										</tr>
@@ -97,8 +97,10 @@ int MAX_DESCRIPTION_LENGTH = 200;
 												</strong>
 												<% if (gene.getIdgFamily() != null) { %>
 													<span class="badge"><%= gene.getIdgFamily().getName() %></span>
-												<% } %>
-												<p class="search-description"><%= Ellipsizer.trim(gene.getDescription(), MAX_DESCRIPTION_LENGTH) %></p>
+												<% }
+												if (gene.getDescription() != null) { %>
+													<p class="search-description"><%= Ellipsizer.trim(gene.getDescription(), MAX_DESCRIPTION_LENGTH) %></p>
+												<% } %>												
 											</td>
 										</tr>
 									<% }
@@ -111,16 +113,16 @@ int MAX_DESCRIPTION_LENGTH = 200;
 										<td></td>
 									</tr>
 									<% for (Attribute attribute : attributes) {
-									String name = attribute.getName();
+									String name = attribute.getNameFromDataset();
 									%>
 										<tr>
 											<td class="col-md-2"></td>
 											<td class="col-md-10">
 												<strong class="badge attribute">
-													<a href="attribute/<%= URLCodec.encode(name) %>"><%= name %></a>
+													<a href="gene_set/<%= URLCodec.encode(name) %>"><%= name %></a>
 												</strong>
 												<span class="badge"><%= attribute.getAttributeType().getName() %></span>
-												<p class="search-description"><%= Ellipsizer.trim(attribute.getDescription(), MAX_DESCRIPTION_LENGTH) %></p>
+												<p class="search-description"><%= Ellipsizer.trim(attribute.getDescriptionFromNamingAuthority(), MAX_DESCRIPTION_LENGTH) %></p>
 											</td>
 										</tr>
 									<% }

@@ -15,14 +15,8 @@ import javax.persistence.Table;
 public class Feature {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-
-	@Column(name = "imported_value")
-	private double importedValue;
-
-	@Column(name = "standardized_value")
-	private double standardizedValue;
 
 	@Column(name = "threshold_value")
 	private double thresholdValue;
@@ -35,40 +29,17 @@ public class Feature {
 	@JoinColumn(name = "attribute_fk")
 	private Attribute attribute;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "dataset_fk")
-	private Dataset dataset;
-
 	public Feature() {
 	}
 
-	public Feature(double importedValue, double standardizedValue, double thresholdValue, Gene gene, Attribute attribute, Dataset dataset) {
-		this.importedValue = importedValue;
-		this.standardizedValue = standardizedValue;
+	public Feature(double thresholdValue, Gene gene, Attribute attribute) {
 		this.thresholdValue = thresholdValue;
 		this.gene = gene;
 		this.attribute = attribute;
-		this.dataset = dataset;
 	}
 
 	public int getId() {
 		return id;
-	}
-
-	public double getImportedValue() {
-		return importedValue;
-	}
-
-	public void setImportedValue(double importedValue) {
-		this.importedValue = importedValue;
-	}
-
-	public double getStandardizedValue() {
-		return standardizedValue;
-	}
-
-	public void setStandardizedValue(double standardizedValue) {
-		this.standardizedValue = standardizedValue;
 	}
 
 	public double getThresholdValue() {
@@ -93,13 +64,5 @@ public class Feature {
 
 	public void setAttribute(Attribute attribute) {
 		this.attribute = attribute;
-	}
-
-	public Dataset getDataset() {
-		return dataset;
-	}
-
-	public void setDataset(Dataset dataset) {
-		this.dataset = dataset;
 	}
 }

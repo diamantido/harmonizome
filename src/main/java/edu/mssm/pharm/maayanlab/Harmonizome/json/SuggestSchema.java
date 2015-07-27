@@ -6,14 +6,14 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 
 public class SuggestSchema {
 
 	private List<Dataset> dataset;
 	private List<DatasetGroup> datasetGroup;
-	private List<DatasetType> datasetType;
+	private List<Measurement> measurement;
 	//private List<Attribute> attribute;
 	private List<AttributeGroup> attributeGroup;
 	private List<AttributeType> attributeType;
@@ -39,12 +39,12 @@ public class SuggestSchema {
 		this.datasetGroup = datasetGroup;
 	}
 	
-	public List<DatasetType> getDatasetType() {
-		return datasetType;
+	public List<Measurement> getMeasurements() {
+		return measurement;
 	}
 	
-	public void setDatasetType(List<DatasetType> datasetType) {
-		this.datasetType = datasetType;
+	public void setMeasurements(List<Measurement> measurement) {
+		this.measurement = measurement;
 	}
 	
 	/*public List<Attribute> getAttribute() {

@@ -18,15 +18,12 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class AttributeGroup {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "attributeGroup")
-	private Set<Attribute> attributes;
-	
 	@OneToMany(mappedBy = "attributeGroup")
 	private Set<AttributeType> attributeTypes;
 	
@@ -50,14 +47,6 @@ public class AttributeGroup {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Set<Attribute> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Set<Attribute> attributes) {
-		this.attributes = attributes;
 	}
 
 	public Set<Dataset> getDatasets() {

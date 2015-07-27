@@ -18,7 +18,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Download;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
@@ -27,7 +27,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeTypeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetGroupSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetTypeSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.MeasurementSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DownloadSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -43,7 +43,7 @@ public class SearchAPI extends HttpServlet {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSerializer());
 		gsonBuilder.registerTypeAdapter(DatasetGroup.class, new DatasetGroupSerializer());
-		gsonBuilder.registerTypeAdapter(DatasetType.class, new DatasetTypeSerializer());
+		gsonBuilder.registerTypeAdapter(Measurement.class, new MeasurementSerializer());
 		gsonBuilder.registerTypeAdapter(Download.class, new DownloadSerializer());
 
 		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSerializer());

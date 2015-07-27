@@ -8,13 +8,13 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetType;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 
-public class DatasetTypeSerializer implements JsonSerializer<DatasetType> {
+public class MeasurementSerializer implements JsonSerializer<Measurement> {
 
-	public JsonElement serialize(final DatasetType datasetType, final Type type, final JsonSerializationContext context) {
+	public JsonElement serialize(final Measurement measurement, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
-		result.add("name", new JsonPrimitive(datasetType.getName()));
+		result.add("name", new JsonPrimitive(measurement.getName()));
 		return result;
 	}
 }

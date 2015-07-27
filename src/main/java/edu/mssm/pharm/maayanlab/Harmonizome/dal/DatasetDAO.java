@@ -36,7 +36,8 @@ public class DatasetDAO {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT DISTINCT dataset FROM Dataset AS dataset " +
-				"JOIN dataset.features AS feats " +
+				"JOIN dataset.attributes AS attrs " +
+				"JOIN attrs.features as feats " +
 				"JOIN feats.gene AS gene " +
 				"WHERE gene.symbol = :symbol"
 			)
@@ -44,18 +45,16 @@ public class DatasetDAO {
 			.list();
 	}
 
-	@SuppressWarnings("unchecked")
-	public static List<Dataset> getByAttribute(String attributeName) {
-		return (List<Dataset>) HibernateUtil
+	public static Dataset getByAttribute(String attributeName) {
+		return (Dataset) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
 				"SELECT DISTINCT dataset FROM Dataset AS dataset " +
-				"JOIN dataset.features AS feats " +
-				"JOIN feats.attribute AS attr " +
-				"WHERE attr.name = :name"
+				"JOIN dataset.attributes AS attrs " +
+				"WHERE attrs.nameFromDataset = :name"
 			)
 			.setString("name", attributeName)
-			.list();
+			.uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")
