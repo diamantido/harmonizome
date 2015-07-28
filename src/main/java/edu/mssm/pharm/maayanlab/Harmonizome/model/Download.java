@@ -1,7 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.util.Comparator;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
