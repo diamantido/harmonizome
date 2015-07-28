@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Resource" %>
@@ -16,7 +17,7 @@ Resource resource = (Resource) request.getAttribute("resource");
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h1><%= resource.getName() %><span class="note">Resource</span></h1>
+				<h1><%= resource.getName() %> <span class="note">Resource</span></h1>
 				<table class="table">
 					<tr>
 						<td class="col-sm-3">Description</td>
@@ -25,16 +26,20 @@ Resource resource = (Resource) request.getAttribute("resource");
 					<tr>
 						<td class="col-sm-3">Datasets</td>
 						<td class="col-sm-9">
-						<% for (Dataset dataset : resource.getDatasets()) { %>
-							<a href=""><%= dataset.getName() %></a>
-						<% } %>
+							<ul class="list-unstyled">
+							<% for (Dataset dataset : resource.getDatasets()) { %>
+								<li>
+									<a href="dataset/<%= URLCodec.encode(dataset.getName()) %>"><%= dataset.getName() %></a>
+								</li>
+							<% } %>
+							</ul>
 						</td>
 					</tr>
 					<tr>
 						<td class="col-sm-3">Citation(s)</td>
 						<td class="col-sm-9">
 						<% 
-						Iterator<Publication> pubIter = resource.getPublications().iterator();
+						Iterator<Publication> pubIter = resource.getPublications().listIterator();
 						while (pubIter.hasNext()) {
 							Publication pub = pubIter.next();
 						%>

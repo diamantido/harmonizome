@@ -23,6 +23,13 @@ public class DownloadType {
 	
 	@Column(name = "filename", unique = true)
 	private String filename;
+	
+	@Column(name = "description")
+	private String description;
+	
+	// This is used by the front end to correctly order the downloads.
+	@Column(name = "ordering")
+	private int ordering;
 
 	@OneToMany(mappedBy = "type")
 	private Set<Download> downloads;
@@ -30,14 +37,12 @@ public class DownloadType {
 	public DownloadType() {
 	}
 
-	public DownloadType(String name, String filename, Set<Download> downloads) {
-		this.name = name;
-		this.filename = filename;
-		this.downloads = downloads;
-	}
-
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -54,6 +59,22 @@ public class DownloadType {
 
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getOrdering() {
+		return ordering;
+	}
+
+	public void setOrdering(int ordering) {
+		this.ordering = ordering;
 	}
 
 	public Set<Download> getDownloads() {

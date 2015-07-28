@@ -1,6 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,10 +41,10 @@ public class Resource {
 	private String image;
 	
 	@OneToMany(mappedBy = "resource")
-	private Set<Dataset> datasets;
+	private List<Dataset> datasets;
 
 	@OneToMany(mappedBy = "resource")
-	private Set<Publication> publications;
+	private List<Publication> publications;
 
 	public Resource() {
 	}
@@ -110,19 +110,19 @@ public class Resource {
 		this.image = image;
 	}
 
-	public Set<Dataset> getDatasets() {
+	public List<Dataset> getDatasets() {
 		return datasets;
 	}
 
-	public void setDatasets(Set<Dataset> datasets) {
+	public void setDatasets(List<Dataset> datasets) {
 		this.datasets = datasets;
 	}
 
-	public Set<Publication> getPublications() {
+	public List<Publication> getPublications() {
 		return publications;
 	}
 
-	public void setPublications(Set<Publication> publications) {
+	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
 	}
 }

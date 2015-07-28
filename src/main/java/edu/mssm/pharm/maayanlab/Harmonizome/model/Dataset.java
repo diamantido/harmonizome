@@ -1,6 +1,7 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -80,13 +81,13 @@ public class Dataset {
 	/* Back references
 	 * --------------- */
 	@OneToMany(mappedBy = "dataset")
-	private Set<Download> downloads;
+	private List<Download> downloads;
 
 	@OneToMany(mappedBy = "dataset")
 	private Set<Attribute> attributes;
 	
 	@OneToMany(mappedBy = "resource")
-	private Set<Publication> publications;
+	private List<Publication> publications;
 	
 	public Dataset() {
 	}
@@ -234,11 +235,11 @@ public class Dataset {
 		this.numPageViews = numPageViews;
 	}
 
-	public Set<Download> getDownloads() {
+	public List<Download> getDownloads() {
 		return downloads;
 	}
 
-	public void setDownloads(Set<Download> downloads) {
+	public void setDownloads(List<Download> downloads) {
 		this.downloads = downloads;
 	}
 
@@ -250,11 +251,11 @@ public class Dataset {
 		this.attributes = attributes;
 	}
 
-	public Set<Publication> getPublications() {
+	public List<Publication> getPublications() {
 		return publications;
 	}
 
-	public void setPublications(Set<Publication> publications) {
+	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
 	}
 }

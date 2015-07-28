@@ -57,6 +57,19 @@ public class DatasetDAO {
 			.uniqueResult();
 	}
 	
+	public static Long getCountGeneAttributeAssocations(String datasetName) {
+		return (Long) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT COUNT(feat) FROM Feature AS feat " +
+				"JOIN feat.attribute AS attr " +
+				"JOIN attr.dataset AS dataset " +
+				"WHERE dataset.name = :datasetName"
+			)
+			.setString("datasetName", datasetName)
+			.uniqueResult();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static List<Dataset> getByWordInResourceName(String query) {
 		String sql = String.format("SELECT * FROM dataset JOIN resource ON dataset.resource_fk = resource.id WHERE MATCH(resource.name) AGAINST('%s*' IN BOOLEAN MODE)", query);		

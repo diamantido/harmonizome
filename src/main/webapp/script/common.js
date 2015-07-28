@@ -29,6 +29,8 @@ var HMZ = function(config) {
 		setupSearch($searchEl, geneDictionary);
 	}
 	
+	setupTooltips();
+	
 	/* --------------------------------------------------------------------- */
 
 	/* Utility function for getting the list of genes from the page.
@@ -166,5 +168,11 @@ var HMZ = function(config) {
 				minLength: 3,
 				source: geneDictionary
 			});
+	};
+	
+	/* Setup Twitter Bootstrap JS tooltips.
+	 */
+	function setupTooltips() {
+		$('[data-toggle="tooltip"]').tooltip();
 	};
 };

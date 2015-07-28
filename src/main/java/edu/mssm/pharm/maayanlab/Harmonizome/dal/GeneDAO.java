@@ -36,7 +36,7 @@ public class GeneDAO {
 		return (Long) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
-				"SELECT COUNT(gene) FROM Gene AS gene " +
+				"SELECT COUNT (DISTINCT gene) FROM Gene AS gene " +
 				"JOIN gene.features AS feats " +
 				"JOIN feats.attribute AS attr " +
 				"JOIN attr.dataset AS dataset " +

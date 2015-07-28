@@ -1,6 +1,9 @@
 <!DOCTYPE HTML>
+<%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Collections" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="java.util.Set" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Locale" %>
 <%@ page import="java.sql.Timestamp" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
@@ -9,6 +12,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Download" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.DownloadComparator" %>
 <%
 Dataset dataset = (Dataset) request.getAttribute("dataset");
 Timestamp downloadDate = dataset.getDownloadDate();
@@ -18,12 +22,18 @@ if (downloadDate == null) {
 } else {
 	downloadDateStr = new SimpleDateFormat("MM/dd/yyyy").format(downloadDate);
 }
+NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
 
 %>
 <html>
 	<head>
 		<%@include file="globalIncludes.html" %>
 		<%@include file="commonIncludes.html" %>
+		<script>
+			$(function() {
+				HMZ();
+			});
+		</script>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>
@@ -60,7 +70,7 @@ if (downloadDate == null) {
 				    		<td>Citation(s)</td>
 				    		<td>
 							<% 
-							Iterator<Publication> pubIter = dataset.getPublications().iterator();
+							Iterator<Publication> pubIter = dataset.getPublications().listIterator();
 							while (pubIter.hasNext()) {
 								Publication pub = pubIter.next();
 							%>
@@ -75,15 +85,15 @@ if (downloadDate == null) {
 				    	</tr>
 				    	<tr>
 				    		<td>No. Gene</td>
-				    		<td>${numberOfGenes}</td>
+				    		<td><%= numFormatter.format(request.getAttribute("numberOfGenes")) %></td>
 				    	</tr>
 				    	<tr>
 				    		<td>No. Attributes</td>
-				    		<td><%= dataset.getAttributes().size() %></td>
+				    		<td><%= numFormatter.format(dataset.getAttributes().size()) %></td>
 				    	</tr>
 				    	<tr>
 				    		<td>No. Gene-Attribute Associations</td>
-				    		<td>${numberOfGeneAttributeAssociations}</td>
+				    		<td><%= numFormatter.format(request.getAttribute("numberOfGeneAttributeAssociations")) %></td>
 				    	</tr>
 				    </table>
 				</section>
@@ -99,7 +109,8 @@ if (downloadDate == null) {
 				    	</thead>
 				    	<tbody>
 			    		<% @SuppressWarnings("unchecked")
-			    		Set<Download> downloads = dataset.getDownloads();
+			    		List<Download> downloads = dataset.getDownloads();
+			    		Collections.sort(downloads, new DownloadComparator());
 			    		for (Download dl : downloads) { 
 			    			String downloadType = dl.getType().getName();
 				    		String glypiconType;
@@ -123,7 +134,11 @@ if (downloadDate == null) {
 				    		}
 			    		%>
 			    			<tr>
-			    				<td><%= StringUtils.capitalize(downloadType) %></td>
+			    				<td>
+			    					<%= StringUtils.capitalize(downloadType) %>
+			    					<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="<%= dl.getType().getDescription() %>">
+			    					</span>
+			    				</td>
 			    				<td>
 			    					<a href="download/<%= dl.getDirectory() + "/" + dl.getName() %>">
 			    						<span class="btn btn-default glyphicon <%= glypiconType %>" aria-hidden="true"></span>
