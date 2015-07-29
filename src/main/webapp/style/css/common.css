@@ -223,6 +223,9 @@ ul {
 .item-list div {
   padding-bottom: 10px;
 }
+.search-results-page {
+  /* Show once DataTables is ready. */
+}
 .search-results-page h3 {
   font-family: Arial, sans-serif;
   font-size: 18px;
@@ -240,6 +243,9 @@ ul {
 }
 .search-results-page .note {
   font-size: 12px;
+}
+.search-results-page .data-table {
+  display: none;
 }
 #suggest-page ul li {
   margin-bottom: 2px;
