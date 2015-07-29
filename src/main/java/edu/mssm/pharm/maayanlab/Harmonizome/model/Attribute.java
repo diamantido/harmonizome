@@ -1,5 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+
+import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
 
 @Entity
 @Table(name = "attribute")
@@ -73,22 +76,6 @@ public class Attribute {
 	private Set<Feature> features;
 
 	public Attribute() {
-	}
-
-	public Attribute(String nameFromDataset, String idFromDataset, String descriptionFromDataset, String urlFromDataset, String nameFromNamingAuthority, String idFromNamingAuthority,
-			String descriptionFromNamingAuthority, String urlFromNamingAuthority, Dataset dataset, AttributeType attributeType, NamingAuthority namingAuthority, Set<Feature> features) {
-		this.nameFromDataset = nameFromDataset;
-		this.idFromDataset = idFromDataset;
-		this.descriptionFromDataset = descriptionFromDataset;
-		this.urlFromDataset = urlFromDataset;
-		this.nameFromNamingAuthority = nameFromNamingAuthority;
-		this.idFromNamingAuthority = idFromNamingAuthority;
-		this.descriptionFromNamingAuthority = descriptionFromNamingAuthority;
-		this.urlFromNamingAuthority = urlFromNamingAuthority;
-		this.dataset = dataset;
-		this.attributeType = attributeType;
-		this.namingAuthority = namingAuthority;
-		this.features = features;
 	}
 
 	public int getId() {
@@ -189,5 +176,11 @@ public class Attribute {
 
 	public void setFeatures(Set<Feature> features) {
 		this.features = features;
+	}
+	
+	/* Utility functions
+	 * ----------------- */
+	public String getUrlEncodedNameFromDataset() throws UnsupportedEncodingException {
+		return URLCodec.encode(nameFromDataset);
 	}
 }

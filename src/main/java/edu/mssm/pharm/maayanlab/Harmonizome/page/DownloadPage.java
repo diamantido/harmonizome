@@ -32,7 +32,6 @@ public class DownloadPage extends HttpServlet {
 			e.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
-		
 		request.setAttribute("datasets", datasets);
 		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "download.jsp").forward(request, response);
 	}

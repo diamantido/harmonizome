@@ -1,13 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Resource" %>
-<%
-Resource resource = (Resource) request.getAttribute("resource");
-%>
-
 <html>
 	<head>
 		<%@include file="globalIncludes.html" %>
@@ -17,43 +9,46 @@ Resource resource = (Resource) request.getAttribute("resource");
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h1><%= resource.getName() %> <span class="note">Resource</span></h1>
+				<h1>${resource.name} <span class="note">Resource</span></h1>
 				<table class="table">
 					<tr>
 						<td class="col-sm-3">Description</td>
-						<td class="col-sm-9"><%= resource.getLongDescription() %></td>
+						<td class="col-sm-9">${resource.longDescription}</td>
 					</tr>
 					<tr>
 						<td class="col-sm-3">Datasets</td>
 						<td class="col-sm-9">
 							<ul class="list-unstyled">
-							<% for (Dataset dataset : resource.getDatasets()) { %>
-								<li>
-									<a href="dataset/<%= URLCodec.encode(dataset.getName()) %>"><%= dataset.getName() %></a>
-								</li>
-							<% } %>
+								<c:forEach var="dataset" items="${resource.datasets}">
+									<li>
+										<a href="dataset/${dataset.urlEncodedName}">${dataset.name}</a>
+									</li>
+								</c:forEach>
 							</ul>
 						</td>
 					</tr>
 					<tr>
 						<td class="col-sm-3">Citation(s)</td>
 						<td class="col-sm-9">
-						<% 
-						Iterator<Publication> pubIter = resource.getPublications().listIterator();
-						while (pubIter.hasNext()) {
-							Publication pub = pubIter.next();
-						%>
-							<a href="<%= pub.getPubmedUrl() %>"><%= pub.getLongCitation() %></a>
-							<% if (pubIter.hasNext()) { %>, <% } %>
-						<% } %>
+							<ul class="list-unstyled">
+								<c:forEach var="publication" items="${resource.publications}">
+									<li>
+										<a href="${publication.pubmedUrl}">${publication.longCitation}</a>
+									</li>
+								</c:forEach>
+							</ul>
 						</td>					
 					</tr>
+					<c:if test="${resource.acronym != NULL}">
+						<tr>
+							<td class="col-sm-3">Acronym</td>
+							<td class="col-sm-9">${resource.acronym}</td>
+						</tr>
+					</c:if>
 					<tr>
 						<td class="col-sm-3">External Link</td>
 						<td class="col-sm-9">
-							<a href="<%= resource.getUrl() %>" target="_blank">
-								<%= resource.getUrl() %>
-							</a>
+							<a href="${resource.url}" target="_blank">${resource.url}</a>
 						</td>
 					</tr>
 				</table>

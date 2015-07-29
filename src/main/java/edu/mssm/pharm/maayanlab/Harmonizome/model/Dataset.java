@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.Ellipsizer;
 
 @Entity
 @Table(name = "dataset")
@@ -264,5 +265,9 @@ public class Dataset {
 	 * ----------------- */
 	public String getUrlEncodedName() throws UnsupportedEncodingException {
 		return URLCodec.encode(name);
+	}
+	
+	public String getEllipsizedDescription() {
+		return Ellipsizer.trim(getDescription(), Ellipsizer.MAX_DESCRIPTION_LENGTH);
 	}
 }

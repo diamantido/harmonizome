@@ -3,6 +3,8 @@ package edu.mssm.pharm.maayanlab.Harmonizome.util;
 /* Credit: http://stackoverflow.com/a/3657496/1830334.
  */
 public class Ellipsizer {
+	
+	public static int MAX_DESCRIPTION_LENGTH = 200;
 
 	private final static String NON_THIN = "[^iIl1\\.,']";
 

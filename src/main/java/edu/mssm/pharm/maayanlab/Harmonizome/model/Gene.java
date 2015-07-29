@@ -1,5 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,6 +16,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+
+import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
 
 @Entity
 @Table(name = "gene")
@@ -70,20 +73,8 @@ public class Gene {
 	public Gene() {
 	}
 
-	public Gene(String symbol, String name, String description, int ncbiEntrezGeneId, String ncbiEntrezGeneUrl, IdgFamily idgFamily, IdgTdlClass idgTdlClass, Set<GeneSynonym> synonyms, Set<Feature> features,
-			Set<Protein> protein) {
-		this.symbol = symbol;
-		this.name = name;
-		this.description = description;
-		this.ncbiEntrezGeneId = ncbiEntrezGeneId;
-		this.ncbiEntrezGeneUrl = ncbiEntrezGeneUrl;
-		this.idgFamily = idgFamily;
-		this.idgTdlClass = idgTdlClass;
-		this.synonyms = synonyms;
-		this.features = features;
-		this.protein = protein;
-	}
-
+	/* Getters & Setters 
+	 * ----------------- */
 	public int getId() {
 		return id;
 	}
@@ -182,5 +173,11 @@ public class Gene {
 
 	public void setHgncTerminalFamilies(Set<HgncTerminalFamily> hgncTerminalFamilies) {
 		this.hgncTerminalFamilies = hgncTerminalFamilies;
+	}
+	
+	/* Utility functions
+	 * ----------------- */
+	public String getUrlEncodedSymbol() throws UnsupportedEncodingException {
+		return URLCodec.encode(symbol);
 	}
 }
