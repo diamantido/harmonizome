@@ -1,7 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
-<%@ page import="java.util.List" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <html>
 	<head>
 		<%@include file="globalIncludes.html" %>
@@ -23,6 +21,7 @@
 						<tr>
 							<th>Name</th>
 							<th>Resource</th>
+							<th>Resource</th>
 							<th>Description</th>
 							<th>Category</th>
 							<th>Attribute</th>
@@ -31,28 +30,26 @@
 				    	</tr>
 					</thead>
 					<tbody>
-					<% @SuppressWarnings("unchecked")
-					List<Dataset> datasets = (List<Dataset>) request.getAttribute("datasets");
-					for (int i = 0; i < datasets.size(); i++) { %>
-						<% Dataset dataset = datasets.get(i); %>
+					<c:forEach var="dataset" items="${datasets}">
 						<tr>
-							<td><%= dataset.getName() %></td>
+							<td>${dataset.name}</td>
 							<td>
-								<a href="resource/<%= URLCodec.encode(dataset.getResource().getName()) %>">
-									<%= dataset.getResource().getName() %>
+								<a href="resource/${dataset.resource.urlEncodedName}">
+									${dataset.resource.name}
 								</a>
 							</td>
-							<td><%= dataset.getDescription() %></td>
-							<td><%= dataset.getDatasetGroup().getName() %></td>
-							<td><%= dataset.getAttributeType().getName() %></td>
+							<td>${dataset.description}</td>
+							<td>${dataset.datasetGroup.name}</td>
+							<td>${dataset.datasetGroup.name}</td>
+							<td>${dataset.attributeType.name}</td>
 							<td>
-								<%-- <a href="dataset/<%= URLCodec.encode(dataset.getName()) %>" type="button" class="btn btn-default download" aria-label="Left Align">
+								<a href="dataset/${dataset.urlEncodedName}" type="button" class="btn btn-default download" aria-label="Left Align">
 									<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-					            </a>--%>
+					            </a>
 				            </td>
-				            <td><%= dataset.getNumPageViews() %></td>
+				            <td>${dataset.numPageViews}</td>
 						</tr>
-					<% } %>
+					</c:forEach>
 					</tbody>
 				</table>
 			</div>

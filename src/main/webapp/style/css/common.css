@@ -136,6 +136,15 @@ ul {
   top: 3px;
   text-transform: uppercase;
 }
+.navbar .search {
+  bottom: 6px;
+  left: 20px;
+  position: relative;
+  width: 25%;
+}
+.navbar .search .input-group .twitter-typeahead {
+  width: 100%;
+}
 @media (max-width: 768px) {
   .navbar h3 span {
     display: none;
@@ -188,6 +197,9 @@ ul {
   margin-right: 14px;
   position: relative;
 }
+#landing .twitter-typeahead {
+  width: 100%;
+}
 .project-title {
   font-family: Georgia, sans-serif;
 }
@@ -224,6 +236,7 @@ ul {
   padding-bottom: 10px;
 }
 .search-results-page {
+  margin-top: 20px;
   /* Show once DataTables is ready. */
 }
 .search-results-page h3 {
@@ -331,9 +344,7 @@ ul {
 /* jQuery UI overwrites.
  * ------------------------------------------------------------------------- */
 .twitter-typeahead {
-  position: relative;
-  top: 2px;
-  width: 100%;
+  float: left;
 }
 .twitter-typeahead .tt-query,
 .twitter-typeahead .tt-hint {

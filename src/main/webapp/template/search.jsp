@@ -14,6 +14,26 @@ Set<Gene> genes = (Set<Gene>) request.getAttribute("genes");
 @SuppressWarnings("unchecked")
 Set<Attribute> attributes = (Set<Attribute>) request.getAttribute("attributes");
 
+String datasetCount = datasets.size() == 0 ? "" : Integer.toString(datasets.size()) + " datasets";
+String geneCount = genes.size() == 0 ? "" : Integer.toString(genes.size()) + " genes";
+String attributeCount = attributes.size() == 0 ? "" : Integer.toString(attributes.size()) + " attributes";
+String[] counts = { datasetCount, geneCount, attributeCount };
+
+StringBuilder countSb = new StringBuilder();
+boolean first = true;
+for (int i = 0; i < counts.length; i++) {
+	String c = counts[i];
+    if (c.equals("")) {
+    	continue;
+    }
+    if (first) {
+        first = false;
+    } else {
+    	countSb.append(", ");
+    }
+    countSb.append(c);
+}
+
 int MAX_DESCRIPTION_LENGTH = 200;
 %>
 
@@ -29,14 +49,13 @@ int MAX_DESCRIPTION_LENGTH = 200;
 		</script>
     </head>
     <body>
-		<%@include file="navbar.html" %>
+		<%@include file="navbarWithSearch.jsp" %>
 		<div class="wrapper">
 			<div class="content container-full">
 				<div class="container search-results-page">
 					<div class="col-md-12 metadata">
-						<h1>Search results</h1>
 						<p class="instruction">
-							<%= datasets.size() %> datasets, <%= genes.size() %> genes, <%= attributes.size() %> gene sets
+							<%= countSb.toString() %>
 						</p>
 						<p>
 							Filter your results:
@@ -55,7 +74,6 @@ int MAX_DESCRIPTION_LENGTH = 200;
 						<table class="table data-table">
 							<thead>
 								<tr>
-									<th class="col-md-2">Search Result Type</th>
 									<th class="col-md-10">Name</th>
 								</tr>
 							</thead>
@@ -67,9 +85,6 @@ int MAX_DESCRIPTION_LENGTH = 200;
 									String resourceName = dataset.getResource().getName();
 								%>
 								<tr>
-									<td class="col-md-2">
-										<strong><%= i == 0 ? "Datasets" : "" %></strong>
-									</td>
 									<td class="col-md-10">
 										<h3>
 											<a href="dataset/<%= URLCodec.encode(dataset.getName()) %>"><%= datasetName %></a> <span class="note">Dataset</span>
@@ -84,18 +99,12 @@ int MAX_DESCRIPTION_LENGTH = 200;
 										</div>
 									</td>
 								</tr>
-								<% 
-									i++;
-								}
-								
-								int j = 0;
+								<% }
+
 								for (Gene gene : genes) {
 									String symbol = gene.getSymbol();
 								%>
 								<tr>
-									<td class="col-md-2">
-										<strong><%= j == 0 ? "Genes" : "" %></strong>
-									</td>
 									<td class="col-md-10">
 										<h3>
 											<a href="gene/<%= URLCodec.encode(symbol) %>"><%= symbol %></a> <span class="note">Gene</span>
@@ -108,20 +117,14 @@ int MAX_DESCRIPTION_LENGTH = 200;
 										<% } %>
 									</td>
 								</tr>
-								<% 
-									j++;
-								}
+								<% }
 								
-								int k = 0;
 								for (Attribute attribute : attributes) {
 									String attributeName = attribute.getNameFromDataset();
 									String datasetName = attribute.getDataset().getName();
 									String geneSetUrl = URLCodec.encodeGeneSet(attributeName, datasetName);
 								%>
 								<tr>
-									<td class="col-md-2">
-										<strong><%= k == 0 ? "Gene Sets" : "" %></strong>
-									</td>
 									<td class="col-md-10">
 										<h3>
 											<a href="gene_set/<%= geneSetUrl %>">
@@ -139,9 +142,7 @@ int MAX_DESCRIPTION_LENGTH = 200;
 										</div>
 									</td>
 								</tr>
-								<% 
-									k++;
-								} %>
+								<% } %>
 							</tbody>
 						</table>
 					</div>

@@ -1,5 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -11,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+
+import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
 
 @Entity
 @Table(name = "resource")
@@ -124,5 +127,11 @@ public class Resource {
 
 	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
+	}
+	
+	/* Utility functions
+	 * ----------------- */
+	public String getUrlEncodedName() throws UnsupportedEncodingException {
+		return URLCodec.encode(name);
 	}
 }

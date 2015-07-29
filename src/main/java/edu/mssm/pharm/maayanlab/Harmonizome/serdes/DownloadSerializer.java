@@ -14,8 +14,8 @@ public class DownloadSerializer implements JsonSerializer<Download> {
 
 	public JsonElement serialize(final Download download, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
-		result.add("name", new JsonPrimitive(download.getName()));
-		result.add("directory", new JsonPrimitive(download.getDirectory()));
+		result.add("name", new JsonPrimitive(download.getDownloadType().getName()));
+		result.add("directory", new JsonPrimitive(download.getDataset().getDirectory()));
 		result.add("count", new JsonPrimitive(download.getCount()));
 		return result;
 	}

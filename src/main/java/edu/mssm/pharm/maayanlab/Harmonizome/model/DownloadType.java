@@ -31,7 +31,7 @@ public class DownloadType {
 	@Column(name = "ordering")
 	private int ordering;
 
-	@OneToMany(mappedBy = "type")
+	@OneToMany(mappedBy = "downloadType")
 	private Set<Download> downloads;
 	
 	public DownloadType() {

@@ -23,7 +23,7 @@ var HMZ = function(config) {
 		setupEnrichrLink(config.DOWN_GENES);
 	}
 
-	var $searchEl = $('#search');
+	var $searchEl = $('.search');
 	if ($searchEl.length) {
 		var geneDictionary = config.ALL_GENES ? config.ALL_GENES : [];
 		setupSearch($searchEl, geneDictionary);

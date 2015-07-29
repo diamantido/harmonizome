@@ -8,6 +8,6 @@ public class DownloadComparator implements Comparator<Download> {
 
     @Override
     public int compare(Download d1, Download d2) {
-        return d1.getType().getOrdering() > d2.getType().getOrdering() ? 1 : 0;
+        return d1.getDownloadType().getOrdering() > d2.getDownloadType().getOrdering() ? 1 : 0;
     }
 }

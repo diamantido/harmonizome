@@ -114,8 +114,8 @@ NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
 			    		List<Download> downloads = dataset.getDownloads();
 			    		Collections.sort(downloads, new DownloadComparator());
 			    		for (Download dl : downloads) { 
-			    			String downloadType = dl.getType().getName();
-			    			String tooltip = StringUtils.capitalize(dl.getType().getDescription());
+			    			String downloadType = dl.getDownloadType().getName();
+			    			String tooltip = StringUtils.capitalize(dl.getDownloadType().getDescription());
 			    		%>
 			    			<tr>
 			    				<td>
@@ -124,7 +124,7 @@ NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
 			    					</span>
 			    				</td>
 			    				<td>
-			    					<a href="download/<%= dl.getDirectory() + "/" + dl.getName() %>">
+			    					<a href="download/<%= dl.getDataset().getDirectory() + "/" + dl.getDownloadType().getName() %>">
 			    						<span class="btn btn-default glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 			    					</a>
 			    				</td>

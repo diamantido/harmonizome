@@ -18,12 +18,6 @@ public class Download {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
-	@Column(name = "name")
-	private String name;
-
-	@Column(name = "directory")
-	private String directory;
-
 	@Column(name = "count")
 	private int count;
 
@@ -32,38 +26,14 @@ public class Download {
 	private Dataset dataset;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "type_fk")
-	private DownloadType type;
+	@JoinColumn(name = "download_type_fk")
+	private DownloadType downloadType;
 
 	public Download() {
 	}
 
-	public Download(String name, String directory, int count, Dataset dataset, DownloadType type) {
-		this.name = name;
-		this.directory = directory;
-		this.count = count;
-		this.dataset = dataset;
-		this.type = type;
-	}
-
 	public int getId() {
 		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDirectory() {
-		return directory;
-	}
-
-	public void setDirectory(String directory) {
-		this.directory = directory;
 	}
 
 	public int getCount() {
@@ -82,11 +52,11 @@ public class Download {
 		this.dataset = dataset;
 	}
 
-	public DownloadType getType() {
-		return type;
+	public DownloadType getDownloadType() {
+		return downloadType;
 	}
 
-	public void setType(DownloadType type) {
-		this.type = type;
+	public void setDownloadType(DownloadType type) {
+		this.downloadType = type;
 	}
 }

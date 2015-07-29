@@ -1,5 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +18,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
+
 @Entity
 @Table(name = "dataset")
 public class Dataset {
@@ -27,7 +30,7 @@ public class Dataset {
 
 	@Column(name = "name", unique = true)
 	private String name;
-	
+
 	@Column(name = "name_without_resource", unique = true)
 	private String nameWithoutResource;
 
@@ -49,6 +52,15 @@ public class Dataset {
 	
 	@Column(name = "negative_association")
 	private String negativeAssociation;
+	
+	@Column(name = "download_date")
+	private Timestamp downloadDate;
+
+	@Column(name = "directory")
+	private String directory;
+	
+	@Column(name = "num_page_views")
+	private int numPageViews;
 
 	/* Foreign key relationships
 	 * ------------------------- */
@@ -72,12 +84,6 @@ public class Dataset {
 	@JoinColumn(name = "attribute_group_fk")
 	private AttributeGroup attributeGroup;
 
-	@Column(name = "download_date")
-	private Timestamp downloadDate;
-
-	@Column(name = "num_page_views")
-	private int numPageViews;
-
 	/* Back references
 	 * --------------- */
 	@OneToMany(mappedBy = "dataset")
@@ -92,27 +98,14 @@ public class Dataset {
 	public Dataset() {
 	}
 
-	public Dataset(int id, String name, String nameWithoutResource, String description, String association, String geneSetDescription, String positiveAssociation, String negativeAssociation,
-			Measurement measurement, DatasetGroup datasetGroup, Resource resource, AttributeType attributeType, AttributeGroup attributeGroup, Timestamp downloadDate, int numPageViews) {
-		this.id = id;
-		this.name = name;
-		this.nameWithoutResource = nameWithoutResource;
-		this.description = description;
-		this.association = association;
-		this.geneSetDescription = geneSetDescription;
-		this.positiveAssociation = positiveAssociation;
-		this.negativeAssociation = negativeAssociation;
-		this.measurement = measurement;
-		this.datasetGroup = datasetGroup;
-		this.resource = resource;
-		this.attributeType = attributeType;
-		this.attributeGroup = attributeGroup;
-		this.downloadDate = downloadDate;
-		this.numPageViews = numPageViews;
-	}
-
+	/* Getters & Setters 
+	 * ----------------- */
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -179,6 +172,30 @@ public class Dataset {
 		this.negativeAssociation = negativeAssociation;
 	}
 
+	public Timestamp getDownloadDate() {
+		return downloadDate;
+	}
+
+	public void setDownloadDate(Timestamp downloadDate) {
+		this.downloadDate = downloadDate;
+	}
+
+	public String getDirectory() {
+		return directory;
+	}
+
+	public void setDirectory(String directory) {
+		this.directory = directory;
+	}
+
+	public int getNumPageViews() {
+		return numPageViews;
+	}
+
+	public void setNumPageViews(int numPageViews) {
+		this.numPageViews = numPageViews;
+	}
+
 	public Measurement getMeasurement() {
 		return measurement;
 	}
@@ -219,22 +236,6 @@ public class Dataset {
 		this.attributeGroup = attributeGroup;
 	}
 
-	public Timestamp getDownloadDate() {
-		return downloadDate;
-	}
-
-	public void setDownloadDate(Timestamp downloadDate) {
-		this.downloadDate = downloadDate;
-	}
-
-	public int getNumPageViews() {
-		return numPageViews;
-	}
-
-	public void setNumPageViews(int numPageViews) {
-		this.numPageViews = numPageViews;
-	}
-
 	public List<Download> getDownloads() {
 		return downloads;
 	}
@@ -257,5 +258,11 @@ public class Dataset {
 
 	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
+	}
+	
+	/* Utility functions
+	 * ----------------- */
+	public String getUrlEncodedName() throws UnsupportedEncodingException {
+		return URLCodec.encode(name);
 	}
 }
