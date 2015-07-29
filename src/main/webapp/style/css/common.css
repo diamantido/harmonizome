@@ -67,6 +67,31 @@ input {
 ul {
   padding-left: 15px;
 }
+/* Generic classes
+ * ------------------------------------------------------------------------- */
+.note {
+  font-size: 14px;
+  font-style: italic;
+}
+.glyphicon-search {
+  cursor: pointer;
+}
+.instruction {
+  font-style: italic;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
+.top-buffer {
+  margin-top: 20px;
+}
+.bottom-buffer {
+  margin-bottom: 20px;
+}
+/*.data-table {
+	/* We only show the table once DataTables is ready. 
+	display: none;
+}*/
 /* Section selectors.
  * ------------------------------------------------------------------------- */
 .navbar {
@@ -166,13 +191,10 @@ ul {
 .project-title {
   font-family: Georgia, sans-serif;
 }
-.table .tools img {
-  height: 35px;
-}
-.attribute-list {
+.list.attribute-list {
   display: none;
 }
-.attribute-list .last {
+.list .last {
   border-top: 1px solid #aaaaaa;
   padding-top: 10px;
   margin-top: 10px;
@@ -184,6 +206,14 @@ ul {
   position: relative;
   bottom: 3px;
 }
+.attribute-page .tools .enrichr {
+  padding: 2px;
+  position: relative;
+  top: 1px;
+}
+.attribute-page .tools .enrichr img {
+  height: 28px;
+}
 .item-list {
   display: none;
 }
@@ -193,8 +223,23 @@ ul {
 .item-list div {
   padding-bottom: 10px;
 }
-.search-description {
+.search-results-page h3 {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  border-bottom: none;
+  margin: 0;
+}
+.search-results-page .metadata {
+  margin-bottom: 20px;
+}
+.search-results-page .description {
   color: #666666;
+}
+.search-results-page .description p {
+  margin: 0;
+}
+.search-results-page .note {
+  font-size: 12px;
 }
 #suggest-page ul li {
   margin-bottom: 2px;
@@ -216,43 +261,6 @@ ul {
 }
 #treemap .node div {
   padding: 6px;
-}
-/* Generic classes
- * ------------------------------------------------------------------------- */
-.note {
-  font-size: 14px;
-  font-style: italic;
-}
-.glyphicon-search {
-  cursor: pointer;
-}
-.instruction {
-  font-style: italic;
-}
-/* The "tooltip" class name is used by Bootstrap.js. */
-.tool-tip {
-  cursor: pointer;
-}
-.tool-tip .tool-tip-text {
-  display: none;
-  line-height: 1.1em;
-  margin-left: 10px;
-  padding: 10px 15px;
-}
-.tool-tip:hover .tool-tip-text {
-  display: inline;
-  position: absolute;
-  border: 1px solid #fff169;
-  background: #fffac7;
-}
-.cursor-pointer {
-  cursor: pointer;
-}
-.top-buffer {
-  margin-top: 20px;
-}
-.bottom-buffer {
-  margin-bottom: 20px;
 }
 /* Bootstrap overwrites.
  * ------------------------------------------------------------------------- */
@@ -281,6 +289,9 @@ ul {
 .badge a {
   color: #444444;
 }
+.badge a:hover {
+  color: #444444;
+}
 .badge.dataset {
   background-color: #e65848;
 }
@@ -300,24 +311,41 @@ ul {
 .badge.attribute a {
   color: white;
 }
+.tooltip .tooltip-inner {
+  background: #444444;
+  border-radius: 0;
+  text-align: left;
+}
+.tooltip.right .tooltip-arrow {
+  /* This is the color of the arrow: http://stackoverflow.com/a/15383656/1830334 */
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #444444;
+}
 /* jQuery UI overwrites.
  * ------------------------------------------------------------------------- */
-.ui-autocomplete {
-  background: white;
-  border-radius: 0px;
+.twitter-typeahead {
+  position: relative;
+  top: 2px;
+  width: 100%;
 }
-.ui-autocomplete.source:hover {
-  background: #454545;
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+  color: #aaaaaa;
 }
-.ui-widget-content .ui-menu-item {
-  font-size: 12px;
-  font-family: Arial, sans-serif;
+.twitter-typeahead .tt-menu {
+  width: 100%;
+  padding: 8px 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
-.ui-widget-content .ui-menu-item.ui-state-focus {
+.twitter-typeahead .tt-suggestion {
+  padding: 3px 20px;
+}
+.twitter-typeahead .tt-suggestion:hover {
   background: #eeeeee;
-  border: 1px solid #aaaaaa;
-  color: #4aabcc;
-  font-weight: normal;
+  cursor: pointer;
 }
 /* DataTable overwrites.
  * ------------------------------------------------------------------------- */

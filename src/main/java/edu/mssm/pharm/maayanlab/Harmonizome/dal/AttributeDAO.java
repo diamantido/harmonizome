@@ -38,6 +38,31 @@ public class AttributeDAO {
 			.setString("symbol", geneSymbol)
 			.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Attribute> getByName(String name) {
+		return (List<Attribute>) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT attr FROM Attribute AS attr " +
+				"WHERE attr.nameFromDataset = :name"
+			)
+			.setString("name", name)
+			.list();
+	}
+	
+	public static Attribute getByNameAndDataset(String attributeName, String datasetName) {
+		return (Attribute) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT attr FROM Attribute AS attr " +
+				"JOIN attr.dataset AS dataset " +
+				"WHERE attr.nameFromDataset = :attributeName AND dataset.name = :datasetName"
+			)
+			.setString("attributeName", attributeName)
+			.setString("datasetName", datasetName)
+			.uniqueResult();
+	}
 
 	@SuppressWarnings("unchecked")
 	public static List<AttributeType> getTypesFromGroup(String attributeGroup) {
@@ -99,17 +124,6 @@ public class AttributeDAO {
 		return organizedAttributes;
 	}
 
-	public static Attribute getByName(String name) {
-		return (Attribute) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT attr FROM Attribute AS attr " +
-				"WHERE attr.nameFromDataset = :name"
-			)
-			.setString("name", name)
-			.uniqueResult();
-	}
-	
 	@SuppressWarnings("unchecked")
 	public static List<Attribute> getFromDatasetAndGene(String datasetName, String geneSymbol) {
 		return (List<Attribute>) HibernateUtil
@@ -142,8 +156,21 @@ public class AttributeDAO {
 			.setInteger("thresholdValue", thresholdValue)
 			.list();
 	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Attribute> getFromDataset(String datasetName) {
+		return (List<Attribute>) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT attr FROM Attribute AS attr " +
+				"JOIN attr.dataset AS dataset " +
+				"WHERE dataset.name = :datasetName"
+			)
+			.setString("datasetName", datasetName)
+			.list();
+	}
 	
-	public static List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> getAttributesByDatasetsFromGene(String geneSymbol) {
+	public static List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> getByDatasetsFromGene(String geneSymbol) {
 		List<Dataset> datasetsByGene = DatasetDAO.getByGene(geneSymbol);
 		List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDatasets = new ArrayList<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>>();
 		for (Dataset dataset : datasetsByGene) {
@@ -161,8 +188,8 @@ public class AttributeDAO {
 		return GenericDAO.getBySubstringInField(Attribute.class, "attribute", "name_from_dataset", query);
 	}
 
-	public static List<Attribute> getByWordInNameButIgnoreExactMatch(String query, int idToIgnore) {
-		return GenericDAO.getBySubstringInFieldButIgnoreId(Attribute.class, "attribute", "name_from_dataset", query, idToIgnore);
+	public static List<Attribute> getByWordInNameButIgnoreExactMatches(String query, List<Integer> idToIgnore) {
+		return GenericDAO.getBySubstringInFieldButIgnoreIds(Attribute.class, "attribute", "name_from_dataset", query, idToIgnore);
 	}
 
 	public static List<String> getSuggestions(String query) {

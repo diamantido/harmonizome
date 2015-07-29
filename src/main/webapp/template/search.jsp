@@ -1,4 +1,6 @@
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" %>
@@ -6,11 +8,11 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Ellipsizer" %>
 <%
 @SuppressWarnings("unchecked")
-List<Dataset> datasets = (List<Dataset>) request.getAttribute("datasets");
+Set<Dataset> datasets = (Set<Dataset>) request.getAttribute("datasets");
 @SuppressWarnings("unchecked")
-List<Gene> genes = (List<Gene>) request.getAttribute("genes");
+Set<Gene> genes = (Set<Gene>) request.getAttribute("genes");
 @SuppressWarnings("unchecked")
-List<Attribute> attributes = (List<Attribute>) request.getAttribute("attributes");
+Set<Attribute> attributes = (Set<Attribute>) request.getAttribute("attributes");
 
 int MAX_DESCRIPTION_LENGTH = 200;
 %>
@@ -30,18 +32,22 @@ int MAX_DESCRIPTION_LENGTH = 200;
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container-full">
-				<div class="container">
-					<div class="col-md-12">
+				<div class="container search-results-page">
+					<div class="col-md-12 metadata">
 						<h1>Search results</h1>
+						<p class="instruction">
+							<%= datasets.size() %> datasets, <%= genes.size() %> genes, <%= attributes.size() %> gene sets
+						</p>
 						<p>
-							<span class="badge dataset">
-								<a href="search?q=${query}&t=dataset"><%= datasets.size() %> datasets</a>
+							Filter your results:
+							<span class="badge">
+								<a href="search?q=${query}&t=dataset">datasets</a>
 							</span>
-							<span class="badge gene">
-								<a href="search?q=${query}&t=gene"><%= genes.size() %> genes</a>
+							<span class="badge">
+								<a href="search?q=${query}&t=gene">genes</a>
 							</span>
-							<span class="badge attribute">
-								<a href="search?q=${query}&t=attribute"><%= attributes.size() %> gene sets</a>
+							<span class="badge">
+								<a href="search?q=${query}&t=attribute">gene sets</a>
 							</span>
 						</p>
 					</div>
@@ -54,78 +60,87 @@ int MAX_DESCRIPTION_LENGTH = 200;
 								</tr>
 							</thead>
 							<tbody>
-								<% if (datasets.size() != 0) { %>
-									<tr>
-										<td class="col-md-2">
-											<strong><em>Datasets</em></strong>
-										</td>
-										<td class="col-md-10"></td>
-									</tr>
-								<% for (Dataset dataset : datasets) { 
-									String name = dataset.getName();
+								<%
+								int i = 0;
+								for (Dataset dataset : datasets) { 
+									String datasetName = dataset.getNameWithoutResource();
+									String resourceName = dataset.getResource().getName();
 								%>
-										<tr>
-											<td class="col-md-2"></td>
-											<td class="col-md-10">
-												<strong class="badge dataset">
-													<a href="dataset/<%= URLCodec.encode(name) %>"><%= name %></a>
-												</strong>
-												<span class="badge">
-													<a href="<%= dataset.getResource().getUrl() %>" target="_blank"><%= dataset.getResource().getName() %></a>
-												</span>
-												<span class="badge"><%= dataset.getMeasurement().getName() %></span>
-												<p class="search-description"><%= Ellipsizer.trim(dataset.getDescription(), MAX_DESCRIPTION_LENGTH) %></p>
-											</td>
-										</tr>
-									<% }
+								<tr>
+									<td class="col-md-2">
+										<strong><%= i == 0 ? "Datasets" : "" %></strong>
+									</td>
+									<td class="col-md-10">
+										<h3>
+											<a href="dataset/<%= URLCodec.encode(dataset.getName()) %>"><%= datasetName %></a> <span class="note">Dataset</span>
+										</h3>
+										<div class="description">
+											<p>
+												From <a href="resource/<%= URLCodec.encode(resourceName) %>"><%= resourceName %></a>
+											</p>
+											<p>
+												<%= StringUtils.capitalize(Ellipsizer.trim(dataset.getDescription(), MAX_DESCRIPTION_LENGTH)) %> (<%= dataset.getDatasetGroup().getName() %>)
+											</p>
+										</div>
+									</td>
+								</tr>
+								<% 
+									i++;
 								}
-								if (genes.size() != 0) { %>
-									<tr>
-										<td class="col-md-2">
-											<strong><em>Genes</em></strong>
-										</td>
-										<td></td>
-									</tr>
-									<% for (Gene gene : genes) {
-										String symbol = gene.getSymbol();
-									%>
-										<tr>
-											<td class="col-md-2"></td>
-											<td class="col-md-10">
-												<strong class="badge gene">
-													<a href="gene/<%= URLCodec.encode(symbol) %>"><%= symbol %></a>
-												</strong>
-												<% if (gene.getIdgFamily() != null) { %>
-													<span class="badge"><%= gene.getIdgFamily().getName() %></span>
-												<% }
-												if (gene.getDescription() != null) { %>
-													<p class="search-description"><%= Ellipsizer.trim(gene.getDescription(), MAX_DESCRIPTION_LENGTH) %></p>
-												<% } %>												
-											</td>
-										</tr>
-									<% }
+								
+								int j = 0;
+								for (Gene gene : genes) {
+									String symbol = gene.getSymbol();
+								%>
+								<tr>
+									<td class="col-md-2">
+										<strong><%= j == 0 ? "Genes" : "" %></strong>
+									</td>
+									<td class="col-md-10">
+										<h3>
+											<a href="gene/<%= URLCodec.encode(symbol) %>"><%= symbol %></a> <span class="note">Gene</span>
+										</h3>
+										<% if (gene.getIdgFamily() != null) { %>
+											From <%= gene.getIdgFamily().getName() %> family
+										<% }
+										if (gene.getDescription() != null) { %>
+											<p class="description"><%= Ellipsizer.trim(gene.getDescription(), MAX_DESCRIPTION_LENGTH) %></p>
+										<% } %>
+									</td>
+								</tr>
+								<% 
+									j++;
 								}
-								if (attributes.size() != 0) { %>
-									<tr>
-										<td class="col-md-2">
-											<strong><em>Gene Sets</em></strong>
-										</td>
-										<td></td>
-									</tr>
-									<% for (Attribute attribute : attributes) {
-									String name = attribute.getNameFromDataset();
-									%>
-										<tr>
-											<td class="col-md-2"></td>
-											<td class="col-md-10">
-												<strong class="badge attribute">
-													<a href="gene_set/<%= URLCodec.encode(name) %>"><%= name %></a>
-												</strong>
-												<span class="badge"><%= attribute.getAttributeType().getName() %></span>
-												<p class="search-description"><%= Ellipsizer.trim(attribute.getDescriptionFromNamingAuthority(), MAX_DESCRIPTION_LENGTH) %></p>
-											</td>
-										</tr>
-									<% }
+								
+								int k = 0;
+								for (Attribute attribute : attributes) {
+									String attributeName = attribute.getNameFromDataset();
+									String datasetName = attribute.getDataset().getName();
+									String geneSetUrl = URLCodec.encodeGeneSet(attributeName, datasetName);
+								%>
+								<tr>
+									<td class="col-md-2">
+										<strong><%= k == 0 ? "Gene Sets" : "" %></strong>
+									</td>
+									<td class="col-md-10">
+										<h3>
+											<a href="gene_set/<%= geneSetUrl %>">
+												<%= StringUtils.capitalize(attributeName) %>
+											</a> <span class="note">Gene Set</span>
+										</h3>
+										<div class="description">
+											<p>
+												From <a href="dataset/<%= URLCodec.encode(attribute.getDataset().getName()) %>"><%= attribute.getDataset().getName() %></a>
+											</p>
+											<p>
+												<%= StringUtils.capitalize(Ellipsizer.trim(attribute.getDescriptionFromNamingAuthority(), MAX_DESCRIPTION_LENGTH)) %>
+												<span class="">(<%= attribute.getAttributeType().getName() %>)</span>
+											</p>
+										</div>
+									</td>
+								</tr>
+								<% 
+									k++;
 								} %>
 							</tbody>
 						</table>

@@ -8,7 +8,6 @@
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Resource" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.ResourceComparator" %>
 
 <%
 @SuppressWarnings("unchecked")
@@ -37,6 +36,9 @@ Map<String, Long> stats = (Map<String, Long>) request.getAttribute("stats");
 	          	width = $parentEl.width(),
 		       	height = $parentEl.height();
 
+        	//var HEIGHT = d3.max(tree.children, function(d) { return d.size; });
+        	//var WIDTH = d3.max(tree.children, function(d) { return d.size; });
+        	
 	        var treemap = d3.layout.treemap()
 	            .size([width, height])
 	            .sticky(true)
@@ -114,11 +116,6 @@ Map<String, Long> stats = (Map<String, Long>) request.getAttribute("stats");
 							</div>
 						<% } %>
 					</div>--%>
-					
-					
-					
-					
-					
 					<div class="row">
 						<div class="col-md-12">
 							<p class="note top-buffer">A treemap of the resources, sized by number of extracted datasets.</p>

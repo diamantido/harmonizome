@@ -50,7 +50,7 @@ public class GenePage extends HttpServlet {
 					}
 				}
 				if (gene != null) {
-					attributesByDataset = AttributeDAO.getAttributesByDatasetsFromGene(query);
+					attributesByDataset = AttributeDAO.getByDatasetsFromGene(query);
 				}
 			}
 			HibernateUtil.commitTransaction();

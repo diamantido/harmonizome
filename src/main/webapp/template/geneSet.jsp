@@ -4,12 +4,18 @@
 <%@ page import="java.util.Map" %>
 <%@ page import="org.apache.commons.lang3.tuple.Pair" %>
 <%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.NamingAuthority" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
+<%
+@SuppressWarnings("unchecked")
+Pair<List<Gene>, List<Gene>> genesByAttribute = (Pair<List<Gene>, List<Gene>>) request.getAttribute("genesByAttribute");
+Dataset dataset = (Dataset) request.getAttribute("dataset");
+Attribute attribute = (Attribute) request.getAttribute("attribute");
+%>
 
 <html>
 	<head>
@@ -39,110 +45,88 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper attribute-page">
 			<div class="content container">
-				<h1>${attributeName} <span class="note">Gene Set</span>
+				<h1><%= StringUtils.capitalize(attribute.getNameFromDataset()) %> <span class="note">Gene Set</span>
 				</h1>
 				<section>
 					<table class="table">
-						<% if (request.getAttribute("datasetDescription") != "") { %>
+						<tr>
+							<td class="col-sm-3">Source</td>
+							<td class="col-sm-9">
+								<a href="<%= Constant.DATASET_URL %>/<%= URLCodec.encode(dataset.getName()) %>"><%= dataset.getName() %></a>
+							</td>
+						</tr>
+						<tr>
+							<td class="col-sm-3">Category</td>
+							<td class="col-sm-9"><%= attribute.getAttributeType().getName() %></td>
+						</tr>
+						<tr>
+							<td class="col-sm-3">Description</td>
+							<% String description = "";
+							if (attribute.getDescriptionFromNamingAuthority() != null) {
+								description = attribute.getDescriptionFromNamingAuthority();
+							} %>
+							<td class="col-sm-9"><%= description %>
+								(<a href="naming_authority/<%= URLCodec.encode(attribute.getNamingAuthority().getName()) %>"><%= attribute.getNameFromNamingAuthority() %></a>
+								:
+								<a href="<%= attribute.getUrlFromNamingAuthority() %>" target="_blank"><%= attribute.getIdFromNamingAuthority() %></a>)
+							</td>
+						</tr>
+						<% if (attribute.getUrlFromDataset() != null) { %>
 							<tr>
-								<td class="col-sm-3">Dataset Description</td>
-								<td class="col-sm-9">${datasetDescription}</td>
+								<td class="col-sm-3">External Link</td>
+								<td class="col-sm-9">
+									<a href="<%= attribute.getUrlFromDataset() %>" target="_blank"><%= attribute.getUrlFromDataset() %></a>
+								</td>
 							</tr>
 						<% } %>
-						<% if (request.getAttribute("attributeDescription") != "") { %>
-							<tr>
-								<td class="col-sm-3">Attribute Description</td>
-								<td class="col-sm-9">${attributeDescription}</td>
-							</tr>
-						<% } %>
 						<tr>
-							<% String ag = (String) request.getAttribute("attributeGroup"); %>
-							<td class="col-sm-3">Attribute group</td>
-							<td class="col-sm-9">
-								<a href="attribute_group/<%= URLCodec.encode(ag) %>"><%= ag %></a>
-							</td>
+							<td class="col-sm-3">Synonyms</td>
+							<td class="col-sm-9"></td>
 						</tr>
-						<tr>
-							<% String at = (String) request.getAttribute("attributeType"); %>
-							<td class="col-sm-3">Attribute type</td>
-							<td class="col-sm-9">
-								<a href="attribute_type/<%= URLCodec.encode(at) %>"><%= at %></a>
-							</td>
-						</tr>
-						<tr>
-							<% NamingAuthority na = (NamingAuthority) request.getAttribute("namingAuthority"); %>
-							<td class="col-sm-3">Naming authority</td>
-							<td class="col-sm-9">
-								<% if (na.getUrl() != "") { %>
-									<a href="<%= na.getUrl() %>" target="_blank"><%= na.getName() %></a>
-								<% } else { %>
-									<%= na.getName() %>
-								<% } %>
-							</td>
-						</tr>
-						<% if (request.getAttribute("idFromNamingAuthority") != "") { %>
-							<tr>
-								<td class="col-sm-3">ID from naming authority</td>
-								<td class="col-sm-9">${idFromNamingAuthority}</td>
-							</tr>
+					</table>
+				</section>
+				<section>
+					<h2>Downloads &amp; Tools</h2>
+					<div class="tools">
+						<button class="btn btn-default glyphicon glyphicon-file" data-toggle="tooltip" data-placement="right" title="Download the gene set as a plain text, newline separated list of genes."></button>
+						<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access the gene set from the API."></button>
+						<button class="btn btn-default enrichr" data-toggle="tooltip" data-placement="right" title="Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.">
+							<img src="image/tool/enrichr-bw.png">
+						</button>
+					</div>
+				</section>
+				<section class="list">
+					<%
+						int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();
+						String desciption = StringUtils.capitalize(dataset.getGeneSetDescription());
+						desciption = desciption.replace("{0}", attribute.getNameFromDataset());
+						desciption = numGenes + " " + desciption;
+					%>
+					<h2><%= desciption %></h2>
+					<div>
+					<% Iterator<Gene> posIter = genesByAttribute.getLeft().iterator();
+					if (posIter.hasNext()) { %>
+						<div><strong><%= StringUtils.capitalize(dataset.getPositiveAssociation()) %></strong></div>
+						<% while (posIter.hasNext()) {
+							Gene gene = posIter.next();
+							String symbol = gene.getSymbol();
+						%>
+							<a href="gene/<%= URLCodec.encode(symbol) %>"><%= symbol %></a><% if (posIter.hasNext()) { %>, <% } %>
 						<% }
-						if (request.getAttribute("url") != "") { %>
-							<tr>
-								<td class="col-sm-3">URL</td>
-								<td class="col-sm-9"><a href="${url}" target="_blank">${url}</a></td>
-							</tr>
+					} %>
+					</div>
+					<% Iterator<Gene> negIter = genesByAttribute.getRight().iterator();
+					if (negIter.hasNext()) { %>
+					<div class="last">
+						<div><strong><%= StringUtils.capitalize(dataset.getNegativeAssociation()) %></strong></div>
+						<% while (negIter.hasNext()) {
+							Gene gene = negIter.next();
+							String symbol = gene.getSymbol();
+						%>
+							<a href="gene/<%= URLCodec.encode(symbol) %>"><%= symbol %></a><% if (negIter.hasNext()) { %>, <% } %>
 						<% } %>
-					</table>
-				</section>
-				<section>
-					<h2>Downloads & Tools</h2>
-					<table class="table">
-						<thead>
-							<tr>
-								<th>Downloads</th>
-								<th>Downstream Analysis Tools</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="col-sm-4">
-									<div class="tool-tip">
-										<button class="btn btn-default glyphicon glyphicon-download-alt" aria-hidden="true"></button>
-										<span class="tool-tip-text">Download the gene set as a plain text, newline separated list of genes.</span>
-									</div>
-								</td>
-								<td class="col-sm-3 tools">
-									<div class="tool enrichr">
-										<div class="tool-tip">
-											<img src="http://amp.pharm.mssm.edu/Enrichr/images/enrichr.png">
-											<span class="tool-tip-text">Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.</span>
-										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				</section>
-				<section>
-					<% @SuppressWarnings("unchecked")
-					List<Gene> upGenes = (List<Gene>) request.getAttribute("upGenes"); %>
-					<h2>Gene Set <span class="badge"><%= upGenes.size() %> genes</span></h2>
-					<table id="gene-set" class="table data-table">
-						<thead>
-							<tr>
-								<th>Symbol</th>
-								<th>Name</th>
-							</tr>
-						</thead>
-						<tbody>
-						<% for (Gene gene : upGenes) { %>
-							<tr>
-								<td><a href="gene/<%= URLCodec.encode(gene.getSymbol()) %>"><%= gene.getSymbol() %></a></td>
-								<td><%= gene.getName() %></td>
-							</tr>
-						<% } %>
-						</tbody>
-					</table>
+					</div>
+					<% } %>
 				</section>
 			</div>
 			<%@include file="footer.html"%>

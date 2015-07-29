@@ -21,7 +21,11 @@ public class ResourceSerializer implements JsonSerializer<Resource> {
 			datasetGroup = d.getDatasetGroup().getName();
 		}
 		result.add("group", new JsonPrimitive(datasetGroup));
-		result.add("size", new JsonPrimitive(resource.getDatasets().size()));
+		int size = 0;
+		for (Dataset ds : resource.getDatasets()) {
+			size += ds.getAttributes().size();
+		}
+		result.add("size", new JsonPrimitive(size));
 		return result;
 	}
 }

@@ -7,6 +7,10 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
+<%
+@SuppressWarnings("unchecked")
+List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDataset = (List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>>) request.getAttribute("attributesByDataset");
+%>
 
 <!DOCTYPE HTML>
 <html>
@@ -75,8 +79,7 @@
 								<th>Downloads</th>
 							</tr>
 						</thead>
-						<% @SuppressWarnings("unchecked")
-						List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDataset = (List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>>) request.getAttribute("attributesByDataset");
+						<%
 						for (Pair<Dataset, Pair<List<Attribute>, List<Attribute>>> pair : attributesByDataset) {
 							Dataset dataset = pair.getLeft();
 							Pair<List<Attribute>, List<Attribute>> attributes = pair.getRight();
@@ -100,7 +103,7 @@
 								<td class="col-md-2">
 								</td>
 							</tr>
-							<tr class="attribute-list">
+							<tr class="list attribute-list">
 								<td class="col-md-1"></td>
 								<td class="col-md-9" colspan="2">
 									<div>

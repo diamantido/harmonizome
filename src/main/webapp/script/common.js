@@ -84,7 +84,11 @@ var HMZ = function(config) {
 			iDisplayLength: 20,
 			oLanguage: {
 				sSearch: "Filter"
-			}
+			},
+			fnInitComplete: function() {
+				$dataTables.fadeIn();
+			},
+			responsive: true
 		});
 	};
 
@@ -163,10 +167,20 @@ var HMZ = function(config) {
 	/* Setups search bar.
 	 */
 	function setupSearch($parentEl, geneDictionary) {
+		var genes = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.whitespace,
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			local: geneDictionary
+		});
 		var $input = $parentEl.find('input')
-			.autocomplete({
-				minLength: 3,
-				source: geneDictionary
+			.typeahead({
+				hint: true,
+				highlight: true,
+				minLength: 1
+			},
+			{
+			  name: 'genes',
+			  source: genes
 			});
 	};
 	

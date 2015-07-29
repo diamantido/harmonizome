@@ -46,9 +46,9 @@
 							<td><%= dataset.getDatasetGroup().getName() %></td>
 							<td><%= dataset.getAttributeType().getName() %></td>
 							<td>
-								<a href="dataset/<%= URLCodec.encode(dataset.getName()) %>" type="button" class="btn btn-default download" aria-label="Left Align">
+								<%-- <a href="dataset/<%= URLCodec.encode(dataset.getName()) %>" type="button" class="btn btn-default download" aria-label="Left Align">
 									<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-					            </a>
+					            </a>--%>
 				            </td>
 				            <td><%= dataset.getNumPageViews() %></td>
 						</tr>

@@ -15,6 +15,8 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.DownloadComparator" %>
 <%
 Dataset dataset = (Dataset) request.getAttribute("dataset");
+@SuppressWarnings("unchecked")
+List<Attribute> attributesFromDataset = (List<Attribute>) request.getAttribute("attributesFromDataset");
 Timestamp downloadDate = dataset.getDownloadDate();
 String downloadDateStr = "";
 if (downloadDate == null) {
@@ -88,7 +90,7 @@ NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
 				    		<td><%= numFormatter.format(request.getAttribute("numberOfGenes")) %></td>
 				    	</tr>
 				    	<tr>
-				    		<td>No. Attributes</td>
+				    		<td>No. Gene Sets</td>
 				    		<td><%= numFormatter.format(dataset.getAttributes().size()) %></td>
 				    	</tr>
 				    	<tr>
@@ -113,35 +115,17 @@ NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
 			    		Collections.sort(downloads, new DownloadComparator());
 			    		for (Download dl : downloads) { 
 			    			String downloadType = dl.getType().getName();
-				    		String glypiconType;
-				    		if (downloadType.equals("gene list") || downloadType.equals("edge list") || downloadType.equals("attribute list")) {
-				    			glypiconType = "glyphicon-align-justify";
-				    		} else if (downloadType.equals("gene similarity matrix") || downloadType.equals("attribute similarity matrix") || downloadType.equals("attribute table")) {
-				    			glypiconType = "glyphicon-th";
-				    		} else if (
-			    				downloadType.equals("gene set library") ||
-			    				downloadType.equals("down gene set library") ||
-			    				downloadType.equals("up gene set library") ||
-			    				downloadType.equals("attribute set library") ||
-			    				downloadType.equals("down attribute set library") ||
-			    				downloadType.equals("up attribute set library")
-			    			) {
-				    			glypiconType = "glyphicon-th-list";
-				    		} else if (downloadType.equals("processing script")) {
-				    			glypiconType = "glyphicon-wrench";
-				    		} else {
-				    			glypiconType = "glyphicon-download";
-				    		}
+			    			String tooltip = StringUtils.capitalize(dl.getType().getDescription());
 			    		%>
 			    			<tr>
 			    				<td>
 			    					<%= StringUtils.capitalize(downloadType) %>
-			    					<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="<%= dl.getType().getDescription() %>">
+			    					<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="<%= tooltip %>">
 			    					</span>
 			    				</td>
 			    				<td>
 			    					<a href="download/<%= dl.getDirectory() + "/" + dl.getName() %>">
-			    						<span class="btn btn-default glyphicon <%= glypiconType %>" aria-hidden="true"></span>
+			    						<span class="btn btn-default glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 			    					</a>
 			    				</td>
 			    				<td><%= dl.getCount() %></td>
@@ -149,6 +133,19 @@ NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
 			    		<% } %>
 				    	</tbody>
 				    </table>
+				</section>
+				<section>
+					<h2>Gene Sets <span class="note"><%= attributesFromDataset.size() %></span></h2>
+					<% Iterator<Attribute> attrIter = attributesFromDataset.iterator();
+					if (attrIter.hasNext()) { %>
+						<% while (attrIter.hasNext()) {
+							Attribute attribute = attrIter.next();
+							String attributeName = attribute.getNameFromDataset();
+						%>
+							<a href="gene_set/<%= URLCodec.encode(attributeName) %>/<%= URLCodec.encode(dataset.getName()) %>">
+								<%= attributeName %></a><% if (attrIter.hasNext()) { %>, <% } %>
+						<% }
+					} %>
 				</section>
 				<!-- End dataset content -->
 

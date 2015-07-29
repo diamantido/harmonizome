@@ -2,6 +2,8 @@ package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
 import java.util.List;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Restrictions;
 
@@ -93,19 +95,28 @@ public class GeneDAO {
 			.setInteger("thresholdValue", thresholdValue)
 			.list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static List<Gene> getByAttribute(String attributeName) {
+	public static List<Gene> getByValue(String attributeName, String datasetName, int thresholdValue) {
 		return (List<Gene>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
-				"SELECT gene FROM Gene AS gene " +
-				"JOIN gene.features AS features " +
-				"JOIN features.attribute AS attribute " +
-				"WHERE attribute.nameFromDataset = :attributeName"
+				"SELECT DISTINCT gene FROM Gene AS gene " +
+				"JOIN gene.features AS feats " +
+				"JOIN feats.attribute AS attr " +
+				"JOIN attr.dataset AS dataset " +
+				"WHERE attr.nameFromDataset = :attributeName AND dataset.name = :datasetName AND feats.thresholdValue = :thresholdValue"
 			)
 			.setString("attributeName", attributeName)
+			.setString("datasetName", datasetName)
+			.setInteger("thresholdValue", thresholdValue)
 			.list();
+	}
+	
+	public static Pair<List<Gene>, List<Gene>> getFromAttributeByValue(String attributeName, String datasetName) {
+		List<Gene> pos = getByValue(attributeName, datasetName, 1);
+		List<Gene> neg = getByValue(attributeName, datasetName, -1);
+		return new ImmutablePair<List<Gene>, List<Gene>>(pos, neg);
 	}
 	
 	public static List<Gene> getByWordInSymbol(String query) {

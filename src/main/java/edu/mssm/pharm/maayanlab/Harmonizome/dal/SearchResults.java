@@ -2,8 +2,10 @@ package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.hibernate.HibernateException;
 
@@ -15,9 +17,12 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class SearchResults {
 
 	private String query;
-	private List<Dataset> datasets = new ArrayList<Dataset>();
-	private List<Gene> genes = new ArrayList<Gene>();
-	private List<Attribute> attributes = new ArrayList<Attribute>();
+	
+	// We use linked hash sets so we can enforce uniqueness and order.
+	private Set<Dataset> datasets = new LinkedHashSet<Dataset>();
+	private Set<Gene> genes = new LinkedHashSet<Gene>();
+	private Set<Attribute> attributes = new LinkedHashSet<Attribute>();
+	
 	private Map<String, List<String>> suggestions = new HashMap<String, List<String>>();
 	
 	public SearchResults(String query, String type) {
@@ -53,8 +58,8 @@ public class SearchResults {
 		Dataset exactDataset = DatasetDAO.getByName(query);
 		if (exactDataset != null) {
 			datasetIdToIgnore = exactDataset.getId();
+			datasets.add(exactDataset);
 			datasets.addAll(DatasetDAO.getByWordInNameButIgnoreExactMatch(query, datasetIdToIgnore));
-			datasets.add(0, exactDataset);
 		} else {
 			datasets.addAll(DatasetDAO.getByWordInName(query));
 		}
@@ -70,8 +75,8 @@ public class SearchResults {
 		Gene exactGene = GeneDAO.getBySymbol(query);
 		if (exactGene != null) {
 			geneIdToIgnore = exactGene.getId();
+			genes.add(exactGene);
 			genes.addAll(GeneDAO.getByWordInSymbolButIgnoreExactMatch(query, geneIdToIgnore));
-			genes.add(0, exactGene);
 		} else {
 			genes.addAll(GeneDAO.getByWordInSymbol(query));
 		}
@@ -82,12 +87,14 @@ public class SearchResults {
 
 	public void queryAttributes() {
 		List<String> attributeSuggestions = suggestions.get("attributes");
-		int attributeIdToIgnore;
-		Attribute exactAttribute = AttributeDAO.getByName(query);
-		if (exactAttribute != null) {
-			attributeIdToIgnore = exactAttribute.getId();
-			attributes.addAll(AttributeDAO.getByWordInNameButIgnoreExactMatch(query, attributeIdToIgnore));
-			attributes.add(0, exactAttribute);
+		List<Attribute> exactAttributes = AttributeDAO.getByName(query);
+		if (exactAttributes.size() != 0) {
+			List<Integer> idsToIgnore = new ArrayList<Integer>();
+			for (Attribute attr : exactAttributes) {
+				idsToIgnore.add(attr.getId());
+			}
+			attributes.addAll(exactAttributes);
+			attributes.addAll(AttributeDAO.getByWordInNameButIgnoreExactMatches(query, idsToIgnore));
 		} else {
 			attributes.addAll(AttributeDAO.getByWordInName(query));
 		}
@@ -100,15 +107,15 @@ public class SearchResults {
 		return query;
 	}
 	
-	public List<Dataset> getDatasets() {
+	public Set<Dataset> getDatasets() {
 		return datasets;
 	}
 
-	public List<Gene> getGenes() {
+	public Set<Gene> getGenes() {
 		return genes;
 	}
 
-	public List<Attribute> getAttributes() {
+	public Set<Attribute> getAttributes() {
 		return attributes;
 	}
 

@@ -11,6 +11,8 @@ public class Constant {
 	
 	public static final String GENE_URL = "/gene";
 	
+	public static final String DATASET_URL = "dataset";
+	
 	public static final String REST_LOCATION_PROP = "href";
 	
 	public static final String REST_METHOD_PROP = "method";

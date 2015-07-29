@@ -13,6 +13,8 @@ public class URLCodec {
 	private static final String slashReplacement = "$slash$";
 
 	private static final String characterEncoding = "UTF-8";
+	
+	private static final String geneSetSeparator = "/";
 
 	public static String encode(String url) throws UnsupportedEncodingException {
 		url = url.replace("/", slashReplacement);
@@ -22,5 +24,14 @@ public class URLCodec {
 	public static String decode(String url) throws UnsupportedEncodingException {
 		url = url.replace(slashReplacement, "/");
 		return URLDecoder.decode(url, characterEncoding);
+	}
+	
+	// TODO: Should this be generic? "encodeArray" or something?
+	public static String encodeGeneSet(String attributeName, String datasetName) throws UnsupportedEncodingException {
+		return encode(attributeName) + geneSetSeparator + encode(datasetName);
+	}
+	
+	public static String decodeGeneSet(String attributeName, String datasetName) throws UnsupportedEncodingException {
+		return decode(attributeName) + geneSetSeparator + decode(datasetName);
 	}
 }

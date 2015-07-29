@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.HibernateException;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
@@ -28,18 +29,18 @@ public class GeneSetPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String query = URLUtil.getPath(request, true);
+		String[] query = URLUtil.getPathAsArray(request, true);
+		String attributeName = query[0];
+		String datasetName = query[1];
 		Attribute attribute = null;
 		Dataset dataset = null;
-		List<Gene> genesByAttribute = null;
-		System.out.println(query);
+		Pair<List<Gene>, List<Gene>> genesByAttribute = null;
 
 		try {
 			HibernateUtil.beginTransaction();
-			attribute = AttributeDAO.getByName(query);
-			dataset = DatasetDAO.getByAttribute(query);
-			genesByAttribute = GeneDAO.getByAttribute(query);
+			attribute = AttributeDAO.getByNameAndDataset(attributeName, datasetName);
+			dataset = DatasetDAO.getByName(datasetName);
+			genesByAttribute = GeneDAO.getFromAttributeByValue(attributeName, datasetName);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -50,14 +51,8 @@ public class GeneSetPage extends HttpServlet {
 			request.setAttribute("query", query);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
 		} else {
-			request.setAttribute("attributeName", attribute.getNameFromDataset());
-			request.setAttribute("datasetDescription", dataset.getDescription());
-			request.setAttribute("attributeDescription", attribute.getDescriptionFromDataset());
-			request.setAttribute("attributeGroup", attribute.getAttributeType().getAttributeGroup().getName());
-			request.setAttribute("attributeType", attribute.getAttributeType().getName());
-			request.setAttribute("namingAuthority", attribute.getNamingAuthority());
-			request.setAttribute("idFromNamingAuthority", attribute.getIdFromNamingAuthority());
-			request.setAttribute("url", attribute.getUrlFromDataset());
+			request.setAttribute("attribute", attribute);
+			request.setAttribute("dataset", dataset);
 			request.setAttribute("genesByAttribute", genesByAttribute);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "geneSet.jsp").forward(request, response);
 		}

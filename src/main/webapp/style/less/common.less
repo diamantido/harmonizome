@@ -65,6 +65,32 @@ ul {
     padding-left: 15px;
 }
 
+/* Generic classes
+ * ------------------------------------------------------------------------- */
+.note {
+	font-size: 14px;
+	font-style: italic;
+}
+.glyphicon-search {
+	cursor: pointer;
+}
+.instruction {
+	font-style: italic;
+}
+.cursor-pointer {
+	cursor: pointer;
+}
+.top-buffer {
+	margin-top: 20px;
+}
+.bottom-buffer {
+	margin-bottom: 20px;
+}
+/*.data-table {
+	/* We only show the table once DataTables is ready. 
+	display: none;
+}*/
+
 /* Section selectors.
  * ------------------------------------------------------------------------- */
 .navbar {
@@ -174,15 +200,10 @@ ul {
 .project-title {
 	font-family: @font-family-accent;
 }
-.table {
-	.tools {
-		img {
-			height: 35px;
-		}
+.list {
+	&.attribute-list {
+		display: none;
 	}
-}
-.attribute-list {
-	display: none;
 	.last {
 		border-top: 1px solid @color-gray-medium;
 		padding-top: 10px;
@@ -201,6 +222,16 @@ ul {
 			bottom: 3px;
 		}
 	}
+	.tools {
+		.enrichr {
+			img {
+				height: 28px;
+			}
+			padding: 2px;
+			position: relative;
+			top: 1px;
+		}
+	}
 }
 .item-list {
 	display: none;
@@ -211,8 +242,25 @@ ul {
 		padding-bottom: 10px;
 	}
 }
-.search-description {
-	color: @color-gray;
+.search-results-page {
+	h3 {
+		font-family: @font-family-base;
+		font-size: 18px;
+		border-bottom: none;
+		margin: 0;
+	}
+	.metadata {
+		margin-bottom: 20px;
+	}
+	.description {
+		color: @color-gray;
+		p {
+			margin: 0;
+		}
+	}
+	.note {
+		font-size: 12px;
+	}
 }
 #suggest-page {
 	ul {
@@ -238,47 +286,6 @@ ul {
    			padding: 6px;
 		}
 	}
-}
-
-
-/* Generic classes
- * ------------------------------------------------------------------------- */
-.note {
-	font-size: 14px;
-	font-style: italic;
-}
-.glyphicon-search {
-	cursor: pointer;
-}
-.instruction {
-	font-style: italic;
-}
-/* The "tooltip" class name is used by Bootstrap.js. */
-.tool-tip {
-	cursor: pointer;
-	.tool-tip-text {
-		display: none;
-		line-height: 1.1em;
-		margin-left: 10px;
-	    padding: 10px 15px;
-	}
-	&:hover {
-		.tool-tip-text {
-	        display: inline;
-	        position: absolute;
-	    	border: 1px solid @color-info-yellow;
-	    	background: @color-info-yellow-light;
-	    }
-	}
-}
-.cursor-pointer {
-	cursor: pointer;
-}
-.top-buffer {
-	margin-top: 20px;
-}
-.bottom-buffer {
-	margin-bottom: 20px;
 }
 
 /* Bootstrap overwrites.
@@ -307,7 +314,7 @@ ul {
 	a {
 		color: @color-charcoal;
 		&:hover {
-			@color: charcoal;
+			color: @color-charcoal;
 		}
 	}
 	&.dataset {
@@ -328,28 +335,48 @@ ul {
 		}
 	}
 }
-
-/* jQuery UI overwrites.
- * ------------------------------------------------------------------------- */
-.ui-autocomplete {
-	background: white;
-	border-radius: 0px;
-	&.source:hover {
-    	background: #454545;
+.tooltip {
+	.tooltip-inner {
+		background: @color-charcoal;
+		border-radius: 0;
+		text-align: left;
 	}
-}
-.ui-widget-content {
-	.ui-menu-item {
-		font-size: 12px;
-		font-family: @font-family-base;
-		&.ui-state-focus {
-			background: @color-gray-light;
-			border: 1px solid @color-gray-medium;
-			color: @color-primary-medium;
-			font-weight: normal;
+	&.right {
+		.tooltip-arrow {
+			/* This is the color of the arrow: http://stackoverflow.com/a/15383656/1830334 */
+		    border-top:5px solid transparent;
+		    border-bottom:5px solid transparent;
+		    border-right:5px solid @color-charcoal;
 		}
 	}
 }
+
+/* jQuery UI overwrites.
+ * ------------------------------------------------------------------------- */
+.twitter-typeahead {
+	position: relative;
+	top: 2px;
+	width: 100%;
+	.tt-query,
+	.tt-hint {
+		color: @color-gray-medium;
+	}
+	.tt-menu {
+	    width: 100%;
+	    padding: 8px 0;
+	    background-color: #fff;
+	    border: 1px solid #ccc;
+	    border: 1px solid rgba(0, 0, 0, 0.2);
+	}
+	.tt-suggestion {
+	    padding: 3px 20px;
+	    &:hover {
+	    	background: @color-gray-light;
+	    	cursor: pointer;
+	    }
+	}	
+}
+
 
 /* DataTable overwrites.
  * ------------------------------------------------------------------------- */
