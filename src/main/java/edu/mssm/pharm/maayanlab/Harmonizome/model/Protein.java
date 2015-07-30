@@ -107,8 +107,8 @@ public class Protein {
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedName() throws UnsupportedEncodingException {
-		return URLCodec.encode(name);
+	public String getUrlEncodedSymbol() throws UnsupportedEncodingException {
+		return URLCodec.encode(symbol);
 	}
 
 	@Transient

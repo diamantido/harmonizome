@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,10 +30,13 @@ public class HgncRootFamily {
 
 	@Column(name = "name", unique = true)
 	private String name;
+	
+	@Column(name = "url", length = 2083)
+	private String url;
 
 	/* Foreign key relationships
 	 * ------------------------- */
-	@ManyToMany(cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinTable(name = "hgnc_root_families_to_genes", joinColumns = { @JoinColumn(name = "hgnc_root_family_fk") }, inverseJoinColumns = { @JoinColumn(name = "gene_fk") })
 	private Set<Gene> genes;
 
@@ -43,6 +47,10 @@ public class HgncRootFamily {
 	 * ----------------- */
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getFamilyId() {
@@ -60,6 +68,14 @@ public class HgncRootFamily {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public Set<Gene> getGenes() {
 		return genes;
@@ -76,6 +92,6 @@ public class HgncRootFamily {
 	}
 
 	public String getEndpoint() {
-		return "hgnc_root_family";
+		return "gene_family";
 	}
 }

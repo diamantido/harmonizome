@@ -1,34 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
-<%@ page import="java.text.NumberFormat" %>
-<%@ page import="java.util.Collections" %>
-<%@ page import="java.util.Iterator" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Locale" %>
-<%@ page import="java.sql.Timestamp" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Download" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.DownloadComparator" %>
-<%
-Dataset dataset = (Dataset) request.getAttribute("dataset");
-@SuppressWarnings("unchecked")
-List<Attribute> attributesFromDataset = (List<Attribute>) request.getAttribute("attributesFromDataset");
-Timestamp downloadDate = dataset.getLastUpdated();
-String downloadDateStr = "";
-if (downloadDate == null) {
-	downloadDateStr = "";
-} else {
-	downloadDateStr = new SimpleDateFormat("MM/dd/yyyy").format(downloadDate);
-}
-NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
-
-%>
 <html>
 	<head>
 		<%@include file="globalIncludes.html" %>
@@ -132,9 +104,7 @@ NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
 				<section>
 					<h2>Gene Sets <span class="note"><c:out value="${fn:length(dataset.attributes)}"/></span></h2>
 					<c:forEach var="attribute" items="${attributesFromDataset}" varStatus="loop">
-						<a href="${attribute.endpoint}/${attribute.nameFromDataset}/${dataset.name}">
-							<!-- Weird tag formatting to not create unwanted spaces. -->
-							<c:out value="${attribute.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
+						<a href="${attribute.endpoint}/${attribute.nameFromDataset}/${dataset.name}"><c:out value="${attribute.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
 					</c:forEach>
 				</section>
 				<!-- End dataset content -->

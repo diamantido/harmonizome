@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneralDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.ProteinDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -22,31 +22,24 @@ public class ProteinPage extends HttpServlet {
 	private static final long serialVersionUID = 264508702310729565L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String queriedSymbol = URLUtil.getPath(req);
-		if (queriedSymbol.equals("")) {
-			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "search_landing.jsp").forward(req, resp);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String query = URLUtil.getPath(request, true);
+		System.out.println(query);
+		Protein protein = null;
+		try {
+			HibernateUtil.beginTransaction();
+			protein = ProteinDAO.getByName(query);
+			HibernateUtil.commitTransaction();
+		} catch (HibernateException he) {
+			HibernateUtil.rollbackTransaction();
+		}
+					
+		if (protein == null) {
+			request.setAttribute("query", query);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
 		} else {
-			Protein protein = null;
-			try {
-				HibernateUtil.beginTransaction();
-				protein = GeneralDAO.getProteinBySymbol(queriedSymbol);
-				HibernateUtil.commitTransaction();
-			} catch (HibernateException he) {
-				HibernateUtil.rollbackTransaction();
-			}
-						
-			if (protein == null) {
-				req.setAttribute("query", queriedSymbol);
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(req, resp);				
-			} else {
-				req.setAttribute("note", "protein");
-				req.setAttribute("symbol", protein.getSymbol());
-				req.setAttribute("name", protein.getName());
-				req.setAttribute("uniprotUrl", protein.getUniprotUrl());
-				req.setAttribute("gene", protein.getGene().getSymbol());
-				req.getRequestDispatcher(Constant.TEMPLATE_DIR + "protein.jsp").forward(req, resp);
-			}
+			request.setAttribute("protein", protein);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "protein.jsp").forward(request, response);
 		}
 	}
 }

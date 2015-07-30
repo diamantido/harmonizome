@@ -42,7 +42,7 @@
 							<td class="col-md-2">Proteins</td>
 							<td class="col-md-10">
 								<c:forEach var="protein" items="${gene.proteins}" varStatus="loop">
-									<a href="${protein.endpoint}/${protein.urlEncodedName}">${protein.name}</a><c:if test="${!loop.last}">, </c:if>
+									<a href="${protein.endpoint}/${protein.urlEncodedSymbol}">${protein.symbol}</a><c:if test="${!loop.last}">, </c:if>
 								</c:forEach>
 							</td>
 						</tr>

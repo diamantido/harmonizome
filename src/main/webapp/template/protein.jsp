@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -8,19 +9,27 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h1>${symbol} <span class="note">${note}</span></h1>
+				<h1><c:out value="${protein.symbol}"/> <span class="note">Protein</span></h1>
 				<table class="table">
 					<tr>
-						<td class="col-sm-3">Name</td>
-						<td class="col-sm-9">${name}</td>
+						<td class="col-md-2">Name</td>
+						<td class="col-md-10">
+							<c:out value="${protein.name}"/>
+						</td>
 					</tr>
 					<tr>
-						<td class="col-sm-3">Uniprot URL</td>
-						<td class="col-sm-9"><a href="${uniprotUrl}" target="_blank">${uniprotUrl}</a></td>
+						<td class="col-md-2">Description</td>
+						<td class="col-md-10">
+							<c:out value="${protein.description}"/>
+						</td>
 					</tr>
 					<tr>
-						<td class="col-sm-3">Gene</td>
-						<td class="col-sm-9"><a href="gene/${gene}">${gene}</a></td>
+						<td class="col-md-2">UniProt ID</td>
+						<td class="col-md-10">
+							<a href="${protein.uniprotUrl}" target="_blank">
+								<c:out value="${protein.uniprotId}"/>
+							</a>
+						</td>
 					</tr>
 				</table>
 			</div>

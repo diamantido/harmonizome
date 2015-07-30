@@ -11,42 +11,17 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncTerminalFamily;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class GeneralDAO {
 
 	@SuppressWarnings("unchecked")
-	public static List<Resource> getAllResources() {
-		List<Resource> resources = (List<Resource>) HibernateUtil.getAll(Resource.class);
-		return resources;
-	}
-	
-	@SuppressWarnings("unchecked")
 	public static List<Gene> getGenesByPrefix(String prefix) {
 		System.out.println(prefix);
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Gene.class).add(Restrictions.like("symbol", prefix, MatchMode.END).ignoreCase());
 		return (List<Gene>) criteria.list();
-	}
-
-	public static Protein getProteinBySymbol(String symbol) {
-		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(Protein.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
-		return (Protein) criteria.uniqueResult();
-	}
-
-	public static HgncRootFamily getHgncRootFamilyByName(String name) {
-		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(HgncRootFamily.class).add(Restrictions.eq("name", name).ignoreCase());
-		return (HgncRootFamily) criteria.uniqueResult();
-	}
-
-	public static HgncTerminalFamily getHgncTerminalFamilyByName(String name) {
-		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(HgncTerminalFamily.class).add(Restrictions.eq("name", name).ignoreCase());
-		return (HgncTerminalFamily) criteria.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")
