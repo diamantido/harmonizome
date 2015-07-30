@@ -35,7 +35,7 @@ public class ResourcePage extends HttpServlet {
 					
 		if (resource == null) {
 			request.setAttribute("query", query);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);				
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
 		} else {
 			request.setAttribute("resource", resource);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "resource.jsp").forward(request, response);

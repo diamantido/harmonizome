@@ -30,37 +30,40 @@ public class GeneSetPage extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String[] query = URLUtil.getPathAsArray(request, true);
-		String attributeName = query[0];
-		String datasetName = query[1];
-		Attribute attribute = null;
-		Dataset dataset = null;
-		Pair<List<Gene>, List<Gene>> genesByAttribute = null;
+		if (query.length == 2) {
+			String attributeName = query[0];
+			String datasetName = query[1];
+			Attribute attribute = null;
+			Dataset dataset = null;
+			Pair<List<Gene>, List<Gene>> genesByAttribute = null;
+			try {
+				HibernateUtil.beginTransaction();
+				attribute = AttributeDAO.getByNameAndDataset(attributeName, datasetName);
+				dataset = DatasetDAO.getByName(datasetName);
+				genesByAttribute = GeneDAO.getFromAttributeByValue(attributeName, datasetName);
+				HibernateUtil.commitTransaction();
+			} catch (HibernateException he) {
+				he.printStackTrace();
+				HibernateUtil.rollbackTransaction();
+			}
 
-		try {
-			HibernateUtil.beginTransaction();
-			attribute = AttributeDAO.getByNameAndDataset(attributeName, datasetName);
-			dataset = DatasetDAO.getByName(datasetName);
-			genesByAttribute = GeneDAO.getFromAttributeByValue(attributeName, datasetName);
-			HibernateUtil.commitTransaction();
-		} catch (HibernateException he) {
-			he.printStackTrace();
-			HibernateUtil.rollbackTransaction();
-		}
+			if (attribute == null) {
+				request.setAttribute("query", query);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "noSearchResults.jsp").forward(request, response);
+			} else {
+				int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();
+				String geneSetDescription = dataset.getGeneSetDescription();
+				geneSetDescription = geneSetDescription.replace("{0}", attribute.getNameFromDataset());
+				geneSetDescription = numGenes + " " + geneSetDescription;
 
-		if (attribute == null) {
-			request.setAttribute("query", query);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
+				request.setAttribute("geneSetDescription", geneSetDescription);
+				request.setAttribute("attribute", attribute);
+				request.setAttribute("dataset", dataset);
+				request.setAttribute("genesByAttribute", genesByAttribute);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "geneSet.jsp").forward(request, response);
+			}
 		} else {
-			int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();
-			String geneSetDescription = dataset.getGeneSetDescription();
-			geneSetDescription = geneSetDescription.replace("{0}", attribute.getNameFromDataset());
-			geneSetDescription = numGenes + " " + geneSetDescription;
-
-			request.setAttribute("geneSetDescription", geneSetDescription);
-			request.setAttribute("attribute", attribute);
-			request.setAttribute("dataset", dataset);
-			request.setAttribute("genesByAttribute", genesByAttribute);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "geneSet.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
 		}
 	}
 }

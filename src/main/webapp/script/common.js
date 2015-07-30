@@ -12,10 +12,11 @@ $(function() {
 	}	
 	setupTooltips();
 	setupShowByGroupFunctionality();
-	if (false) {
-		setupDownloadLinks();
-		setupEnrichrLink();
-		
+	
+	var $downloadsTools = $('.gene-set-page .downloads-tools');
+	if ($downloadsTools.length) {
+		//setupDownloadLinks($downloadsTools);
+		//setupEnrichrLink($downloads);
 	}
 	
 	/* --------------------------------------------------------------------- */

@@ -7,7 +7,7 @@
 	<body>
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
-			<div class="content container">
+			<div class="content container no-search-results-page">
 				<h1>No Search Results</h1>
 				<p class="instruction">Your search "${query}" did not match any entities.</p>
 				<div>

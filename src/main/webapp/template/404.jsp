@@ -11,7 +11,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container-full">
-				<div class="container">
+				<div class="container not-found-page">
 					<h1>404 Error</h1>
 					<p class="instruction">Search below or <a href="">return to the homepage</a>.</p>
 					<div class="col-md-6 input-group">

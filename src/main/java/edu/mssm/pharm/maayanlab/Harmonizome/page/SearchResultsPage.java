@@ -31,7 +31,7 @@ public class SearchResultsPage extends HttpServlet {
 		String type = URLUtil.getParameter(request, "t");
 		SearchResults searchResults = new SearchResults(query, type);
 		if (searchResults.noMatches()) {
-			showNotFound(request, response, query);
+			showNoSearchResults(request, response, query);
 		} else if (searchResults.onlySuggestions()) {
 			Map<String, List<String>> suggestions = searchResults.getSuggestions();
 			request.setAttribute("datasetSuggestions", suggestions.get("datasets"));
@@ -56,9 +56,9 @@ public class SearchResultsPage extends HttpServlet {
 		}
 	}
 
-	private void showNotFound(HttpServletRequest request, HttpServletResponse response, String query) throws ServletException, IOException {
+	private void showNoSearchResults(HttpServletRequest request, HttpServletResponse response, String query) throws ServletException, IOException {
 		request.setAttribute("query", query);
-		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
+		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "noSearchResults.jsp").forward(request, response);
 	}
 
 	private String buildSummary(String query, Set<Dataset> datasets, Set<Gene> genes, Set<Attribute> attributes) {

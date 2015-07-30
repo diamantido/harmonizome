@@ -67,7 +67,7 @@
 				</section>
 				<section>
 					<h2>Downloads</h2>
-				    <table class="table">
+				    <table class="table downloads">
 				    	<thead>
 				    		<tr>
 				    			<th>Content</th>
