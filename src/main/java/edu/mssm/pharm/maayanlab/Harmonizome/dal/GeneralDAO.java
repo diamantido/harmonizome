@@ -50,7 +50,6 @@ public class GeneralDAO {
 		return (List<Dataset>) criteria.list();
 	}
 
-
 	@SuppressWarnings("unchecked")
 	public static List<DatasetGroup> filterDatasetGroup(String dataset, String datasetGroup, String measurement, String attribute, String attributeGroup, String attributeType, String gene,
 			String idgFamily) {

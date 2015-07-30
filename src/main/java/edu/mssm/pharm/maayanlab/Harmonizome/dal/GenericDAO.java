@@ -20,6 +20,15 @@ public class GenericDAO {
 	}
 
 	@SuppressWarnings("unchecked")
+	public static List<String> getByPrefix(String table, String field, String query) {
+		String sql = String.format("SELECT DISTINCT %s FROM %s WHERE %s LIKE '%s%s'", field, table, field, query, "%");		
+		return (List<String>) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(sql)
+			.list();
+	}
+
+	@SuppressWarnings("unchecked")
 	public static <E> List<E> getBySubstringInField(Class<E> klass, String table, String field, String query) {
 		String sql = String.format("SELECT DISTINCT * FROM %s WHERE MATCH(%s) AGAINST('%s*' IN BOOLEAN MODE)", table, field, query);		
 		return (List<E>) HibernateUtil

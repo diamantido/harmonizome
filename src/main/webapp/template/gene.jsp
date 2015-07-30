@@ -5,11 +5,6 @@
 	<head>
 		<%@include file="globalIncludes.html" %>
 		<%@include file="commonIncludes.html" %>
-		<script>
-			$(function() {
-				HMZ();
-			});
-		</script>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>

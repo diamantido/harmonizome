@@ -130,4 +130,8 @@ public class GeneDAO {
 	public static List<String> getSuggestions(String query) {
 		return GenericDAO.getSuggestions("gene", "symbol", query);
 	}
+	
+	public static List<String> getByPrefix(String query) {
+		return GenericDAO.getByPrefix("gene", "symbol", query);		
+	}
 }

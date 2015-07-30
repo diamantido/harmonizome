@@ -1,23 +1,10 @@
-<!DOCTYPE html>
-<%@ page import="java.util.List" %>
-<%@ page import="org.apache.commons.lang3.StringUtils" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
+<!DOCTYPE html>
 <html lang="en">
     <head>
     	<%@include file="globalIncludes.html" %>
 		<%@include file="commonIncludes.html" %>
-		<script>
-			<% @SuppressWarnings("unchecked") 
-			List<String> genesArray = (List<String>) request.getAttribute("genes");
-			String genes = "['" + StringUtils.join(genesArray, "', '") + "']";
-			Long numberOfDatasets = (Long) request.getAttribute("numberOfDatasets");
-			%>
-			$(function() {
-				HMZ({
-					ALL_GENES: <%= genes %>
-				});
-			});
-		</script>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
@@ -40,13 +27,13 @@
 								<strong>Example searches</strong>
 								<ul class="list-inline">
 									<li>
-										<a href="<%= Constant.SEARCH_URL %>?q=achilles">achilles</a>
+										<a href="${Constant.SEARCH_URL}?q=achilles">achilles</a>
 									</li>
 									<li>
-										<a href="<%= Constant.SEARCH_URL %>?q=STAT3">STAT3</a>
+										<a href="${Constant.SEARCH_URL}?q=STAT3">STAT3</a>
 									</li>
 									<li>
-										<a href="<%= Constant.SEARCH_URL %>?q=breast+cancer">breast cancer</a>
+										<a href="${Constant.SEARCH_URL}?q=breast+cancer">breast cancer</a>
 									</li>
 								</ul>
 							</div>

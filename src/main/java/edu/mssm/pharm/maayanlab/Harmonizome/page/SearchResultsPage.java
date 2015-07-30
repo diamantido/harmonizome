@@ -19,7 +19,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 @WebServlet(urlPatterns = { "/" + Constant.SEARCH_URL, "/" + Constant.SEARCH_URL + "/*" })
-public class SearchPage extends HttpServlet {
+public class SearchResultsPage extends HttpServlet {
 
 	private static final long serialVersionUID = 8241820002853425713L;
 
@@ -50,7 +50,7 @@ public class SearchPage extends HttpServlet {
 			request.setAttribute("datasets", datasets);
 			request.setAttribute("genes", genes);
 			request.setAttribute("attributes", attributes);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "search.jsp").forward(request, response);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "searchResults.jsp").forward(request, response);
 		}
 	}
 

@@ -1,15 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
     	<%@include file="globalIncludes.html" %>
         <%@include file="commonIncludes.html" %>
-        <script>
-			$(function() {
-				HMZ();
-			});
-		</script>
     </head>
     <body>
 		<%@include file="navbarWithSearch.jsp" %>
@@ -29,17 +25,17 @@
 								<c:otherwise>
 									<c:if test="${fn:length(datasets) != 0}">
 										<span class="badge">
-											<a href="search?q=${query}&t=dataset">Dataset</a>
+											<a href="${Constant.SEARCH_URL}?q=${query}&t=dataset">Dataset</a>
 										</span>
 									</c:if>
 									<c:if test="${fn:length(genes) != 0}">
 										<span class="badge">
-											<a href="search?q=${query}&t=gene">Gene</a>
+											<a href="${Constant.SEARCH_URL}?q=${query}&t=gene">Gene</a>
 										</span>
 									</c:if>
 									<c:if test="${fn:length(attributes) != 0}">
 										<span class="badge">
-											<a href="search?q=${query}&t=attribute">Gene Set</a>
+											<a href="${Constant.SEARCH_URL}?q=${query}&t=attribute">Gene Set</a>
 										</span>
 									</c:if>
 								</c:otherwise>
@@ -92,7 +88,7 @@
 											<a href="${attribute.endpoint}/${attribute.urlEncodedNameFromDataset}/${attribute.dataset.urlEncodedName}">${attribute.nameFromDataset}</a> <span class="note">Gene Set</span>
 										</h3>
 										<div class="description">
-											<p><em>From <a href="${attribute.dataset.urlEncodedName}">${attribute.dataset.name}</a></em></p>
+											<p><em>From <a href="${attribute.dataset.endpoint}/${attribute.dataset.urlEncodedName}">${attribute.dataset.name}</a></em></p>
 											<p>${fn:replace(attribute.dataset.geneSetDescription, "{0}", attribute.nameFromDataset)}</p>
 										</div>
 									</td>

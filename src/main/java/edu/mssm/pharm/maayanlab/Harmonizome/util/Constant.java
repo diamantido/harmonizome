@@ -7,6 +7,10 @@ public class Constant {
 	// This has no preceding slash because we typically use it as a relative URL in JSP templates.
 	public static final String SEARCH_URL = "search";
 	
+	public static final String getSEARCH_URL() {
+		return SEARCH_URL;
+	}
+	
 	public static final String TEMPLATE_DIR = "/template/";
 	
 	public static final String DATASET_URL = "dataset";
