@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Map" %>
@@ -27,49 +30,58 @@ List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDataset 
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<h1>${symbol} <span class="note">${note}</span></h1>
+				<h1 class="initial">${gene.symbol} <span class="note">${note}</span></h1>
 				<section>
 					<table class="table">
 						<tr>
-							<td class="col-sm-3">Families (from HGNC)</td>
-							<td class="col-sm-9">
-								<% String[] hgncRootFamilies = (String[]) request.getAttribute("hgncRootFamilies");
-								for (int i = 0; i < hgncRootFamilies.length; i++) { %>
-									<a href="hgnc_root_family/<%= URLCodec.encode(hgncRootFamilies[i]) %>">
-									<%= hgncRootFamilies[i] %></a><%= i != hgncRootFamilies.length-1 ? "," : "" %>
-								<% } %>
+							<td class="col-md-2">Families (from HGNC)</td>
+							<td class="col-md-10">
+								<c:forEach var="family" items="${gene.hgncRootFamilies}" varStatus="loop">
+									<a href="${family.endpoint}/${family.urlEncodedName}">${family.name}</a><c:if test="${!loop.last}">, </c:if>
+								</c:forEach>
 							</td>
 						</tr>
 						<tr>
-							<td class="col-sm-3">Name</td>
-							<td class="col-sm-9">${name}</td>
+							<td class="col-md-2 initial">Name</td>
+							<td class="col-md-10">${gene.name}</td>
 						</tr>
 						<tr>
-							<td class="col-sm-3">Description (from NCBI)</td>
-							<td class="col-sm-9">${description}</td>
+							<td class="col-md-2">Description (from NCBI)</td>
+							<td class="col-md-10">${gene.description}</td>
 						</tr>
 						<tr>
-							<td class="col-sm-3">Synonyms</td>
-							<td class="col-sm-9">${synonyms}</td>
+							<td class="col-md-2">Synonyms</td>
+							<td class="col-md-10">${synonyms}</td>
 						</tr>
 						<tr>
-							<td class="col-sm-3">Proteins</td>
-							<td class="col-sm-9">
-								<% String[] proteins = (String[]) request.getAttribute("proteins");
-								for (int i = 0; i < proteins.length; i++) { %>
-									<a href="protein/<%= proteins[i] %>"><%= proteins[i] %></a><%= i != proteins.length-1 ? "," : "" %>
-								<% } %>
+							<td class="col-md-2">Proteins</td>
+							<td class="col-md-10">
+								<c:forEach var="protein" items="${gene.proteins}" varStatus="loop">
+									<a href="${protein.endpoint}/${protein.urlEncodedName}">${protein.name}</a><c:if test="${!loop.last}">, </c:if>
+								</c:forEach>
 							</td>
 						</tr>
 						<tr>
-							<td class="col-sm-3">External Link</td>
-							<td class="col-sm-9"><a href="${ncbiEntrezGeneUrl}" target="_blank">National Center for Biotechnology Information (NCBI)</a></td>
+							<td class="col-md-2">NCBI Gene ID</td>
+							<td class="col-md-10"><a href="${gene.ncbiEntrezGeneUrl}" target="_blank">${gene.ncbiEntrezGeneId}</a></td>
 						</tr>
 					</table>
 				</section>
 				<section>
 					<h2>Knowledge</h2>
 					<p class="instruction">Click the + buttons to view associations for ${symbol} from each dataset.</p>
+					<p class="instruction">${description}</p>
+					<table class="table entities-by-dataset genes">
+						<thead>
+							<tr>
+								<th></th>
+								<th>Dataset</th>
+								<th>Summary</th>
+								<th>Downloads</th>
+							</tr>
+						</thead>
+				
+					<%--
 					<table class="table entities-by-dataset genes">
 						<thead>
 							<tr>
@@ -134,8 +146,8 @@ List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDataset 
 								</td>
 								<td class="col-md-2"></td>
 							</tr>
-						<% } %>
-					</table>				
+						<% } %>--%>
+					</table>
 				</section>
 			</div>
 			<%@include file="footer.html" %>

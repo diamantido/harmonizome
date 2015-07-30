@@ -86,10 +86,14 @@ ul {
 .bottom-buffer {
 	margin-bottom: 20px;
 }
-/*.data-table {
-	/* We only show the table once DataTables is ready. 
-	display: none;
-}*/
+.initial {
+	&:first-letter {
+		text-transform: uppercase;
+	}
+}
+.capitalize {
+	text-transform: capitalize;
+}
 
 /* Section selectors.
  * ------------------------------------------------------------------------- */
@@ -224,18 +228,7 @@ ul {
 		margin-top: 10px;
 	}
 }
-.dataset-row {
-	td {
-		vertical-align: middle !important;
-	}
-}
-.attribute-page {
-	h2 {
-		.badge {
-			position: relative;
-			bottom: 3px;
-		}
-	}
+.gene-set-page {
 	.tools {
 		.enrichr {
 			img {

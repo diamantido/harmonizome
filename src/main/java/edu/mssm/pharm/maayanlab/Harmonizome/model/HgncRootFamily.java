@@ -1,5 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
 
 @Entity
 @Table(name = "hgnc_root_family")
@@ -27,6 +30,8 @@ public class HgncRootFamily {
 	@Column(name = "name", unique = true)
 	private String name;
 
+	/* Foreign key relationships
+	 * ------------------------- */
 	@ManyToMany(cascade = { CascadeType.ALL })
 	@JoinTable(name = "hgnc_root_families_to_genes", joinColumns = { @JoinColumn(name = "hgnc_root_family_fk") }, inverseJoinColumns = { @JoinColumn(name = "gene_fk") })
 	private Set<Gene> genes;
@@ -34,12 +39,8 @@ public class HgncRootFamily {
 	public HgncRootFamily() {
 	}
 
-	public HgncRootFamily(int familyId, String name, Set<Gene> genes) {
-		this.familyId = familyId;
-		this.name = name;
-		this.genes = genes;
-	}
-
+	/* Getters & Setters 
+	 * ----------------- */
 	public int getId() {
 		return id;
 	}
@@ -66,5 +67,15 @@ public class HgncRootFamily {
 
 	public void setGenes(Set<Gene> genes) {
 		this.genes = genes;
+	}
+	
+	/* Utility functions
+	 * ----------------- */
+	public String getUrlEncodedName() throws UnsupportedEncodingException {
+		return URLCodec.encode(name);
+	}
+
+	public String getEndpoint() {
+		return "hgnc_root_family";
 	}
 }

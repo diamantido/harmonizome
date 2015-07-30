@@ -1,5 +1,7 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
+
+import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
 
 @Entity
 @Table(name = "protein")
@@ -36,6 +40,8 @@ public class Protein {
 	@Column(name = "uniprot_url")
 	private String uniprotUrl;
 	
+	/* Foreign key relationships
+	 * ------------------------- */
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "gene_fk")
 	private Gene gene;
@@ -43,15 +49,8 @@ public class Protein {
 	public Protein() {
 	}
 	
-	public Protein(String name, String symbol, String description, String uniprotId, String uniprotUrl, Gene gene) {
-		this.name = name;
-		this.symbol = symbol;
-		this.description = description;
-		this.uniprotId = uniprotId;
-		this.uniprotUrl = uniprotUrl;
-		this.gene = gene;
-	}
-
+	/* Getters & Setters 
+	 * ----------------- */
 	public int getId() {
 		return id;
 	}
@@ -102,5 +101,15 @@ public class Protein {
 
 	public void setGene(Gene gene) {
 		this.gene = gene;
+	}
+	
+	/* Utility functions
+	 * ----------------- */
+	public String getUrlEncodedName() throws UnsupportedEncodingException {
+		return URLCodec.encode(name);
+	}
+
+	public String getEndpoint() {
+		return "protein";
 	}
 }
