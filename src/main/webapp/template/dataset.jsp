@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.util.Collections" %>
@@ -17,7 +19,7 @@
 Dataset dataset = (Dataset) request.getAttribute("dataset");
 @SuppressWarnings("unchecked")
 List<Attribute> attributesFromDataset = (List<Attribute>) request.getAttribute("attributesFromDataset");
-Timestamp downloadDate = dataset.getDownloadDate();
+Timestamp downloadDate = dataset.getLastUpdated();
 String downloadDateStr = "";
 if (downloadDate == null) {
 	downloadDateStr = "";
@@ -41,61 +43,58 @@ NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<h1><%= dataset.getName() %> <span class="note">Dataset</span></h1>
+				<h1><c:out value="${dataset.name}"/> <span class="note">Dataset</span></h1>
 				<section>
 				    <table class="table">
 				    	<tr>
 				    		<td>Description</td>
-				    		<td><%= dataset.getDescription() %></td>
+				    		<td class="initial"><c:out value="${dataset.description}"/></td>
 				    	</tr>
 				    	<tr>
 				    		<td>Measurement</td>
-				    		<td><%= dataset.getMeasurement().getName() %></td>
+				    		<td class="initial"><c:out value="${dataset.measurement.name}"/></td>
 				    	</tr>
 				    	<tr>
 				    		<td>Association</td>
-				    		<td><%= dataset.getAssociation() %></td>
+				    		<td class="initial"><c:out value="${dataset.association}"/></td>
 				    	</tr>
 				    	<tr>
 				    		<td>Category</td>
-				    		<td><%= dataset.getDatasetGroup().getName() %></td>
+				    		<td class="initial"><c:out value="${dataset.datasetGroup.name}"/></td>
 				    	</tr>
 				    	<tr>
 				    		<td>Resource</td>
 				    		<td>
-				    			<a href="resource/<%= URLCodec.encode(dataset.getResource().getName()) %>">
-				    				<%= dataset.getResource().getName() %>
-				    			</a>	
+				    			<a href="${dataset.resource.endpoint}/${dataset.resource.urlEncodedName}">
+				    				<c:out value="${dataset.resource.name}"/>
+				    			</a>
 				    		</td>
 				    	</tr>
 				    	<tr>
 				    		<td>Citation(s)</td>
 				    		<td>
-							<% 
-							Iterator<Publication> pubIter = dataset.getPublications().listIterator();
-							while (pubIter.hasNext()) {
-								Publication pub = pubIter.next();
-							%>
-								<a href="<%= pub.getPubmedUrl() %>"><%= pub.getLongCitation() %></a>
-								<% if (pubIter.hasNext()) { %>, <% } %>
-							<% } %>
+								<c:forEach var="pub" items="${dataset.publications}" varStatus="loop">
+									<a href="${pub.pubmedUrl}" target="_blank">${pub.longCitation}</a><c:if test="${!loop.last}">, </c:if>
+								</c:forEach>
 				    		</td>
 				    	</tr>
 				    	<tr>
 				    		<td>Last Updated</td>
-				    		<td></td>
+				    		<td>
+				    			<c:out value="${dataset.lastUpdated}"/>
+				    		</td>
 				    	</tr>
 				    	<tr>
-				    		<td>No. Gene</td>
-				    		<td><%= numFormatter.format(request.getAttribute("numberOfGenes")) %></td>
+				    		<td>No. Genes</td>
+				    		<td><c:out value="${numGenes}"/></td>
 				    	</tr>
 				    	<tr>
-				    		<td>No. Gene Sets</td>
-				    		<td><%= numFormatter.format(dataset.getAttributes().size()) %></td>
+				    		<td class="capitalize">No. <c:out value="${dataset.attributeType.name}s"/></td>
+				    		<td><c:out value="${fn:length(dataset.attributes)}"/></td>
 				    	</tr>
 				    	<tr>
-				    		<td>No. Gene-Attribute Associations</td>
-				    		<td><%= numFormatter.format(request.getAttribute("numberOfGeneAttributeAssociations")) %></td>
+				    		<td class="capitalize"><c:out value="No. Gene-${dataset.attributeType.name} Associations"/></td>
+				    		<td><c:out value="${numGeneAttributeAssociations}"/></td>
 				    	</tr>
 				    </table>
 				</section>
@@ -110,42 +109,33 @@ NumberFormat numFormatter = NumberFormat.getNumberInstance(Locale.US);
 				    		</tr>
 				    	</thead>
 				    	<tbody>
-			    		<% @SuppressWarnings("unchecked")
-			    		List<Download> downloads = dataset.getDownloads();
-			    		Collections.sort(downloads, new DownloadComparator());
-			    		for (Download dl : downloads) { 
-			    			String downloadType = dl.getDownloadType().getName();
-			    			String tooltip = StringUtils.capitalize(dl.getDownloadType().getDescription());
-			    		%>
-			    			<tr>
-			    				<td>
-			    					<%= StringUtils.capitalize(downloadType) %>
-			    					<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="<%= tooltip %>">
-			    					</span>
-			    				</td>
-			    				<td>
-			    					<a href="download/<%= dl.getDataset().getDirectory() + "/" + dl.getDownloadType().getName() %>">
-			    						<span class="btn btn-default glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-			    					</a>
-			    				</td>
-			    				<td><%= dl.getCount() %></td>
-			    			</tr>
-			    		<% } %>
+				    		<c:forEach var="download" items="${dataset.sortedDownloads}">
+				    			<tr>
+				    				<td>
+				    					<span class="capitalize">
+				    						<c:out value="${download.downloadType.name}"/>
+				    					</span>
+				    					<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="${download.downloadType.description}">
+				    					</span>
+				    				</td>
+				    				<td>
+				    					<a href="${download.endpoint}/${dataset.directory}/${download.downloadType.name}">
+				    						<span class="btn btn-default glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+				    					</a>
+				    				</td>
+				    				<td><c:out value="${download.count}"/></td>
+				    			</tr>
+				    		</c:forEach>
 				    	</tbody>
 				    </table>
 				</section>
 				<section>
-					<h2>Gene Sets <span class="note"><%= attributesFromDataset.size() %></span></h2>
-					<% Iterator<Attribute> attrIter = attributesFromDataset.iterator();
-					if (attrIter.hasNext()) { %>
-						<% while (attrIter.hasNext()) {
-							Attribute attribute = attrIter.next();
-							String attributeName = attribute.getNameFromDataset();
-						%>
-							<a href="gene_set/<%= URLCodec.encode(attributeName) %>/<%= URLCodec.encode(dataset.getName()) %>">
-								<%= attributeName %></a><% if (attrIter.hasNext()) { %>, <% } %>
-						<% }
-					} %>
+					<h2>Gene Sets <span class="note"><c:out value="${fn:length(dataset.attributes)}"/></span></h2>
+					<c:forEach var="attribute" items="${attributesFromDataset}" varStatus="loop">
+						<a href="${attribute.endpoint}/${attribute.nameFromDataset}/${dataset.name}">
+							<!-- Weird tag formatting to not create unwanted spaces. -->
+							<c:out value="${attribute.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
+					</c:forEach>
 				</section>
 				<!-- End dataset content -->
 

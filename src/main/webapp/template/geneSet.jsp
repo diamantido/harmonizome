@@ -5,6 +5,11 @@
 	<head>
 		<%@include file="globalIncludes.html" %>
 		<%@include file="commonIncludes.html" %>
+		<script>
+		$(function() {
+			HMZ();
+		});
+		</script>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
@@ -52,7 +57,7 @@
 									<button class="btn btn-default glyphicon glyphicon-file" data-toggle="tooltip" data-placement="right" title="Download the gene set as a plain text, newline separated list of genes."></button>
 									<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access the gene set from the API."></button>
 									<button class="btn btn-default enrichr" data-toggle="tooltip" data-placement="right" title="Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.">
-										<img src="image/tool/enrichr-bw.png">
+										<img src="image/tool/enrichr.png">
 									</button>
 								</div>
 							</td>

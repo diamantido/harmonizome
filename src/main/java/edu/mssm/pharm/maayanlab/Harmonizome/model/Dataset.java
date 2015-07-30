@@ -2,6 +2,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -21,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.DownloadComparator;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Ellipsizer;
 
 @Entity
@@ -56,8 +58,8 @@ public class Dataset {
 	@Column(name = "negative_association")
 	private String negativeAssociation;
 	
-	@Column(name = "download_date")
-	private Timestamp downloadDate;
+	@Column(name = "last_updated")
+	private Timestamp lastUpdated;
 
 	@Column(name = "directory")
 	private String directory;
@@ -175,12 +177,12 @@ public class Dataset {
 		this.negativeAssociation = negativeAssociation;
 	}
 
-	public Timestamp getDownloadDate() {
-		return downloadDate;
+	public Timestamp getLastUpdated() {
+		return lastUpdated;
 	}
 
-	public void setDownloadDate(Timestamp downloadDate) {
-		this.downloadDate = downloadDate;
+	public void setLastUpdated(Timestamp lastUpdated) {
+		this.lastUpdated = lastUpdated;
 	}
 
 	public String getDirectory() {
@@ -283,5 +285,11 @@ public class Dataset {
 	@Transient
 	public String getCssClassName() {
 		return StringUtils.join(name.replace(",", "").split(" "), "-");
+	}
+	
+	@Transient
+	public List<Download> getSortedDownloads() {
+		Collections.sort(downloads, new DownloadComparator());
+		return downloads;
 	}
 }

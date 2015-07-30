@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "download")
@@ -58,5 +59,10 @@ public class Download {
 
 	public void setDownloadType(DownloadType type) {
 		this.downloadType = type;
+	}
+	
+	@Transient
+	public String getEndpoint() {
+		return "download";
 	}
 }

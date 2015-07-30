@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.HibernateException;
 
@@ -53,7 +52,7 @@ public class GeneSetPage extends HttpServlet {
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
 		} else {
 			int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();
-			String geneSetDescription = StringUtils.capitalize(dataset.getGeneSetDescription());
+			String geneSetDescription = dataset.getGeneSetDescription();
 			geneSetDescription = geneSetDescription.replace("{0}", attribute.getNameFromDataset());
 			geneSetDescription = numGenes + " " + geneSetDescription;
 

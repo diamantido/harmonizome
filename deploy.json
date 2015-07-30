@@ -17,6 +17,17 @@
                 }
             ]
         }
-    }
+    },
+	"healthChecks": [
+    	{
+            "path": "/harmonizome",
+            "protocol": "HTTP",
+          	"portIndex": 0,
+          	"gracePeriodSeconds": 10,
+          	"intervalSeconds": 60,
+          	"timeoutSeconds": 10,
+          	"maxConsecutiveFailures": 3
+        }
+    ]
 }
 

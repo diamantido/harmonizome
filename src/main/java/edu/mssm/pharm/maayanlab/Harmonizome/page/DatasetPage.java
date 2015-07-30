@@ -30,16 +30,16 @@ public class DatasetPage extends HttpServlet {
 		String query = URLUtil.getPath(request, true);
 		Dataset dataset = null;
 		List<Attribute> attributesFromDataset = null;
-		Long numberOfGenes = null;
-		Long numberOfGeneAttributeAssociations = null;
+		Long numGenes = null;
+		Long numGeneAttributeAssociations = null;
 
 		try {
 			HibernateUtil.beginTransaction();
 			dataset = DatasetDAO.getByName(query);
 			if (dataset != null) {
 				dataset.setNumPageViews(dataset.getNumPageViews() + 1);
-				numberOfGenes = GeneDAO.getCountByDataset(query);
-				numberOfGeneAttributeAssociations = DatasetDAO.getCountGeneAttributeAssocations(query);
+				numGenes = GeneDAO.getCountByDataset(query);
+				numGeneAttributeAssociations = DatasetDAO.getCountGeneAttributeAssocations(query);
 				attributesFromDataset = AttributeDAO.getFromDataset(query);
 			}
 			HibernateUtil.commitTransaction();
@@ -52,8 +52,8 @@ public class DatasetPage extends HttpServlet {
 			request.setAttribute("query", query);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
 		} else {
-			request.setAttribute("numberOfGenes", numberOfGenes);
-			request.setAttribute("numberOfGeneAttributeAssociations", numberOfGeneAttributeAssociations);
+			request.setAttribute("numGenes", numGenes);
+			request.setAttribute("numGeneAttributeAssociations", numGeneAttributeAssociations);
 			request.setAttribute("attributesFromDataset", attributesFromDataset);
 			request.setAttribute("dataset", dataset);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp").forward(request, response);
