@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
     	<%@include file="globalIncludes.html" %>
-        <%@include file="commonIncludes.html" %>
+    	<%@include file="commonTitle.html" %>
 		<%--<link rel="stylesheet" href="style/lib/bootstrap-switch.css">
 		<link rel="stylesheet" href="style/lib/dc.css">
 		<link rel="stylesheet" href="style/lib/jquery.accordion.css">

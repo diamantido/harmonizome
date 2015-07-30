@@ -1,9 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<%@include file="globalIncludes.html" %>
-		<%@include file="commonIncludes.html" %>
-		<script>$(function() { HMZ(); })</script>
+    	<%@include file="globalIncludes.html" %>
 		<title>Query Not Found</title>
 	</head>
 	<body>

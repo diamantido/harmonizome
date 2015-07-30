@@ -2,13 +2,8 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<%@include file="globalIncludes.html" %>
-		<%@include file="commonIncludes.html" %>
-		<script>
-			$(function() {
-				HMZ();
-			});
-		</script>
+    	<%@include file="globalIncludes.html" %>
+    	<%@include file="commonTitle.html" %>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>

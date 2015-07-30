@@ -15,12 +15,7 @@ List<String> attributeSuggestions = (List<String>) request.getAttribute("attribu
 <html lang="en">
     <head>
     	<%@include file="globalIncludes.html" %>
-        <%@include file="commonIncludes.html" %>
-        <script>
-			$(function() {
-				HMZ();
-			});
-		</script>
+    	<%@include file="commonTitle.html" %>
     </head>
     <body>
 		<%@include file="navbar.html" %>

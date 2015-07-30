@@ -5,20 +5,8 @@
 <html lang="en">
     <head>
     	<%@include file="globalIncludes.html" %>
-
-		<title>Page Not Found</title>
-
-		<link rel="shortcut icon" href="image/logo_16x16.png?v=c">
-		<link rel="stylesheet" type='text/css' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-		<!-- We need jQuery UI's CSS to hide aria elements. -->
-		<link rel="stylesheet" type='text/css' href="http://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css">
-		<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,700' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" type="text/css" href="/Harmonizome/style/css/common.css">
-
-		<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
-		<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-		<script src="script/common.js"></script>
-		<script>$(function() { HMZ(); });</script>
+    	<%@include file="commonIncludes.html" %>
+    	<title>Page Not Found</title>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>

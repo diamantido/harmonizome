@@ -5,7 +5,7 @@
 <html lang="en">
     <head>
     	<%@include file="globalIncludes.html" %>
-        <%@include file="commonIncludes.html" %>
+    	<%@include file="commonTitle.html" %>
     </head>
     <body>
 		<%@include file="navbarWithSearch.jsp" %>

@@ -18,7 +18,7 @@ Map<String, Long> stats = (Map<String, Long>) request.getAttribute("stats");
 <html lang="en">
     <head>
     	<%@include file="globalIncludes.html" %>
-        <%@include file="commonIncludes.html" %>
+    	<%@include file="commonTitle.html" %>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
         <script>
         $(function() {
