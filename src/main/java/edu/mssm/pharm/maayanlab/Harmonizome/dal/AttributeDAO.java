@@ -195,4 +195,8 @@ public class AttributeDAO {
 	public static List<String> getSuggestions(String query) {
 		return GenericDAO.getSuggestions("attribute", "name_from_dataset", query);
 	}
+	
+	public static List<String> getByPrefix(String query) {
+		return GenericDAO.getByPrefix("attribute", "name_from_dataset", query);		
+	}
 }

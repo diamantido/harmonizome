@@ -3,8 +3,8 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
+		<title><c:out value="Gene - ${gene.symbol} - Harmonizome"/></title>
     	<%@include file="globalIncludes.html" %>
-    	<%@include file="commonTitle.html" %>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>
@@ -22,8 +22,8 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="col-md-2 initial">Name</td>
-							<td class="col-md-10">${gene.name}</td>
+							<td class="col-md-2">Name</td>
+							<td class="col-md-10 initial">${gene.name}</td>
 						</tr>
 						<tr>
 							<td class="col-md-2">Description (from NCBI)</td>

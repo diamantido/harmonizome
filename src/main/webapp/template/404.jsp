@@ -5,7 +5,6 @@
 <html lang="en">
     <head>
     	<%@include file="globalIncludes.html" %>
-    	<%@include file="commonIncludes.html" %>
     	<title>Page Not Found</title>
 	</head>
 	<body>

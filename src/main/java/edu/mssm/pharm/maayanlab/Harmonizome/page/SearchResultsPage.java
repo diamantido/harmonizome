@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
@@ -40,7 +42,7 @@ public class SearchResultsPage extends HttpServlet {
 			Set<Dataset> datasets = searchResults.getDatasets();
 			Set<Gene> genes = searchResults.getGenes();
 			Set<Attribute> attributes = searchResults.getAttributes();
-			String summary = buildSummary(datasets, genes, attributes);
+			String summary = buildSummary(query, datasets, genes, attributes);
 			if (type != null) {
 				/* This configures the view to show a "clear" filter. */
 				request.setAttribute("isFilteredPage", true);
@@ -59,25 +61,18 @@ public class SearchResultsPage extends HttpServlet {
 		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "notFound.jsp").forward(request, response);
 	}
 
-	private String buildSummary(Set<Dataset> datasets, Set<Gene> genes, Set<Attribute> attributes) {
-		String datasetCount = datasets.size() == 0 ? "" : Integer.toString(datasets.size()) + " datasets";
-		String geneCount = genes.size() == 0 ? "" : Integer.toString(genes.size()) + " genes";
-		String attributeCount = attributes.size() == 0 ? "" : Integer.toString(attributes.size()) + " gene sets";
-		String[] counts = { datasetCount, geneCount, attributeCount };
-		StringBuilder countSb = new StringBuilder();
-		boolean first = true;
-		for (int i = 0; i < counts.length; i++) {
-			String c = counts[i];
-		    if (c.equals("")) {
-		    	continue;
-		    }
-		    if (first) {
-		        first = false;
-		    } else {
-		    	countSb.append(", ");
-		    }
-		    countSb.append(c);
+	private String buildSummary(String query, Set<Dataset> datasets, Set<Gene> genes, Set<Attribute> attributes) {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Results for ").append("\"").append(query).append("\": ");
+		if (datasets.size() != 0) {
+			sb.append(datasets.size()).append(datasets.size() == 1 ? " dataset, " : " datasets, ");
 		}
-		return countSb.toString();
+		if (genes.size() != 0) {
+			sb.append(genes.size()).append(genes.size() == 1 ? " gene, " : " genes, ");
+		}		
+		if (attributes.size() != 0) {
+			sb.append(attributes.size()).append(attributes.size() == 1 ? " gene set, " : " gene sets, ");
+		}
+		return StringUtils.removeEnd(sb.toString(), ", ");
 	}
 }

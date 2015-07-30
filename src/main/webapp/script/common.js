@@ -1,51 +1,24 @@
-$(function(config) {
+$(function() {
 
 	/* Code executes here
-	 * --------------------------------------------------------------------- */
-	$.fn.noop = function() {
-		return this;
-	};
-	
-	config = config || {};
-	
+	 * --------------------------------------------------------------------- */	
 	var $dataTables = $('.data-table');
 	if ($dataTables.length && typeof $().dataTable !== 'undefined') {
 		setupDataTables($dataTables);
 	}
-	setupShowByGroupFunctionality();
-	if (config.UP_GENES) {
-		setupDownloadLinks(config.UP_GENES);
-		setupEnrichrLink(config.UP_GENES);
-		
-	}
-	if (config.DOWN_GENES) {
-		setupDownloadLinks(config.DOWN_GENES);
-		setupEnrichrLink(config.DOWN_GENES);
-	}
-
 	var $searchEl = $('.search');
 	if ($searchEl.length) {
 		setupSearch($searchEl);
+	}	
+	setupTooltips();
+	setupShowByGroupFunctionality();
+	if (false) {
+		setupDownloadLinks();
+		setupEnrichrLink();
+		
 	}
 	
-	setupTooltips();
-	
 	/* --------------------------------------------------------------------- */
-
-	/* Utility function for getting the list of genes from the page.
-	 */
-	function getGeneSet($el) {
-		var genes = [],
-			firstRowSkipped = false;
-		$.each(i, $el.find('tr'), function(tr) {
-			if (firstRowSkipped) {
-				var symbol = $(tr).find('td a').html();
-				genes.push(symbol);
-			}
-			firstRowSkipped = true;
-		});
-		return genes;
-	};
 	
 	/* Bind events for showing genes and attributes by group.
 	 */

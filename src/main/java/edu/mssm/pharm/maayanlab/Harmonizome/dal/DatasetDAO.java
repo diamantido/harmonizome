@@ -91,4 +91,8 @@ public class DatasetDAO {
 	public static List<String> getSuggestions(String query) {
 		return GenericDAO.getSuggestions("dataset", "name", query);
 	}
+
+	public static List<String> getByPrefix(String query) {
+		return GenericDAO.getByPrefix("dataset", "name", query);		
+	}
 }

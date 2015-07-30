@@ -16,6 +16,8 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -28,6 +30,8 @@ public class SuggestAPI extends HttpServlet {
 
 	private static final Gson gson;
 
+	private static final int MAX_ATTRIBUTES_TO_SUGGEST = 100;
+	
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gson = gsonBuilder.create();
@@ -41,7 +45,16 @@ public class SuggestAPI extends HttpServlet {
 		String json = "";
 		try {
 			HibernateUtil.beginTransaction();
-			suggestions = GeneDAO.getByPrefix(query);
+			suggestions.addAll(GeneDAO.getByPrefix(query));
+			suggestions.addAll(DatasetDAO.getByPrefix(query));
+			
+			// There are a lot of attributes. Don't suggest everything.
+			List<String> attributeSuggestions = AttributeDAO.getByPrefix(query);
+			if (attributeSuggestions.size() > MAX_ATTRIBUTES_TO_SUGGEST) {
+				attributeSuggestions = attributeSuggestions.subList(0, MAX_ATTRIBUTES_TO_SUGGEST);
+			}
+			suggestions.addAll(attributeSuggestions);
+			
 			json = gson.toJson(suggestions);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
