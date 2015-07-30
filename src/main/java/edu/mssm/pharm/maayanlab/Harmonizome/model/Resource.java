@@ -134,4 +134,8 @@ public class Resource {
 	public String getUrlEncodedName() throws UnsupportedEncodingException {
 		return URLCodec.encode(name);
 	}
+	
+	public String getEndpoint() {
+		return "resource";
+	}
 }

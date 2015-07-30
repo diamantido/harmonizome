@@ -270,4 +270,8 @@ public class Dataset {
 	public String getEllipsizedDescription() {
 		return Ellipsizer.trim(getDescription(), Ellipsizer.MAX_DESCRIPTION_LENGTH);
 	}
+	
+	public String getEndpoint() {
+		return "dataset";
+	}
 }

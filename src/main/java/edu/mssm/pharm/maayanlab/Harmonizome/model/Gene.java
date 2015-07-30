@@ -78,7 +78,7 @@ public class Gene {
 	public int getId() {
 		return id;
 	}
-
+	
 	public String getSymbol() {
 		return symbol;
 	}
@@ -179,5 +179,9 @@ public class Gene {
 	 * ----------------- */
 	public String getUrlEncodedSymbol() throws UnsupportedEncodingException {
 		return URLCodec.encode(symbol);
+	}
+
+	public String getEndpoint() {
+		return "gene";
 	}
 }

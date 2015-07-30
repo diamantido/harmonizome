@@ -236,7 +236,7 @@ ul {
   padding-bottom: 10px;
 }
 .search-results-page {
-  margin-top: 20px;
+  padding-top: 20px;
   /* Show once DataTables is ready. */
 }
 .search-results-page h3 {

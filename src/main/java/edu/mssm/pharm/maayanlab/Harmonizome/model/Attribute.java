@@ -183,4 +183,8 @@ public class Attribute {
 	public String getUrlEncodedNameFromDataset() throws UnsupportedEncodingException {
 		return URLCodec.encode(nameFromDataset);
 	}
+	
+	public String getEndpoint() {
+		return "gene_set";
+	}
 }

@@ -34,7 +34,7 @@ public class GeneSerializer implements JsonSerializer<Gene> {
 		if (gene.getNcbiEntrezGeneUrl() != "") {
 			result.add("ncbiEntrezGeneUrl", new JsonPrimitive(gene.getNcbiEntrezGeneUrl()));
 		}
-		String href = Constant.API_URL + Constant.GENE_URL + "/" + gene.getSymbol();
+		String href = Constant.API_URL + gene.getEndpoint() + "/" + gene.getSymbol();
 		result.add(Constant.REST_LOCATION_PROP, new JsonPrimitive(href));
 
 		return result;

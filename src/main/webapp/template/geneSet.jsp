@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.util.List" %>
@@ -52,81 +54,70 @@ Attribute attribute = (Attribute) request.getAttribute("attribute");
 						<tr>
 							<td class="col-sm-3">Source</td>
 							<td class="col-sm-9">
-								<a href="<%= Constant.DATASET_URL %>/<%= URLCodec.encode(dataset.getName()) %>"><%= dataset.getName() %></a>
+								<a href="${dataset.endpoint}/${dataset.urlEncodedName}">${dataset.name}</a>
 							</td>
 						</tr>
 						<tr>
 							<td class="col-sm-3">Category</td>
-							<td class="col-sm-9"><%= attribute.getAttributeType().getName() %></td>
+							<td class="col-sm-9">${attribute.attributeType.name}</td>
 						</tr>
-						<tr>
-							<td class="col-sm-3">Description</td>
-							<% String description = "";
-							if (attribute.getDescriptionFromNamingAuthority() != null) {
-								description = attribute.getDescriptionFromNamingAuthority();
-							} %>
-							<td class="col-sm-9"><%= description %>
-								(<a href="naming_authority/<%= URLCodec.encode(attribute.getNamingAuthority().getName()) %>"><%= attribute.getNameFromNamingAuthority() %></a>
-								:
-								<a href="<%= attribute.getUrlFromNamingAuthority() %>" target="_blank"><%= attribute.getIdFromNamingAuthority() %></a>)
-							</td>
-						</tr>
-						<% if (attribute.getUrlFromDataset() != null) { %>
+						<c:if test="${attribute.descriptionFromNamingAuthority != null}">
+							<tr>
+								<td class="col-sm-3">Description</td>
+								<td>${attribute.descriptionFromNamingAuthority} (<a href="${attribute.namingAuthority.endpoint}/${attribute.namingAuthority.urlEncodedName}">${attribute.namingAuthority.name}</a> : <a href="${attribute.urlFromNamingAuthority}" target="_blank">${attribute.idFromNamingAuthority}</a>)
+								</td>
+							</tr>
+						</c:if>
+						<c:if test="${attribute.urlFromDataset != null}">
 							<tr>
 								<td class="col-sm-3">External Link</td>
 								<td class="col-sm-9">
-									<a href="<%= attribute.getUrlFromDataset() %>" target="_blank"><%= attribute.getUrlFromDataset() %></a>
+									<a href="${attribute.urlFromDataset}" target="_blank">${attribute.urlFromDataset}</a>
 								</td>
 							</tr>
-						<% } %>
+						</c:if>
+						<!-- TODO: This should blank if no synonyms exist. -->
+						<c:if test="true">
+							<tr>
+								<td class="col-sm-3">Synonyms</td>
+								<td class="col-sm-9"></td>
+							</tr>
+						</c:if>
 						<tr>
-							<td class="col-sm-3">Synonyms</td>
-							<td class="col-sm-9"></td>
+							<td class="col-sm-3">Downloads &amp; Tools</td>
+							<td class="col-sm-9">
+								<div class="tools">
+									<button class="btn btn-default glyphicon glyphicon-file" data-toggle="tooltip" data-placement="right" title="Download the gene set as a plain text, newline separated list of genes."></button>
+									<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access the gene set from the API."></button>
+									<button class="btn btn-default enrichr" data-toggle="tooltip" data-placement="right" title="Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.">
+										<img src="image/tool/enrichr-bw.png">
+									</button>
+								</div>
+							</td>
 						</tr>
 					</table>
 				</section>
-				<section>
-					<h2>Downloads &amp; Tools</h2>
-					<div class="tools">
-						<button class="btn btn-default glyphicon glyphicon-file" data-toggle="tooltip" data-placement="right" title="Download the gene set as a plain text, newline separated list of genes."></button>
-						<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access the gene set from the API."></button>
-						<button class="btn btn-default enrichr" data-toggle="tooltip" data-placement="right" title="Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.">
-							<img src="image/tool/enrichr-bw.png">
-						</button>
-					</div>
-				</section>
 				<section class="list">
-					<%
-						int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();
-						String desciption = StringUtils.capitalize(dataset.getGeneSetDescription());
-						desciption = desciption.replace("{0}", attribute.getNameFromDataset());
-						desciption = numGenes + " " + desciption;
-					%>
-					<h2><%= desciption %></h2>
+					<h2>Genes</h2>
+					<p class="instruction">${geneSetDescription}</p>
 					<div>
-					<% Iterator<Gene> posIter = genesByAttribute.getLeft().iterator();
-					if (posIter.hasNext()) { %>
-						<div><strong><%= StringUtils.capitalize(dataset.getPositiveAssociation()) %></strong></div>
-						<% while (posIter.hasNext()) {
-							Gene gene = posIter.next();
-							String symbol = gene.getSymbol();
-						%>
-							<a href="gene/<%= URLCodec.encode(symbol) %>"><%= symbol %></a><% if (posIter.hasNext()) { %>, <% } %>
-						<% }
-					} %>
+						<c:if test="${dataset.positiveAssociation != null}">
+							<p><strong>${dataset.positiveAssociation}</strong></p>
+						</c:if>
+						<c:forEach var="gene" items="${genesByAttribute.left}" varStatus="loop">
+							<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a><c:if test="${!loop.last}">, </c:if>
+						</c:forEach>
 					</div>
-					<% Iterator<Gene> negIter = genesByAttribute.getRight().iterator();
-					if (negIter.hasNext()) { %>
-					<div class="last">
-						<div><strong><%= StringUtils.capitalize(dataset.getNegativeAssociation()) %></strong></div>
-						<% while (negIter.hasNext()) {
-							Gene gene = negIter.next();
-							String symbol = gene.getSymbol();
-						%>
-							<a href="gene/<%= URLCodec.encode(symbol) %>"><%= symbol %></a><% if (negIter.hasNext()) { %>, <% } %>
-						<% } %>
-					</div>
-					<% } %>
+					<c:if test="${fn:length(genesByAttribute.right) != 0}">
+						<div class="last">
+							<c:if test="${dataset.negativeAssociation != null}">
+								<p><strong>${dataset.negativeAssociation}</strong></p>
+							</c:if>
+							<c:forEach var="gene" items="${genesByAttribute.right}" varStatus="loop">
+								<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a><c:if test="${!loop.last}">, </c:if>
+							</c:forEach>
+						</div>
+					</c:if>
 				</section>
 			</div>
 			<%@include file="footer.html"%>

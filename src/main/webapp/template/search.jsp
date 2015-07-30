@@ -16,7 +16,7 @@
 		<div class="wrapper">
 			<div class="content container-full">
 				<div class="container search-results-page">
-					<div class="col-md-12 metadata">
+					<div class="metadata">
 						<p class="instruction">${summary}</p>
 						<p>
 							Filter By:
@@ -46,61 +46,60 @@
 							</c:choose>
 						</p>
 					</div>
-					<div class="col-md-12">
-						<table class="table data-table">
-							<thead>
+					<table class="table data-table">
+						<thead>
+							<tr>
+								<th>Name</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="dataset" items="${datasets}">
 								<tr>
-									<th class="col-md-12">Name</th>
+									<td>
+										<h3>
+											<a href="${dataset.endpoint}/${dataset.urlEncodedName}">${dataset.name}</a> <span class="note">Dataset</span>
+										</h3>
+										<div class="description">
+											<p>
+												From <a href="${dataset.resource.endpoint}/${dataset.resource.urlEncodedName}">${dataset.resource.name}</a>
+											</p>
+											<p>${dataset.description} (${dataset.datasetGroup.name})</p>
+										</div>
+									</td>
 								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="dataset" items="${datasets}">
-									<tr>
-										<td class="col-md-10">
-											<h3>
-												<a href="dataset/${dataset.urlEncodedName}">${dataset.name}</a> <span class="note">Dataset</span>
-											</h3>
-											<div class="description">
-												<p>
-													From <a href="resource/${dataset.resource.urlEncodedName}">${dataset.resource.name}</a>
-												</p>
-												<p>${dataset.description} (${dataset.datasetGroup.name})</p>
-											</div>
-										</td>
-									</tr>
-								</c:forEach>
-								<c:forEach var="gene" items="${genes}">
-									<tr>
-										<td class="col-md-12">
-											<h3>
-												<a href="gene/${gene.urlEncodedSymbol}">${gene.symbol}</a> <span class="note">Gene</span>
-											</h3>
-											<div class="description">
-												<c:if test="${gene.name != null}">
-													<p><em>${gene.name}</em></p>
-												</c:if>
-												<c:if test="${gene.description != null}">
-													<p>${gene.description}</p>
-												</c:if>
-											</div>
-										</td>
-									</tr>
-								</c:forEach>
-								<c:forEach var="attribute" items="${attributes}">
-									<tr>
-										<td class="col-md-12">
-											<h3>
-												<a href="gene/${attribute.urlEncodedNameFromDataset}">${attribute.nameFromDataset}</a> <span class="note">Gene Set</span>
-											</h3>
-											<div class="description">
-												<p>${fn:replace(attribute.dataset.geneSetDescription, "{0}", attribute.nameFromDataset)}</p>
-											</div>
-										</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+							</c:forEach>
+							<c:forEach var="gene" items="${genes}">
+								<tr>
+									<td>
+										<h3>
+											<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a> <span class="note">Gene</span>
+										</h3>
+										<div class="description">
+											<c:if test="${gene.name != null}">
+												<p><em>${gene.name}</em></p>
+											</c:if>
+											<c:if test="${gene.description != null}">
+												<p>${gene.description}</p>
+											</c:if>
+										</div>
+									</td>
+								</tr>
+							</c:forEach>
+							<c:forEach var="attribute" items="${attributes}">
+								<tr>
+									<td>
+										<h3>
+											<a href="${attribute.endpoint}/${attribute.urlEncodedNameFromDataset}/${attribute.dataset.urlEncodedName}">${attribute.nameFromDataset}</a> <span class="note">Gene Set</span>
+										</h3>
+										<div class="description">
+											<p><em>From <a href="${attribute.dataset.urlEncodedName}">${attribute.dataset.name}</a></em></p>
+											<p>${fn:replace(attribute.dataset.geneSetDescription, "{0}", attribute.nameFromDataset)}</p>
+										</div>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<%@include file="footer.html" %>
