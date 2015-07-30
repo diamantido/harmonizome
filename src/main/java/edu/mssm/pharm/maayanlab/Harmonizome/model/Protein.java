@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
@@ -105,10 +106,12 @@ public class Protein {
 	
 	/* Utility functions
 	 * ----------------- */
+	@Transient
 	public String getUrlEncodedName() throws UnsupportedEncodingException {
 		return URLCodec.encode(name);
 	}
 
+	@Transient
 	public String getEndpoint() {
 		return "protein";
 	}

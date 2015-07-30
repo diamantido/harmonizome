@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
@@ -131,10 +132,12 @@ public class Resource {
 	
 	/* Utility functions
 	 * ----------------- */
+	@Transient
 	public String getUrlEncodedName() throws UnsupportedEncodingException {
 		return URLCodec.encode(name);
 	}
 	
+	@Transient
 	public String getEndpoint() {
 		return "resource";
 	}

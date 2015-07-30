@@ -15,7 +15,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
@@ -263,15 +265,23 @@ public class Dataset {
 	
 	/* Utility functions
 	 * ----------------- */
+	@Transient
 	public String getUrlEncodedName() throws UnsupportedEncodingException {
 		return URLCodec.encode(name);
 	}
-	
+
+	@Transient
 	public String getEllipsizedDescription() {
 		return Ellipsizer.trim(getDescription(), Ellipsizer.MAX_DESCRIPTION_LENGTH);
 	}
 	
+	@Transient
 	public String getEndpoint() {
 		return "dataset";
+	}
+	
+	@Transient
+	public String getCssClassName() {
+		return StringUtils.join(name.replace(",", "").split(" "), "-");
 	}
 }

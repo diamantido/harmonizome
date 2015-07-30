@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
@@ -177,10 +178,12 @@ public class Gene {
 	
 	/* Utility functions
 	 * ----------------- */
+	@Transient
 	public String getUrlEncodedSymbol() throws UnsupportedEncodingException {
 		return URLCodec.encode(symbol);
 	}
 
+	@Transient
 	public String getEndpoint() {
 		return "gene";
 	}

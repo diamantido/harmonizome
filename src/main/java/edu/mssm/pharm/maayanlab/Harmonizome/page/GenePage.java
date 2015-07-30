@@ -1,7 +1,9 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +34,10 @@ public class GenePage extends HttpServlet {
 		String query = URLUtil.getPath(request, true);
 		Gene gene = null;
 		boolean isSynonym = false;
+		int numAssociations = 0;
+		int numCategories = 0;
+		int numDatasets = 0;
+		String entityList = "";
 		List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDataset = null;
 
 		try {
@@ -46,6 +52,15 @@ public class GenePage extends HttpServlet {
 				}
 				if (gene != null) {
 					attributesByDataset = AttributeDAO.getByDatasetsFromGene(query);
+					// We could make another DB query, but the number datasets
+					// should never be greater than ~100.
+					Set<String> uniqueDatasetGroups = new HashSet<String>();
+					for (Pair<Dataset, Pair<List<Attribute>, List<Attribute>>> pair : attributesByDataset) {
+						uniqueDatasetGroups.add(pair.getLeft().getDatasetGroup().getName());
+						numAssociations += pair.getRight().getRight().size() + pair.getRight().getRight().size();
+					}
+					numCategories = uniqueDatasetGroups.size();
+					numDatasets = attributesByDataset.size();
 				}
 			}
 			HibernateUtil.commitTransaction();
@@ -57,6 +72,8 @@ public class GenePage extends HttpServlet {
 		if (gene == null) {
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
 		} else {
+			String allAssociationsSummary = numAssociations + " associations covering " + numCategories + " categories of biological entities " + entityList + " from " + numDatasets + " datasets";
+			request.setAttribute("allAssociationsSummary", allAssociationsSummary);
 			request.setAttribute("note", isSynonym ? "Gene; redirected from " + query : "Gene");
 			request.setAttribute("gene", gene);
 			request.setAttribute("attributesByDataset", attributesByDataset);
