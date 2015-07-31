@@ -19,7 +19,6 @@ import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSimpleSerializer;
@@ -46,28 +45,27 @@ public class DatasetAPI extends HttpServlet {
 	
 	public void doGetAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
+		Map<String, Object> datasetSchema = new HashMap<String, Object>();
 		PrintWriter out = response.getWriter();
 		try {
 			HibernateUtil.beginTransaction();
-			gsonBuilder.registerTypeAdapter(Gene.class, new DatasetSimpleSerializer());
+			gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSimpleSerializer());
 			gson = gsonBuilder.create();
-			Map<String, Object> datasetSchema = new HashMap<String, Object>();
-			List<Dataset> datasets = null;
-			datasets = DatasetDAO.getAll();
+			List<Dataset> datasets = DatasetDAO.getAll();
 			datasetSchema.put("datasets", datasets);
-			out.write(gson.toJson(datasetSchema));
-			out.flush();
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
+		out.write(gson.toJson(datasetSchema));
+		out.flush();
 	}
 	
 	public void doGetBySymbol(HttpServletRequest request, HttpServletResponse response, String query) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Gene.class, new DatasetSerializer());
+		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSerializer());
 		gson = gsonBuilder.create();
 		Dataset dataset = null;
 		try {
@@ -77,7 +75,7 @@ public class DatasetAPI extends HttpServlet {
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();
 		}
-		out.write(gson.toJson(dataset, Gene.class));
+		out.write(gson.toJson(dataset, Dataset.class));
 		out.flush();
 	}
 }

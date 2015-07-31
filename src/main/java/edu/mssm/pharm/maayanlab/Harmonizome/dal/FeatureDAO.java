@@ -8,7 +8,7 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class FeatureDAO {
 
 	@SuppressWarnings("unchecked")
-	public static List<Feature> getByAttribute(String datasetNameFromDataset, String datasetName) {
+	public static List<Feature> getByGeneSet(String datasetNameFromDataset, String datasetName) {
 		return (List<Feature>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(

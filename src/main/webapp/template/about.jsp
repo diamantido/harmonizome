@@ -31,7 +31,7 @@ Map<String, Long> stats = (Map<String, Long>) request.getAttribute("stats");
         	var $parentEl = $('#treemap'),
 	            color = d3.scale.ordinal()
 	            	.domain(["disease or phenotype associations", "transcriptomics", "structural or functional annotations", "physical interactions", "genomics", "proteomics"])
-	            	.range(["#2AB69D", "#E65848", "#FDC536", "#2F77A3", "#8BE3E8", "#EB7F00"])
+	            	.range(["#aaa", "#aaa", "#aaa", "#aaa", "#aaa", "#aaa"])
 	            div = d3.select("#treemap").append('div').style("position", "relative"),
 	          	width = $parentEl.width(),
 		       	height = $parentEl.height();
@@ -82,7 +82,7 @@ Map<String, Long> stats = (Map<String, Long>) request.getAttribute("stats");
 					</div>
 					<div class="row">
 						<div class="col-md-2">
-							<h3>Metadata</h3>
+							<h3>Summary</h3>
 							<ul class="list-unstyled">
 							<% for (Map.Entry<String, Long> stat : stats.entrySet()) { %>
 								<li><strong><%= stat.getValue() %></strong> <%= stat.getKey() %></li>

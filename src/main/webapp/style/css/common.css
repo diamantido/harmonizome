@@ -313,13 +313,13 @@ ul {
   color: #444444;
 }
 .badge.dataset {
-  background-color: #e65848;
+  background-color: #2f77a3;
 }
 .badge.gene {
-  background-color: #2ab69d;
+  background-color: #fdc536;
 }
 .badge.attribute {
-  background-color: #2f77a3;
+  background-color: #eb7f00;
 }
 .badge.dataset,
 .badge.gene,

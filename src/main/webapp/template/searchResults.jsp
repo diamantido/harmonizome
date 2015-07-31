@@ -24,17 +24,17 @@
 								</c:when>
 								<c:otherwise>
 									<c:if test="${fn:length(datasets) != 0}">
-										<span class="badge">
+										<span class="badge dataset">
 											<a href="${Constant.SEARCH_URL}?q=${query}&t=dataset">Dataset</a>
 										</span>
 									</c:if>
 									<c:if test="${fn:length(genes) != 0}">
-										<span class="badge">
+										<span class="badge gene">
 											<a href="${Constant.SEARCH_URL}?q=${query}&t=gene">Gene</a>
 										</span>
 									</c:if>
 									<c:if test="${fn:length(attributes) != 0}">
-										<span class="badge">
+										<span class="badge attribute">
 											<a href="${Constant.SEARCH_URL}?q=${query}&t=attribute">Gene Set</a>
 										</span>
 									</c:if>
@@ -53,7 +53,7 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${dataset.endpoint}/${dataset.urlEncodedName}">${dataset.name}</a> <span class="note">Dataset</span>
+											<a href="${dataset.endpoint}/${dataset.urlEncodedName}">${dataset.name}</a> <span class="badge dataset">Dataset</span>
 										</h3>
 										<div class="description">
 											<p>
@@ -68,7 +68,7 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a> <span class="note">Gene</span>
+											<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a> <span class="badge gene">Gene</span>
 										</h3>
 										<div class="description">
 											<c:if test="${gene.name != null}">
@@ -85,7 +85,7 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${attribute.endpoint}/${attribute.urlEncodedNameFromDataset}/${attribute.dataset.urlEncodedName}">${attribute.nameFromDataset}</a> <span class="note">Gene Set</span>
+											<a href="${attribute.endpoint}/${attribute.urlEncodedNameFromDataset}/${attribute.dataset.urlEncodedName}">${attribute.nameFromDataset}</a> <span class="badge attribute">Gene Set</span>
 										</h3>
 										<div class="description">
 											<p><em>From <a href="${attribute.dataset.endpoint}/${attribute.dataset.urlEncodedName}">${attribute.dataset.name}</a></em></p>

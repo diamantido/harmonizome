@@ -53,9 +53,12 @@
 									<a href="${Constant.API_URL}/${attribute.endpoint}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}" target="_blank">
 										<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access the gene set from the API."></button>
 									</a>
-									<button class="btn btn-default enrichr" data-toggle="tooltip" data-placement="right" title="Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.">
-										<img src="image/tool/enrichr.png">
-									</button>
+									<!-- It doesn't make sense to pipe to Enrichr without enough genes -->
+									<c:if test="${fn:length(genesByAttribute.right) <= 1}">
+										<button class="btn btn-default enrichr" data-toggle="tooltip" data-placement="right" title="Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.">
+											<img src="image/tool/enrichr.png">
+										</button>
+									</c:if>
 								</div>
 							</td>
 						</tr>
@@ -72,7 +75,7 @@
 							<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a><c:if test="${!loop.last}">, </c:if>
 						</c:forEach>
 					</div>
-					<c:if test="${fn:length(genesByAttribute.right) != 0}">
+					<c:if test="${genesByAttribute.right != null}">
 						<div class="last">
 							<c:if test="${dataset.negativeAssociation != null}">
 								<p><strong>${dataset.negativeAssociation}</strong></p>

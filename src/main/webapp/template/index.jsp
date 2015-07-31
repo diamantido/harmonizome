@@ -13,7 +13,7 @@
 				<div class="container">
 					<div id="landing" class="row">
 						<div class="col-md-12 text-center">
-							<img src="image/logo_100x96.png">
+							<img src="image/logo_100x87.png">
 							<h1 class="project-title">Harmonizome</h1>
 							<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources.</p>
 						</div>

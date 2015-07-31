@@ -17,6 +17,15 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class AttributeDAO {
 	
 	@SuppressWarnings("unchecked")
+	public static List<Attribute> getAll() {
+		return (List<Attribute>) HibernateUtil.getAll(Attribute.class);
+	}
+	
+	public static List<Attribute> getByCursor(int min, int max) {
+		return GenericDAO.getByCursor(Attribute.class, min, max);
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static List<AttributeGroup> getAttributeGroups() {
 		return (List<AttributeGroup>) HibernateUtil
 			.getCurrentSession()

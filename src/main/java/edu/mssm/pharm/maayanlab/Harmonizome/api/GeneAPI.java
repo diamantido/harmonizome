@@ -44,15 +44,17 @@ public class GeneAPI extends HttpServlet {
 	
 	public void doGetAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSimpleSerializer());
+		gson = gsonBuilder.create();
+
 		String cursor = request.getParameter("cursor");
+		Map<String, Object> geneSchema = new HashMap<String, Object>();
+		List<Gene> genes = null;
+		int next = 0;
+		
 		PrintWriter out = response.getWriter();
 		try {
 			HibernateUtil.beginTransaction();
-			gsonBuilder.registerTypeAdapter(Gene.class, new GeneSimpleSerializer());
-			gson = gsonBuilder.create();
-			Map<String, Object> geneSchema = new HashMap<String, Object>();
-			List<Gene> genes = null;
-			int next;
 			if (cursor == null) {
 				next = Constant.API_MAX_RESULTS;
 				genes = GeneDAO.getByCursor(0, next);
@@ -61,17 +63,17 @@ public class GeneAPI extends HttpServlet {
 				next = c + Constant.API_MAX_RESULTS;
 				genes = GeneDAO.getByCursor(c, next);
 			}
-			
-			String nextString = "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "?cursor=" + next;
-			geneSchema.put("next", nextString);
-			geneSchema.put("genes", genes);
-			out.write(gson.toJson(geneSchema));
-			out.flush();
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
+
+		String nextString = "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "?cursor=" + next;
+		geneSchema.put("next", nextString);
+		geneSchema.put("genes", genes);
+		out.write(gson.toJson(geneSchema));
+		out.flush();
 	}
 	
 	public void doGetBySymbol(HttpServletRequest request, HttpServletResponse response, String query) throws ServletException, IOException {

@@ -18,6 +18,15 @@ public class GenericDAO {
 			.createSQLQuery(sql)
 			.list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static <E> List<E> getByCursor(Class<E> klass, int min, int max) {
+		return (List<E>) HibernateUtil.getCurrentSession()
+			.createCriteria(klass)
+			.setFirstResult(min)
+			.setMaxResults(max)
+			.list();
+	}
 
 	@SuppressWarnings("unchecked")
 	public static List<String> getByPrefix(String table, String field, String query) {

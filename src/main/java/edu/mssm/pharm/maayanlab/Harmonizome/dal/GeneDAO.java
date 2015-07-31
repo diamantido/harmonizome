@@ -13,13 +13,8 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class GeneDAO {
 
-	@SuppressWarnings("unchecked")
 	public static List<Gene> getByCursor(int min, int max) {
-		return (List<Gene>) HibernateUtil.getCurrentSession()
-			.createQuery("FROM Gene")
-			.setFirstResult(min)
-			.setMaxResults(max)
-			.list();
+		return GenericDAO.getByCursor(Gene.class, min, max);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -2,7 +2,7 @@
 	<div class="container">
 		<h1>
 			<a href="" class="pull-left">
-				<img src="image/logo_30x29.png">
+				<img src="image/logo_30x26.png">
 				<span class="project-title">Harmonizome</span>
 			</a>
 		</h1>
