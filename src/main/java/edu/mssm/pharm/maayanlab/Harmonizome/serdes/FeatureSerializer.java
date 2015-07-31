@@ -14,7 +14,8 @@ public class FeatureSerializer implements JsonSerializer<Feature> {
 
 	public JsonElement serialize(final Feature feature, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
-		result.add("name", new JsonPrimitive(feature.getId()));
+		result.add("gene", new JsonPrimitive(feature.getGene().getName()));
+		result.add("thresholdValue", new JsonPrimitive(feature.getThresholdValue()));
 		return result;
 	}
 }

@@ -16,14 +16,14 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/protein/*" })
+@WebServlet(urlPatterns = { "/" + Protein.ENDPOINT + "/*" })
 public class ProteinPage extends HttpServlet {
 
 	private static final long serialVersionUID = 264508702310729565L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.getPath(request, true);
+		String query = URLUtil.getPath(request);
 		System.out.println(query);
 		Protein protein = null;
 		try {

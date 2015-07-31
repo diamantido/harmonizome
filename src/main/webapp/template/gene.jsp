@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -44,6 +45,14 @@
 						<tr>
 							<td class="col-md-2">NCBI Gene ID</td>
 							<td class="col-md-10"><a href="${gene.ncbiEntrezGeneUrl}" target="_blank">${gene.ncbiEntrezGeneId}</a></td>
+						</tr>
+						<tr>
+							<td class="col-md-2">API</td>
+							<td class="col-md-10">
+								<a href="${Constant.API_URL}/${gene.endpoint}/${gene.urlEncodedSymbol}" target="_blank">
+									<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access ${gene.symbol} programmatically."></button>
+								</a>
+							</td>
 						</tr>
 					</table>
 				</section>

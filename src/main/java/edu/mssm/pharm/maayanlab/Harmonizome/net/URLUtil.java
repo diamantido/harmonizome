@@ -6,9 +6,16 @@ import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 
 public class URLUtil {
-		
+
 	public static String getPath(HttpServletRequest request) throws UnsupportedEncodingException {
-		return getPath(request, false);
+		String path = request.getPathInfo();
+		if (pathIsNull(path)) {
+			return null;
+		} else {
+			// Remove the leading slash.
+			String query = path.substring(1);
+			return URLCodec.decode(query);
+		}
 	}
 
 	public static String[] getPathAsArray(HttpServletRequest request, boolean decodeUrl) throws UnsupportedEncodingException {
@@ -27,16 +34,6 @@ public class URLUtil {
 		}
 	}
 
-	public static String getPath(HttpServletRequest request, boolean decodeUrl) throws UnsupportedEncodingException {
-		String path = request.getPathInfo();
-		if (pathIsNull(path)) {
-			return null;
-		} else {
-			String query = path.substring(1);
-			return decodeUrl ? URLCodec.decode(query) : query;
-		}
-	}
-	
 	public static String getParameter(HttpServletRequest request, String param) throws UnsupportedEncodingException {
 		String selectedParam = request.getParameter(param);
 		return selectedParam == null ? null : URLCodec.decode(selectedParam);

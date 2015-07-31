@@ -10,6 +10,11 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class DatasetDAO {
 
+	@SuppressWarnings("unchecked")
+	public static List<Dataset> getAll() {
+		return (List<Dataset>) HibernateUtil.getAll(Dataset.class);
+	}
+
 	public static Long getCount() {
 		return (Long) HibernateUtil
 			.getCurrentSession()

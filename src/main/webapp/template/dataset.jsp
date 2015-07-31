@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -63,6 +64,14 @@
 				    		<td class="capitalize"><c:out value="No. Gene-${dataset.attributeType.name} Associations"/></td>
 				    		<td><c:out value="${numGeneAttributeAssociations}"/></td>
 				    	</tr>
+						<tr>
+							<td class="col-md-2">API</td>
+							<td class="col-md-10">
+								<a href="${Constant.API_URL}/${dataset.endpoint}/${dataset.urlEncodedName}" target="_blank">
+									<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access ${dataset.name} programmatically."></button>
+								</a>
+							</td>
+						</tr>
 				    </table>
 				</section>
 				<section>

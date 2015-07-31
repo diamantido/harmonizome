@@ -16,9 +16,13 @@ public class URLCodec {
 	
 	private static final String geneSetSeparator = "/";
 
-	public static String encode(String url) throws UnsupportedEncodingException {
-		url = url.replace("/", slashReplacement);
-		return URLEncoder.encode(url, characterEncoding);
+	public static String encode(String url) {
+		try {
+			url = url.replace("/", slashReplacement);
+			return URLEncoder.encode(url, characterEncoding);
+		} catch (UnsupportedEncodingException e) {
+			return null;
+		}
 	}
 	
 	public static String decode(String url) throws UnsupportedEncodingException {

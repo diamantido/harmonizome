@@ -18,7 +18,7 @@
 				<a href="visualize">Visualize</a>
 			</li>
 			<li>
-				<a href="api">API</a>
+				<a href="documentation">API</a>
 			</li>
 			<li>
 				<a href="about">About</a>

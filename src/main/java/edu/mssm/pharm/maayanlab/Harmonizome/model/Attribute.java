@@ -1,6 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -75,6 +74,10 @@ public class Attribute {
 	@OneToMany(mappedBy = "attribute")
 	private Set<Feature> features;
 
+	/* Utilities
+	 * --------- */
+	public static final String ENDPOINT = "gene_set";
+	
 	public Attribute() {
 	}
 
@@ -180,11 +183,11 @@ public class Attribute {
 	
 	/* Utility functions
 	 * ----------------- */
-	public String getUrlEncodedNameFromDataset() throws UnsupportedEncodingException {
+	public String getUrlEncodedNameFromDataset() {
 		return URLCodec.encode(nameFromDataset);
 	}
 	
 	public String getEndpoint() {
-		return "gene_set";
+		return ENDPOINT;
 	}
 }

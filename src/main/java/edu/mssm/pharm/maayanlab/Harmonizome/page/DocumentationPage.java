@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
-@WebServlet(urlPatterns = { "/api" })
-public class ApiPage extends HttpServlet {
+@WebServlet(urlPatterns = { "/documentation" })
+public class DocumentationPage extends HttpServlet {
 
 	private static final long serialVersionUID = -7991568598620970482L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "api.jsp").forward(request, response);
+		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "documentation.jsp").forward(request, response);
 	}
 }

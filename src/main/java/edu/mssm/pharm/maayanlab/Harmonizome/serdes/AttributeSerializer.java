@@ -15,10 +15,6 @@ public class AttributeSerializer implements JsonSerializer<Attribute> {
 	public JsonElement serialize(final Attribute attribute, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
 		result.add("name", new JsonPrimitive(attribute.getNameFromDataset()));
-		String description = attribute.getDescriptionFromDataset();
-		if (description != "") {
-			result.add("description", new JsonPrimitive(description));
-		}
 		return result;
 	}
 }

@@ -46,7 +46,12 @@ public class Protein {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "gene_fk")
 	private Gene gene;
-
+	
+	/* Utilities
+	 * --------- */
+	@Transient
+	public static final String ENDPOINT = "protein";
+	
 	public Protein() {
 	}
 	
@@ -113,6 +118,6 @@ public class Protein {
 
 	@Transient
 	public String getEndpoint() {
-		return "protein";
+		return ENDPOINT;
 	}
 }

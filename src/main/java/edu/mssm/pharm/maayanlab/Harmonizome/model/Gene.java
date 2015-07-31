@@ -1,6 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -70,6 +69,10 @@ public class Gene {
 
 	@ManyToMany(mappedBy = "genes")
 	private Set<HgncTerminalFamily> hgncTerminalFamilies;
+
+	/* Utilities
+	 * --------- */
+	public static final String ENDPOINT = "gene";
 	
 	public Gene() {
 	}
@@ -179,12 +182,12 @@ public class Gene {
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedSymbol() throws UnsupportedEncodingException {
+	public String getUrlEncodedSymbol() {
 		return URLCodec.encode(symbol);
 	}
 
 	@Transient
 	public String getEndpoint() {
-		return "gene";
+		return ENDPOINT;
 	}
 }

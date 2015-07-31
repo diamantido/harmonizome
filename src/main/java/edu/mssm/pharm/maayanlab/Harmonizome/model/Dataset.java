@@ -1,6 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
@@ -99,6 +98,11 @@ public class Dataset {
 	
 	@OneToMany(mappedBy = "resource")
 	private List<Publication> publications;
+	
+	/* Utilities
+	 * --------- */
+	@Transient
+	public static final String ENDPOINT = "dataset";
 	
 	public Dataset() {
 	}
@@ -268,7 +272,7 @@ public class Dataset {
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedName() throws UnsupportedEncodingException {
+	public String getUrlEncodedName() {
 		return URLCodec.encode(name);
 	}
 
@@ -279,7 +283,7 @@ public class Dataset {
 	
 	@Transient
 	public String getEndpoint() {
-		return "dataset";
+		return ENDPOINT;
 	}
 	
 	@Transient

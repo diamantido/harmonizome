@@ -16,7 +16,7 @@ public class Feature {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private Long id;
 
 	@Column(name = "threshold_value")
 	private double thresholdValue;
@@ -38,8 +38,12 @@ public class Feature {
 		this.attribute = attribute;
 	}
 
-	public int getId() {
+	public Long getId() {
 		return id;
+	}
+	
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public double getThresholdValue() {

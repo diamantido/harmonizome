@@ -17,24 +17,26 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSimpleSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "/*" })
-public class GeneAPI extends HttpServlet {
+@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Dataset.ENDPOINT + "/*" })
+public class DatasetAPI extends HttpServlet {
 
-	private static final long serialVersionUID = -5484736863604374714L;
+	private static final long serialVersionUID = 1695966393931239258L;
 
 	private static Gson gson;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = URLUtil.getPath(request);
+		System.out.println(query);
 		if (query == null) {
 			doGetAll(request, response);
 		} else {
@@ -44,28 +46,16 @@ public class GeneAPI extends HttpServlet {
 	
 	public void doGetAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		String cursor = request.getParameter("cursor");
 		PrintWriter out = response.getWriter();
 		try {
 			HibernateUtil.beginTransaction();
-			gsonBuilder.registerTypeAdapter(Gene.class, new GeneSimpleSerializer());
+			gsonBuilder.registerTypeAdapter(Gene.class, new DatasetSimpleSerializer());
 			gson = gsonBuilder.create();
-			Map<String, Object> geneSchema = new HashMap<String, Object>();
-			List<Gene> genes = null;
-			int next;
-			if (cursor == null) {
-				next = Constant.API_MAX_RESULTS;
-				genes = GeneDAO.getByCursor(0, next);
-			} else {
-				Integer c = Integer.parseInt(cursor);
-				next = c + Constant.API_MAX_RESULTS;
-				genes = GeneDAO.getByCursor(c, next);
-			}
-			
-			String nextString = "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "?cursor=" + next;
-			geneSchema.put("next", nextString);
-			geneSchema.put("genes", genes);
-			out.write(gson.toJson(geneSchema));
+			Map<String, Object> datasetSchema = new HashMap<String, Object>();
+			List<Dataset> datasets = null;
+			datasets = DatasetDAO.getAll();
+			datasetSchema.put("datasets", datasets);
+			out.write(gson.toJson(datasetSchema));
 			out.flush();
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
@@ -77,20 +67,17 @@ public class GeneAPI extends HttpServlet {
 	public void doGetBySymbol(HttpServletRequest request, HttpServletResponse response, String query) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSerializer());
+		gsonBuilder.registerTypeAdapter(Gene.class, new DatasetSerializer());
 		gson = gsonBuilder.create();
-		Gene gene = null;
+		Dataset dataset = null;
 		try {
 			HibernateUtil.beginTransaction();
-			gene = GeneDAO.getBySymbol(query);
-			if (gene == null) {
-				gene = GeneDAO.getBySynonymSymbol(query);
-			}
+			dataset = DatasetDAO.getByName(query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();
 		}
-		out.write(gson.toJson(gene, Gene.class));
+		out.write(gson.toJson(dataset, Gene.class));
 		out.flush();
 	}
 }

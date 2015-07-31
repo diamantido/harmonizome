@@ -23,7 +23,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { Constant.API_URL + "/suggest/*" })
+@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Constant.SUGGEST_URL + "/*" })
 public class SuggestAPI extends HttpServlet {
 
 	private static final long serialVersionUID = 778955897675398125L;
@@ -39,7 +39,7 @@ public class SuggestAPI extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.getPath(request, true);
+		String query = URLUtil.getPath(request);
 		List<String> suggestions = new ArrayList<String>();
 		PrintWriter out = response.getWriter();
 		String json = "";

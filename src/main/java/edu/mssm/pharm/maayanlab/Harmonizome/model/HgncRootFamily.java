@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
 
@@ -40,6 +41,11 @@ public class HgncRootFamily {
 	@JoinTable(name = "hgnc_root_families_to_genes", joinColumns = { @JoinColumn(name = "hgnc_root_family_fk") }, inverseJoinColumns = { @JoinColumn(name = "gene_fk") })
 	private Set<Gene> genes;
 
+	/* Getters & Setters 
+	 * ----------------- */
+	@Transient
+	public static final String ENDPOINT = "gene_family";
+	
 	public HgncRootFamily() {
 	}
 
@@ -87,11 +93,13 @@ public class HgncRootFamily {
 	
 	/* Utility functions
 	 * ----------------- */
+	@Transient
 	public String getUrlEncodedName() throws UnsupportedEncodingException {
 		return URLCodec.encode(name);
 	}
 
+	@Transient
 	public String getEndpoint() {
-		return "gene_family";
+		return ENDPOINT;
 	}
 }

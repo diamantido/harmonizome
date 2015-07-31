@@ -30,8 +30,7 @@ public class GenePage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String query = URLUtil.getPath(request, true);
+		String query = URLUtil.getPath(request);
 		Gene gene = null;
 		boolean isSynonym = false;
 		int numAssociations = 0;

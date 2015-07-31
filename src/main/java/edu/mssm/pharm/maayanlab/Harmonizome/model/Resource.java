@@ -44,26 +44,30 @@ public class Resource {
 	@Column(name = "image")
 	private String image;
 	
+	/* Foreign key relationships
+	 * ------------------------- */
 	@OneToMany(mappedBy = "resource")
 	private List<Dataset> datasets;
 
 	@OneToMany(mappedBy = "resource")
 	private List<Publication> publications;
+	
+	/* Utilities
+	 * ---------
+	 */
+	public static final String ENDPOINT = "resource";
 
 	public Resource() {
 	}
 
-	public Resource(String name, String acronym, String shortDescription, String longDescription, String url, String image) {
-		this.name = name;
-		this.acronym = acronym;
-		this.shortDescription = shortDescription;
-		this.longDescription = longDescription;
-		this.url = url;
-		this.image = image;
-	}
-
+	/* Getters & Setters 
+	 * ----------------- */
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -139,6 +143,6 @@ public class Resource {
 	
 	@Transient
 	public String getEndpoint() {
-		return "resource";
+		return ENDPOINT;
 	}
 }

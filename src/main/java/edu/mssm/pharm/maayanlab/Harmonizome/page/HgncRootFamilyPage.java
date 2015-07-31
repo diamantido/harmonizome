@@ -16,14 +16,14 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/gene_family/*" })
+@WebServlet(urlPatterns = { "/" + HgncRootFamily.ENDPOINT + "/*" })
 public class HgncRootFamilyPage extends HttpServlet {
 
 	private static final long serialVersionUID = -594042157095699907L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String query = URLUtil.getPath(req, true);
+		String query = URLUtil.getPath(req);
 		HgncRootFamily geneFamily = null;
 		try {
 			HibernateUtil.beginTransaction();

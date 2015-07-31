@@ -27,7 +27,7 @@ public class DatasetPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.getPath(request, true);
+		String query = URLUtil.getPath(request);
 		Dataset dataset = null;
 		List<Attribute> attributesFromDataset = null;
 		Long numGenes = null;

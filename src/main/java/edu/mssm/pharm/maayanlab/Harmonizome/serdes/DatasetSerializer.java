@@ -2,7 +2,6 @@ package edu.mssm.pharm.maayanlab.Harmonizome.serdes;
 
 import java.lang.reflect.Type;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -10,7 +9,6 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Download;
 
 public class DatasetSerializer implements JsonSerializer<Dataset> {
 
@@ -23,11 +21,6 @@ public class DatasetSerializer implements JsonSerializer<Dataset> {
 		result.add("measurement", new JsonPrimitive(dataset.getMeasurement().getName()));
 		result.add("attributeGroup", new JsonPrimitive(dataset.getAttributeGroup().getName()));
 		result.add("attributeType", new JsonPrimitive(dataset.getAttributeType().getName()));
-		JsonArray downloads = new JsonArray();
-		for (Download dl : dataset.getDownloads()) {
-			downloads.add(context.serialize(dl));
-		}
-		result.add("downloads", downloads);
 		return result;
 	}
 }
