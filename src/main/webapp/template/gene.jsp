@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -105,7 +106,7 @@
 									</c:if>
 									<c:set var="upAttributes" value="${attributes.left}"/>
 									<c:forEach var="attribute" items="${upAttributes}" varStatus="loop">
-										<a href="${attribute.endpoint}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}">
+										<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}">
 											<c:out value="${attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
 										</a>
 									</c:forEach>
@@ -118,7 +119,7 @@
 											</p>
 											<c:set var="downAttributes" value="${attributes.right}"/>
 											<c:forEach var="attribute" items="${downAttributes}" varStatus="loop">
-												<a href="${attribute.endpoint}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}">
+												<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}">
 													<c:out value="${attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
 												</a>
 											</c:forEach>

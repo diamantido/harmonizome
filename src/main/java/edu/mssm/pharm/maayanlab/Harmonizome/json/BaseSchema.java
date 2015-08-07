@@ -1,38 +1,52 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.json;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 public class BaseSchema {
 
-	public double version = 1.0;
+	public double version = 1;
 	
-	public List<Map<String, String>> links = new ArrayList<Map<String, String>>();
+	public List<Map<String, String>> entities = new ArrayList<Map<String, String>>();
 	
 	public BaseSchema() {
-		Map<String, String> datasetData = new HashMap<String, String>();
+		Map<String, String> datasetData = new TreeMap<String, String>();
 		String datasetHref = "/" + Constant.API_URL + "/" + Dataset.ENDPOINT;
+		datasetData.put(Constant.ENTITY_TYPE, "dataset");
 		datasetData.put(Constant.REST_LOCATION_PROP, datasetHref);
-		datasetData.put(Constant.REST_METHOD_PROP, Constant.REST_METHOD_GET);
-		links.add(datasetData);
+		entities.add(datasetData);
 	
-		Map<String, String> geneData = new HashMap<String, String>();
+		Map<String, String> geneData = new TreeMap<String, String>();
 		String geneHref = "/" + Constant.API_URL + "/" + Gene.ENDPOINT;
+		geneData.put(Constant.ENTITY_TYPE, "gene");
 		geneData.put(Constant.REST_LOCATION_PROP, geneHref);
-		geneData.put(Constant.REST_METHOD_PROP, Constant.REST_METHOD_GET);
-		links.add(geneData);
+		entities.add(geneData);
 		
-		Map<String, String> attributeData = new HashMap<String, String>();
+		Map<String, String> attributeData = new TreeMap<String, String>();
 		String attributeHref = "/" + Constant.API_URL + "/" + Attribute.ENDPOINT;
+		attributeData.put(Constant.ENTITY_TYPE, "attribute");
 		attributeData.put(Constant.REST_LOCATION_PROP, attributeHref);
-		attributeData.put(Constant.REST_METHOD_PROP, Constant.REST_METHOD_GET);
-		links.add(attributeData);
+		entities.add(attributeData);
+		
+		Map<String, String> geneSetData = new TreeMap<String, String>();
+		String geneSetHref = "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT;
+		geneSetData.put(Constant.ENTITY_TYPE, "gene set");
+		geneSetData.put(Constant.REST_LOCATION_PROP, geneSetHref);
+		entities.add(geneSetData);
+		
+		Map<String, String> proteinData = new TreeMap<String, String>();
+		String proteinHref = "/" + Constant.API_URL + "/" + Protein.ENDPOINT;
+		proteinData.put(Constant.ENTITY_TYPE, "protein");
+		proteinData.put(Constant.REST_LOCATION_PROP, proteinHref);
+		entities.add(proteinData);
 	}
 }

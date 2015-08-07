@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -108,7 +109,7 @@
 				<section>
 					<h2>Gene Sets <span class="note"><c:out value="${fn:length(dataset.attributes)}"/></span></h2>
 					<c:forEach var="attribute" items="${attributesFromDataset}" varStatus="loop">
-						<a href="${attribute.endpoint}/${attribute.nameFromDataset}/${dataset.name}"><c:out value="${attribute.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
+						<a href="${GeneSet.ENDPOINT}/${attribute.nameFromDataset}/${dataset.name}"><c:out value="${attribute.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
 					</c:forEach>
 				</section>
 				<!-- End dataset content -->

@@ -15,14 +15,29 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class AttributeDAO {
-	
-	@SuppressWarnings("unchecked")
-	public static List<Attribute> getAll() {
-		return (List<Attribute>) HibernateUtil.getAll(Attribute.class);
+
+	public static List<Attribute> getAll(int startAt) {
+		return GenericDAO.getAll(Attribute.class, startAt);
+	}
+
+	public static List<Attribute> getAll(String query, int startAt) {
+		return GenericDAO.getAllFromQuery(Attribute.class, "attribute", "name_from_dataset", query, startAt);
+	}
+
+	public static List<Attribute> getByWordInName(String query) {
+		return GenericDAO.getBySubstringInField(Attribute.class, "attribute", "name_from_dataset", query);
+	}
+
+	public static List<Attribute> getByWordInNameButIgnoreExactMatches(String query, List<Integer> idToIgnore) {
+		return GenericDAO.getBySubstringInFieldButIgnoreIds(Attribute.class, "attribute", "name_from_dataset", query, idToIgnore);
+	}
+
+	public static List<String> getSuggestions(String query) {
+		return GenericDAO.getSuggestions("attribute", "name_from_dataset", query);
 	}
 	
-	public static List<Attribute> getByCursor(int min, int max) {
-		return GenericDAO.getByCursor(Attribute.class, min, max);
+	public static List<String> getByPrefix(String query) {
+		return GenericDAO.getByPrefix("attribute", "name_from_dataset", query);		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -30,21 +45,6 @@ public class AttributeDAO {
 		return (List<AttributeGroup>) HibernateUtil
 			.getCurrentSession()
 			.createQuery("FROM AttributeGroup")
-			.list();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static List<AttributeGroup> getAttributeGroupsFromGene(String geneSymbol) {
-		return (List<AttributeGroup>) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT DISTINCT attrGroup FROM AttributeGroup AS attrGroup " +
-				"JOIN attrGroup.attributes AS attrs " +
-				"JOIN attrs.features AS feats " +
-				"JOIN feats.gene AS gene " +
-				"WHERE gene.symbol = :symbol"
-			)
-			.setString("symbol", geneSymbol)
 			.list();
 	}
 	
@@ -192,20 +192,22 @@ public class AttributeDAO {
 		}
 		return attributesByDatasets;
 	}
-
-	public static List<Attribute> getByWordInName(String query) {
-		return GenericDAO.getBySubstringInField(Attribute.class, "attribute", "name_from_dataset", query);
-	}
-
-	public static List<Attribute> getByWordInNameButIgnoreExactMatches(String query, List<Integer> idToIgnore) {
-		return GenericDAO.getBySubstringInFieldButIgnoreIds(Attribute.class, "attribute", "name_from_dataset", query, idToIgnore);
-	}
-
-	public static List<String> getSuggestions(String query) {
-		return GenericDAO.getSuggestions("attribute", "name_from_dataset", query);
-	}
 	
-	public static List<String> getByPrefix(String query) {
-		return GenericDAO.getByPrefix("attribute", "name_from_dataset", query);		
+	/* Private methods
+	 * --------------- */
+
+	@SuppressWarnings("unchecked")
+	private static List<AttributeGroup> getAttributeGroupsFromGene(String geneSymbol) {
+		return (List<AttributeGroup>) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT DISTINCT attrGroup FROM AttributeGroup AS attrGroup " +
+				"JOIN attrGroup.attributes AS attrs " +
+				"JOIN attrs.features AS feats " +
+				"JOIN feats.gene AS gene " +
+				"WHERE gene.symbol = :symbol"
+			)
+			.setString("symbol", geneSymbol)
+			.list();
 	}
 }

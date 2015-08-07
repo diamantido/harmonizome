@@ -20,8 +20,8 @@ import com.google.gson.GsonBuilder;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSimpleSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -43,35 +43,31 @@ public class GeneAPI extends HttpServlet {
 	}
 	
 	public void doGetAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSimpleSerializer());
-		gson = gsonBuilder.create();
-
-		String cursor = request.getParameter("cursor");
+		String cursor = request.getParameter(Constant.API_CURSOR);
+		int startAt = cursor == null ? 0 : Integer.parseInt(cursor);
+		GeneDAO geneDAO = new GeneDAO();
+		
 		Map<String, Object> geneSchema = new HashMap<String, Object>();
 		List<Gene> genes = null;
-		int next = 0;
-		
-		PrintWriter out = response.getWriter();
+		String query = request.getParameter("q");
 		try {
 			HibernateUtil.beginTransaction();
-			if (cursor == null) {
-				next = Constant.API_MAX_RESULTS;
-				genes = GeneDAO.getByCursor(0, next);
-			} else {
-				Integer c = Integer.parseInt(cursor);
-				next = c + Constant.API_MAX_RESULTS;
-				genes = GeneDAO.getByCursor(c, next);
-			}
+			genes = geneDAO.getAll(query, startAt);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
 
-		String nextString = "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "?cursor=" + next;
+		int next = startAt + Constant.API_MAX_RESULTS;
+		String nextString = "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "?" + Constant.API_CURSOR + "=" + next;
 		geneSchema.put("next", nextString);
 		geneSchema.put("genes", genes);
+		
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Gene.class, new GeneInfoSerializer());
+		gson = gsonBuilder.create();
+		PrintWriter out = response.getWriter();
 		out.write(gson.toJson(geneSchema));
 		out.flush();
 	}

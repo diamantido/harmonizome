@@ -70,6 +70,7 @@ public class SearchResults {
 	}
 	
 	public void queryGenes() {
+		GeneDAO geneDAO = new GeneDAO();
 		List<String> geneSuggestions = suggestions.get("genes");
 		int geneIdToIgnore;
 		Gene exactGene = GeneDAO.getBySymbol(query);
@@ -81,7 +82,7 @@ public class SearchResults {
 			genes.addAll(GeneDAO.getByWordInSymbol(query));
 		}
 		if (genes.size() == 0) {
-			geneSuggestions.addAll(GeneDAO.getSuggestions(query));
+			geneSuggestions.addAll(geneDAO.getSuggestions(query));
 		}
 	}
 

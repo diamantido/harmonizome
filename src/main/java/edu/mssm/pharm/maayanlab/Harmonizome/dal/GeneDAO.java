@@ -11,10 +11,36 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class GeneDAO {
+public class GeneDAO implements DAOInterface<Gene> {
 
-	public static List<Gene> getByCursor(int min, int max) {
-		return GenericDAO.getByCursor(Gene.class, min, max);
+	public List<Gene> getAll(int startAt) {
+		return GenericDAO.getAll(Gene.class, startAt);
+	}
+
+	public List<Gene> getAll(String query, int startAt) {
+		return GenericDAO.getAllFromQuery(Gene.class, "gene", "symbol", query, startAt);
+	}
+
+	public static Pair<List<Gene>, List<Gene>> getFromAttributeByValue(String attributeName, String datasetName) {
+		List<Gene> pos = getByValue(attributeName, datasetName, 1);
+		List<Gene> neg = getByValue(attributeName, datasetName, -1);
+		return new ImmutablePair<List<Gene>, List<Gene>>(pos, neg);
+	}
+	
+	public static List<Gene> getByWordInSymbol(String query) {
+		return GenericDAO.getBySubstringInField(Gene.class, "gene", "symbol", query);
+	}
+
+	public static List<Gene> getByWordInSymbolButIgnoreExactMatch(String query, int idToIgnore) {
+		return GenericDAO.getBySubstringInFieldButIgnoreId(Gene.class, "gene", "symbol", query, idToIgnore);
+	}
+	
+	public List<String> getSuggestions(String query) {
+		return GenericDAO.getSuggestions("gene", "symbol", query);
+	}
+	
+	public List<String> getByPrefix(String query) {
+		return GenericDAO.getByPrefix("gene", "symbol", query);		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -115,27 +141,5 @@ public class GeneDAO {
 			.setString("datasetName", datasetName)
 			.setInteger("thresholdValue", thresholdValue)
 			.list();
-	}
-	
-	public static Pair<List<Gene>, List<Gene>> getFromAttributeByValue(String attributeName, String datasetName) {
-		List<Gene> pos = getByValue(attributeName, datasetName, 1);
-		List<Gene> neg = getByValue(attributeName, datasetName, -1);
-		return new ImmutablePair<List<Gene>, List<Gene>>(pos, neg);
-	}
-	
-	public static List<Gene> getByWordInSymbol(String query) {
-		return GenericDAO.getBySubstringInField(Gene.class, "gene", "symbol", query);
-	}
-
-	public static List<Gene> getByWordInSymbolButIgnoreExactMatch(String query, int idToIgnore) {
-		return GenericDAO.getBySubstringInFieldButIgnoreId(Gene.class, "gene", "symbol", query, idToIgnore);
-	}
-	
-	public static List<String> getSuggestions(String query) {
-		return GenericDAO.getSuggestions("gene", "symbol", query);
-	}
-	
-	public static List<String> getByPrefix(String query) {
-		return GenericDAO.getByPrefix("gene", "symbol", query);		
 	}
 }

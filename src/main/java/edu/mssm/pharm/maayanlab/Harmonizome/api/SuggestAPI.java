@@ -43,9 +43,11 @@ public class SuggestAPI extends HttpServlet {
 		List<String> suggestions = new ArrayList<String>();
 		PrintWriter out = response.getWriter();
 		String json = "";
+		GeneDAO geneDAO = new GeneDAO();
+		
 		try {
 			HibernateUtil.beginTransaction();
-			suggestions.addAll(GeneDAO.getByPrefix(query));
+			suggestions.addAll(geneDAO.getByPrefix(query));
 			suggestions.addAll(DatasetDAO.getByPrefix(query));
 			
 			// There are a lot of attributes. Don't suggest everything.

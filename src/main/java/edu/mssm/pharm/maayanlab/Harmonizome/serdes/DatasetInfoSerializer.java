@@ -8,17 +8,16 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
-public class GeneSimpleSerializer implements JsonSerializer<Gene> {
+public class DatasetInfoSerializer implements JsonSerializer<Dataset> {
 
-	public JsonElement serialize(final Gene gene, final Type type, final JsonSerializationContext context) {
+	public JsonElement serialize(final Dataset dataset, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
-		result.add("symbol", new JsonPrimitive(gene.getSymbol()));
-		String href = "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "/" + gene.getUrlEncodedSymbol();
+		result.add("name", new JsonPrimitive(dataset.getName()));
+		String href = "/" + Constant.API_URL + "/" + Dataset.ENDPOINT + "/" + dataset.getUrlEncodedName();
 		result.add(Constant.REST_LOCATION_PROP, new JsonPrimitive(href));
-		result.add(Constant.REST_METHOD_PROP, new JsonPrimitive(Constant.REST_METHOD_GET));
 		return result;
 	}
 }

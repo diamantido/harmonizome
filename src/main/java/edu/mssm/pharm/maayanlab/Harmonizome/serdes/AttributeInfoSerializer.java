@@ -11,14 +11,13 @@ import com.google.gson.JsonSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
-public class AttributeSimpleSerializer implements JsonSerializer<Attribute> {
+public class AttributeInfoSerializer implements JsonSerializer<Attribute> {
 
 	public JsonElement serialize(final Attribute attribute, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
-		result.add("name", new JsonPrimitive(attribute.getNameFromDataset()));
 		String href = "/" + Constant.API_URL + "/" + Attribute.ENDPOINT + "/" + attribute.getUrlEncodedNameFromDataset();
+		result.add("name",  new JsonPrimitive(attribute.getNameFromDataset()));
 		result.add(Constant.REST_LOCATION_PROP, new JsonPrimitive(href));
-		result.add(Constant.REST_METHOD_PROP, new JsonPrimitive(Constant.REST_METHOD_GET));
 		return result;
 	}
-}
+}	

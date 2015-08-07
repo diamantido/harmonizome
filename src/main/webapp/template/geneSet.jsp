@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -50,7 +51,7 @@
 							<td class="col-md-2">Downloads &amp; Tools</td>
 							<td class="col-md-10">
 								<div class="downloads-tools">
-									<a href="${Constant.API_URL}/${attribute.endpoint}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}" target="_blank">
+									<a href="${Constant.API_URL}/${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}" target="_blank">
 										<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access the gene set from the API."></button>
 									</a>
 									<!-- It doesn't make sense to pipe to Enrichr without enough genes -->

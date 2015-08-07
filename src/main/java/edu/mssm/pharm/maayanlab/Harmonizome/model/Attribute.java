@@ -76,7 +76,7 @@ public class Attribute {
 
 	/* Utilities
 	 * --------- */
-	public static final String ENDPOINT = "gene_set";
+	public static final String ENDPOINT = "attribute";
 	
 	public Attribute() {
 	}

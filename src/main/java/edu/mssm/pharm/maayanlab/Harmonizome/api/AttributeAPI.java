@@ -2,6 +2,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,69 +17,88 @@ import org.hibernate.HibernateException;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetInfoSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSetInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Dataset.ENDPOINT + "/*" })
-public class DatasetAPI extends HttpServlet {
+@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Attribute.ENDPOINT + "/*" })
+public class AttributeAPI extends HttpServlet {
 
-	private static final long serialVersionUID = 1695966393931239258L;
+	private static final long serialVersionUID = 4628749718947044737L;
 
 	private static Gson gson;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = URLUtil.getPath(request);
-		System.out.println(query);
 		if (query == null) {
 			doGetAll(request, response);
 		} else {
-			doGetBySymbol(request, response, query);
+			doGetByName(request, response, query);
 		}	
 	}
 	
 	public void doGetAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		Map<String, Object> datasetSchema = new HashMap<String, Object>();
+		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeInfoSerializer());
+		gson = gsonBuilder.create();
+
+		String cursor = request.getParameter("cursor");
+		Map<String, Object> schema = new HashMap<String, Object>();
+		List<Attribute> attributes = null;
+		int next = 0;
+		
 		PrintWriter out = response.getWriter();
 		try {
 			HibernateUtil.beginTransaction();
-			gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetInfoSerializer());
-			gson = gsonBuilder.create();
-			List<Dataset> datasets = DatasetDAO.getAll();
-			datasetSchema.put("datasets", datasets);
+			if (cursor == null) {
+				next = Constant.API_MAX_RESULTS;
+				attributes = AttributeDAO.getAll(0);
+			} else {
+				Integer c = Integer.parseInt(cursor);
+				attributes = AttributeDAO.getAll(c);
+			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
-		out.write(gson.toJson(datasetSchema));
+
+		String nextString = "/" + Constant.API_URL + "/" + Attribute.ENDPOINT + "?cursor=" + next;
+		schema.put("next", nextString);
+		schema.put("attributes", attributes);
+		out.write(gson.toJson(schema));
 		out.flush();
 	}
 	
-	public void doGetBySymbol(HttpServletRequest request, HttpServletResponse response, String query) throws ServletException, IOException {
+	public void doGetByName(HttpServletRequest request, HttpServletResponse response, String query) throws ServletException, IOException {
 		PrintWriter out = response.getWriter();
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSerializer());
+		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeSerializer());
+		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetInfoSerializer());
 		gsonBuilder.registerTypeAdapter(GeneSet.class, new GeneSetInfoSerializer());
 		gson = gsonBuilder.create();
-		Dataset dataset = null;
+		List<Attribute> attributes = null;
 		try {
 			HibernateUtil.beginTransaction();
-			dataset = DatasetDAO.getByName(query);
+			attributes = AttributeDAO.getByName(query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();
 		}
-		out.write(gson.toJson(dataset, Dataset.class));
+		
+		Type listType = new TypeToken<List<Attribute>>(){}.getType();
+		out.write(gson.toJson(attributes, listType));
 		out.flush();
 	}
 }
