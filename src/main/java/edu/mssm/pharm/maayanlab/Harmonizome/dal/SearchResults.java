@@ -55,7 +55,7 @@ public class SearchResults {
 	private void queryDatasets() {
 		List<String> datasetSuggestions = suggestions.get("datasets");
 		int datasetIdToIgnore;
-		Dataset exactDataset = DatasetDAO.getByName(query);
+		Dataset exactDataset = DatasetDAO.getFromName(query);
 		if (exactDataset != null) {
 			datasetIdToIgnore = exactDataset.getId();
 			datasets.add(exactDataset);
@@ -73,7 +73,7 @@ public class SearchResults {
 		GeneDAO geneDAO = new GeneDAO();
 		List<String> geneSuggestions = suggestions.get("genes");
 		int geneIdToIgnore;
-		Gene exactGene = GeneDAO.getBySymbol(query);
+		Gene exactGene = GeneDAO.getFromSymbol(query);
 		if (exactGene != null) {
 			geneIdToIgnore = exactGene.getId();
 			genes.add(exactGene);

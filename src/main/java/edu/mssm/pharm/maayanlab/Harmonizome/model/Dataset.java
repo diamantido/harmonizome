@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -95,14 +98,17 @@ public class Dataset {
 
 	@OneToMany(mappedBy = "dataset")
 	private Set<Attribute> attributes;
-	
-	@OneToMany(mappedBy = "resource")
-	private List<Publication> publications;
-	
+		
 	/* Utilities
 	 * --------- */
 	@Transient
 	public static final String ENDPOINT = "dataset";
+	
+	/* Foreign key relationships
+	 * ------------------------- */
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@JoinTable(name = "datasets_to_publications", joinColumns = { @JoinColumn(name = "dataset_fk") }, inverseJoinColumns = { @JoinColumn(name = "publication_fk") })
+	private List<Publication> publications;
 	
 	public Dataset() {
 	}

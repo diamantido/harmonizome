@@ -48,9 +48,6 @@ public class Resource {
 	 * ------------------------- */
 	@OneToMany(mappedBy = "resource")
 	private List<Dataset> datasets;
-
-	@OneToMany(mappedBy = "resource")
-	private List<Publication> publications;
 	
 	/* Utilities
 	 * ---------
@@ -124,14 +121,6 @@ public class Resource {
 
 	public void setDatasets(List<Dataset> datasets) {
 		this.datasets = datasets;
-	}
-
-	public List<Publication> getPublications() {
-		return publications;
-	}
-
-	public void setPublications(List<Publication> publications) {
-		this.publications = publications;
 	}
 	
 	/* Utility functions

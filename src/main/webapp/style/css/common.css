@@ -1,9 +1,9 @@
 /* https://color.adobe.com/21-Flat-Business-Icons-color-theme-6339907/?showPublished=true
  * https://color.adobe.com/Aspirin-C-color-theme-251864/?showPublished=true
+ * https://color.adobe.com/Ventana-Azul-color-theme-2159606/?showPublished=true
  */
 /* Logo colors */
-/* Georgia, sans-serif; */
-/*"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
+/* The logo color is 36B1BF; this is slightly too light for text. */
 /* Structure all pages to allow for footer. Other styling for these elements is
  * below.
  * ------------------------------------------------------------------------- */
@@ -72,6 +72,15 @@ ul {
 .note {
   font-size: 14px;
   font-style: italic;
+}
+.note.dataset {
+  color: #309fab;
+}
+.note.gene {
+  color: #f5a503;
+}
+.note.attribute {
+  color: #f2385a;
 }
 .glyphicon-search {
   cursor: pointer;
@@ -304,6 +313,7 @@ ul {
 .badge {
   background-color: #eeeeee;
   border-radius: 0;
+  padding: 2px 5px;
   color: #444444;
 }
 .badge a {
@@ -313,23 +323,13 @@ ul {
   color: #444444;
 }
 .badge.dataset {
-  background-color: #2f77a3;
+  color: #309fab;
 }
 .badge.gene {
-  background-color: #fdc536;
+  color: #f5a503;
 }
 .badge.attribute {
-  background-color: #eb7f00;
-}
-.badge.dataset,
-.badge.gene,
-.badge.attribute {
-  color: white;
-}
-.badge.dataset a,
-.badge.gene a,
-.badge.attribute a {
-  color: white;
+  color: #f2385a;
 }
 .tooltip .tooltip-inner {
   background: #444444;

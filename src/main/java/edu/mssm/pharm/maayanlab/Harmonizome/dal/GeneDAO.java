@@ -51,14 +51,14 @@ public class GeneDAO implements DAOInterface<Gene> {
 			.list();
 	}
 
-	public static Gene getBySymbol(String symbol) {
+	public static Gene getFromSymbol(String symbol) {
 		Criteria criteria = HibernateUtil.getCurrentSession()
 			.createCriteria(Gene.class)
 			.add(Restrictions.eq("symbol", symbol).ignoreCase());
 		return (Gene) criteria.uniqueResult();
 	}
 	
-	public static Gene getBySynonymSymbol(String symbol) {
+	public static Gene getFromSynonymSymbol(String symbol) {
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(GeneSynonym.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
 		GeneSynonym geneSynonym = (GeneSynonym) criteria.uniqueResult();
 		return (geneSynonym == null ? null : geneSynonym.getGene());

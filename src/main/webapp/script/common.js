@@ -1,5 +1,7 @@
 $(function() {
 
+	var API_URL = 'api/1.0/';
+	
 	/* Code executes here
 	 * --------------------------------------------------------------------- */	
 	var $dataTables = $('.data-table');
@@ -142,7 +144,7 @@ $(function() {
 	function setupSearch($parentEl) {
 		$.ajax({
 			method: 'GET',
-			url: 'api/gene',
+			url: API_URL + 'gene',
 			success: function(geneDictionary) {
 				var genes = new Bloodhound({
 					datumTokenizer: function (datum) {
@@ -150,7 +152,7 @@ $(function() {
 				    },
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					remote: {
-						url: 'api/suggest/%QUERY',
+						url: API_URL + 'suggest?q=%QUERY',
 						wildcard: '%QUERY'
 					}
 				});
@@ -161,8 +163,8 @@ $(function() {
 						minLength: 1
 					},
 					{
-					  name: 'genes',
-					  source: genes.ttAdapter()
+						name: 'genes',
+						source: genes.ttAdapter()
 					});
 			}
 		});

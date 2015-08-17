@@ -33,9 +33,12 @@ public class DatasetPage extends HttpServlet {
 		Long numGenes = null;
 		Long numGeneAttributeAssociations = null;
 
+		if (query == null) {
+			doNotFound(request, response);
+		}
 		try {
 			HibernateUtil.beginTransaction();
-			dataset = DatasetDAO.getByName(query);
+			dataset = DatasetDAO.getFromName(query);
 			if (dataset != null) {
 				dataset.setNumPageViews(dataset.getNumPageViews() + 1);
 				numGenes = GeneDAO.getCountByDataset(query);
@@ -48,9 +51,8 @@ public class DatasetPage extends HttpServlet {
 			HibernateUtil.rollbackTransaction();
 		}
 		
-		if (query == null || dataset == null) {
-			request.setAttribute("query", query);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
+		if (dataset == null) {
+			doNotFound(request, response);
 		} else {
 			request.setAttribute("numGenes", numGenes);
 			request.setAttribute("numGeneAttributeAssociations", numGeneAttributeAssociations);
@@ -58,5 +60,9 @@ public class DatasetPage extends HttpServlet {
 			request.setAttribute("dataset", dataset);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp").forward(request, response);
 		}
+	}
+	
+	private void doNotFound(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
 	}
 }

@@ -70,6 +70,15 @@ ul {
 .note {
 	font-size: 14px;
 	font-style: italic;
+	&.dataset {
+		color: @color-blue;
+	}
+	&.gene {
+		color: @color-yellow;
+	}
+	&.attribute {
+		color: @color-red;
+	}
 }
 .glyphicon-search {
 	cursor: pointer;
@@ -339,21 +348,13 @@ ul {
 		}
 	}
 	&.dataset {
-		background-color: @color-blue;
+		color: @color-blue;
 	}
 	&.gene {
-		background-color: @color-yellow;
+		color: @color-yellow;
 	}
 	&.attribute {
-		background-color: @color-orange;
-	}
-	&.dataset,
-	&.gene,
-	&.attribute {
-		color: white;
-		a {
-			color: white;
-		}
+		color: @color-red;
 	}
 }
 .tooltip {

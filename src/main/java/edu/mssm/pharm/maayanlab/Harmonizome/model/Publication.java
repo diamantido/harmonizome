@@ -1,13 +1,13 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,8 +36,8 @@ public class Publication {
 	@Column(name = "first_author_last_name")
 	private String firstAuthorLastName;
 
-	@Column(name = "last_author_initials")
-	private String lastAuthorInitials;
+	@Column(name = "first_author_initials")
+	private String firstAuthorInitials;
 	
 	@Column(name = "journal_abbreviation")
 	private String journalAbbreviation;
@@ -54,23 +54,18 @@ public class Publication {
 	@Column(name = "pages")
 	private String pages;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "resource_fk")
-	private Resource resource;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "dataset_fk")
-	private Dataset dataset;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "naming_authority_fk")
-	private NamingAuthority namingAuthority;
-
+	@ManyToMany(mappedBy = "publications")
+	private Set<Dataset> datasets;
+	
 	public Publication() {
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getLongCitation() {
@@ -121,12 +116,12 @@ public class Publication {
 		this.firstAuthorLastName = firstAuthorLastName;
 	}
 
-	public String getLastAuthorInitials() {
-		return lastAuthorInitials;
+	public String getFirstAuthorInitials() {
+		return firstAuthorInitials;
 	}
 
-	public void setLastAuthorInitials(String lastAuthorInitials) {
-		this.lastAuthorInitials = lastAuthorInitials;
+	public void setFirstAuthorInitials(String lastAuthorInitials) {
+		this.firstAuthorInitials = lastAuthorInitials;
 	}
 
 	public String getJournalAbbreviation() {
@@ -169,27 +164,11 @@ public class Publication {
 		this.pages = pages;
 	}
 
-	public Resource getResource() {
-		return resource;
+	public Set<Dataset> getDatasets() {
+		return datasets;
 	}
 
-	public void setResource(Resource resource) {
-		this.resource = resource;
-	}
-
-	public Dataset getDataset() {
-		return dataset;
-	}
-
-	public void setDataset(Dataset dataset) {
-		this.dataset = dataset;
-	}
-
-	public NamingAuthority getNamingAuthority() {
-		return namingAuthority;
-	}
-
-	public void setNamingAuthority(NamingAuthority namingAuthority) {
-		this.namingAuthority = namingAuthority;
-	}
+	public void setDatasets(Set<Dataset> datasets) {
+		this.datasets = datasets;
+	}	
 }

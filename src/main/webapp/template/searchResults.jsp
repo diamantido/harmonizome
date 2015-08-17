@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -53,7 +54,7 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${dataset.endpoint}/${dataset.urlEncodedName}">${dataset.name}</a> <span class="badge dataset">Dataset</span>
+											<a href="${dataset.endpoint}/${dataset.urlEncodedName}">${dataset.name}</a> <span class="note dataset">Dataset</span>
 										</h3>
 										<div class="description">
 											<p>
@@ -68,7 +69,7 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a> <span class="badge gene">Gene</span>
+											<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a> <span class="note gene">Gene</span>
 										</h3>
 										<div class="description">
 											<c:if test="${gene.name != null}">
@@ -85,7 +86,7 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${attribute.endpoint}/${attribute.urlEncodedNameFromDataset}/${attribute.dataset.urlEncodedName}">${attribute.nameFromDataset}</a> <span class="badge attribute">Gene Set</span>
+											<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${attribute.dataset.urlEncodedName}">${attribute.nameFromDataset}</a> <span class="note attribute">Gene Set</span>
 										</h3>
 										<div class="description">
 											<p><em>From <a href="${attribute.dataset.endpoint}/${attribute.dataset.urlEncodedName}">${attribute.dataset.name}</a></em></p>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -18,20 +19,30 @@
 					<tr>
 						<td class="col-sm-3">Datasets</td>
 						<td class="col-sm-9">
-							<ul class="list-unstyled">
-								<c:forEach var="dataset" items="${resource.datasets}">
-									<li>
-										<a href="dataset/${dataset.urlEncodedName}">${dataset.name}</a>
-									</li>
-								</c:forEach>
-							</ul>
+							<c:choose>
+								<c:when test="${fn:length(resource.datasets) > 1}">
+									<p>${resource.name}...</p>
+									<ul>
+										<c:forEach var="dataset" items="${resource.datasets}">
+											<li>
+												<a href="dataset/${dataset.urlEncodedName}">${dataset.nameWithoutResource}</a>
+											</li>
+										</c:forEach>
+									</ul>
+								</c:when>
+								<c:when test="${fn:length(resource.datasets) == 1}">
+									<c:forEach var="dataset" items="${resource.datasets}">
+										<a href="dataset/${dataset.urlEncodedName}">${dataset.nameWithoutResource}</a>
+									</c:forEach>							
+								</c:when>
+							</c:choose>
 						</td>
 					</tr>
 					<tr>
 						<td class="col-sm-3">Citation(s)</td>
 						<td class="col-sm-9">
-							<ul class="list-unstyled">
-								<c:forEach var="publication" items="${resource.publications}">
+							<ul>
+								<c:forEach var="publication" items="${publications}">
 									<li>
 										<a href="${publication.pubmedUrl}">${publication.longCitation}</a>
 									</li>

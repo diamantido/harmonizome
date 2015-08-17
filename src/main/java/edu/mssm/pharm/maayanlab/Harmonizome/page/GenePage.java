@@ -42,9 +42,9 @@ public class GenePage extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 			if (query != null) {
-				gene = GeneDAO.getBySymbol(query);
+				gene = GeneDAO.getFromSymbol(query);
 				if (gene == null) {
-					gene = GeneDAO.getBySynonymSymbol(query);
+					gene = GeneDAO.getFromSynonymSymbol(query);
 					if (gene != null) {
 						isSynonym = true;
 					}

@@ -13,18 +13,20 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.BaseSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.SearchResultsSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeTypeSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DownloadSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.AttributeInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.DatasetInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.GeneInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Download;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.HttpStatusCode;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeTypeSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DownloadSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Constant.SEARCH_URL + "/*" })
@@ -36,10 +38,10 @@ public class SearchAPI extends HttpServlet {
 
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSerializer());
+		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetInfoSerializer());
 		gsonBuilder.registerTypeAdapter(Download.class, new DownloadSerializer());
-		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSerializer());
-		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeSerializer());
+		gsonBuilder.registerTypeAdapter(Gene.class, new GeneInfoSerializer());
+		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeInfoSerializer());
 		gsonBuilder.registerTypeAdapter(AttributeType.class, new AttributeTypeSerializer());
 		gson = gsonBuilder.create();
 	}
@@ -48,15 +50,16 @@ public class SearchAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = URLUtil.getParameter(request, "q");
 		String type = URLUtil.getParameter(request, "t");
+		PrintWriter out = response.getWriter();
 		String json;
 		if (query == null) {
-			BaseSchema baseJson = new BaseSchema();
-			json = gson.toJson(baseJson);
+			ErrorSchema errorSchema = new ErrorSchema(HttpStatusCode.NOT_FOUND);
+			json = gson.toJson(errorSchema, ErrorSchema.class);
 		} else {
-			SearchResults searchResults = new SearchResults(query, type);
-			json = gson.toJson(searchResults, SearchResults.class);
+			SearchResultsSchema searchResultsSchema = new SearchResultsSchema();
+			searchResultsSchema.setSearchResults(new SearchResults(query, type));
+			json = gson.toJson(searchResultsSchema, SearchResultsSchema.class);
 		}
-		PrintWriter out = response.getWriter();
 		out.write(json);
 		out.flush();
 	}

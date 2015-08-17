@@ -20,14 +20,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.AttributeInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.DatasetInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.GeneSetInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeInfoSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.AttributeSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.DatasetInfoSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.serdes.GeneSetInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 

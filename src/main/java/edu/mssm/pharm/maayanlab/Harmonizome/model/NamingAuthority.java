@@ -41,9 +41,6 @@ public class NamingAuthority {
 	@OneToMany(mappedBy = "namingAuthority")
 	private Set<Attribute> attributes;
 
-	@OneToMany(mappedBy = "namingAuthority")
-	private Set<Publication> publications;
-
 	public NamingAuthority() {
 	}
 
@@ -91,14 +88,6 @@ public class NamingAuthority {
 
 	public void setAttributes(Set<Attribute> attributes) {
 		this.attributes = attributes;
-	}
-
-	public Set<Publication> getPublications() {
-		return publications;
-	}
-
-	public void setPublications(Set<Publication> publications) {
-		this.publications = publications;
 	}
 
 	/* Utility functions

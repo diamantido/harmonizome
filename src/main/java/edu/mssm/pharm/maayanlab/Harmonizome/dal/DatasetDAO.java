@@ -28,7 +28,7 @@ public class DatasetDAO {
 		return datasets;
 	}
 
-	public static Dataset getByName(String name) {
+	public static Dataset getFromName(String name) {
 		Criteria criteria = HibernateUtil.getCurrentSession()
 			.createCriteria(Dataset.class)
 			.add(Restrictions.eq("name", name).ignoreCase());

@@ -39,7 +39,7 @@ public class GeneSetPage extends HttpServlet {
 			try {
 				HibernateUtil.beginTransaction();
 				attribute = AttributeDAO.getByNameAndDataset(attributeName, datasetName);
-				dataset = DatasetDAO.getByName(datasetName);
+				dataset = DatasetDAO.getFromName(datasetName);
 				genesByAttribute = GeneDAO.getFromAttributeByValue(attributeName, datasetName);
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {

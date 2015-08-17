@@ -42,9 +42,13 @@
 				    	<tr>
 				    		<td>Citation(s)</td>
 				    		<td>
-								<c:forEach var="pub" items="${dataset.publications}" varStatus="loop">
-									<a href="${pub.pubmedUrl}" target="_blank">${pub.longCitation}</a><c:if test="${!loop.last}">, </c:if>
-								</c:forEach>
+				    			<ul>
+									<c:forEach var="pub" items="${dataset.publications}" varStatus="loop">
+										<li>
+											<a href="${pub.pubmedUrl}" target="_blank">${pub.longCitation}</a><c:if test="${!loop.last}">, </c:if>
+										</li>
+									</c:forEach>
+								</ul>
 				    		</td>
 				    	</tr>
 				    	<tr>

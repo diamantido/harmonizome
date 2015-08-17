@@ -2,6 +2,8 @@ package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
 public class Constant {
 	
+	public static final String HARMONIZOME = "Harmonizome";
+	
 	public static final String API_URL = "api/1.0";
 	
 	// This has no preceding slash because we typically use it as a relative URL in JSP templates.
