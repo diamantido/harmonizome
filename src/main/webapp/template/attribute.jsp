@@ -9,7 +9,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.NamingAuthority" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec" %>
 <html>
 	<head>
     	<%@include file="globalIncludes.html" %>
@@ -22,49 +22,71 @@
 				<h1 data-entity-name="${name}">${name} <span class="note">Attribute</span></h1>
 				<section>
 					<table class="table">
-						<% if (request.getAttribute("description") != "") { %>
+						<%
+							if (request.getAttribute("description") != "") {
+						%>
 							<tr>
 								<td class="col-sm-3">Description</td>
 								<td class="col-sm-9">${description}</td>
 							</tr>
-						<% } %>
+						<%
+							}
+						%>
 						<tr>
-							<% String ag = (String) request.getAttribute("attributeGroup"); %>
+							<%
+								String ag = (String) request.getAttribute("attributeGroup");
+							%>
 							<td class="col-sm-3">Attribute group</td>
 							<td class="col-sm-9">
-								<a href="attribute_group/<%= URLCodec.encode(ag) %>"><%= ag %></a>
+								<a href="attribute_group/<%=UrlCodec.encode(ag)%>"><%=ag%></a>
 							</td>
 						</tr>
 						<tr>
-							<% String at = (String) request.getAttribute("attributeType"); %>
+							<%
+								String at = (String) request.getAttribute("attributeType");
+							%>
 							<td class="col-sm-3">Attribute type</td>
 							<td class="col-sm-9">
-								<a href="attribute_type/<%= URLCodec.encode(at) %>"><%= at %></a>
+								<a href="attribute_type/<%=UrlCodec.encode(at)%>"><%=at%></a>
 							</td>
 						</tr>
 						<tr>
-							<% NamingAuthority na = (NamingAuthority) request.getAttribute("namingAuthority"); %>
+							<%
+								NamingAuthority na = (NamingAuthority) request.getAttribute("namingAuthority");
+							%>
 							<td class="col-sm-3">Naming authority</td>
 							<td class="col-sm-9">
-								<% if (na.getUrl() != "") { %>
-									<a href="<%= na.getUrl() %>" target="_blank"><%= na.getName() %></a>
-								<% } else { %>
-									<%= na.getName() %>
-								<% } %>
+								<%
+									if (na.getUrl() != "") {
+								%>
+									<a href="<%=na.getUrl()%>" target="_blank"><%=na.getName()%></a>
+								<%
+									} else {
+								%>
+									<%=na.getName()%>
+								<%
+									}
+								%>
 							</td>
 						</tr>
-						<% if (request.getAttribute("idFromNamingAuthority") != "") { %>
+						<%
+							if (request.getAttribute("idFromNamingAuthority") != "") {
+						%>
 							<tr>
 								<td class="col-sm-3">ID from naming authority</td>
 								<td class="col-sm-9">${idFromNamingAuthority}</td>
 							</tr>
-						<% }
-						if (request.getAttribute("url") != "") { %>
+						<%
+							}
+										if (request.getAttribute("url") != "") {
+						%>
 							<tr>
 								<td class="col-sm-3">URL</td>
 								<td class="col-sm-9"><a href="${url}" target="_blank">${url}</a></td>
 							</tr>
-						<% } %>
+						<%
+							}
+						%>
 					</table>
 				</section>
 				<section>
@@ -79,23 +101,24 @@
 								<th>Downstream analysis tools</th>
 							</tr>
 						</thead>
-						<% @SuppressWarnings("unchecked")
-						List<Pair<Dataset, Pair<List<Gene>, List<Gene>>>> genesByDataset = (List<Pair<Dataset, Pair<List<Gene>, List<Gene>>>>) request.getAttribute("genesByDataset");
-						for (Pair<Dataset, Pair<List<Gene>, List<Gene>>> pair : genesByDataset) {
-							Dataset dataset = pair.getLeft();
-							Pair<List<Gene>, List<Gene>> genes = pair.getRight();
-							String datasetName = dataset.getName();
-							String datasetURL = URLCodec.encode(datasetName);
-							String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
+						<%
+							@SuppressWarnings("unchecked")
+										List<Pair<Dataset, Pair<List<Gene>, List<Gene>>>> genesByDataset = (List<Pair<Dataset, Pair<List<Gene>, List<Gene>>>>) request.getAttribute("genesByDataset");
+										for (Pair<Dataset, Pair<List<Gene>, List<Gene>>> pair : genesByDataset) {
+											Dataset dataset = pair.getLeft();
+											Pair<List<Gene>, List<Gene>> genes = pair.getRight();
+											String datasetName = dataset.getName();
+											String datasetURL = UrlCodec.encode(datasetName);
+											String className = StringUtils.join(datasetName.replace(",", "").split(" "), "-");
 						%>
-							<tr class="dataset-row <%= className %>">
-								<td class="col-sm-1" data-dataset-group="<%= className %>">
+							<tr class="dataset-row <%=className%>">
+								<td class="col-sm-1" data-dataset-group="<%=className%>">
 									<button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true" ></button>
 									<button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
 								</td>
 								<td class="col-sm-4">
-									<a href="dataset/<%= datasetURL %>"><%= datasetName %></a>
-									<span class="badge"><%= genes.getLeft().size() + genes.getRight().size() %> genes</span>
+									<a href="dataset/<%=datasetURL%>"><%=datasetName%></a>
+									<span class="badge"><%=genes.getLeft().size() + genes.getRight().size()%> genes</span>
 								</td>
 								<td class="col-sm-4">
 									<div class="tool-tip">
@@ -115,27 +138,39 @@
 							<tr class="entity-list">
 								<td colspan="5">
 									<div class="first">
-										<% Iterator<Gene> posIter = genes.getLeft().iterator();
-										if (posIter.hasNext()) { %>
+										<%
+											Iterator<Gene> posIter = genes.getLeft().iterator();
+																		if (posIter.hasNext()) {
+										%>
 											Up:
-											<% while (posIter.hasNext()) {
-												Gene gene = posIter.next();
-												String symbol = gene.getSymbol();
+											<%
+											while (posIter.hasNext()) {
+																				Gene gene = posIter.next();
+																				String symbol = gene.getSymbol();
+										%>
+												<a href="gene/<%=UrlCodec.encode(symbol)%>" data-gene="<%=symbol%>">
+													<%=symbol%></a><%
+														if (posIter.hasNext()) {
+													%>, <%
+														}
+													%>
+											<%
+												}
+																			}
 											%>
-												<a href="gene/<%= URLCodec.encode(symbol) %>" data-gene="<%= symbol %>">
-													<%= symbol %></a><% if (posIter.hasNext()) { %>, <% } %>
-											<% }
-										} %>
 									</div>
 									<div>
-										<% Iterator<Gene> negIter = genes.getRight().iterator();
-										if (negIter.hasNext()) { %>
+										<%
+											Iterator<Gene> negIter = genes.getRight().iterator();
+																		if (negIter.hasNext()) {
+										%>
 											Down:
-											<% while (negIter.hasNext()) {
-												Gene gene = negIter.next();
-												String symbol = gene.getSymbol();
-											%>
-												<a href="gene/<%= URLCodec.encode(symbol) %>"><%= symbol %></a><% if (negIter.hasNext()) { %>, <% } %>
+											<%
+											while (negIter.hasNext()) {
+																				Gene gene = negIter.next();
+																				String symbol = gene.getSymbol();
+										%>
+												<a href="gene/<%=UrlCodec.encode(symbol)%>"><%= symbol %></a><% if (negIter.hasNext()) { %>, <% } %>
 											<% }
 										} %>
 									</div>

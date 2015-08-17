@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
-public class URLCodec {
+public class UrlCodec {
 
 	// Use our own custom encoding/decoding for slashes. We could configure
 	// Tomcat to accept "%2F" but any other server between the Harmonizome

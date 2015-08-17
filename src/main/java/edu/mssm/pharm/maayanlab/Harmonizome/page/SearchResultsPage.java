@@ -17,7 +17,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 @WebServlet(urlPatterns = { "/" + Constant.SEARCH_URL, "/" + Constant.SEARCH_URL + "/*" })
@@ -27,8 +27,8 @@ public class SearchResultsPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.getParameter(request, "q");
-		String type = URLUtil.getParameter(request, "t");
+		String query = UrlUtil.getParameter(request, "q");
+		String type = UrlUtil.getParameter(request, "t");
 		SearchResults searchResults = new SearchResults(query, type);
 		if (searchResults.noMatches()) {
 			showNoSearchResults(request, response, query);

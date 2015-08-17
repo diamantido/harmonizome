@@ -27,7 +27,7 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
  * documented API.
  */
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Constant.SUGGEST_URL + "/*" })
-public class SuggestAPI extends HttpServlet {
+public class SuggestApi extends HttpServlet {
 
 	private static final long serialVersionUID = 778955897675398125L;
 

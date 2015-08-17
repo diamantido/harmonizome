@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "attribute")
@@ -184,7 +184,7 @@ public class Attribute {
 	/* Utility functions
 	 * ----------------- */
 	public String getUrlEncodedNameFromDataset() {
-		return URLCodec.encode(nameFromDataset);
+		return UrlCodec.encode(nameFromDataset);
 	}
 	
 	public String getEndpoint() {

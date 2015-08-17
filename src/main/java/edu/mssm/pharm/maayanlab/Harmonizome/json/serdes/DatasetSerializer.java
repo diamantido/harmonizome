@@ -16,6 +16,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 public class DatasetSerializer implements JsonSerializer<Dataset> {
 
 	public JsonElement serialize(final Dataset dataset, final Type type, final JsonSerializationContext context) {
+
 		JsonObject result = new JsonObject();
 		result.add("name", new JsonPrimitive(dataset.getName()));
 		result.add("association", new JsonPrimitive(dataset.getAssociation()));
@@ -30,7 +31,8 @@ public class DatasetSerializer implements JsonSerializer<Dataset> {
 			GeneSet geneSet = new GeneSet(attribute, dataset);
 			geneSets.add(context.serialize(geneSet));
 		}
-		
+		result.add("geneSets", geneSets);
+
 		return result;
 	}
 }

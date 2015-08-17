@@ -12,7 +12,7 @@ import org.hibernate.HibernateException;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.HgncRootFamilyDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -23,7 +23,7 @@ public class HgncRootFamilyPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String query = URLUtil.getPath(req);
+		String query = UrlUtil.getPath(req);
 		HgncRootFamily geneFamily = null;
 		try {
 			HibernateUtil.beginTransaction();

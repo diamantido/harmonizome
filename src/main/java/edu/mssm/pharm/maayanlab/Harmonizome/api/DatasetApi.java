@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.api.dataset;
+package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,16 +17,15 @@ import com.google.gson.GsonBuilder;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.GeneSetInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.HttpStatusCode;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Dataset.ENDPOINT + "/*" })
-public class DatasetEntityAPI extends HttpServlet {
+public class DatasetApi extends HttpServlet {
 
 	private static final long serialVersionUID = 2013021100694227509L;
 
@@ -41,7 +40,7 @@ public class DatasetEntityAPI extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = URLUtil.getPath(request);
+		String name = UrlUtil.getPath(request);
 		if (name == null) {
 			response.sendRedirect("/" + Constant.HARMONIZOME + "/" + Constant.API_URL + "/" + Dataset.ENDPOINT);
 		} else {
@@ -60,8 +59,7 @@ public class DatasetEntityAPI extends HttpServlet {
 		}
 		PrintWriter out = response.getWriter();
 		if (dataset == null) {
-			ErrorSchema errorSchema = new ErrorSchema(HttpStatusCode.NOT_FOUND);
-			out.write(gson.toJson(errorSchema));
+			out.write(gson.toJson(new ErrorSchema()));
 		} else {
 			out.write(gson.toJson(dataset, Dataset.class));
 		}

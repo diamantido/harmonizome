@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class URLUtil {
+public class UrlUtil {
 
 	public static String getPath(HttpServletRequest request) throws UnsupportedEncodingException {
 		String path = request.getPathInfo();
@@ -14,7 +14,7 @@ public class URLUtil {
 		} else {
 			// Remove the leading slash.
 			String query = path.substring(1);
-			return URLCodec.decode(query);
+			return UrlCodec.decode(query);
 		}
 	}
 
@@ -28,7 +28,7 @@ public class URLUtil {
 			// the array is empty. Remove it.
 			String[] result = Arrays.copyOfRange(temp, 1, temp.length);
 			for (int i = 0; i < result.length; i++) {
-				result[i] = URLCodec.decode(result[i]);
+				result[i] = UrlCodec.decode(result[i]);
 			}
 			return result;
 		}
@@ -36,7 +36,7 @@ public class URLUtil {
 
 	public static String getParameter(HttpServletRequest request, String param) throws UnsupportedEncodingException {
 		String selectedParam = request.getParameter(param);
-		return selectedParam == null ? null : URLCodec.decode(selectedParam);
+		return selectedParam == null ? null : UrlCodec.decode(selectedParam);
 	}
 	
 	private static boolean pathIsNull(String path) {

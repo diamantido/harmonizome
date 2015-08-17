@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -19,23 +18,13 @@
 					<tr>
 						<td class="col-sm-3">Datasets</td>
 						<td class="col-sm-9">
-							<c:choose>
-								<c:when test="${fn:length(resource.datasets) > 1}">
-									<p>${resource.name}...</p>
-									<ul>
-										<c:forEach var="dataset" items="${resource.datasets}">
-											<li>
-												<a href="dataset/${dataset.urlEncodedName}">${dataset.nameWithoutResource}</a>
-											</li>
-										</c:forEach>
-									</ul>
-								</c:when>
-								<c:when test="${fn:length(resource.datasets) == 1}">
-									<c:forEach var="dataset" items="${resource.datasets}">
+							<ul>
+								<c:forEach var="dataset" items="${resource.datasets}">
+									<li>
 										<a href="dataset/${dataset.urlEncodedName}">${dataset.nameWithoutResource}</a>
-									</c:forEach>							
-								</c:when>
-							</c:choose>
+									</li>
+								</c:forEach>
+							</ul>
 						</td>
 					</tr>
 					<tr>

@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.api.gene_set;
+package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,28 +19,26 @@ import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.FeatureDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.FeatureSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.AttributeInfoSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.DatasetInfoSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.GeneInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.HttpStatusCode;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT + "/*" })
-public class GeneSetEntityAPI extends HttpServlet {
+public class GeneSetApi extends HttpServlet {
 
 	private static final long serialVersionUID = -3627764278583624301L;
 
 	private static Gson gson;
-
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(GeneSet.class, new GeneSetSerializer());
@@ -53,13 +51,12 @@ public class GeneSetEntityAPI extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] query = URLUtil.getPathAsArray(request, true);
+		String[] query = UrlUtil.getPathAsArray(request, true);
 		PrintWriter out = response.getWriter();
 		if (query == null) {
 			response.sendRedirect("/" + Constant.HARMONIZOME + "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT);
 		} else if (query.length != 2) {
-			ErrorSchema errorSchema = new ErrorSchema(HttpStatusCode.NOT_FOUND);
-			out.write(gson.toJson(errorSchema));
+			out.write(gson.toJson(new ErrorSchema()));
 			out.flush();
 		} else {
 			String attributeName = query[0];
@@ -81,8 +78,7 @@ public class GeneSetEntityAPI extends HttpServlet {
 			}
 			
 			if (attribute == null && dataset == null) {
-				ErrorSchema errorSchema = new ErrorSchema(HttpStatusCode.NOT_FOUND);
-				out.write(gson.toJson(errorSchema));
+				out.write(gson.toJson(new ErrorSchema()));
 				out.flush();
 			} else {
 				geneSet.setAttribute(attribute);

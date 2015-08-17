@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.api.dataset;
+package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,19 +15,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.DatasetListSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.DatasetInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.EntityListSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Dataset.ENDPOINT })
-public class DatasetListAPI extends HttpServlet {
+public class DatasetListApi extends HttpServlet {
 
 	private static final long serialVersionUID = 1695966393931239258L;
 
 	private static Gson gson;
-	
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetInfoSerializer());
@@ -36,17 +35,17 @@ public class DatasetListAPI extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DatasetListSchema datasetListSchema = new DatasetListSchema();
+		EntityListSchema<Dataset> datasets = new EntityListSchema<Dataset>();
 		try {
 			HibernateUtil.beginTransaction();
-			datasetListSchema.setDatasets(DatasetDAO.getAll());
+			datasets.setEntities(DatasetDAO.getAll());
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
 		PrintWriter out = response.getWriter();
-		out.write(gson.toJson(datasetListSchema));
+		out.write(gson.toJson(datasets));
 		out.flush();
 	}
 }

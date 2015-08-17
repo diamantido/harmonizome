@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info;
+package edu.mssm.pharm.maayanlab.Harmonizome.json.serdes;
 
 import java.lang.reflect.Type;
 

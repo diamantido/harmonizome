@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "protein")
@@ -113,7 +113,7 @@ public class Protein {
 	 * ----------------- */
 	@Transient
 	public String getUrlEncodedSymbol() throws UnsupportedEncodingException {
-		return URLCodec.encode(symbol);
+		return UrlCodec.encode(symbol);
 	}
 
 	@Transient

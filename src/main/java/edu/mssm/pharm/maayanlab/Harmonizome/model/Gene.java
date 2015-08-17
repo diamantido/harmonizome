@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "gene")
@@ -183,7 +183,7 @@ public class Gene {
 	 * ----------------- */
 	@Transient
 	public String getUrlEncodedSymbol() {
-		return URLCodec.encode(symbol);
+		return UrlCodec.encode(symbol);
 	}
 
 	@Transient

@@ -12,7 +12,7 @@ import org.hibernate.HibernateException;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.ProteinDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -23,7 +23,7 @@ public class ProteinPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.getPath(request);
+		String query = UrlUtil.getPath(request);
 		System.out.println(query);
 		Protein protein = null;
 		try {

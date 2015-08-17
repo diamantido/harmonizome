@@ -14,7 +14,7 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "resource")
@@ -127,7 +127,7 @@ public class Resource {
 	 * ----------------- */
 	@Transient
 	public String getUrlEncodedName() throws UnsupportedEncodingException {
-		return URLCodec.encode(name);
+		return UrlCodec.encode(name);
 	}
 	
 	@Transient

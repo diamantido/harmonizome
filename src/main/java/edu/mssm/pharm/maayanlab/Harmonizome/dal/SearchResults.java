@@ -9,6 +9,8 @@ import java.util.Set;
 
 import org.hibernate.HibernateException;
 
+import com.google.gson.annotations.Expose;
+
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
@@ -19,8 +21,13 @@ public class SearchResults {
 	private String query;
 	
 	// We use linked hash sets so we can enforce uniqueness and order.
+	@Expose
 	private Set<Dataset> datasets = new LinkedHashSet<Dataset>();
+	
+	@Expose
 	private Set<Gene> genes = new LinkedHashSet<Gene>();
+	
+	@Expose
 	private Set<Attribute> attributes = new LinkedHashSet<Attribute>();
 	
 	private Map<String, List<String>> suggestions = new HashMap<String, List<String>>();

@@ -1,4 +1,4 @@
-package edu.mssm.pharm.maayanlab.Harmonizome.api.gene;
+package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,21 +17,19 @@ import com.google.gson.GsonBuilder;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.info.GeneSetInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.HttpStatusCode;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "/*" })
-public class GeneEntityAPI extends HttpServlet {
+public class GeneApi extends HttpServlet {
 
 	private static final long serialVersionUID = -5484736863604374714L;
 
 	private static Gson gson;
-	
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSerializer());
@@ -41,28 +39,23 @@ public class GeneEntityAPI extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String symbol = URLUtil.getPath(request);
+		String symbol = UrlUtil.getPath(request);
 		Gene gene = null;
 
-		if (symbol == null) {
-			response.sendRedirect("/" + Constant.HARMONIZOME + "/" + Constant.API_URL + "/" + Gene.ENDPOINT);
-		} else {
-			try {
-				HibernateUtil.beginTransaction();
-				gene = GeneDAO.getFromSymbol(symbol);
-				if (gene == null) {
-					gene = GeneDAO.getFromSynonymSymbol(symbol);
-				}
-				HibernateUtil.commitTransaction();
-			} catch (HibernateException he) {
-				HibernateUtil.rollbackTransaction();
+		try {
+			HibernateUtil.beginTransaction();
+			gene = GeneDAO.getFromSymbol(symbol);
+			if (gene == null) {
+				gene = GeneDAO.getFromSynonymSymbol(symbol);
 			}
+			HibernateUtil.commitTransaction();
+		} catch (HibernateException he) {
+			HibernateUtil.rollbackTransaction();
 		}
 		
 		PrintWriter out = response.getWriter();
 		if (gene == null) {
-			ErrorSchema errorSchema = new ErrorSchema(HttpStatusCode.NOT_FOUND);
-			out.write(gson.toJson(errorSchema));
+			out.write(gson.toJson(new ErrorSchema()));
 		} else {
 			out.write(gson.toJson(gene, Gene.class));
 		}

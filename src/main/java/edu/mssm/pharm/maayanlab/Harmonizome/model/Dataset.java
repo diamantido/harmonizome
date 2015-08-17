@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Type;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DownloadComparator;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Ellipsizer;
 
@@ -279,7 +279,7 @@ public class Dataset {
 	 * ----------------- */
 	@Transient
 	public String getUrlEncodedName() {
-		return URLCodec.encode(name);
+		return UrlCodec.encode(name);
 	}
 
 	@Transient

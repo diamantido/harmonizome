@@ -15,7 +15,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.dal.PublicationDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.ResourceDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Publication;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -26,7 +26,7 @@ public class ResourcePage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = URLUtil.getPath(request);
+		String query = UrlUtil.getPath(request);
 		Resource resource = null;
 		List<Publication> publications = null;
 		try {

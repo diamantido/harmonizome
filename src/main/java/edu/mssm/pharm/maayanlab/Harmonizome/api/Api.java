@@ -14,13 +14,12 @@ import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.BaseSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.HttpStatusCode;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL, "/" + Constant.API_URL + "/*" })
-public class API extends HttpServlet {
+public class Api extends HttpServlet {
 
 	private static final long serialVersionUID = -6205859300423151010L;
 
@@ -33,15 +32,13 @@ public class API extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String path = URLUtil.getPath(request);
-		String json = null;
+		String path = UrlUtil.getPath(request);
+		String json;
 		if (path == null) {
 			BaseSchema baseJson = new BaseSchema();
 			json = gson.toJson(baseJson);
-
 		} else {
-			ErrorSchema errorSchema = new ErrorSchema(HttpStatusCode.NOT_FOUND);
-			json = gson.toJson(errorSchema);
+			json = gson.toJson(new ErrorSchema());
 		}
 		PrintWriter out = response.getWriter();
 		out.write(json);

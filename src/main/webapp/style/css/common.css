@@ -67,6 +67,9 @@ input {
 ul {
   padding-left: 15px;
 }
+table ul {
+  margin-bottom: 0;
+}
 /* Generic classes
  * ------------------------------------------------------------------------- */
 .note {

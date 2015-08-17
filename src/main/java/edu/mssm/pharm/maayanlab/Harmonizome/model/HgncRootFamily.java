@@ -16,7 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.net.URLCodec;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "hgnc_root_family")
@@ -95,7 +95,7 @@ public class HgncRootFamily {
 	 * ----------------- */
 	@Transient
 	public String getUrlEncodedName() throws UnsupportedEncodingException {
-		return URLCodec.encode(name);
+		return UrlCodec.encode(name);
 	}
 
 	@Transient

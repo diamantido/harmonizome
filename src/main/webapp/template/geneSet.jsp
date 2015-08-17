@@ -40,13 +40,6 @@
 								</td>
 							</tr>
 						</c:if>
-						<!-- TODO: This should blank if no synonyms exist. -->
-						<c:if test="true">
-							<tr>
-								<td class="col-md-2">Synonyms</td>
-								<td class="col-md-10"></td>
-							</tr>
-						</c:if>
 						<tr>
 							<td class="col-md-2">Downloads &amp; Tools</td>
 							<td class="col-md-10">
