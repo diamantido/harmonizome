@@ -49,7 +49,7 @@ Map<String, Long> stats = (Map<String, Long>) request.getAttribute("stats");
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<canvas id="chart" class="img-responsive"></canvas>
+							<canvas id="chart"></canvas>
 						</div>
 					</div>
 				</div>

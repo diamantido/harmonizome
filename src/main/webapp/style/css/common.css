@@ -70,10 +70,6 @@ ul {
 table ul {
   margin-bottom: 0;
 }
-canvas {
-  width: 100%;
-  height: auto;
-}
 /* Generic classes
  * ------------------------------------------------------------------------- */
 .note {

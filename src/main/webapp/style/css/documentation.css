@@ -1,0 +1,19 @@
+/* https://color.adobe.com/21-Flat-Business-Icons-color-theme-6339907/?showPublished=true
+ * https://color.adobe.com/Aspirin-C-color-theme-251864/?showPublished=true
+ * https://color.adobe.com/Ventana-Azul-color-theme-2159606/?showPublished=true
+ */
+/* Logo colors */
+/* The logo color is 36B1BF; this is slightly too light for text. */
+h2 {
+  border-bottom: 1px solid #eeeeee;
+  font-size: 25px;
+}
+pre {
+  background-color: #f5f5f5;
+  border-radius: 0;
+  border: none;
+}
+.mono {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 12px;
+}

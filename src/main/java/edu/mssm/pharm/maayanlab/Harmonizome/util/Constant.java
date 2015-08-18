@@ -15,7 +15,7 @@ public class Constant {
 		return SEARCH_URL;
 	}
 	
-	public static final String API_CURSOR = "start";
+	public static final String API_CURSOR = "cursor";
 	
 	public static final String TEMPLATE_DIR = "/template/";
 	
