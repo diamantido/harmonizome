@@ -28,7 +28,7 @@
 						<c:if test="${attribute.descriptionFromNamingAuthority != null}">
 							<tr>
 								<td class="col-md-2">Description</td>
-								<td class="col-md-10 initial">${attribute.descriptionFromNamingAuthority} (<a href="${attribute.namingAuthority.endpoint}/${attribute.namingAuthority.urlEncodedName}">${attribute.namingAuthority.name}</a> : <a href="${attribute.urlFromNamingAuthority}" target="_blank">${attribute.idFromNamingAuthority}</a>)
+								<td class="col-md-10 initial">${attribute.descriptionFromNamingAuthority} (<a href="${attribute.namingAuthority.endpoint}/${attribute.namingAuthority.urlEncodedName}">${attribute.namingAuthority.name}</a><c:if test="${not empty attribute.urlFromNamingAuthority}">, <a href="${attribute.urlFromNamingAuthority}" target="_blank">${attribute.idFromNamingAuthority}</a></c:if>)
 								</td>
 							</tr>
 						</c:if>

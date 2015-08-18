@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -54,8 +55,13 @@ public class Publication {
 	@Column(name = "pages")
 	private String pages;
 	
+	/* Back references
+	 * --------------- */
 	@ManyToMany(mappedBy = "publications")
 	private Set<Dataset> datasets;
+
+	@OneToMany(mappedBy = "publication")
+	private Set<NamingAuthority> namingAuthorities;
 	
 	public Publication() {
 	}
@@ -170,5 +176,13 @@ public class Publication {
 
 	public void setDatasets(Set<Dataset> datasets) {
 		this.datasets = datasets;
-	}	
+	}
+
+	public Set<NamingAuthority> getNamingAuthorities() {
+		return namingAuthorities;
+	}
+
+	public void setNamingAuthorities(Set<NamingAuthority> namingAuthorities) {
+		this.namingAuthorities = namingAuthorities;
+	}
 }

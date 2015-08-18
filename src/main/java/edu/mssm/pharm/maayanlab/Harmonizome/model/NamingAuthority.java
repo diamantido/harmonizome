@@ -5,9 +5,12 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,6 +38,12 @@ public class NamingAuthority {
 	
 	@Column(name = "url", length = 2083)
 	private String url;
+	
+	/* Foreign Keys
+	 * ------------ */	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "publication_fk")
+	private Publication publication;
 
 	/* Back references
 	 * --------------- */
@@ -48,6 +57,10 @@ public class NamingAuthority {
 	 * ----------------- */
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -80,6 +93,14 @@ public class NamingAuthority {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+	
+	public Publication getPublication() {
+		return publication;
+	}
+
+	public void setPublication(Publication publication) {
+		this.publication = publication;
 	}
 
 	public Set<Attribute> getAttributes() {

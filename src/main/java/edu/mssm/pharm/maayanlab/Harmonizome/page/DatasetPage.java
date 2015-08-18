@@ -20,7 +20,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/dataset", "/dataset/*" })
+@WebServlet(urlPatterns = { "/" + Dataset.ENDPOINT, "/" + Dataset.ENDPOINT + "/*" })
 public class DatasetPage extends HttpServlet {
 
 	private static final long serialVersionUID = -652055513491031817L;
@@ -34,7 +34,7 @@ public class DatasetPage extends HttpServlet {
 		Long numGeneAttributeAssociations = null;
 
 		if (query == null) {
-			//doNotFound(request, response);
+			doNotFound(request, response);
 		}
 		try {
 			HibernateUtil.beginTransaction();

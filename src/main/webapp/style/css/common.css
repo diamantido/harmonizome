@@ -277,22 +277,8 @@ table ul {
   margin-bottom: 2px;
   padding: 0;
 }
-#treemap {
-  color: white;
-  font-size: 12px;
-  font-weight: bold;
-  height: 1000px;
-  width: 100%;
-  word-wrap: break-word;
-}
-#treemap .node {
-  border: solid 4px white;
-  line-height: 0.95;
-  overflow: hidden;
-  position: absolute;
-}
-#treemap .node div {
-  padding: 6px;
+table.downloads .btn {
+  padding: 1px 4px;
 }
 /* Bootstrap overwrites.
  * ------------------------------------------------------------------------- */

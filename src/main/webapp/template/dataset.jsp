@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
 <!DOCTYPE HTML>
@@ -54,7 +55,8 @@
 				    	<tr>
 				    		<td>Last Updated</td>
 				    		<td>
-				    			<c:out value="${dataset.lastUpdated}"/>
+				    			<fmt:parseDate value="${dataset.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate"/>
+				    			<fmt:formatDate value="${parsedDate}" pattern="yy MMM dd"/>
 				    		</td>
 				    	</tr>
 				    	<tr>
@@ -111,7 +113,7 @@
 				    </table>
 				</section>
 				<section>
-					<h2>Gene Sets <span class="note"><c:out value="${fn:length(dataset.attributes)}"/></span></h2>
+					<h2 class="initial"><c:out value="${dataset.attributeType.name}"></c:out>s <span class="note"><c:out value="${fn:length(dataset.attributes)}"/> Gene Sets</span></h2>
 					<c:forEach var="attribute" items="${attributesFromDataset}" varStatus="loop">
 						<a href="${GeneSet.ENDPOINT}/${attribute.nameFromDataset}/${dataset.name}"><c:out value="${attribute.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
 					</c:forEach>

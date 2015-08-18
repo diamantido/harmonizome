@@ -71,7 +71,6 @@
 								<th></th>
 								<th>Dataset</th>
 								<th>Summary</th>
-								<th>Downloads</th>
 							</tr>
 						</thead>
 						<c:forEach var="pair" items="${attributesByDataset}">
@@ -87,17 +86,15 @@
 										<c:out value="${dataset.name}"/>
 									</a>
 								</td>
-								<td class="col-md-6">
+								<td class="col-md-8">
 									<c:set var="attributeSetDescription" value="${fn:replace(dataset.attributeSetDescription, '{0}', gene.symbol)}"/>
 									<c:set var="attributeCount" value="${fn:length(attributes.left) + fn:length(attributes.right)}"/>
 									<c:out value="${attributeCount} ${attributeSetDescription}"/>
 								</td>
-								<td class="col-md-2">
-								</td>
 							</tr>
 							<tr class="list attribute-list">
 								<td class="col-md-1"></td>
-								<td class="col-md-9" colspan="2">
+								<td class="col-md-11" colspan="2">
 									<c:set var="hasTwoAssociations" value="${fn:length(attributes.right) != 0}"/>
 									<c:if test="${hasTwoAssociations}">
 										<p>
@@ -128,7 +125,6 @@
 										</div>
 									</c:if>
 								</td>
-								<td class="col-md-2"></td>
 							</tr>							
 							
 						</c:forEach>

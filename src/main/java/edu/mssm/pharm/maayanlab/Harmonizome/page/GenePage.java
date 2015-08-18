@@ -39,6 +39,10 @@ public class GenePage extends HttpServlet {
 		String entityList = "";
 		List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDataset = null;
 
+		// We could make another DB query, but the number datasets
+		// should never be greater than ~100.
+		Set<String> uniqueDatasetGroups = new HashSet<String>();
+		
 		try {
 			HibernateUtil.beginTransaction();
 			if (query != null) {
@@ -51,9 +55,6 @@ public class GenePage extends HttpServlet {
 				}
 				if (gene != null) {
 					attributesByDataset = AttributeDAO.getByDatasetsFromGene(query);
-					// We could make another DB query, but the number datasets
-					// should never be greater than ~100.
-					Set<String> uniqueDatasetGroups = new HashSet<String>();
 					for (Pair<Dataset, Pair<List<Attribute>, List<Attribute>>> pair : attributesByDataset) {
 						uniqueDatasetGroups.add(pair.getLeft().getDatasetGroup().getName());
 						numAssociations += pair.getRight().getRight().size() + pair.getRight().getRight().size();
@@ -62,21 +63,28 @@ public class GenePage extends HttpServlet {
 					numDatasets = attributesByDataset.size();
 				}
 			}
+
+			if (gene == null) {
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
+			} else {
+				StringBuilder groups = new StringBuilder();
+				for (String group : uniqueDatasetGroups) {
+					groups.append(group);
+					groups.append(", ");
+				}
+				String allAssociationsSummary = numAssociations + " associations covering " + numCategories + " categories of biological entities (" + groups.toString() + ")" + entityList + " from " + numDatasets + " datasets";
+				request.setAttribute("allAssociationsSummary", allAssociationsSummary);
+				request.setAttribute("note", isSynonym ? "Gene; redirected from " + query : "Gene");
+				request.setAttribute("gene", gene);
+				request.setAttribute("attributesByDataset", attributesByDataset);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "gene.jsp").forward(request, response);
+			}
+			
 			HibernateUtil.commitTransaction();
+			
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			HibernateUtil.rollbackTransaction();
-		}
-
-		if (gene == null) {
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
-		} else {
-			String allAssociationsSummary = numAssociations + " associations covering " + numCategories + " categories of biological entities " + entityList + " from " + numDatasets + " datasets";
-			request.setAttribute("allAssociationsSummary", allAssociationsSummary);
-			request.setAttribute("note", isSynonym ? "Gene; redirected from " + query : "Gene");
-			request.setAttribute("gene", gene);
-			request.setAttribute("attributesByDataset", attributesByDataset);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "gene.jsp").forward(request, response);
 		}
 	}
 }
