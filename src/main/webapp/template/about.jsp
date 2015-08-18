@@ -19,55 +19,8 @@ Map<String, Long> stats = (Map<String, Long>) request.getAttribute("stats");
     <head>
     	<%@include file="globalIncludes.html" %>
     	<%@include file="commonTitle.html" %>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
-        <script>
-        $(function() {
-
-        	var tree = {
-        		name: 'tree',
-        		children: <%= request.getAttribute("resources") %>
-        	};
-
-        	var $parentEl = $('#treemap'),
-	            color = d3.scale.ordinal()
-	            	.domain(["disease or phenotype associations", "transcriptomics", "structural or functional annotations", "physical interactions", "genomics", "proteomics"])
-	            	.range(["#aaa", "#aaa", "#aaa", "#aaa", "#aaa", "#aaa"])
-	            div = d3.select("#treemap").append('div').style("position", "relative"),
-	          	width = $parentEl.width(),
-		       	height = $parentEl.height();
-
-        	//var HEIGHT = d3.max(tree.children, function(d) { return d.size; });
-        	//var WIDTH = d3.max(tree.children, function(d) { return d.size; });
-        	
-	        var treemap = d3.layout.treemap()
-	            .size([width, height])
-	            .sticky(true)
-	            .value(function(d) { return d.size; });
-	        
-	        var tspan = div.datum(tree).selectAll(".node")
-				.data(treemap.nodes)
-	           	.enter().append("div")
-	            .attr("class", "node")
-	            .call(position)
-	            .style("background-color", function(d) {
-	                  return d.name == 'tree' ? '#fff' : color(d.group); })
-	              .append('div')
-	              .attr("title", function(d) {
-	            	  return d.size + " dataset(s)";
-	              })
-	              	.text(function(d) {
-	            	  	return d.children ? null : d.name;
-	           		});
-	   
-	         
-	        function position() {
-	          	this.style("left", function(d) { return d.x + "px"; })
-	              	.style("top", function(d) { return d.y + "px"; })
-	              	.style("width", function(d) { return Math.max(0, d.dx - 1) + "px"; })
-	              	.style("height", function(d) { return Math.max(0, d.dy - 1) + "px"; });
-	        }
-		});
-        </script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+        <script src="script/about.js"></script>
     </head>
     <body>
 		<%@include file="navbar.html" %>
@@ -94,32 +47,9 @@ Map<String, Long> stats = (Map<String, Long>) request.getAttribute("stats");
 							<p>To create the Harmonizome, we distilled information from original datasets into attribute tables that define significant associations between genes and attributes, where attributes could be genes, proteins, cell lines, tissues, experimental perturbations, diseases, phenotypes, or drugs, depending on the dataset. Gene and protein identifiers were mapped to NCBI Entrez Gene Symbols and attributes were mapped to appropriate ontologies. We also computed gene-gene and attribute-attribute similarity networks from the attribute tables. These attribute tables and similarity networks can be integrated to perform many types of computational analyses for knowledge discovery and hypothesis generation.</p>
 						</div>
 					</div>
-					<%--<div class="row">
-						<% @SuppressWarnings("unchecked")
-						List<Resource> resources = (List<Resource>) request.getAttribute("resources");
-						for (Resource r : resources) { 
-							String description = r.getShortDescription();
-						%>
-							<span class="">
-								<a href="<%= r.getUrl() %>" target="_blank"><%= r.getName() %></a>
-								<%= r.getDatasets().size() %>
-								<% Set<String> categories = new TreeSet<String>();
-								for (Dataset ds : r.getDatasets()) {
-									String name = ds.getDatasetGroup().getName();
-									categories.add(name);
-								}
-								for (String cat : categories) { %>
-									<span class="badge <%= StringUtils.join(StringUtils.split(cat), "-") %>">
-										<%= StringUtils.capitalize(cat) %>
-									</span>
-								<% } %>
-							</div>
-						<% } %>
-					</div>--%>
 					<div class="row">
 						<div class="col-md-12">
-							<p class="note top-buffer">A treemap of the resources, sized by number of extracted datasets.</p>
-							<div id="treemap"></div>
+							<canvas id="chart" class="img-responsive"></canvas>
 						</div>
 					</div>
 				</div>

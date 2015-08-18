@@ -31,10 +31,12 @@
 							<td class="col-md-2">Description (from NCBI)</td>
 							<td class="col-md-10">${gene.description}</td>
 						</tr>
-						<tr>
-							<td class="col-md-2">Synonyms</td>
-							<td class="col-md-10">${synonyms}</td>
-						</tr>
+						<c:if test="${fn:length(synonyms) > 0 }">
+							<tr>
+								<td class="col-md-2">Synonyms</td>
+								<td class="col-md-10">${synonyms}</td>
+							</tr>
+						</c:if>
 						<tr>
 							<td class="col-md-2">Proteins</td>
 							<td class="col-md-10">

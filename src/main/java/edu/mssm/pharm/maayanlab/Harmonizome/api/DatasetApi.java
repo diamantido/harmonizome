@@ -30,7 +30,6 @@ public class DatasetApi extends HttpServlet {
 	private static final long serialVersionUID = 2013021100694227509L;
 
 	private static Gson gson;
-	
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSerializer());

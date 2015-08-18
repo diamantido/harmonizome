@@ -18,7 +18,7 @@ $(function() {
 	var $downloadsTools = $('.gene-set-page .downloads-tools');
 	if ($downloadsTools.length) {
 		//setupDownloadLinks($downloadsTools);
-		//setupEnrichrLink($downloads);
+		setupEnrichrLink();
 	}
 	
 	/* --------------------------------------------------------------------- */
@@ -31,7 +31,7 @@ $(function() {
 			var datasetGroup = $(evt.target).parent().attr('data-dataset-group');
 			showItemsByDatasetGroup(datasetGroup);
 		});
-	};
+	}
 	
 	/* Show genes or attributes by dataset group.
 	 */
@@ -48,7 +48,7 @@ $(function() {
 		$plusButton.toggleClass('hidden');
 		$minusButton.toggleClass('hidden');
 		$items.toggleClass('active');
-	};
+	}
 
 	/* Setup datasets table if it exists.
 	 */
@@ -65,24 +65,58 @@ $(function() {
 			},
 			responsive: true
 		});
-	};
+	}
 
+	/* Gets the attribute and dataset from the URL.
+	 */
+	 function buildApiUrl() {
+		 try {
+			 var urlParts = window.location.pathname.split('/');
+			 urlParts = urlParts.splice(2);
+			 return API_URL + urlParts.join('/');
+		 } catch(err) {
+			 return undefined;
+		 }
+	 }
+	
 	/* Utility function for building names for filenames and Enrichr descriptions.
 	 */
 	function getDescription() {
-		return ['harmonizome', ATTRIBUTE_NAME, DATASET_NAME].join('_');
-	};
+		try {
+			var desc,
+			 	urlParts = window.location.pathname.split('/');
+		urlParts = urlParts.splice(3);
+		desc = ['harmonizome'].concat(urlParts);
+		return desc.join('_');
+		} catch(err) {
+			return 'harmonizome';
+		}
+	}
 
 	/* Bind events for sending data to Enrichr.
 	 */
-	function setupEnrichrLink(genes) {
-		$('.enrichr').click(function(evt) {
-			enrich({
-				description: getDescription(),
-				list: genes
-			})
-		});
-	};
+	function setupEnrichrLink() {
+		var url = buildApiUrl();
+		if (typeof url != undefined) {
+			$.get(url, function(data) {
+				success(JSON.parse(data));
+			});
+		}
+	
+		function success(data) {
+			var geneSymbols = [];
+			data.features.forEach(function(feature, i) {
+				geneSymbols.push(feature.gene.symbol);
+			});
+
+			$('.enrichr').click(function() {
+				enrich({
+					description: getDescription(),
+					list: geneSymbols
+				});
+			});
+		}
+	}
 	
 	/* Send data to Enrichr.
 	 */
@@ -114,7 +148,7 @@ $(function() {
 		document.body.appendChild(form);
 		form.submit();
 		document.body.removeChild(form);
-	};
+	}
 	
 	/* Utility function for a pure JavaScript download function.
 	 */
@@ -129,7 +163,7 @@ $(function() {
 	    } else {
 	        pom.click();
 	    }
-	};
+	}
 	
 	/* Setup download links on gene page.
 	 */
@@ -137,8 +171,8 @@ $(function() {
 		$('.glyphicon-download-alt').click(function(evt) {
 			download(getDescription() + ".txt", genes.join("\n"));
 		});
-	};
-	
+	}
+
 	/* Setups search bar.
 	 */
 	function setupSearch($parentEl) {
@@ -168,12 +202,11 @@ $(function() {
 					});
 			}
 		});
-	};
+	}
 	
 	/* Setup Twitter Bootstrap JS tooltips.
 	 */
 	function setupTooltips() {
 		$('[data-toggle="tooltip"]').tooltip();
 	};
-
 });

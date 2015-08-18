@@ -43,17 +43,29 @@
 						<tr>
 							<td class="col-md-2">Downloads &amp; Tools</td>
 							<td class="col-md-10">
+								<noscript>
+									<p class="instruction">The Enrichr link requires JavaScript.</p>
+								</noscript>
 								<div class="downloads-tools">
-									<a href="${Constant.API_URL}/${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}" target="_blank">
-										<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access the gene set from the API."></button>
+									<a class="btn btn-default glyphicon glyphicon-cloud-download"
+										data-toggle="tooltip"
+										data-placement="right"
+										title="Access the gene set from the API."
+										href="${Constant.API_URL}/${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}"
+										target="_blank">
 									</a>
+
 									<!-- It doesn't make sense to pipe to Enrichr without enough genes -->
 									<c:if test="${fn:length(genesByAttribute.right) <= 1}">
-										<button class="btn btn-default enrichr" data-toggle="tooltip" data-placement="right" title="Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool.">
-											<img src="image/tool/enrichr.png">
+										<button class="btn btn-default enrichr"
+											data-toggle="tooltip"
+											data-placement="right"
+											title="Perform enrichment analysis against over 70 gene set libraries with Enrichr, a popular gene set enrichment analysis tool."
+											><img src="image/tool/enrichr.png">
 										</button>
 									</c:if>
 								</div>
+								
 							</td>
 						</tr>
 					</table>
