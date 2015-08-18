@@ -71,23 +71,23 @@ public class Dataset {
 
 	/* Foreign key relationships
 	 * ------------------------- */
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "measurement_fk")
 	private Measurement measurement;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "dataset_group_fk")
 	private DatasetGroup datasetGroup;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "resource_fk")
 	private Resource resource;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attribute_type_fk")
 	private AttributeType attributeType;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "attribute_group_fk")
 	private AttributeGroup attributeGroup;
 
@@ -106,7 +106,7 @@ public class Dataset {
 	
 	/* Foreign key relationships
 	 * ------------------------- */
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@JoinTable(name = "datasets_to_publications", joinColumns = { @JoinColumn(name = "dataset_fk") }, inverseJoinColumns = { @JoinColumn(name = "publication_fk") })
 	private List<Publication> publications;
 	

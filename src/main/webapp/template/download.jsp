@@ -10,38 +10,34 @@
 		<div class="wrapper">
 			<div class="content container browse">
 				<h1>Datasets</h1>
-				<p class="instruction">Sort the table below clicking on the headers or type in the search bar.</p>
+				<p class="instruction">Click on a dataset to download data or <a href="documentation">use the API</a>. Sort the table below clicking on the headers or type in the search bar.</p>
 				<table class="table data-table">
 					<thead>
 						<tr>
-							<th>Name</th>
 							<th>Resource</th>
-							<th>Resource</th>
+							<th>Dataset</th>
 							<th>Description</th>
 							<th>Category</th>
 							<th>Attribute</th>
-							<th>Downloads</th>
 							<th>Views</th>
 				    	</tr>
 					</thead>
 					<tbody>
 						<c:forEach var="dataset" items="${datasets}">
 							<tr>
-								<td>${dataset.name}</td>
 								<td>
 									<a href="resource/${dataset.resource.urlEncodedName}">
 										${dataset.resource.name}
 									</a>
 								</td>
+								<td>
+									<a href="dataset/${dataset.urlEncodedName}">
+										${dataset.nameWithoutResource}
+									</a>
+								</td>
 								<td>${dataset.description}</td>
 								<td>${dataset.datasetGroup.name}</td>
-								<td>${dataset.datasetGroup.name}</td>
 								<td>${dataset.attributeType.name}</td>
-								<td>
-									<a href="dataset/${dataset.urlEncodedName}" type="button" class="btn btn-default download" aria-label="Left Align">
-										<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-						            </a>
-					            </td>
 					            <td>${dataset.numPageViews}</td>
 							</tr>
 						</c:forEach>

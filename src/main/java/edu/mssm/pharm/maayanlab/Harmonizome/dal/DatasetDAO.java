@@ -22,12 +22,6 @@ public class DatasetDAO {
 			.uniqueResult();
 	}
 
-	@SuppressWarnings("unchecked")
-	public static List<Dataset> getDatasets() {
-		List<Dataset> datasets = (List<Dataset>) HibernateUtil.getAll(Dataset.class);
-		return datasets;
-	}
-
 	public static Dataset getFromName(String name) {
 		Criteria criteria = HibernateUtil.getCurrentSession()
 			.createCriteria(Dataset.class)

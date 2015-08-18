@@ -13,6 +13,11 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class GeneDAO implements DAOInterface<Gene> {
 
+	@SuppressWarnings("unchecked")
+	public static List<Gene> getAll() {
+		return (List<Gene>) HibernateUtil.getAll(Gene.class);
+	}
+	
 	public List<Gene> getAll(int startAt) {
 		return GenericDAO.getAll(Gene.class, startAt);
 	}
