@@ -19,7 +19,7 @@ $(function() {
 		var labels = [],
 			resourceSizes = [];
 		resources.forEach(function(resource, i) {
-			resourceSizes.push(resource.size);
+			resourceSizes.push(Math.log(resource.size));
 			labels.push(resource.name);
 		});
 

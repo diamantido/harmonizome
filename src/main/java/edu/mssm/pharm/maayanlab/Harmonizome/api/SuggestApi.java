@@ -34,7 +34,6 @@ public class SuggestApi extends HttpServlet {
 	private static final int MAX_ATTRIBUTES_TO_SUGGEST = 100;
 
 	private static final Gson gson;
-
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gson = gsonBuilder.create();

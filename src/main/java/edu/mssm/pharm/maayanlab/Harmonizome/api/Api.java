@@ -24,7 +24,6 @@ public class Api extends HttpServlet {
 	private static final long serialVersionUID = -6205859300423151010L;
 
 	private static final Gson gson;
-
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gson = gsonBuilder.create();

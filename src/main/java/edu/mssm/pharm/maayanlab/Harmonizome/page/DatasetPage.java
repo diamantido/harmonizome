@@ -34,7 +34,7 @@ public class DatasetPage extends HttpServlet {
 		Long numGeneAttributeAssociations = null;
 
 		if (query == null) {
-			doNotFound(request, response);
+			//doNotFound(request, response);
 		}
 		try {
 			HibernateUtil.beginTransaction();
@@ -50,7 +50,7 @@ public class DatasetPage extends HttpServlet {
 			e.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
-		
+
 		if (dataset == null) {
 			doNotFound(request, response);
 		} else {

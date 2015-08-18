@@ -100,7 +100,7 @@
 				    					</span>
 				    				</td>
 				    				<td>
-				    					<a href="${download.endpoint}/${dataset.directory}/${download.downloadType.name}">
+				    					<a href="${Constant.DATA_DIRECTORY}/${dataset.directory}/${download.downloadType.filename}" target="_blank">
 				    						<span class="btn btn-default glyphicon glyphicon-download-alt" aria-hidden="true"></span>
 				    					</a>
 				    				</td>

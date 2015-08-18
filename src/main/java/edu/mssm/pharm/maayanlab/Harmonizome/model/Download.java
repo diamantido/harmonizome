@@ -29,7 +29,11 @@ public class Download {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "download_type_fk")
 	private DownloadType downloadType;
-
+	
+	/* Utilities
+	 * --------- */
+	public static final String ENDPOINT = "download";
+	
 	public Download() {
 	}
 
@@ -60,9 +64,9 @@ public class Download {
 	public void setDownloadType(DownloadType type) {
 		this.downloadType = type;
 	}
-	
+
 	@Transient
 	public String getEndpoint() {
-		return "download";
+		return ENDPOINT;
 	}
 }
