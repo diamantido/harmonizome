@@ -15,7 +15,7 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.EntityListSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
@@ -44,10 +44,10 @@ public class AttributeListApi extends HttpServlet {
 			HibernateUtil.beginTransaction();
 			List<Attribute> attributes;
 			if (cursor == null) {
-				attributes = AttributeDAO.getAll(0);
+				attributes = GenericDAO.getAll(Attribute.class, 0);
 			} else {
 				Integer c = Integer.parseInt(cursor);
-				attributes = AttributeDAO.getAll(c);
+				attributes = GenericDAO.getAll(Attribute.class, c);
 			}
 			schema.setEntities(attributes);
 			HibernateUtil.commitTransaction();

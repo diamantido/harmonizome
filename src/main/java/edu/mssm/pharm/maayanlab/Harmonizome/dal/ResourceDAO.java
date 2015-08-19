@@ -10,11 +10,6 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class ResourceDAO {
 
-	@SuppressWarnings("unchecked")
-	public static List<Resource> getAll() {
-		return (List<Resource>) HibernateUtil.getAll(Resource.class);
-	}
-
 	public static Resource getByName(String name) {
 		Criteria criteria = HibernateUtil.getCurrentSession()
 			.createCriteria(Resource.class)

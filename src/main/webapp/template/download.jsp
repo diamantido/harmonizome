@@ -10,8 +10,8 @@
 		<div class="wrapper">
 			<div class="content container browse">
 				<h1>Datasets</h1>
-				<p class="instruction">Click on a dataset to download data or <a href="documentation">use the API</a>. Sort the table below clicking on the headers or type in the search bar.</p>
-				<table class="table data-table">
+				<p class="instruction">To access data, click on a dataset or <a href="documentation">use the API</a>. Sort the table below clicking on the headers or type in the search bar.</p>
+				<table class="table dt-responsive data-table">
 					<thead>
 						<tr>
 							<th>Resource</th>

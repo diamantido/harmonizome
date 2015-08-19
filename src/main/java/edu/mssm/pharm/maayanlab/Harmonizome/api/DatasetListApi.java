@@ -14,7 +14,7 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.EntityListSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetInfoSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
@@ -38,7 +38,7 @@ public class DatasetListApi extends HttpServlet {
 		EntityListSchema<Dataset> datasets = new EntityListSchema<Dataset>();
 		try {
 			HibernateUtil.beginTransaction();
-			datasets.setEntities(DatasetDAO.getAll());
+			datasets.setEntities(GenericDAO.getAll(Dataset.class));
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();

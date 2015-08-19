@@ -12,8 +12,8 @@
 	<body>
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
-			<div class="content container">
-				<h1><c:out value="${dataset.name}"/> <span class="note">Dataset</span></h1>
+			<div class="content container dataset-page">
+				<h1><c:out value="${dataset.name}"/> <span class="note dataset">Dataset</span></h1>
 				<section>
 				    <table class="table">
 				    	<tr>
@@ -44,9 +44,9 @@
 				    		<td>Citation(s)</td>
 				    		<td>
 				    			<ul>
-									<c:forEach var="pub" items="${dataset.publications}" varStatus="loop">
+									<c:forEach var="pub" items="${dataset.publications}">
 										<li>
-											<a href="${pub.pubmedUrl}" target="_blank">${pub.longCitation}</a><c:if test="${!loop.last}">, </c:if>
+											<a href="${pub.pubmedUrl}" target="_blank">${pub.longCitation}</a>
 										</li>
 									</c:forEach>
 								</ul>
@@ -60,18 +60,22 @@
 				    		</td>
 				    	</tr>
 				    	<tr>
-				    		<td>No. Genes</td>
-				    		<td><c:out value="${numGenes}"/></td>
+				    		<td>Stats</td>
+				    		<td>
+				    			<ol class="list-unstyled">
+				    				<li><span><c:out value="${numGenes}"/> genes</li>
+				    				<li><c:out value="${fn:length(dataset.attributes)}"/> <c:out value="${dataset.attributeType.name}s"/></li>
+				    				<li><c:out value="${numGeneAttributeAssociations}"></c:out> gene-<c:out value="${dataset.attributeType.name}"/> associations</li>
+				    			</ol>
+				    		</td>
 				    	</tr>
+						
+				    </table>
+				</section>
+				<section>
+					<h2>Data Access</h2>
+				    <table class="table">
 				    	<tr>
-				    		<td class="capitalize">No. <c:out value="${dataset.attributeType.name}s"/></td>
-				    		<td><c:out value="${fn:length(dataset.attributes)}"/></td>
-				    	</tr>
-				    	<tr>
-				    		<td class="capitalize"><c:out value="No. Gene-${dataset.attributeType.name} Associations"/></td>
-				    		<td><c:out value="${numGeneAttributeAssociations}"/></td>
-				    	</tr>
-						<tr>
 							<td class="col-md-2">API</td>
 							<td class="col-md-10">
 								<a href="${Constant.API_URL}/${dataset.endpoint}/${dataset.urlEncodedName}" target="_blank">
@@ -79,47 +83,45 @@
 								</a>
 							</td>
 						</tr>
+						<tr>
+							<td class="col-md-2">Downloads</td>
+							<td class="col-md-10">
+								<ul class="list-unstyled">
+									<c:forEach var="download" items="${dataset.sortedDownloads}">
+				    					<li><a href="${Constant.DATA_DIRECTORY}/${dataset.directory}/${download.downloadType.filename}" target="_blank">
+				    						<span class="capitalize">
+					    						<c:out value="${download.downloadType.name}"/>
+					    					</span>
+					    				</a>
+				    					<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="${download.downloadType.description}"></span>
+						    			</li>
+						    		</c:forEach>
+								</ul>
+							</td>
+						</tr>
 				    </table>
 				</section>
 				<section>
-					<h2>Downloads</h2>
-				    <table class="table downloads">
-				    	<thead>
-				    		<tr>
-				    			<th>Content</th>
-				    			<th>Download link</th>
-				    			<th>Number of downloads</th>
-				    		</tr>
-				    	</thead>
-				    	<tbody>
-				    		<c:forEach var="download" items="${dataset.sortedDownloads}">
-				    			<tr>
-				    				<td>
-				    					<span class="capitalize">
-				    						<c:out value="${download.downloadType.name}"/>
-				    					</span>
-				    					<span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="right" title="${download.downloadType.description}">
-				    					</span>
-				    				</td>
-				    				<td>
-				    					<a href="${Constant.DATA_DIRECTORY}/${dataset.directory}/${download.downloadType.filename}" target="_blank">
-				    						<span class="btn btn-default glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-				    					</a>
-				    				</td>
-				    				<td><c:out value="${download.count}"/></td>
-				    			</tr>
-				    		</c:forEach>
-				    	</tbody>
-				    </table>
+					<h2 class="initial"><c:out value="${dataset.attributeType.name}"></c:out> <span class="note">Gene Sets</span></h2>
+					<p class="instruction">
+						<c:out value="${fn:length(dataset.attributes)}"/> <c:out value="${dataset.geneSetsDescription}"></c:out>
+					</p>
+					<table class="table data-table gene-sets">
+						<thead>
+							<tr>
+								<th></th>
+							</tr>
+						</thead>
+						<c:forEach var="attribute" items="${attributesFromDataset}">
+							<tr>
+								<td>
+									<a href="${GeneSet.ENDPOINT}/${attribute.nameFromDataset}/${dataset.name}"><c:out value="${attribute.nameFromDataset}"/></a>
+									
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
 				</section>
-				<section>
-					<h2 class="initial"><c:out value="${dataset.attributeType.name}"></c:out>s <span class="note"><c:out value="${fn:length(dataset.attributes)}"/> Gene Sets</span></h2>
-					<c:forEach var="attribute" items="${attributesFromDataset}" varStatus="loop">
-						<a href="${GeneSet.ENDPOINT}/${attribute.nameFromDataset}/${dataset.name}"><c:out value="${attribute.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
-					</c:forEach>
-				</section>
-				<!-- End dataset content -->
-
 			</div>
 			<%@include file="footer.html"%>
 		</div>

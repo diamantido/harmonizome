@@ -21,7 +21,7 @@ List<String> attributeSuggestions = (List<String>) request.getAttribute("attribu
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container-full">
-				<div id="suggest-page" class="container">
+				<div class="container suggest-page">
 					<h1>Suggestions</h1>
 					<p class="note">Did you mean...</p>
 					<ul class="list-inline">

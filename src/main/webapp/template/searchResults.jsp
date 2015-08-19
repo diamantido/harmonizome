@@ -16,7 +16,6 @@
 					<div class="metadata">
 						<p class="instruction">${summary}</p>
 						<p>
-							Filter By:
 							<c:choose>
 								<c:when test="${isFilteredPage}">
 									<span class="badge">
@@ -24,6 +23,7 @@
 									</span>
 								</c:when>
 								<c:otherwise>
+									Filter By:
 									<c:if test="${fn:length(datasets) != 0}">
 										<span class="badge dataset">
 											<a href="${Constant.SEARCH_URL}?q=${query}&t=dataset">Dataset</a>
@@ -35,7 +35,7 @@
 										</span>
 									</c:if>
 									<c:if test="${fn:length(attributes) != 0}">
-										<span class="badge attribute">
+										<span class="badge gene-set">
 											<a href="${Constant.SEARCH_URL}?q=${query}&t=attribute">Gene Set</a>
 										</span>
 									</c:if>
@@ -86,7 +86,7 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${attribute.dataset.urlEncodedName}">${attribute.nameFromDataset}</a> <span class="note attribute">Gene Set</span>
+											<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${attribute.dataset.urlEncodedName}">${attribute.nameFromDataset}</a> <span class="note gene-set">Gene Set</span>
 										</h3>
 										<div class="description">
 											<p><em>From <a href="${attribute.dataset.endpoint}/${attribute.dataset.urlEncodedName}">${attribute.dataset.name}</a></em></p>

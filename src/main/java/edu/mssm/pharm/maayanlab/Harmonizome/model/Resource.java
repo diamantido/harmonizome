@@ -43,6 +43,9 @@ public class Resource {
 
 	@Column(name = "image")
 	private String image;
+
+	@Column(name = "num_attributes")
+	private Long numAttributes;
 	
 	/* Foreign key relationships
 	 * ------------------------- */
@@ -133,5 +136,13 @@ public class Resource {
 	@Transient
 	public String getEndpoint() {
 		return ENDPOINT;
+	}
+
+	public void setNumAttributes(Long numAttributes) {
+		this.numAttributes = numAttributes;
+	}
+
+	public Long getNumAttributes() {
+		return numAttributes;
 	}
 }

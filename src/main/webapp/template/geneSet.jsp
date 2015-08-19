@@ -12,12 +12,12 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper gene-set-page">
 			<div class="content container">
-				<h1 class="capitalize">${attribute.nameFromDataset} <span class="note">Gene Set</span></h1>
+				<h1 class="capitalize">${attribute.nameFromDataset} <span class="note gene-set">Gene Set</span></h1>
 				<section>
 					<table class="table">
 						<tr>
 							<td class="col-md-2">Source</td>
-							<td class="col-md-10 initial">
+							<td class="col-md-10">
 								<a href="${dataset.endpoint}/${dataset.urlEncodedName}">${dataset.name}</a>
 							</td>
 						</tr>

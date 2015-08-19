@@ -10,18 +10,6 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class DatasetDAO {
 
-	@SuppressWarnings("unchecked")
-	public static List<Dataset> getAll() {
-		return (List<Dataset>) HibernateUtil.getAll(Dataset.class);
-	}
-
-	public static Long getCount() {
-		return (Long) HibernateUtil
-			.getCurrentSession()
-			.createQuery("SELECT COUNT(*) FROM Dataset")
-			.uniqueResult();
-	}
-
 	public static Dataset getFromName(String name) {
 		Criteria criteria = HibernateUtil.getCurrentSession()
 			.createCriteria(Dataset.class)

@@ -77,8 +77,8 @@ GET /Harmonizome/api/1.0/gene?cursor=3141
 								<p>If no cursor is provided, the API defaults to 0. The maximum result set size is 100, and the <span class="mono">next</span> property will be returned with a link to the next selection of data.</p>
 							</section>
 							<section>
-								<h2>Root Entities</h2>
-								<p>Root entities provide actual data and have no <span class="mono">href</span> property. For example</p>
+								<h2>Entities</h2>
+								<p>Entities provide actual data and have no <span class="mono">href</span> property. For example</p>
 <pre>
 GET /Harmonizome/api/1.0/gene/nanog
 </pre>

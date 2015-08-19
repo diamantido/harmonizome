@@ -31,5 +31,6 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Protein" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Resource" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Stats" />
 	</session-factory>
 </hibernate-configuration>

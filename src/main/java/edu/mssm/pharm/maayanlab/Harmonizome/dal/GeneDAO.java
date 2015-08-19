@@ -11,16 +11,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class GeneDAO implements DAOInterface<Gene> {
-
-	@SuppressWarnings("unchecked")
-	public static List<Gene> getAll() {
-		return (List<Gene>) HibernateUtil.getAll(Gene.class);
-	}
-	
-	public List<Gene> getAll(int startAt) {
-		return GenericDAO.getAll(Gene.class, startAt);
-	}
+public class GeneDAO {
 
 	public List<Gene> getAll(String query, int startAt) {
 		return GenericDAO.getAllFromQuery(Gene.class, "gene", "symbol", query, startAt);

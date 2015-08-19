@@ -45,15 +45,15 @@ a:active {
 a.btn {
 	color: black;
 }
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
     font-family: @font-family-primary;
     font-weight: @font-weight-primary;
+}
+h1, h2, h3 {
     border-bottom: 1px solid @color-gray-medium;
+}
+h4, h5, h6 {
+	font-weight: bold;
 }
 input {
 	width: 100%;
@@ -62,10 +62,12 @@ input {
     clear: both;
 }
 ul {
+    list-style-type: square;
     padding-left: 15px;
 }
 table {
-	ul {
+	ul,
+	ol {
 		margin-bottom: 0;
 	}
 }
@@ -81,7 +83,7 @@ table {
 	&.gene {
 		color: @color-yellow;
 	}
-	&.attribute {
+	&.gene-set {
 		color: @color-red;
 	}
 }
@@ -107,6 +109,10 @@ table {
 }
 .capitalize {
 	text-transform: capitalize;
+}
+/* Show once DataTables is ready. */
+.data-table {
+	display: none;
 }
 
 /* Section selectors.
@@ -291,12 +297,8 @@ table {
 	.note {
 		font-size: 12px;
 	}
-	/* Show once DataTables is ready. */
-	.data-table {
-		display: none;
-	}
 }
-#suggest-page {
+.suggest-page {
 	ul {
 		li {
 			margin-bottom: 2px;
@@ -304,9 +306,11 @@ table {
 		}
 	}
 }
-table.downloads {
-	.btn {
-		padding: 1px 4px;	
+.dataset-page {
+	table.gene-sets {
+		td {
+			padding: 3px;
+		}
 	}
 }
 
@@ -340,14 +344,22 @@ table.downloads {
 			color: @color-charcoal;
 		}
 	}
+	&.dataset,
+	&.gene,
+	&.gene-set {
+		color: white;
+		a {
+			color: white;
+		}
+	}
 	&.dataset {
-		color: @color-blue;
+		background-color: @color-blue;
 	}
 	&.gene {
-		color: @color-yellow;
+		background-color: @color-yellow;
 	}
-	&.attribute {
-		color: @color-red;
+	&.gene-set {
+		background-color: @color-red;
 	}
 }
 .tooltip {
@@ -364,6 +376,9 @@ table.downloads {
 		    border-right:5px solid @color-charcoal;
 		}
 	}
+}
+.table-responsive {
+    overflow-x: auto;
 }
 
 /* jQuery UI overwrites.

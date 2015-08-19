@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,6 +50,9 @@ public class Dataset {
 	@Column(name = "gene_set_description")
 	private String geneSetDescription;
 	
+	@Column(name = "gene_sets_description")
+	private String geneSetsDescription;
+	
 	@Column(name = "attribute_set_description")
 	private String attributeSetDescription;
 	
@@ -71,23 +73,23 @@ public class Dataset {
 
 	/* Foreign key relationships
 	 * ------------------------- */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "measurement_fk")
 	private Measurement measurement;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "dataset_group_fk")
 	private DatasetGroup datasetGroup;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "resource_fk")
 	private Resource resource;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_type_fk")
 	private AttributeType attributeType;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "attribute_group_fk")
 	private AttributeGroup attributeGroup;
 
@@ -106,7 +108,7 @@ public class Dataset {
 	
 	/* Foreign key relationships
 	 * ------------------------- */
-	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "datasets_to_publications", joinColumns = { @JoinColumn(name = "dataset_fk") }, inverseJoinColumns = { @JoinColumn(name = "publication_fk") })
 	private List<Publication> publications;
 	
@@ -161,6 +163,14 @@ public class Dataset {
 
 	public void setGeneSetDescription(String geneSetDescription) {
 		this.geneSetDescription = geneSetDescription;
+	}
+
+	public String getGeneSetsDescription() {
+		return geneSetsDescription;
+	}
+
+	public void setGeneSetsDescription(String geneSetsDescription) {
+		this.geneSetsDescription = geneSetsDescription;
 	}
 
 	public String getAttributeSetDescription() {

@@ -56,7 +56,16 @@ h5,
 h6 {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
+}
+h1,
+h2,
+h3 {
   border-bottom: 1px solid #aaaaaa;
+}
+h4,
+h5,
+h6 {
+  font-weight: bold;
 }
 input {
   width: 100%;
@@ -65,9 +74,11 @@ input {
   clear: both;
 }
 ul {
+  list-style-type: square;
   padding-left: 15px;
 }
-table ul {
+table ul,
+table ol {
   margin-bottom: 0;
 }
 /* Generic classes
@@ -80,10 +91,10 @@ table ul {
   color: #309fab;
 }
 .note.gene {
-  color: #f5a503;
+  color: #ed8c2b;
 }
-.note.attribute {
-  color: #f2385a;
+.note.gene-set {
+  color: #ec1e8e;
 }
 .glyphicon-search {
   cursor: pointer;
@@ -105,6 +116,10 @@ table ul {
 }
 .capitalize {
   text-transform: capitalize;
+}
+/* Show once DataTables is ready. */
+.data-table {
+  display: none;
 }
 /* Section selectors.
  * ------------------------------------------------------------------------- */
@@ -247,7 +262,6 @@ table ul {
 }
 .search-results-page {
   padding-top: 20px;
-  /* Show once DataTables is ready. */
 }
 .search-results-page form {
   -moz-box-sizing: border-box;
@@ -270,15 +284,12 @@ table ul {
 .search-results-page .note {
   font-size: 12px;
 }
-.search-results-page .data-table {
-  display: none;
-}
-#suggest-page ul li {
+.suggest-page ul li {
   margin-bottom: 2px;
   padding: 0;
 }
-table.downloads .btn {
-  padding: 1px 4px;
+.dataset-page table.gene-sets td {
+  padding: 3px;
 }
 /* Bootstrap overwrites.
  * ------------------------------------------------------------------------- */
@@ -311,14 +322,24 @@ table.downloads .btn {
 .badge a:hover {
   color: #444444;
 }
+.badge.dataset,
+.badge.gene,
+.badge.gene-set {
+  color: white;
+}
+.badge.dataset a,
+.badge.gene a,
+.badge.gene-set a {
+  color: white;
+}
 .badge.dataset {
-  color: #309fab;
+  background-color: #309fab;
 }
 .badge.gene {
-  color: #f5a503;
+  background-color: #ed8c2b;
 }
-.badge.attribute {
-  color: #f2385a;
+.badge.gene-set {
+  background-color: #ec1e8e;
 }
 .tooltip .tooltip-inner {
   background: #444444;
@@ -330,6 +351,9 @@ table.downloads .btn {
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-right: 5px solid #444444;
+}
+.table-responsive {
+  overflow-x: auto;
 }
 /* jQuery UI overwrites.
  * ------------------------------------------------------------------------- */

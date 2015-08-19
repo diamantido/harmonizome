@@ -45,11 +45,11 @@ public class Gene {
 
 	/* Foreign key relationships
 	 * ------------------------- */
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idg_family_fk")
 	private IdgFamily idgFamily;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "idg_tdl_class_fk")
 	private IdgTdlClass idgTdlClass;
 	

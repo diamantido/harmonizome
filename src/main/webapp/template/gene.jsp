@@ -12,7 +12,7 @@
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
 			<div class="content container">
-				<h1 class="initial">${gene.symbol} <span class="note">${note}</span></h1>
+				<h1 class="initial">${gene.symbol} <span class="note gene">${note}</span></h1>
 				<section>
 					<table class="table">
 						<tr>
@@ -31,10 +31,14 @@
 							<td class="col-md-2">Description (from NCBI)</td>
 							<td class="col-md-10">${gene.description}</td>
 						</tr>
-						<c:if test="${fn:length(synonyms) > 0 }">
+						<c:if test="${fn:length(gene.synonyms) > 0 }">
 							<tr>
 								<td class="col-md-2">Synonyms</td>
-								<td class="col-md-10">${synonyms}</td>
+								<td class="col-md-10">
+									<c:forEach var="synonym" items="${gene.synonyms}" varStatus="loop">
+										${synonym.symbol}<c:if test="${!loop.last}">, </c:if>
+									</c:forEach>
+								</td>
 							</tr>
 						</c:if>
 						<tr>
@@ -61,7 +65,7 @@
 				</section>
 				<section>
 					<h2>Knowledge</h2>
-					<p class="instruction">Click the + buttons to view associations for ${symbol} from each dataset.</p>
+					<p class="instruction">Click the + buttons to view associations for <c:out value="${gene.symbol}"></c:out> from each dataset.</p>
 					<p class="instruction">
 						<c:out value="${allAssociationsSummary}"/>	
 					</p>

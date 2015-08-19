@@ -28,15 +28,15 @@ public class DatasetPage extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = UrlUtil.getPath(request);
-		Dataset dataset = null;
-		List<Attribute> attributesFromDataset = null;
-		Long numGenes = null;
-		Long numGeneAttributeAssociations = null;
-
 		if (query == null) {
 			doNotFound(request, response);
 		}
 		try {
+			Dataset dataset = null;
+			List<Attribute> attributesFromDataset = null;
+			Long numGenes = null;
+			Long numGeneAttributeAssociations = null;
+
 			HibernateUtil.beginTransaction();
 			dataset = DatasetDAO.getFromName(query);
 			if (dataset != null) {
@@ -45,20 +45,19 @@ public class DatasetPage extends HttpServlet {
 				numGeneAttributeAssociations = DatasetDAO.getCountGeneAttributeAssocations(query);
 				attributesFromDataset = AttributeDAO.getFromDataset(query);
 			}
+			if (dataset == null) {
+				doNotFound(request, response);
+			} else {
+				request.setAttribute("numGenes", numGenes);
+				request.setAttribute("numGeneAttributeAssociations", numGeneAttributeAssociations);
+				request.setAttribute("attributesFromDataset", attributesFromDataset);
+				request.setAttribute("dataset", dataset);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp").forward(request, response);
+			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			HibernateUtil.rollbackTransaction();
-		}
-
-		if (dataset == null) {
-			doNotFound(request, response);
-		} else {
-			request.setAttribute("numGenes", numGenes);
-			request.setAttribute("numGeneAttributeAssociations", numGeneAttributeAssociations);
-			request.setAttribute("attributesFromDataset", attributesFromDataset);
-			request.setAttribute("dataset", dataset);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp").forward(request, response);
 		}
 	}
 	

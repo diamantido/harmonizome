@@ -12,6 +12,13 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class GenericDAO {
 	
 	@SuppressWarnings("unchecked")
+	public static <E> List<E> getAll(Class<E> klass) {
+		return (List<E>) HibernateUtil.getCurrentSession()
+			.createCriteria(klass)
+			.list();
+	}
+
+	@SuppressWarnings("unchecked")
 	public static <E> List<E> getAll(Class<E> klass, Integer startAt) {
 		startAt = (startAt == null) ? 0 : startAt;
 		return (List<E>) HibernateUtil.getCurrentSession()
