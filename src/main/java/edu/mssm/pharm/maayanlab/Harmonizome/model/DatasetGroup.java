@@ -23,21 +23,28 @@ public class DatasetGroup {
 
 	@Column(name = "name")
 	private String name;
-
+	
+	@Column(name = "num_datasets")
+	private Long numDatasets;
+	
+	/* Back References
+	 * --------------- */
 	@OneToMany(mappedBy = "datasetGroup")
 	private Set<Dataset> datasets;
 
 	public DatasetGroup() {
 	}
 
-	public DatasetGroup(String name) {
-		this.name = name;
-	}
-
+	/* Getters & Setters 
+	 * ----------------- */
 	public int getId() {
 		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -54,6 +61,16 @@ public class DatasetGroup {
 		this.datasets = datasets;
 	}
 	
+	public Long getNumDatasets() {
+		return numDatasets;
+	}
+
+	public void setNumDatasets(Long numDatasets) {
+		this.numDatasets = numDatasets;
+	}
+
+	/* Utility Functions 
+	 * ----------------- */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof DatasetGroup)) {

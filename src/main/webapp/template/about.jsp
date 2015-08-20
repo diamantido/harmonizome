@@ -11,33 +11,35 @@
     <body>
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
-			<div class="content container-full">
+			<div class="content container-full about-page">
 				<div class="container">
 					<div class="row">
 						<h1 class="col-md-12">About</h1>
 						<div class="col-md-6"><h4>Intro</h4><p>Thanks to technological advances in genomics, transcriptomics, proteomics, metabolomics, and related fields, projects that generate a large number of measurements of the properties of cells, tissues, model organisms, and patients are becoming commonplace in biomedical research. In addition, curation projects are making great progress mining biomedical literature to extract and aggregate decades worth of research findings into online databases. Such projects are generating a wealth of information that potentially can guide research toward novel biomedical discoveries and advances in healthcare. To facilitate access to and learning from biomedical Big Data, we created the Harmonizome: a collection of information about genes and proteins from over 100 datasets provided by over 50 online resources.</p></div>
 						<div class="col-md-6"><h4>Methods</h4><p>To create the Harmonizome, we distilled information from original datasets into attribute tables that define significant associations between genes and attributes, where attributes could be genes, proteins, cell lines, tissues, experimental perturbations, diseases, phenotypes, or drugs, depending on the dataset. Gene and protein identifiers were mapped to NCBI Entrez Gene Symbols and attributes were mapped to appropriate ontologies. We also computed gene-gene and attribute-attribute similarity networks from the attribute tables. These attribute tables and similarity networks can be integrated to perform many types of computational analyses for knowledge discovery and hypothesis generation.</p></div>
 					</div>
-					<div class="row">
+					<div class="row stats">
 						<h2 class="col-md-12">Stats</h2>
 						<div class="col-md-4">
 							<h4>Summary</h4>
 							<ul class="list-unstyled">
-								<li><c:out value="${stats.getNumFeatures()}"></c:out> associations between</li>
-								<li><c:out value="${stats.getNumAttributes()}"></c:out> attributes and</li>
-								<li><c:out value="${stats.getNumGenes()}"></c:out> genes from</li>
-								<li><c:out value="${stats.getNumDatasets()}"></c:out> datasets provided by</li>
-								<li><c:out value="${stats.getNumResources()}"></c:out> resources</li>
+								<li><strong><c:out value="${stats.getNumFeatures()}"></c:out> associations</strong> between</li>
+								<li><strong><c:out value="${stats.getNumAttributes()}"></c:out> attributes</strong> and</li>
+								<li><strong><c:out value="${stats.getNumGenes()}"></c:out> genes</strong> from</li>
+								<li><strong><c:out value="${stats.getNumDatasets()}"></c:out> datasets provided</strong> by</li>
+								<li><strong><c:out value="${stats.getNumResources()}"></c:out> resources</strong></li>
 							</ul>
 						</div>
 						<div class="col-md-4">
+							<h4>Number of Datasets Per Dataset Category</h4>
 							<div>
-								<canvas class="pie-chart"></canvas>
+								<canvas id="dataset-pie-chart"></canvas>
 							</div>
 						</div>
 						<div class="col-md-4">
+							<h4>Number of Attributes Per Attributes Category</h4>
 							<div>
-								<canvas class="pie-chart"></canvas>
+								<canvas id="attribute-pie-chart"></canvas>
 							</div>
 						</div>
 					</div>

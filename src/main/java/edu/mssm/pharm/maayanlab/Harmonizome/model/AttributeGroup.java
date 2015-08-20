@@ -24,6 +24,11 @@ public class AttributeGroup {
 	@Column(name = "name")
 	private String name;
 
+	@Column(name = "num_attributes")
+	private Long numAttributes;
+
+	/* Back References
+	 * --------------- */
 	@OneToMany(mappedBy = "attributeGroup")
 	private Set<AttributeType> attributeTypes;
 	
@@ -33,6 +38,8 @@ public class AttributeGroup {
 	public AttributeGroup() {
 	}
 
+	/* Getters & Setters 
+	 * ----------------- */
 	public AttributeGroup(String name) {
 		this.name = name;
 	}
@@ -41,12 +48,24 @@ public class AttributeGroup {
 		return id;
 	}
 
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Long getNumAttributes() {
+		return numAttributes;
+	}
+
+	public void setNumAttributes(Long numAttributes) {
+		this.numAttributes = numAttributes;
 	}
 
 	public Set<Dataset> getDatasets() {
@@ -65,6 +84,8 @@ public class AttributeGroup {
 		this.attributeTypes = attributeTypes;
 	}
 
+	/* Utility Functions 
+	 * ----------------- */
 	@Override
 	public boolean equals(Object obj) {
 		if (!(obj instanceof AttributeGroup)) {

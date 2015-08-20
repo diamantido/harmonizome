@@ -1,5 +1,9 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +14,9 @@ import org.hibernate.HibernateException;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.StatsDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
@@ -40,12 +46,45 @@ public class RefreshStats extends HttpServlet {
 			stats.setNumResources(numResources);
 			stats.setNumFeatures(numFeatures);
 			
+			Map<DatasetGroup, Long> datasetGroupCounts = new HashMap<DatasetGroup, Long>();
+			for (DatasetGroup datasetGroup : GenericDAO.getAll(DatasetGroup.class)) {
+				datasetGroupCounts.put(datasetGroup, new Long(0));
+			}
+			Map<AttributeGroup, Long> attributeGroupCounts = new HashMap<AttributeGroup, Long>();
+			for (AttributeGroup attributeGroup : GenericDAO.getAll(AttributeGroup.class)) {
+				attributeGroupCounts.put(attributeGroup, new Long(0));
+			}
+
 			for (Resource resource : GenericDAO.getAll(Resource.class)) {
 				long numAttributesPerDataset = 0;
 				for (Dataset dataset : resource.getDatasets()) {
 					numAttributesPerDataset += dataset.getAttributes().size();
+					
+					// Count dataset groups
+					DatasetGroup datasetGroup = dataset.getDatasetGroup();
+					Long currentCount = datasetGroupCounts.get(datasetGroup);
+					Long newCount = currentCount + 1;
+					datasetGroupCounts.put(datasetGroup, newCount);
+					
+					// Count attribute groups
+					AttributeGroup attributeGroup = dataset.getAttributeGroup();
+					Long currentCount2 = attributeGroupCounts.get(attributeGroup);
+					Long newCount2 = currentCount2 + dataset.getAttributes().size();
+					attributeGroupCounts.put(attributeGroup, newCount2);
 				}
 				resource.setNumAttributes(numAttributesPerDataset);
+			}
+			
+			for (Entry<DatasetGroup, Long> entry : datasetGroupCounts.entrySet()) {
+				DatasetGroup datasetGroup = entry.getKey();
+				Long count = entry.getValue();
+				datasetGroup.setNumDatasets(count);
+			}
+			
+			for (Entry<AttributeGroup, Long> entry : attributeGroupCounts.entrySet()) {
+				AttributeGroup attributeGroup = entry.getKey();
+				Long count = entry.getValue();
+				attributeGroup.setNumAttributes(count);
 			}
 			
 			HibernateUtil.commitTransaction();

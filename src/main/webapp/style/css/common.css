@@ -176,7 +176,7 @@ table ol {
   width: 100%;
 }
 @media (max-width: 768px) {
-  .navbar h3 span {
+  .navbar h3 .credits {
     display: none;
   }
 }
@@ -290,6 +290,10 @@ table ol {
 }
 .dataset-page table.gene-sets td {
   padding: 3px;
+}
+.about-page .stats ul {
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 25px;
 }
 /* Bootstrap overwrites.
  * ------------------------------------------------------------------------- */

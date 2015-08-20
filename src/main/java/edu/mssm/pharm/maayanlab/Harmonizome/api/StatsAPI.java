@@ -17,6 +17,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -37,11 +39,28 @@ public class StatsAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			HibernateUtil.beginTransaction();
-			Map<String, Long> attributeCounts = new HashMap<String, Long>();
+			
+			Map<String, Map<String, Long>> stats = new HashMap<String, Map<String, Long>>();
+			
+			Map<String, Long> attributeCountsPerDataset = new HashMap<String, Long>();
 			for (Resource resource : GenericDAO.getAll(Resource.class)) {
-				attributeCounts.put(resource.getName(), resource.getNumAttributes());
+				attributeCountsPerDataset.put(resource.getName(), resource.getNumAttributes());
 			}
-			String json = gson.toJson(attributeCounts);
+			stats.put("attributesPerDataset", attributeCountsPerDataset);
+			
+			Map<String, Long> datasetsPerDatasetGroup = new HashMap<String, Long>();
+			for (DatasetGroup datasetGroup : GenericDAO.getAll(DatasetGroup.class)) {
+				datasetsPerDatasetGroup.put(datasetGroup.getName(), datasetGroup.getNumDatasets());
+			}
+			stats.put("datasetsPerDatasetGroup", datasetsPerDatasetGroup);
+			
+			Map<String, Long> attributesPerAttributeGroup = new HashMap<String, Long>();
+			for (AttributeGroup attributeGroup : GenericDAO.getAll(AttributeGroup.class)) {
+				attributesPerAttributeGroup.put(attributeGroup.getName(), attributeGroup.getNumAttributes());
+			}
+			stats.put("attributesPerAttributeGroup", attributesPerAttributeGroup);
+
+			String json = gson.toJson(stats);
 			PrintWriter out = response.getWriter();
 			out.write(json);
 			out.flush();
