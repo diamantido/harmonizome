@@ -38,14 +38,13 @@ public class GeneListApi extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String cursor = request.getParameter(Constant.API_CURSOR);
 		int startAt = cursor == null ? 0 : Integer.parseInt(cursor);
-		GeneDAO geneDAO = new GeneDAO();
 		EntityListSchema<Gene> geneBaseSchema = new EntityListSchema<Gene>(Gene.ENDPOINT, startAt);
 		
 		List<Gene> genes = null;
 		String query = request.getParameter("q");
 		try {
 			HibernateUtil.beginTransaction();
-			genes = geneDAO.getAll(query, startAt);
+			genes = GeneDAO.getAll(query, startAt);
 			geneBaseSchema.setEntities(genes);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {

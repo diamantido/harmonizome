@@ -20,11 +20,13 @@ public class GenericDAO {
 
 	@SuppressWarnings("unchecked")
 	public static <E> List<E> getAll(Class<E> klass, Integer startAt) {
-		startAt = (startAt == null) ? 0 : startAt;
+		if (startAt == null) {
+			startAt = 0;
+		}
 		return (List<E>) HibernateUtil.getCurrentSession()
 			.createCriteria(klass)
 			.setFirstResult(startAt)
-			.setMaxResults(startAt + Constant.API_MAX_RESULTS)
+			.setMaxResults(Constant.API_MAX_RESULTS)
 			.list();
 	}
 	
