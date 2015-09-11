@@ -27,11 +27,14 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT })
+@WebServlet(urlPatterns = {
+	"/" + Constant.API_URL + "/" + GeneSet.ENDPOINT,
+	"/" + Constant.API_URL + "/" + GeneSet.ENDPOINT + "/"
+})
 public class GeneSetListApi extends HttpServlet {
 
 	private static final long serialVersionUID = -4351635599545445946L;
-	
+
 	private static Gson gson;
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
@@ -52,13 +55,13 @@ public class GeneSetListApi extends HttpServlet {
 
 		try {
 			HibernateUtil.beginTransaction();
-			attributes = AttributeDAO.getAll(query, startAt);	
+			attributes = AttributeDAO.getAll(query, startAt);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
-		
+
 		if (attributes != null) {
 			for (Attribute attribute : attributes) {
 				GeneSet gs = new GeneSet(attribute, attribute.getDataset());

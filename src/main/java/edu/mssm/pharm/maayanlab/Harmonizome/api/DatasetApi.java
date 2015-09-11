@@ -40,14 +40,6 @@ public class DatasetApi extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = UrlUtil.getPath(request);
-		if (name == null) {
-			response.sendRedirect("/" + Constant.HARMONIZOME + "/" + Constant.API_URL + "/" + Dataset.ENDPOINT);
-		} else {
-			getFromName(request, response, name);
-		}
-	}
-
-	private void getFromName(HttpServletRequest request, HttpServletResponse response, String name) throws ServletException, IOException {
 		Dataset dataset = null;
 		try {
 			HibernateUtil.beginTransaction();

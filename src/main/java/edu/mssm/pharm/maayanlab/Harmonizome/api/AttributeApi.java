@@ -55,7 +55,7 @@ public class AttributeApi extends HttpServlet {
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();
 		}
-		
+
 		attributeSchema.put("attributes", attributes);
 		PrintWriter out = response.getWriter();
 		out.write(gson.toJson(attributeSchema));

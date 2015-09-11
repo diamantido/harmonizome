@@ -1,6 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -129,7 +128,7 @@ public class Resource {
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedName() throws UnsupportedEncodingException {
+	public String getUrlEncodedName() {
 		return UrlCodec.encode(name);
 	}
 	

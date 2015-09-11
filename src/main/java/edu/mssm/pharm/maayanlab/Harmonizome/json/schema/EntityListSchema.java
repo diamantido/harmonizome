@@ -10,9 +10,6 @@ public class EntityListSchema<T> {
 	
 	private List<T> entities;
 	
-	public EntityListSchema() {
-	}
-	
 	public EntityListSchema(String endpoint, int startAt) {
 		int nextInt = startAt + Constant.API_MAX_RESULTS;
 		this.next = "/" + Constant.API_URL + "/" + endpoint + "?" + Constant.API_CURSOR + "=" + nextInt;
@@ -25,7 +22,7 @@ public class EntityListSchema<T> {
 	public void setNext(String next) {
 		this.next = next;
 	}
-
+	
 	public List<T> getEntities() {
 		return entities;
 	}

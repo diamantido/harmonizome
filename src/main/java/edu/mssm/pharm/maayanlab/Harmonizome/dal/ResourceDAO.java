@@ -16,4 +16,8 @@ public class ResourceDAO {
 			.add(Restrictions.eq("name", name).ignoreCase());
 		return (Resource) criteria.uniqueResult();
 	}
+
+	public static List<Resource> getAll(String query, int startAt) {
+		return GenericDAO.getAllFromQuery(Resource.class, "name", query, startAt);
+	}
 }
