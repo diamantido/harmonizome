@@ -18,8 +18,10 @@ import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.ProteinLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -34,6 +36,7 @@ public class GeneApi extends HttpServlet {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSerializer());
 		gsonBuilder.registerTypeAdapter(GeneSet.class, new GeneSetLinkSerializer());
+		gsonBuilder.registerTypeAdapter(Protein.class, new ProteinLinkSerializer());
 		gson = gsonBuilder.create();
 	}
 

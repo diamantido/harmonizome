@@ -1,7 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.io.UnsupportedEncodingException;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -112,7 +110,7 @@ public class Protein {
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedSymbol() throws UnsupportedEncodingException {
+	public String getUrlEncodedSymbol() {
 		return UrlCodec.encode(symbol);
 	}
 
