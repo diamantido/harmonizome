@@ -2,7 +2,6 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,45 +14,49 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.EntityListSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.ProteinDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.ProteinMetadataSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Gene.ENDPOINT, "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "/" })
-public class GeneListApi extends HttpServlet {
 
-	private static final long serialVersionUID = -8924091688621192218L;
+@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Protein.ENDPOINT + "/*" })
+public class ProteinApi extends HttpServlet {
+
+	private static final long serialVersionUID = 604191081082573759L;
 	
 	private static Gson gson;
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Protein.class, new ProteinMetadataSerializer());
 		gsonBuilder.registerTypeAdapter(Gene.class, new GeneLinkSerializer());
 		gson = gsonBuilder.create();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String cursor = request.getParameter(Constant.API_CURSOR);
-		int startAt = cursor == null ? 0 : Integer.parseInt(cursor);
-		EntityListSchema<Gene> geneBaseSchema = new EntityListSchema<Gene>(Gene.ENDPOINT, startAt);
+		String symbol = UrlUtil.getPath(request);
+		Protein protein = null;
 		
-		List<Gene> genes = null;
-		String query = request.getParameter("q");
 		try {
 			HibernateUtil.beginTransaction();
-			genes = GeneDAO.getAll(query, startAt);
-			geneBaseSchema.setEntities(genes);
+			protein = ProteinDAO.getBySymbol(symbol);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
-			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
-
+		
 		PrintWriter out = response.getWriter();
-		out.write(gson.toJson(geneBaseSchema));
+		if (protein == null) {
+			out.write(gson.toJson(new ErrorSchema()));
+		} else {
+			out.write(gson.toJson(protein, Protein.class));
+		}
 		out.flush();
 	}
 }

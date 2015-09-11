@@ -14,9 +14,9 @@ import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeInfoSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetInfoSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
@@ -32,9 +32,9 @@ public class SearchApi extends HttpServlet {
 
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetInfoSerializer());
-		gsonBuilder.registerTypeAdapter(Gene.class, new GeneInfoSerializer());
-		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeInfoSerializer());
+		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetLinkSerializer());
+		gsonBuilder.registerTypeAdapter(Gene.class, new GeneLinkSerializer());
+		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeLinkSerializer());
 		gson = gsonBuilder.excludeFieldsWithoutExposeAnnotation().create();
 	}
 

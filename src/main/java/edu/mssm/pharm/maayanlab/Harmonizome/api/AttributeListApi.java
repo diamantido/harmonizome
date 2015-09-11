@@ -17,7 +17,7 @@ import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.EntityListSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -30,7 +30,7 @@ public class AttributeListApi extends HttpServlet {
 	private static Gson gson;
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeInfoSerializer());
+		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeLinkSerializer());
 		gson = gsonBuilder.create();	
 	}
 

@@ -17,11 +17,11 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class AttributeDAO {
 
 	public static List<Attribute> getAll(String query, int startAt) {
-		return GenericDAO.getAllFromQuery(Attribute.class, "attribute", "name_from_dataset", query, startAt);
+		return GenericDAO.getAllFromQuery(Attribute.class, "name_from_dataset", query, startAt);
 	}
 
 	public static List<Attribute> getByWordInName(String query) {
-		return GenericDAO.getBySubstringInField(Attribute.class, "attribute", "name_from_dataset", query);
+		return GenericDAO.getBySubstringInField(Attribute.class, "name_from_dataset", query);
 	}
 
 	public static List<Attribute> getByWordInNameButIgnoreExactMatches(String query, List<Integer> idToIgnore) {

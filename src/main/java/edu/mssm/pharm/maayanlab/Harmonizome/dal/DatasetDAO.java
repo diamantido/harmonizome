@@ -68,7 +68,7 @@ public class DatasetDAO {
 	}
 
 	public static List<Dataset> getByWordInName(String query) {
-		return GenericDAO.getBySubstringInField(Dataset.class, "dataset", "name", query);
+		return GenericDAO.getBySubstringInField(Dataset.class, "name", query);
 	}
 
 	public static List<Dataset> getByWordInNameButIgnoreExactMatch(String query, int idToIgnore) {

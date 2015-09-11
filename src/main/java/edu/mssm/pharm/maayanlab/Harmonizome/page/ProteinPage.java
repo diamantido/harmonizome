@@ -28,7 +28,7 @@ public class ProteinPage extends HttpServlet {
 		Protein protein = null;
 		try {
 			HibernateUtil.beginTransaction();
-			protein = ProteinDAO.getByName(query);
+			protein = ProteinDAO.getBySymbol(query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();

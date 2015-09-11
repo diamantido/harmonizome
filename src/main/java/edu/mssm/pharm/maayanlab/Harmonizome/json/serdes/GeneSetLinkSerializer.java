@@ -13,7 +13,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
-public class GeneSetInfoSerializer implements JsonSerializer<GeneSet> {
+public class GeneSetLinkSerializer implements JsonSerializer<GeneSet> {
 
 	public JsonElement serialize(final GeneSet geneset, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();

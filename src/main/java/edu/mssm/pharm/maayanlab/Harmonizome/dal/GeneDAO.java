@@ -14,7 +14,7 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class GeneDAO {
 
 	public static List<Gene> getAll(String query, int startAt) {
-		return GenericDAO.getAllFromQuery(Gene.class, "gene", "symbol", query, startAt);
+		return GenericDAO.getAllFromQuery(Gene.class, "symbol", query, startAt);
 	}
 
 	public static Pair<List<Gene>, List<Gene>> getFromAttributeByValue(String attributeName, String datasetName) {
@@ -24,7 +24,7 @@ public class GeneDAO {
 	}
 	
 	public static List<Gene> getByWordInSymbol(String query) {
-		return GenericDAO.getBySubstringInField(Gene.class, "gene", "symbol", query);
+		return GenericDAO.getBySubstringInField(Gene.class, "symbol", query);
 	}
 
 	public static List<Gene> getByWordInSymbolButIgnoreExactMatch(String query, int idToIgnore) {

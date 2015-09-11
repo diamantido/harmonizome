@@ -18,9 +18,9 @@ import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.EntityListSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeInfoSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetInfoSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AttributeLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
@@ -35,9 +35,9 @@ public class GeneSetListApi extends HttpServlet {
 	private static Gson gson;
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeInfoSerializer());
-		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetInfoSerializer());
-		gsonBuilder.registerTypeAdapter(GeneSet.class, new GeneSetInfoSerializer());
+		gsonBuilder.registerTypeAdapter(Attribute.class, new AttributeLinkSerializer());
+		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetLinkSerializer());
+		gsonBuilder.registerTypeAdapter(GeneSet.class, new GeneSetLinkSerializer());
 		gson = gsonBuilder.create();
 	}
 

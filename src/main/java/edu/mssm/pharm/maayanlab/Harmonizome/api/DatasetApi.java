@@ -17,7 +17,7 @@ import com.google.gson.GsonBuilder;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetInfoSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
@@ -33,7 +33,7 @@ public class DatasetApi extends HttpServlet {
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetSerializer());
-		gsonBuilder.registerTypeAdapter(GeneSet.class, new GeneSetInfoSerializer());
+		gsonBuilder.registerTypeAdapter(GeneSet.class, new GeneSetLinkSerializer());
 		gson = gsonBuilder.create();
 	}
 
