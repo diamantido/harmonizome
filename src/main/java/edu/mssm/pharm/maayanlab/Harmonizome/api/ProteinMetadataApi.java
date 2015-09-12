@@ -18,7 +18,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Protein.ENDPOINT + "/*" })
-public class ProteinApi extends HttpServlet {
+public class ProteinMetadataApi extends HttpServlet {
 
 	private static final long serialVersionUID = 604191081082573759L;
 

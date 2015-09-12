@@ -17,6 +17,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "resource")
+@BioEntityMetadata(keyColumn = "name")
 public class Resource implements BioEntity {
 
 	@Id

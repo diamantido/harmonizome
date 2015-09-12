@@ -19,7 +19,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL, "/" + Constant.API_URL + "/*" })
-public class Api extends HttpServlet {
+public class BaseApi extends HttpServlet {
 
 	private static final long serialVersionUID = -6205859300423151010L;
 

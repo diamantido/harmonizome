@@ -32,7 +32,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT + "/*" })
-public class GeneSetApi extends HttpServlet {
+public class GeneSetMetadataApi extends HttpServlet {
 
 	private static final long serialVersionUID = -3627764278583624301L;
 

@@ -9,6 +9,9 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 public class BaseSchema {
@@ -18,6 +21,13 @@ public class BaseSchema {
 	public List<Map<String, String>> entities = new ArrayList<Map<String, String>>();
 	
 	public BaseSchema() {
+		
+		Map<String, String> attributeData = new TreeMap<String, String>();
+		String attributeHref = "/" + Constant.API_URL + "/" + Attribute.ENDPOINT;
+		attributeData.put(Constant.ENTITY_TYPE, "attribute");
+		attributeData.put(Constant.REST_LOCATION_PROP, attributeHref);
+		entities.add(attributeData);
+		
 		Map<String, String> datasetData = new TreeMap<String, String>();
 		String datasetHref = "/" + Constant.API_URL + "/" + Dataset.ENDPOINT;
 		datasetData.put(Constant.ENTITY_TYPE, "dataset");
@@ -35,11 +45,23 @@ public class BaseSchema {
 		geneSetData.put(Constant.ENTITY_TYPE, "gene set");
 		geneSetData.put(Constant.REST_LOCATION_PROP, geneSetHref);
 		entities.add(geneSetData);
-
-		Map<String, String> attributeData = new TreeMap<String, String>();
-		String attributeHref = "/" + Constant.API_URL + "/" + Attribute.ENDPOINT;
-		attributeData.put(Constant.ENTITY_TYPE, "attribute");
-		attributeData.put(Constant.REST_LOCATION_PROP, attributeHref);
-		entities.add(attributeData);
+		
+		Map<String, String> hgncRootFamilyData = new TreeMap<String, String>();
+		String hgncRootFamilyHref = "/" + Constant.API_URL + "/" + HgncRootFamily.ENDPOINT;
+		hgncRootFamilyData.put(Constant.ENTITY_TYPE, "hgnc root family");
+		hgncRootFamilyData.put(Constant.REST_LOCATION_PROP, hgncRootFamilyHref);
+		entities.add(hgncRootFamilyData);
+		
+		Map<String, String> proteinData = new TreeMap<String, String>();
+		String proteinHref = "/" + Constant.API_URL + "/" + Protein.ENDPOINT;
+		proteinData.put(Constant.ENTITY_TYPE, "protein");
+		proteinData.put(Constant.REST_LOCATION_PROP, proteinHref);
+		entities.add(proteinData);
+		
+		Map<String, String> resourceData = new TreeMap<String, String>();
+		String resourceHref = "/" + Constant.API_URL + "/" + Resource.ENDPOINT;
+		resourceData.put(Constant.ENTITY_TYPE, "resource");
+		resourceData.put(Constant.REST_LOCATION_PROP, resourceHref);
+		entities.add(resourceData);
 	}
 }
