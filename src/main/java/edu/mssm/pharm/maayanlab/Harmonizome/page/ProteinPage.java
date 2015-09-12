@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.ProteinDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -28,7 +28,7 @@ public class ProteinPage extends HttpServlet {
 		Protein protein = null;
 		try {
 			HibernateUtil.beginTransaction();
-			protein = ProteinDAO.getBySymbol(query);
+			protein = GenericDAO.getBioEntityFromKeyColumn(Protein.class, query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();

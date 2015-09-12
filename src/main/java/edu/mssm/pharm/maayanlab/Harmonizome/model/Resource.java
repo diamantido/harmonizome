@@ -17,7 +17,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "resource")
-public class Resource {
+public class Resource implements BioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -128,10 +128,20 @@ public class Resource {
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedName() {
-		return UrlCodec.encode(name);
+	public String getKey() {
+		return "name";
 	}
 	
+	@Transient
+	public String getValue() {
+		return name;
+	}
+	
+	@Transient
+	public String getUrlEncodedValue() {
+		return UrlCodec.encode(name);
+	}
+
 	@Transient
 	public String getEndpoint() {
 		return ENDPOINT;

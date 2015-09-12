@@ -1,6 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -13,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
@@ -20,7 +20,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "naming_authority")
-public class NamingAuthority {
+public class NamingAuthority implements BioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,7 +49,12 @@ public class NamingAuthority {
 	 * --------------- */
 	@OneToMany(mappedBy = "namingAuthority")
 	private Set<Attribute> attributes;
-
+	
+	/* Utilities
+	 * --------- */
+	@Transient
+	public static final String ENDPOINT = "naming_authority";
+	
 	public NamingAuthority() {
 	}
 
@@ -113,11 +118,23 @@ public class NamingAuthority {
 
 	/* Utility functions
 	 * ----------------- */
-	public String getUrlEncodedName() throws UnsupportedEncodingException {
+	@Transient
+	public String getKey() {
+		return "name";
+	}
+	
+	@Transient
+	public String getValue() {
+		return name;
+	}
+	
+	@Transient
+	public String getUrlEncodedValue() {
 		return UrlCodec.encode(name);
 	}
 
+	@Transient
 	public String getEndpoint() {
-		return "naming_authority";
+		return ENDPOINT;
 	}
 }

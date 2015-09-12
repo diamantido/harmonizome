@@ -28,7 +28,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.Ellipsizer;
 
 @Entity
 @Table(name = "dataset")
-public class Dataset {
+public class Dataset implements BioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -285,21 +285,32 @@ public class Dataset {
 		this.publications = publications;
 	}
 	
+
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedName() {
+	public String getKey() {
+		return "name";
+	}
+	
+	@Transient
+	public String getValue() {
+		return name;
+	}
+	
+	@Transient
+	public String getUrlEncodedValue() {
 		return UrlCodec.encode(name);
+	}
+
+	@Transient
+	public String getEndpoint() {
+		return ENDPOINT;
 	}
 
 	@Transient
 	public String getEllipsizedDescription() {
 		return Ellipsizer.trim(getDescription(), Ellipsizer.MAX_DESCRIPTION_LENGTH);
-	}
-	
-	@Transient
-	public String getEndpoint() {
-		return ENDPOINT;
 	}
 	
 	@Transient

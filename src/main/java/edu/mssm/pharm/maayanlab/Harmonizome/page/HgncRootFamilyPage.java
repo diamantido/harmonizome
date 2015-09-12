@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.HgncRootFamilyDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -27,7 +27,7 @@ public class HgncRootFamilyPage extends HttpServlet {
 		HgncRootFamily geneFamily = null;
 		try {
 			HibernateUtil.beginTransaction();
-			geneFamily = HgncRootFamilyDAO.getByName(query);
+			geneFamily = GenericDAO.getBioEntityFromKeyColumn(HgncRootFamily.class, query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();

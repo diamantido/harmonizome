@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.NamingAuthorityDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.NamingAuthority;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -28,7 +28,7 @@ public class NamingAuthorityPage extends HttpServlet {
 		
 		try {
 			HibernateUtil.beginTransaction();
-			namingAuthority = NamingAuthorityDAO.getFromName(query);
+			namingAuthority = GenericDAO.getBioEntityFromKeyColumn(NamingAuthority.class, query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {
 			e.printStackTrace();

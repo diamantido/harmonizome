@@ -20,7 +20,7 @@ public class AttributeSerializer implements JsonSerializer<Attribute> {
 		String nameFromDataset = attribute.getNameFromDataset();
 		result.add("name", new JsonPrimitive(nameFromDataset));
 		Dataset dataset = attribute.getDataset();
-		String href = "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT + "/" + attribute.getUrlEncodedNameFromDataset() + "/" + dataset.getUrlEncodedName();
+		String href = "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT + "/" + attribute.getUrlEncodedValue() + "/" + dataset.getUrlEncodedValue();
 		result.add("dataset", context.serialize(dataset));
 		result.add(Constant.REST_LOCATION_PROP, new JsonPrimitive(href));
 		return result;

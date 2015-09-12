@@ -1,6 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,7 +19,8 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "hgnc_root_family")
-public class HgncRootFamily {
+@BioEntityMetadata(keyColumn = "name")
+public class HgncRootFamily implements BioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,7 +44,7 @@ public class HgncRootFamily {
 	/* Getters & Setters 
 	 * ----------------- */
 	@Transient
-	public static final String ENDPOINT = "gene_family";
+	public static final String ENDPOINT = "hgnc_root_family";
 	
 	public HgncRootFamily() {
 	}
@@ -90,11 +90,21 @@ public class HgncRootFamily {
 	public void setGenes(Set<Gene> genes) {
 		this.genes = genes;
 	}
-	
+
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedName() throws UnsupportedEncodingException {
+	public String getKey() {
+		return "name";
+	}
+	
+	@Transient
+	public String getValue() {
+		return name;
+	}
+	
+	@Transient
+	public String getUrlEncodedValue() {
 		return UrlCodec.encode(name);
 	}
 

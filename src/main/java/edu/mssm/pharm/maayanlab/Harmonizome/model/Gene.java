@@ -21,7 +21,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "gene")
-public class Gene {
+public class Gene implements BioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -182,7 +182,17 @@ public class Gene {
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedSymbol() {
+	public String getKey() {
+		return "symbol";
+	}
+	
+	@Transient
+	public String getValue() {
+		return symbol;
+	}
+	
+	@Transient
+	public String getUrlEncodedValue() {
 		return UrlCodec.encode(symbol);
 	}
 

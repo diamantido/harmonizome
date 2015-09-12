@@ -17,7 +17,8 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "protein")
-public class Protein {
+@BioEntityMetadata(keyColumn = "symbol")
+public class Protein implements BioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -107,10 +108,21 @@ public class Protein {
 		this.gene = gene;
 	}
 	
+
 	/* Utility functions
 	 * ----------------- */
 	@Transient
-	public String getUrlEncodedSymbol() {
+	public String getKey() {
+		return "symbol";
+	}
+	
+	@Transient
+	public String getValue() {
+		return symbol;
+	}
+	
+	@Transient
+	public String getUrlEncodedValue() {
 		return UrlCodec.encode(symbol);
 	}
 

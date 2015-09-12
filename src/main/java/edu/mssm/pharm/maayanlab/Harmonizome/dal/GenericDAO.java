@@ -8,6 +8,7 @@ import javax.persistence.Table;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.model.BioEntityMetadata;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -47,6 +48,18 @@ public class GenericDAO {
 			.setFirstResult(startAt)
 			.setMaxResults(startAt + Constant.API_MAX_RESULTS)
 			.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <E> E getBioEntityFromKeyColumn(Class<E> klass, String value) {
+		String table = getTableFromClass(klass);
+		String field = getKeyColumnFromClass(klass);
+		String sql = String.format("SELECT * FROM %s WHERE %s = '%s'", table, field, value);
+		return (E) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(sql)
+			.addEntity(klass)
+			.uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -129,5 +142,10 @@ public class GenericDAO {
 	
 	public static <E> String getTableFromClass(Class<E> klass) {
 		return klass.getAnnotation(Table.class).name();
+	}
+	
+	public static <E> String getKeyColumnFromClass(Class<E> klass) {
+		BioEntityMetadata anno = klass.getAnnotation(BioEntityMetadata.class);
+		return anno.keyColumn();
 	}
 }

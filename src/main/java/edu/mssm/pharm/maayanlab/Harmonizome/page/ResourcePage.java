@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.PublicationDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.ResourceDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Publication;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
@@ -31,7 +31,7 @@ public class ResourcePage extends HttpServlet {
 		List<Publication> publications = null;
 		try {
 			HibernateUtil.beginTransaction();
-			resource = ResourceDAO.getByName(query);
+			resource = GenericDAO.getBioEntityFromKeyColumn(Resource.class, query);
 			// Use a query so we don't have to remove duplicates manually.
 			publications = PublicationDAO.getFromResource(query);
 			HibernateUtil.commitTransaction();

@@ -23,7 +23,7 @@ public class GeneSetLinkSerializer implements JsonSerializer<GeneSet> {
 		// TODO: This is a hack because there are NULL foreign keys in the database.
 		// There shouldn't be.
 		if (dataset != null) {
-			String nameInUrl = attribute.getUrlEncodedNameFromDataset() + "/" + dataset.getUrlEncodedName();
+			String nameInUrl = attribute.getUrlEncodedValue() + "/" + dataset.getUrlEncodedValue();
 			String href = "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT + "/" + nameInUrl;
 			result.add("attribute", new JsonPrimitive(attribute.getNameFromDataset()));
 			result.add("dataset", new JsonPrimitive(dataset.getName()));

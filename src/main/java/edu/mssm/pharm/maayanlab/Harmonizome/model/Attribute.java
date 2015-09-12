@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
@@ -19,7 +20,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "attribute")
-public class Attribute {
+public class Attribute implements BioEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -181,12 +182,25 @@ public class Attribute {
 		this.features = features;
 	}
 	
+
 	/* Utility functions
 	 * ----------------- */
-	public String getUrlEncodedNameFromDataset() {
-		return UrlCodec.encode(nameFromDataset);
+	@Transient
+	public String getKey() {
+		return "name";
 	}
 	
+	@Transient
+	public String getValue() {
+		return nameFromDataset;
+	}
+	
+	@Transient
+	public String getUrlEncodedValue() {
+		return UrlCodec.encode(nameFromDataset);
+	}
+
+	@Transient
 	public String getEndpoint() {
 		return ENDPOINT;
 	}

@@ -17,6 +17,12 @@ public class SerDesUtil {
 			result.add(key, new JsonPrimitive(value));
 		}
 	}
+	
+	public static void add(JsonObject result, String key, Long value) {
+		if (value != null) {
+			result.add(key, new JsonPrimitive(value));
+		}
+	}
 
 	public static void add(JsonObject result, String key, JsonArray array) {
 		if (array.size() > 0) {

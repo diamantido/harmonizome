@@ -8,15 +8,15 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.BioEntity;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
-public class DatasetLinkSerializer implements JsonSerializer<Dataset> {
+public class BioEntityLinkSerializer implements JsonSerializer<BioEntity> {
 
-	public JsonElement serialize(final Dataset dataset, final Type type, final JsonSerializationContext context) {
+	public JsonElement serialize(final BioEntity entity, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
-		result.add("name", new JsonPrimitive(dataset.getName()));
-		String href = "/" + Constant.API_URL + "/" + Dataset.ENDPOINT + "/" + dataset.getUrlEncodedName();
+		result.add(entity.getKey(), new JsonPrimitive(entity.getValue()));
+		String href = "/" + Constant.API_URL + "/" + entity.getEndpoint() + "/" + entity.getUrlEncodedValue();
 		result.add(Constant.REST_LOCATION_PROP, new JsonPrimitive(href));
 		return result;
 	}
