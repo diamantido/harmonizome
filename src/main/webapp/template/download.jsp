@@ -9,8 +9,8 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container browse">
-				<h1>Datasets</h1>
-				<p class="instruction">To access data, click on a dataset or <a href="documentation">use the API</a>. Sort the table below clicking on the headers or type in the search bar.</p>
+				<h1>Downloads</h1>
+				<p class="instruction">Click on a dataset or <a href="documentation">use the API</a> to access data. Click on the column headers to sort the table. Type in the search bar to filter.</p>
 				<table class="table dt-responsive data-table">
 					<thead>
 						<tr>

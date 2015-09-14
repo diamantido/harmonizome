@@ -22,7 +22,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td class="col-md-2">Category</td>
+							<td class="col-md-2">Type</td>
 							<td class="col-md-10 initial">${attribute.attributeType.name}</td>
 						</tr>
 						<c:if test="${attribute.descriptionFromNamingAuthority != null}">

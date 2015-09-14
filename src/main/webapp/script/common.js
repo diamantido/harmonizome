@@ -55,7 +55,6 @@ $(function() {
 	function setupDataTables($dataTables) {
 		$dataTables.dataTable({
 			bPaginate: true,
-			bSort: false,
 			iDisplayLength: 20,
 			oLanguage: {
 				sSearch: "Filter"

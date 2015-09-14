@@ -16,7 +16,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/" + Dataset.ENDPOINT, "/" + Dataset.ENDPOINT + "/", "/download" })
+@WebServlet(urlPatterns = { "/download" })
 public class DownloadPage extends HttpServlet {
 
 	private static final long serialVersionUID = 597557988443310521L;

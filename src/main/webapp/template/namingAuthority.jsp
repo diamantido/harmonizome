@@ -29,7 +29,7 @@
 
 				    	<tr>
 				    		<td>External Link</td>
-				    		<td class="initial">
+				    		<td>
 				    			<a href="${namingAuthority.url}">${namingAuthority.url}</a>
 				    		</td>
 				    	</tr>

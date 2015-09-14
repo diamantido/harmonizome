@@ -11,6 +11,8 @@ public class UrlCodec {
 	// and the user could strip out slashes for us. This seems like the safest
 	// approach.
 	private static final String slashReplacement = "$slash$";
+	
+	private static final String plusReplacement = "$plus$";
 
 	private static final String characterEncoding = "UTF-8";
 	
@@ -18,7 +20,7 @@ public class UrlCodec {
 
 	public static String encode(String url) {
 		try {
-			url = url.replace("/", slashReplacement);
+			url = url.replace("/", slashReplacement).replace("+", plusReplacement);
 			return URLEncoder.encode(url, characterEncoding);
 		} catch (UnsupportedEncodingException e) {
 			return null;
@@ -26,8 +28,8 @@ public class UrlCodec {
 	}
 	
 	public static String decode(String url) throws UnsupportedEncodingException {
-		url = url.replace(slashReplacement, "/");
-		return URLDecoder.decode(url, characterEncoding);
+		String decoded = URLDecoder.decode(url, characterEncoding);
+		return decoded.replace(slashReplacement, "/").replace(plusReplacement, "+");
 	}
 	
 	// TODO: Should this be generic? "encodeArray" or something?

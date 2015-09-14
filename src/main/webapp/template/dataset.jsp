@@ -40,30 +40,32 @@
 				    			</a>
 				    		</td>
 				    	</tr>
-				    	<tr>
-				    		<td>Citation(s)</td>
-				    		<td>
-				    			<ul>
-									<c:forEach var="pub" items="${dataset.publications}">
-										<li>
-											<a href="${pub.pubmedUrl}" target="_blank">${pub.longCitation}</a>
-										</li>
-									</c:forEach>
-								</ul>
-				    		</td>
-				    	</tr>
+				    	<c:if test="${fn:length(dataset.publications) > 0}">
+					    	<tr>
+					    		<td>Citation(s)</td>
+					    		<td>
+					    			<ul>
+										<c:forEach var="pub" items="${dataset.publications}">
+											<li>
+												<a href="${pub.pubmedUrl}" target="_blank">${pub.longCitation}</a>
+											</li>
+										</c:forEach>
+									</ul>
+					    		</td>
+					    	</tr>
+					    </c:if>
 				    	<tr>
 				    		<td>Last Updated</td>
 				    		<td>
 				    			<fmt:parseDate value="${dataset.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate"/>
-				    			<fmt:formatDate value="${parsedDate}" pattern="yy MMM dd"/>
+				    			<fmt:formatDate value="${parsedDate}" pattern="yyyy MMM dd"/>
 				    		</td>
 				    	</tr>
 				    	<tr>
 				    		<td>Stats</td>
 				    		<td>
 				    			<ol class="list-unstyled">
-				    				<li><span><c:out value="${numGenes}"/> genes</li>
+				    				<li><c:out value="${numGenes}"/> genes</li>
 				    				<li><c:out value="${fn:length(dataset.attributes)}"/> <c:out value="${dataset.attributeType.name}s"/></li>
 				    				<li><c:out value="${numGeneAttributeAssociations}"></c:out> gene-<c:out value="${dataset.attributeType.name}"/> associations</li>
 				    			</ol>
@@ -109,14 +111,17 @@
 					<table class="table data-table gene-sets">
 						<thead>
 							<tr>
-								<th></th>
+								<th>Gene Set</th>
+								<th>Description</th>
 							</tr>
 						</thead>
 						<c:forEach var="attribute" items="${attributesFromDataset}">
 							<tr>
-								<td>
+								<td class="col-md-2">
 									<a href="${GeneSet.ENDPOINT}/${attribute.nameFromDataset}/${dataset.name}"><c:out value="${attribute.nameFromDataset}"/></a>
-									
+								</td>
+								<td  class="col-md-10">
+									<c:out value="${attribute.descriptionFromNamingAuthority}"/>
 								</td>
 							</tr>
 						</c:forEach>
