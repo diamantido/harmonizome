@@ -27,6 +27,10 @@ GET /Harmonizome/api/1.0
     "version" :1.0,
     "entities":[
         {
+            "entity": "attribute",
+            "href": "/api/1.0/attribute"
+        },
+        {
             "entity": "dataset",
             "href": "/api/1.0/dataset"
         },
@@ -38,10 +42,7 @@ GET /Harmonizome/api/1.0
             "entity": "gene set",
             "href": "/api/1.0/gene_set"
         },
-        {
-            "entity": "attribute",
-            "href": "/api/1.0/attribute"
-        }
+        ...
     ]
 }</pre>
 								<p>Any enitity's <span class="mono">href</span> property can be requested for more information:</p>

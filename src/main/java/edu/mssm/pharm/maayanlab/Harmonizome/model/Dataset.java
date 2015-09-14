@@ -28,6 +28,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.Ellipsizer;
 
 @Entity
 @Table(name = "dataset")
+@BioEntityMetadata(name = "dataset", keyColumn = "name", jsp="dataset.jsp")
 public class Dataset implements BioEntity {
 
 	@Id

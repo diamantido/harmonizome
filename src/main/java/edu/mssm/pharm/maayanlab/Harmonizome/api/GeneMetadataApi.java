@@ -17,10 +17,11 @@ import com.google.gson.GsonBuilder;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneMetadataSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -34,15 +35,18 @@ public class GeneMetadataApi extends HttpServlet {
 	private static Gson gson;
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(Gene.class, new GeneSerializer());
+		gsonBuilder.registerTypeAdapter(Gene.class, new GeneMetadataSerializer());
 		gsonBuilder.registerTypeAdapter(GeneSet.class, new GeneSetLinkSerializer());
 		gsonBuilder.registerTypeAdapter(Protein.class, new BioEntityLinkSerializer());
+		gsonBuilder.registerTypeAdapter(HgncRootFamily.class, new BioEntityLinkSerializer());
 		gson = gsonBuilder.create();
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String symbol = UrlUtil.getPath(request);
+		boolean showAssociations = UrlUtil.getParameter(request, Constant.ASSOCIATIONS_PARAM).equals("true");
+		System.out.println(showAssociations);
 		Gene gene = null;
 
 		try {
@@ -55,7 +59,7 @@ public class GeneMetadataApi extends HttpServlet {
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();
 		}
-		
+
 		PrintWriter out = response.getWriter();
 		if (gene == null) {
 			out.write(gson.toJson(new ErrorSchema()));
