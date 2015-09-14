@@ -35,7 +35,7 @@
 				    	<tr>
 				    		<td>Resource</td>
 				    		<td>
-				    			<a href="${dataset.resource.endpoint}/${dataset.resource.urlEncodedName}">
+				    			<a href="${dataset.resource.endpoint}/${dataset.resource.urlEncodedValue}">
 				    				<c:out value="${dataset.resource.name}"/>
 				    			</a>
 				    		</td>
@@ -78,7 +78,7 @@
 				    	<tr>
 							<td class="col-md-2">API</td>
 							<td class="col-md-10">
-								<a href="${Constant.API_URL}/${dataset.endpoint}/${dataset.urlEncodedName}" target="_blank">
+								<a href="${Constant.API_URL}/${dataset.endpoint}/${dataset.urlEncodedValue}" target="_blank">
 									<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access ${dataset.name} programmatically."></button>
 								</a>
 							</td>

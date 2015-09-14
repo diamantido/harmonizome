@@ -20,6 +20,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "naming_authority")
+@BioEntityMetadata(name = "namingAuthority", keyColumn = "name", jsp="namingAuthority.jsp")
 public class NamingAuthority implements BioEntity {
 
 	@Id
@@ -35,35 +36,39 @@ public class NamingAuthority implements BioEntity {
 	@Column(name = "description")
 	@Type(type = "text")
 	private String description;
-	
+
 	@Column(name = "url", length = 2083)
 	private String url;
-	
-	/* Foreign Keys
-	 * ------------ */	
+
+	/*
+	 * Foreign Keys ------------
+	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "publication_fk")
 	private Publication publication;
 
-	/* Back references
-	 * --------------- */
+	/*
+	 * Back references ---------------
+	 */
 	@OneToMany(mappedBy = "namingAuthority")
 	private Set<Attribute> attributes;
-	
-	/* Utilities
-	 * --------- */
+
+	/*
+	 * Utilities ---------
+	 */
 	@Transient
 	public static final String ENDPOINT = "naming_authority";
-	
+
 	public NamingAuthority() {
 	}
 
-	/* Getters & Setters 
-	 * ----------------- */
+	/*
+	 * Getters & Setters -----------------
+	 */
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -91,7 +96,7 @@ public class NamingAuthority implements BioEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	public String getUrl() {
 		return url;
 	}
@@ -99,7 +104,7 @@ public class NamingAuthority implements BioEntity {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 	public Publication getPublication() {
 		return publication;
 	}
@@ -116,18 +121,19 @@ public class NamingAuthority implements BioEntity {
 		this.attributes = attributes;
 	}
 
-	/* Utility functions
-	 * ----------------- */
+	/*
+	 * Utility functions -----------------
+	 */
 	@Transient
 	public String getKey() {
 		return "name";
 	}
-	
+
 	@Transient
 	public String getValue() {
 		return name;
 	}
-	
+
 	@Transient
 	public String getUrlEncodedValue() {
 		return UrlCodec.encode(name);

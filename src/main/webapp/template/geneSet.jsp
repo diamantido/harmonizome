@@ -18,7 +18,7 @@
 						<tr>
 							<td class="col-md-2">Source</td>
 							<td class="col-md-10">
-								<a href="${dataset.endpoint}/${dataset.urlEncodedName}">${dataset.name}</a>
+								<a href="${dataset.endpoint}/${dataset.urlEncodedValue}">${dataset.name}</a>
 							</td>
 						</tr>
 						<tr>
@@ -28,7 +28,7 @@
 						<c:if test="${attribute.descriptionFromNamingAuthority != null}">
 							<tr>
 								<td class="col-md-2">Description</td>
-								<td class="col-md-10 initial">${attribute.descriptionFromNamingAuthority} (<a href="${attribute.namingAuthority.endpoint}/${attribute.namingAuthority.urlEncodedName}">${attribute.namingAuthority.name}</a><c:if test="${not empty attribute.urlFromNamingAuthority}">, <a href="${attribute.urlFromNamingAuthority}" target="_blank">${attribute.idFromNamingAuthority}</a></c:if>)
+								<td class="col-md-10 initial">${attribute.descriptionFromNamingAuthority} (<a href="${attribute.namingAuthority.endpoint}/${attribute.namingAuthority.urlEncodedValue}">${attribute.namingAuthority.name}</a><c:if test="${not empty attribute.urlFromNamingAuthority}">, <a href="${attribute.urlFromNamingAuthority}" target="_blank">${attribute.idFromNamingAuthority}</a></c:if>)
 								</td>
 							</tr>
 						</c:if>
@@ -51,7 +51,7 @@
 										data-toggle="tooltip"
 										data-placement="right"
 										title="Access the gene set from the API."
-										href="${Constant.API_URL}/${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}"
+										href="${Constant.API_URL}/${GeneSet.ENDPOINT}/${attribute.urlEncodedValue}/${dataset.urlEncodedValue}"
 										target="_blank">
 									</a>
 
@@ -78,7 +78,7 @@
 							<p><strong>${dataset.positiveAssociation}</strong></p>
 						</c:if>
 						<c:forEach var="gene" items="${genesByAttribute.left}" varStatus="loop">
-							<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a><c:if test="${!loop.last}">, </c:if>
+							<a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a><c:if test="${!loop.last}">, </c:if>
 						</c:forEach>
 					</div>
 					<c:if test="${genesByAttribute.right != null}">
@@ -87,7 +87,7 @@
 								<p><strong>${dataset.negativeAssociation}</strong></p>
 							</c:if>
 							<c:forEach var="gene" items="${genesByAttribute.right}" varStatus="loop">
-								<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a><c:if test="${!loop.last}">, </c:if>
+								<a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a><c:if test="${!loop.last}">, </c:if>
 							</c:forEach>
 						</div>
 					</c:if>

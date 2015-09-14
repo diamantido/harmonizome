@@ -17,7 +17,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "protein")
-@BioEntityMetadata(keyColumn = "symbol")
+@BioEntityMetadata(name = "protein", keyColumn = "symbol", jsp="protein.jsp")
 public class Protein implements BioEntity {
 
 	@Id

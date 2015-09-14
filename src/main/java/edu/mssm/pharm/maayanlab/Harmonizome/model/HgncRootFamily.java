@@ -19,7 +19,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "hgnc_root_family")
-@BioEntityMetadata(keyColumn = "name")
+@BioEntityMetadata(name = "hgncRootFamily", keyColumn = "name", jsp="hgncRootFamily.jsp")
 public class HgncRootFamily implements BioEntity {
 
 	@Id

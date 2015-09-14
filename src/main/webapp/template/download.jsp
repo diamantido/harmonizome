@@ -26,12 +26,12 @@
 						<c:forEach var="dataset" items="${datasets}">
 							<tr>
 								<td>
-									<a href="resource/${dataset.resource.urlEncodedName}">
+									<a href="resource/${dataset.resource.urlEncodedValue}">
 										${dataset.resource.name}
 									</a>
 								</td>
 								<td>
-									<a href="dataset/${dataset.urlEncodedName}">
+									<a href="dataset/${dataset.urlEncodedValue}">
 										${dataset.nameWithoutResource}
 									</a>
 								</td>

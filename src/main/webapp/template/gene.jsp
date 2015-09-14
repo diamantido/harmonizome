@@ -19,7 +19,7 @@
 							<td class="col-md-2">Families (from HGNC)</td>
 							<td class="col-md-10">
 								<c:forEach var="family" items="${gene.hgncRootFamilies}" varStatus="loop">
-									<a href="${family.endpoint}/${family.urlEncodedName}">${family.name}</a><c:if test="${!loop.last}">, </c:if>
+									<a href="${family.endpoint}/${family.urlEncodedValue}">${family.name}</a><c:if test="${!loop.last}">, </c:if>
 								</c:forEach>
 							</td>
 						</tr>
@@ -45,7 +45,7 @@
 							<td class="col-md-2">Proteins</td>
 							<td class="col-md-10">
 								<c:forEach var="protein" items="${gene.proteins}" varStatus="loop">
-									<a href="${protein.endpoint}/${protein.urlEncodedSymbol}">${protein.symbol}</a><c:if test="${!loop.last}">, </c:if>
+									<a href="${protein.endpoint}/${protein.urlEncodedValue}">${protein.symbol}</a><c:if test="${!loop.last}">, </c:if>
 								</c:forEach>
 							</td>
 						</tr>
@@ -56,7 +56,7 @@
 						<tr>
 							<td class="col-md-2">API</td>
 							<td class="col-md-10">
-								<a href="${Constant.API_URL}/${gene.endpoint}/${gene.urlEncodedSymbol}" target="_blank">
+								<a href="${Constant.API_URL}/${gene.endpoint}/${gene.urlEncodedValue}" target="_blank">
 									<button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access ${gene.symbol} programmatically."></button>
 								</a>
 							</td>
@@ -86,7 +86,7 @@
 									<button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
 								</td>
 								<td class="col-md-3">
-									<a href="${dataset.endpoint}/${dataset.urlEncodedName}">
+									<a href="${dataset.endpoint}/${dataset.urlEncodedValue}">
 										<c:out value="${dataset.name}"/>
 									</a>
 								</td>
@@ -109,7 +109,7 @@
 									</c:if>
 									<c:set var="upAttributes" value="${attributes.left}"/>
 									<c:forEach var="attribute" items="${upAttributes}" varStatus="loop">
-										<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}">
+										<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedValue}/${dataset.urlEncodedValue}">
 											<c:out value="${attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
 										</a>
 									</c:forEach>
@@ -122,7 +122,7 @@
 											</p>
 											<c:set var="downAttributes" value="${attributes.right}"/>
 											<c:forEach var="attribute" items="${downAttributes}" varStatus="loop">
-												<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${dataset.urlEncodedName}">
+												<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedValue}/${dataset.urlEncodedValue}">
 													<c:out value="${attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
 												</a>
 											</c:forEach>

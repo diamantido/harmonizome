@@ -8,37 +8,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.HibernateException;
-
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + HgncRootFamily.ENDPOINT + "/*" })
 public class HgncRootFamilyPage extends HttpServlet {
-
-	private static final long serialVersionUID = -594042157095699907L;
+	
+	private static final long serialVersionUID = -1555076002089558768L;
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String query = UrlUtil.getPath(req);
-		HgncRootFamily geneFamily = null;
-		try {
-			HibernateUtil.beginTransaction();
-			geneFamily = GenericDAO.getBioEntityFromKeyColumn(HgncRootFamily.class, query);
-			HibernateUtil.commitTransaction();
-		} catch (HibernateException he) {
-			HibernateUtil.rollbackTransaction();
-		}
-					
-		if (geneFamily == null) {
-			req.setAttribute("query", query);
-			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(req, resp);				
-		} else {				
-			req.setAttribute("geneFamily", geneFamily);
-			req.getRequestDispatcher(Constant.TEMPLATE_DIR + "hgncRootFamily.jsp").forward(req, resp);
-		}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		BioEntityPage.doGet(request, response, HgncRootFamily.class);
 	}
 }

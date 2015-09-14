@@ -54,11 +54,11 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${dataset.endpoint}/${dataset.urlEncodedName}">${dataset.name}</a> <span class="note dataset">Dataset</span>
+											<a href="${dataset.endpoint}/${dataset.urlEncodedValue}">${dataset.name}</a> <span class="note dataset">Dataset</span>
 										</h3>
 										<div class="description">
 											<p>
-												From <a href="${dataset.resource.endpoint}/${dataset.resource.urlEncodedName}">${dataset.resource.name}</a>
+												From <a href="${dataset.resource.endpoint}/${dataset.resource.urlEncodedValue}">${dataset.resource.name}</a>
 											</p>
 											<p>${dataset.description} (${dataset.datasetGroup.name})</p>
 										</div>
@@ -69,7 +69,7 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${gene.endpoint}/${gene.urlEncodedSymbol}">${gene.symbol}</a> <span class="note gene">Gene</span>
+											<a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a> <span class="note gene">Gene</span>
 										</h3>
 										<div class="description">
 											<c:if test="${gene.name != null}">
@@ -86,10 +86,10 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedNameFromDataset}/${attribute.dataset.urlEncodedName}">${attribute.nameFromDataset}</a> <span class="note gene-set">Gene Set</span>
+											<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedValue}/${attribute.dataset.urlEncodedValue}">${attribute.nameFromDataset}</a> <span class="note gene-set">Gene Set</span>
 										</h3>
 										<div class="description">
-											<p><em>From <a href="${attribute.dataset.endpoint}/${attribute.dataset.urlEncodedName}">${attribute.dataset.name}</a></em></p>
+											<p><em>From <a href="${attribute.dataset.endpoint}/${attribute.dataset.urlEncodedValue}">${attribute.dataset.name}</a></em></p>
 											<p>${fn:replace(attribute.dataset.geneSetDescription, "{0}", attribute.nameFromDataset)}</p>
 										</div>
 									</td>

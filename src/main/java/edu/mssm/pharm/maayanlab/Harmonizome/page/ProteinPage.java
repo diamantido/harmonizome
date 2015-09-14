@@ -8,13 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.hibernate.HibernateException;
-
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Protein.ENDPOINT + "/*" })
 public class ProteinPage extends HttpServlet {
@@ -23,23 +17,6 @@ public class ProteinPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = UrlUtil.getPath(request);
-		System.out.println(query);
-		Protein protein = null;
-		try {
-			HibernateUtil.beginTransaction();
-			protein = GenericDAO.getBioEntityFromKeyColumn(Protein.class, query);
-			HibernateUtil.commitTransaction();
-		} catch (HibernateException he) {
-			HibernateUtil.rollbackTransaction();
-		}
-					
-		if (protein == null) {
-			request.setAttribute("query", query);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
-		} else {
-			request.setAttribute("protein", protein);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "protein.jsp").forward(request, response);
-		}
+		BioEntityPage.doGet(request, response, Protein.class);
 	}
 }

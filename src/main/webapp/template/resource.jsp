@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -21,24 +22,26 @@
 							<ul>
 								<c:forEach var="dataset" items="${resource.datasets}">
 									<li>
-										<a href="dataset/${dataset.urlEncodedName}">${dataset.nameWithoutResource}</a>
+										<a href="dataset/${dataset.urlEncodedValue}">${dataset.nameWithoutResource}</a>
 									</li>
 								</c:forEach>
 							</ul>
 						</td>
 					</tr>
-					<tr>
-						<td class="col-sm-3">Citation(s)</td>
-						<td class="col-sm-9">
-							<ul>
-								<c:forEach var="publication" items="${publications}">
-									<li>
-										<a href="${publication.pubmedUrl}">${publication.longCitation}</a>
-									</li>
-								</c:forEach>
-							</ul>
-						</td>					
-					</tr>
+					<c:if test="${fn:length(publications) > 0}">
+						<tr>
+							<td class="col-sm-3">Citation(s)</td>
+							<td class="col-sm-9">
+								<ul>
+									<c:forEach var="publication" items="${publications}">
+										<li>
+											<a href="${publication.pubmedUrl}">${publication.longCitation}</a>
+										</li>
+									</c:forEach>
+								</ul>
+							</td>					
+						</tr>
+					</c:if>
 					<c:if test="${resource.acronym != NULL}">
 						<tr>
 							<td class="col-sm-3">Acronym</td>

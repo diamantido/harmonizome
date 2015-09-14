@@ -13,6 +13,7 @@ import org.hibernate.HibernateException;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.PublicationDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.BioEntityMetadata;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Publication;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
@@ -43,9 +44,10 @@ public class ResourcePage extends HttpServlet {
 			request.setAttribute("query", query);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
 		} else {
+			BioEntityMetadata anno = Resource.class.getAnnotation(BioEntityMetadata.class);
 			request.setAttribute("publications", publications);
-			request.setAttribute("resource", resource);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "resource.jsp").forward(request, response);
+			request.setAttribute(anno.name(), resource);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + anno.jsp()).forward(request, response);
 		}
 	}
 }
