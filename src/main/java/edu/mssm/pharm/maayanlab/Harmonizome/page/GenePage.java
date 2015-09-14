@@ -21,8 +21,9 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.AttributeComparator;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.BioEntityAlphabetizer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.DatasetWithAttributesAlphabetizer;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/gene", "/gene/*" })
@@ -62,13 +63,10 @@ public class GenePage extends HttpServlet {
 				}
 				if (gene != null) {
 					attributesByDataset = AttributeDAO.getByDatasetsFromGene(query);
+					Collections.sort(attributesByDataset, new DatasetWithAttributesAlphabetizer());
 					for (Pair<Dataset, Pair<List<Attribute>, List<Attribute>>> pair : attributesByDataset) {
-						
-						// Sort alphabetically so user doesn't think order
-						// matters
-						Collections.sort(pair.getRight().getRight(), new AttributeComparator());
-						Collections.sort(pair.getRight().getLeft(), new AttributeComparator());
-						
+						Collections.sort(pair.getRight().getRight(), new BioEntityAlphabetizer());
+						Collections.sort(pair.getRight().getLeft(), new BioEntityAlphabetizer());
 						uniqueDatasetGroups.add(pair.getLeft().getDatasetGroup().getName());
 						numAssociations += pair.getRight().getRight().size() + pair.getRight().getRight().size();
 					}

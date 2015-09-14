@@ -100,7 +100,7 @@
 								<td class="col-md-1"></td>
 								<td class="col-md-11" colspan="2">
 									<c:set var="hasTwoAssociations" value="${fn:length(attributes.right) != 0}"/>
-									<c:if test="${hasTwoAssociations}">
+									<c:if test="${not empty fn:trim(dataset.positiveAssociation)}">
 										<p>
 											<strong>
 												<c:out value="${dataset.positiveAssociation}"/>

@@ -156,7 +156,8 @@ table ol {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
-#navbar-wrapper a:hover {
+#navbar-wrapper a:hover,
+#navbar-wrapper a:active {
   color: #eeeeee;
   background-color: #343844;
 }
@@ -199,7 +200,7 @@ table ol {
     width: 100%;
   }
   #navbar-wrapper #menu a {
-    padding: 10 15px;
+    padding: 2px 5px;
   }
   #navbar-wrapper #menu a:hover,
   #navbar-wrapper #menu afocus {

@@ -20,8 +20,8 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.BioEntityAlphabetizer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.GeneComparator;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/gene_set", "/gene_set/*" })
@@ -44,11 +44,8 @@ public class GeneSetPage extends HttpServlet {
 					request.setAttribute("query", query);
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "noSearchResults.jsp").forward(request, response);
 				} else {
-					
-					// Sort alphabetically so the user does not think order matters.
-					Collections.sort(genesByAttribute.getRight(), new GeneComparator());
-					Collections.sort(genesByAttribute.getLeft(), new GeneComparator());
-					
+					Collections.sort(genesByAttribute.getRight(), new BioEntityAlphabetizer());
+					Collections.sort(genesByAttribute.getLeft(), new BioEntityAlphabetizer());
 					int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();
 					String geneSetDescription = dataset.getGeneSetDescription();
 					geneSetDescription = geneSetDescription.replace("{0}", attribute.getNameFromDataset());
