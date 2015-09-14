@@ -32,6 +32,4 @@ public class Constant {
 	//public static final String REST_METHOD_GET = "GET";
 	
 	public static final int API_MAX_RESULTS = 100;
-	
-	public static final String ASSOCIATIONS_PARAM = "associations";
 }

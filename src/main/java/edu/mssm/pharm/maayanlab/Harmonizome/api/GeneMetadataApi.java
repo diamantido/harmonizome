@@ -45,8 +45,6 @@ public class GeneMetadataApi extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String symbol = UrlUtil.getPath(request);
-		boolean showAssociations = UrlUtil.getParameter(request, Constant.ASSOCIATIONS_PARAM).equals("true");
-		System.out.println(showAssociations);
 		Gene gene = null;
 
 		try {
