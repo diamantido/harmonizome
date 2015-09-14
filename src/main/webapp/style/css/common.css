@@ -123,7 +123,7 @@ table ol {
 }
 /* Section selectors.
  * ------------------------------------------------------------------------- */
-.navbar {
+#navbar-wrapper {
   background-color: #343844;
   height: 50px;
   padding: 10px;
@@ -132,52 +132,84 @@ table ol {
   width: 100%;
   z-index: 999;
 }
-.navbar h1 {
+#navbar-wrapper h1 {
   border: none;
   font-size: 25px;
   margin-bottom: 4px;
   margin-top: 0;
 }
-.navbar h1 span.credits {
+#navbar-wrapper h1 span.credits {
   font-family: Georgia, sans-serif;
   font-size: 19px;
   margin-left: 10px;
 }
-.navbar h1 a:hover {
+#navbar-wrapper h1 a:hover {
   text-decoration: none;
 }
-.navbar img {
+#navbar-wrapper img {
   bottom: 2px;
   position: relative;
   margin-right: 14px;
 }
-.navbar a {
+#navbar-wrapper a {
   color: white;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
-.navbar a:hover {
+#navbar-wrapper a:hover {
   color: #eeeeee;
+  background-color: #343844;
 }
-.navbar ul {
+#navbar-wrapper .navbar-nav.list-inline a {
+  padding: 0 1px;
+}
+#navbar-wrapper .navbar-toggle {
+  padding: 0;
+}
+#navbar-wrapper .navbar-toggle span {
+  background-color: white;
+}
+#navbar-wrapper ul {
   /* Line up with title text */
   position: relative;
-  top: 3px;
+  top: 7px;
   text-transform: uppercase;
 }
-.navbar .search {
+#navbar-wrapper .search {
   bottom: 6px;
   float: left;
   left: 20px;
   position: relative;
   width: 25%;
+  top: -2px;
 }
-.navbar .search .input-group .twitter-typeahead {
+#navbar-wrapper .search .input-group .twitter-typeahead {
   width: 100%;
 }
-@media (max-width: 768px) {
-  .navbar h3 .credits {
+#navbar-wrapper #menu {
+  background-color: #343844;
+}
+@media (max-width: 1000px) {
+  #navbar-wrapper h1 .credits {
     display: none;
+  }
+}
+@media (max-width: 768px) {
+  #navbar-wrapper #menu {
+    width: 100%;
+  }
+  #navbar-wrapper #menu a {
+    padding: 10 15px;
+  }
+  #navbar-wrapper #menu a:hover,
+  #navbar-wrapper #menu afocus {
+    background-color: #61697f;
+  }
+  #navbar-wrapper #menu li {
+    padding: 5px 10px;
+  }
+  #navbar-wrapper ul {
+    top: 0;
   }
 }
 .footer {
@@ -358,6 +390,15 @@ table ol {
 }
 .table-responsive {
   overflow-x: auto;
+}
+.container-fluid > .navbar-collapse,
+.container-fluid > .navbar-header,
+.container > .navbar-collapse,
+.container > .navbar-header {
+  margin-left: 0;
+  margin-right: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }
 /* jQuery UI overwrites.
  * ------------------------------------------------------------------------- */

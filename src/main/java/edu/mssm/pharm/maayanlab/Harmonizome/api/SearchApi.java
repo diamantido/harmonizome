@@ -42,7 +42,7 @@ public class SearchApi extends HttpServlet {
 		String type = UrlUtil.getParameter(request, "t");
 		PrintWriter out = response.getWriter();
 		String json;
-		if (query == null) {
+		if (query == null || query.equals("")) {
 			json = gson.toJson(new ErrorSchema());
 		} else {
 			SearchResults searchResults = new SearchResults(query, type);

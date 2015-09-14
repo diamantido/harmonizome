@@ -117,7 +117,7 @@ table {
 
 /* Section selectors.
  * ------------------------------------------------------------------------- */
-.navbar {
+#navbar-wrapper {
 	background-color: @color-navbar-background;
     height: @dimension-nav-height;
     padding: 10px;
@@ -152,12 +152,24 @@ table {
     	font-weight: @font-weight-primary;
         &:hover {
         	color: @color-gray-light;
+        	background-color: @color-navbar-background;
         }
+    }
+    .navbar-nav.list-inline {
+    	a {
+    		padding: 0 1px;
+    	}
+    }
+    .navbar-toggle {
+    	padding: 0;
+    	span {
+    		background-color: white;
+    	}
     }
     ul {
     	/* Line up with title text */
     	position: relative;
-    	top: 3px;
+    	top: 7px;
     	text-transform: uppercase;
     }
     .search {
@@ -166,19 +178,43 @@ table {
     	left: 20px;
     	position: relative;
     	width: 25%;
+    	top: -2px;
     	.input-group {
     		.twitter-typeahead {
     			width: 100%;
     		}
     	}
     }
+    #menu {
+    	background-color: @color-navbar-background;
+    }
 }
-@media (max-width: 768px) {
-	.navbar {
-		h3 {
+@media (max-width: 1000px) {
+	#navbar-wrapper {
+		h1 {
 			.credits {
 				display: none;
 			}
+		}
+	}
+}
+@media (max-width: 768px) {
+	#navbar-wrapper {
+		#menu {
+			width: 100%;
+			a {
+				padding: 10 15px;
+				&:hover,
+		       	&focus {
+		       		background-color: @color-navbar-background-light;
+		       	}
+			}
+			li {
+				padding: 5px 10px;
+			}
+		}
+		ul {
+    		top: 0;
 		}
 	}
 }
@@ -387,6 +423,15 @@ table {
 }
 .table-responsive {
     overflow-x: auto;
+}
+.container-fluid > .navbar-collapse,
+.container-fluid > .navbar-header,
+.container > .navbar-collapse,
+.container > .navbar-header {
+	margin-left: 0;
+	margin-right: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
 }
 
 /* jQuery UI overwrites.

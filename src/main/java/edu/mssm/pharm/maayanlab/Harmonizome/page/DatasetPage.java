@@ -3,6 +3,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.page;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,8 +26,16 @@ public class DatasetPage extends HttpServlet {
 
 	private static final long serialVersionUID = -652055513491031817L;
 
+	public void doGetTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response, true);
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response, false);
+	}
+	
+	private void doGet(HttpServletRequest request, HttpServletResponse response, boolean isTest) throws ServletException, IOException {
 		String query = UrlUtil.getPath(request);
 		if (query == null) {
 			doNotFound(request, response);
@@ -40,7 +49,9 @@ public class DatasetPage extends HttpServlet {
 			HibernateUtil.beginTransaction();
 			dataset = DatasetDAO.getFromName(query);
 			if (dataset != null) {
-				dataset.setNumPageViews(dataset.getNumPageViews() + 1);
+				if (!isTest) {
+					dataset.setNumPageViews(dataset.getNumPageViews() + 1);
+				}
 				numGenes = GeneDAO.getCountByDataset(query);
 				numGeneAttributeAssociations = DatasetDAO.getCountGeneAttributeAssocations(query);
 				attributesFromDataset = AttributeDAO.getFromDataset(query);
@@ -52,7 +63,8 @@ public class DatasetPage extends HttpServlet {
 				request.setAttribute("numGeneAttributeAssociations", numGeneAttributeAssociations);
 				request.setAttribute("attributesFromDataset", attributesFromDataset);
 				request.setAttribute("dataset", dataset);
-				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp").forward(request, response);
+				RequestDispatcher r = request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp");
+				r.forward(request, response);
 			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {

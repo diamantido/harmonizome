@@ -29,30 +29,35 @@ public class SearchResultsPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = UrlUtil.getParameter(request, "q");
 		String type = UrlUtil.getParameter(request, "t");
-		SearchResults searchResults = new SearchResults(query, type);
-		if (searchResults.noMatches()) {
-			showNoSearchResults(request, response, query);
-		} else if (searchResults.onlySuggestions()) {
-			Map<String, List<String>> suggestions = searchResults.getSuggestions();
-			request.setAttribute("datasetSuggestions", suggestions.get("datasets"));
-			request.setAttribute("geneSuggestions", suggestions.get("genes"));
-			request.setAttribute("attributeSuggestions", suggestions.get("attributes"));
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "suggest.jsp").forward(request, response);
+		
+		if (query == null || query == "") {
+			showNoSearchResults(request, response, "");
 		} else {
-			Set<Dataset> datasets = searchResults.getDatasets();
-			Set<Gene> genes = searchResults.getGenes();
-			Set<Attribute> attributes = searchResults.getAttributes();
-			String summary = buildSummary(query, datasets, genes, attributes);
-			if (type != null) {
-				/* This configures the view to show a "clear" filter. */
-				request.setAttribute("isFilteredPage", true);
+			SearchResults searchResults = new SearchResults(query, type);
+			if (searchResults.noMatches()) {
+				showNoSearchResults(request, response, query);
+			} else if (searchResults.onlySuggestions()) {
+				Map<String, List<String>> suggestions = searchResults.getSuggestions();
+				request.setAttribute("datasetSuggestions", suggestions.get("datasets"));
+				request.setAttribute("geneSuggestions", suggestions.get("genes"));
+				request.setAttribute("attributeSuggestions", suggestions.get("attributes"));
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "suggest.jsp").forward(request, response);
+			} else {
+				Set<Dataset> datasets = searchResults.getDatasets();
+				Set<Gene> genes = searchResults.getGenes();
+				Set<Attribute> attributes = searchResults.getAttributes();
+				String summary = buildSummary(query, datasets, genes, attributes);
+				if (type != null) {
+					/* This configures the view to show a "clear" filter. */
+					request.setAttribute("isFilteredPage", true);
+				}
+				request.setAttribute("query", query);
+				request.setAttribute("summary", summary);
+				request.setAttribute("datasets", datasets);
+				request.setAttribute("genes", genes);
+				request.setAttribute("attributes", attributes);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "searchResults.jsp").forward(request, response);
 			}
-			request.setAttribute("query", query);
-			request.setAttribute("summary", summary);
-			request.setAttribute("datasets", datasets);
-			request.setAttribute("genes", genes);
-			request.setAttribute("attributes", attributes);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "searchResults.jsp").forward(request, response);
 		}
 	}
 
