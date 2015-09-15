@@ -64,11 +64,11 @@
 					</table>
 				</section>
 				<section>
-					<h2>Knowledge</h2>
-					<p class="instruction">Click the + buttons to view associations for <c:out value="${gene.symbol}"></c:out> from each dataset.</p>
+					<h2>Associations</h2>
 					<p class="instruction">
 						<c:out value="${allAssociationsSummary}"/>	
 					</p>
+					<p class="instruction">Click the + buttons to view associations for <c:out value="${gene.symbol}"></c:out> from the datasets below.</p>
 					<table class="table entities-by-dataset genes">
 						<thead>
 							<tr>

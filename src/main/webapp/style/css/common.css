@@ -55,12 +55,12 @@ h4,
 h5,
 h6 {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 400;
 }
 h1,
 h2,
 h3 {
   border-bottom: 1px solid #aaaaaa;
+  font-weight: 400;
 }
 h4,
 h5,
@@ -328,7 +328,8 @@ table ol {
   margin-bottom: 2px;
   padding: 0;
 }
-.dataset-page table.gene-sets td {
+.dataset-page table.gene-sets td,
+.gene-set-page table.genes td {
   padding: 3px;
 }
 .about-page .stats ul {

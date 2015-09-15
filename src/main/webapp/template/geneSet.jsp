@@ -65,7 +65,6 @@
 										</button>
 									</c:if>
 								</div>
-								
 							</td>
 						</tr>
 					</table>
@@ -75,20 +74,34 @@
 					<p class="instruction">${geneSetDescription}</p>
 					<div>
 						<c:if test="${dataset.positiveAssociation != null}">
-							<p><strong>${dataset.positiveAssociation}</strong></p>
+							<h4>${dataset.positiveAssociation}</h4>
 						</c:if>
-						<c:forEach var="gene" items="${genesByAttribute.left}" varStatus="loop">
-							<a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a><c:if test="${!loop.last}">, </c:if>
-						</c:forEach>
+						<table class="table data-table genes">
+							<thead>
+								<tr><th>Gene</th></tr>
+							</thead>
+							<c:forEach var="gene" items="${genesByAttribute.left}">
+								<tr>
+									<td><a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a></td>
+								</tr>
+							</c:forEach>
+						</table>
 					</div>
-					<c:if test="${genesByAttribute.right != null}">
+					<c:if test="${fn:length(genesByAttribute.right) > 0}">
 						<div class="last">
 							<c:if test="${dataset.negativeAssociation != null}">
-								<p><strong>${dataset.negativeAssociation}</strong></p>
+								<h4>${dataset.negativeAssociation}</h4>
 							</c:if>
-							<c:forEach var="gene" items="${genesByAttribute.right}" varStatus="loop">
-								<a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a><c:if test="${!loop.last}">, </c:if>
-							</c:forEach>
+							<table class="table data-table genes">
+								<thead>
+									<tr><th>Gene</th></tr>
+								</thead>
+								<c:forEach var="gene" items="${genesByAttribute.right}">
+									<tr>
+										<td><a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a></td>
+									</tr>
+								</c:forEach>
+							</table>
 						</div>
 					</c:if>
 				</section>
