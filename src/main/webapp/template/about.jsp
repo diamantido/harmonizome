@@ -45,7 +45,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<h4>Number of Gene Sets by Resource</h4>
+							<h4>Gene Sets by Resource</h4>
 							<p class="instruction">The the y-axis is on a log base 10 scale. Hover over the bars to see the actual counts.</p>
 							<!--
 								ChartJS scales the canvas to the width of the

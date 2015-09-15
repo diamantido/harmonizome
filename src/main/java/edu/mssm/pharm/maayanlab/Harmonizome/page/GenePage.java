@@ -47,7 +47,7 @@ public class GenePage extends HttpServlet {
 
 		// We could make another DB query, but the number datasets should
 		// never be greater than ~100.
-		Set<String> uniqueDatasetGroups = new HashSet<String>();
+		Set<String> uniqueAttributeGroups = new HashSet<String>();
 		
 		try {
 			HibernateUtil.beginTransaction();
@@ -67,10 +67,10 @@ public class GenePage extends HttpServlet {
 					for (Pair<Dataset, Pair<List<Attribute>, List<Attribute>>> pair : attributesByDataset) {
 						Collections.sort(pair.getRight().getRight(), new BioEntityAlphabetizer());
 						Collections.sort(pair.getRight().getLeft(), new BioEntityAlphabetizer());
-						uniqueDatasetGroups.add(pair.getLeft().getDatasetGroup().getName());
+						uniqueAttributeGroups.add(pair.getLeft().getAttributeGroup().getName());
 						numAssociations += pair.getRight().getRight().size() + pair.getRight().getRight().size();
 					}
-					numCategories = uniqueDatasetGroups.size();
+					numCategories = uniqueAttributeGroups.size();
 					numDatasets = attributesByDataset.size();
 				}
 			}
@@ -79,9 +79,13 @@ public class GenePage extends HttpServlet {
 				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
 			} else {
 				StringBuilder groups = new StringBuilder();
-				for (String group : uniqueDatasetGroups) {
+				int i = 0;
+				for (String group : uniqueAttributeGroups) {
 					groups.append(group);
-					groups.append(", ");
+					if (i < uniqueAttributeGroups.size()-1) {
+						groups.append(", ");
+					}
+					i++;
 				}
 				String allAssociationsSummary = numAssociations + " associations covering " + numCategories + " categories of biological entities (" + groups.toString() + ")" + entityList + " from " + numDatasets + " datasets";
 				request.setAttribute("allAssociationsSummary", allAssociationsSummary);
