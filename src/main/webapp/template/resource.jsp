@@ -13,12 +13,12 @@
 				<h1>${resource.name} <span class="note">Resource</span></h1>
 				<table class="table">
 					<tr>
-						<td class="col-sm-3">Description</td>
-						<td class="col-sm-9">${resource.longDescription}</td>
+						<td class="col-md-2">Description</td>
+						<td class="col-md-10">${resource.longDescription}</td>
 					</tr>
 					<tr>
-						<td class="col-sm-3">Datasets</td>
-						<td class="col-sm-9">
+						<td class="col-md-2">Datasets</td>
+						<td class="col-md-10">
 							<ul>
 								<c:forEach var="dataset" items="${resource.datasets}">
 									<li>
@@ -30,12 +30,12 @@
 					</tr>
 					<c:if test="${fn:length(publications) > 0}">
 						<tr>
-							<td class="col-sm-3">Citation(s)</td>
-							<td class="col-sm-9">
+							<td class="col-md-2">Citation(s)</td>
+							<td class="col-md-10">
 								<ul>
 									<c:forEach var="publication" items="${publications}">
 										<li>
-											<a href="${publication.pubmedUrl}" target="_blank">${publication.longCitation}</a>
+											<a href="${publication.pubmedUrl}" target="">${publication.longCitation}</a>
 										</li>
 									</c:forEach>
 								</ul>
@@ -44,14 +44,14 @@
 					</c:if>
 					<c:if test="${not empty resource.acronym}">
 						<tr>
-							<td class="col-sm-3">Acronym</td>
-							<td class="col-sm-9">${resource.acronym}</td>
+							<td class="col-md-2">Acronym</td>
+							<td class="col-md-10">${resource.acronym}</td>
 						</tr>
 					</c:if>
 					<c:if test="${not empty resource.url}">
 						<tr>
-							<td class="col-sm-3">External Link</td>
-							<td class="col-sm-9">
+							<td class="col-md-2">External Link</td>
+							<td class="col-md-10">
 								<a href="${resource.url}" target="_blank">${resource.url}</a>
 							</td>
 						</tr>

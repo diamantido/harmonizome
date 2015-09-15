@@ -1,6 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,7 +39,7 @@ public class HgncRootFamily implements BioEntity {
 	 * ------------------------- */
 	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	@JoinTable(name = "hgnc_root_families_to_genes", joinColumns = { @JoinColumn(name = "hgnc_root_family_fk") }, inverseJoinColumns = { @JoinColumn(name = "gene_fk") })
-	private Set<Gene> genes;
+	private List<Gene> genes;
 
 	/* Getters & Setters 
 	 * ----------------- */
@@ -83,11 +83,11 @@ public class HgncRootFamily implements BioEntity {
 		this.url = url;
 	}
 
-	public Set<Gene> getGenes() {
+	public List<Gene> getGenes() {
 		return genes;
 	}
 
-	public void setGenes(Set<Gene> genes) {
+	public void setGenes(List<Gene> genes) {
 		this.genes = genes;
 	}
 

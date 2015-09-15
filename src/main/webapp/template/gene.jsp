@@ -16,7 +16,7 @@
 				<section>
 					<table class="table">
 						<tr>
-							<td class="col-md-2">Families (from HGNC)</td>
+							<td class="col-md-2">HGNC Family</td>
 							<td class="col-md-10">
 								<c:forEach var="family" items="${gene.hgncRootFamilies}" varStatus="loop">
 									<a href="${family.endpoint}/${family.urlEncodedValue}">${family.name}</a><c:if test="${!loop.last}">, </c:if>
@@ -28,7 +28,7 @@
 							<td class="col-md-10 initial">${gene.name}</td>
 						</tr>
 						<tr>
-							<td class="col-md-2">Description (from NCBI)</td>
+							<td class="col-md-2">Description</td>
 							<td class="col-md-10">${gene.description}</td>
 						</tr>
 						<c:if test="${fn:length(gene.synonyms) > 0 }">
