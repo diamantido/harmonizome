@@ -228,10 +228,17 @@ table {
 	width: 100%;
 	ul {
 		list-style-type: none;
+		padding: 0;
 	}
-	li {
-		&:first-child {
-			margin-right: 10px;
+	table {
+		td {
+			vertical-align: top;
+			strong {
+				text-transform: uppercase;
+			}
+			&:first-child {
+				padding-right: 10px;
+			}
 		}
 	}
 	a {

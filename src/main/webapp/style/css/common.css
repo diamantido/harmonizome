@@ -13,11 +13,11 @@ body {
 }
 .wrapper {
   min-height: 100%;
-  padding-bottom: 90px;
+  padding-bottom: 120px;
   position: relative;
 }
 .footer {
-  height: 90px;
+  height: 120px;
 }
 /* Push all content out from under the fix nav. Do not use "margin-top" because
  * this pushes the sticky footer down as well.
@@ -25,7 +25,7 @@ body {
 .content {
   position: relative;
   top: 50px;
-  padding-bottom: 90px;
+  padding-bottom: 120px;
 }
 /* Tag selectors.
  * ------------------------------------------------------------------------- */
@@ -223,9 +223,16 @@ table ol {
 }
 .footer ul {
   list-style-type: none;
+  padding: 0;
 }
-.footer li:first-child {
-  margin-right: 10px;
+.footer table td {
+  vertical-align: top;
+}
+.footer table td strong {
+  text-transform: uppercase;
+}
+.footer table td:first-child {
+  padding-right: 10px;
 }
 .footer a {
   color: #444444;
