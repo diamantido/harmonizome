@@ -3,7 +3,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Stats;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class StatsDAO {
+public class StatsDao {
 	
 	public static Stats get() {
 		return (Stats) HibernateUtil

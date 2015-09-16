@@ -16,7 +16,7 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
@@ -43,19 +43,19 @@ public class StatsAPI extends HttpServlet {
 			Map<String, Map<String, Long>> stats = new HashMap<String, Map<String, Long>>();
 			
 			Map<String, Long> attributeCountsPerDataset = new HashMap<String, Long>();
-			for (Resource resource : GenericDAO.getAll(Resource.class)) {
+			for (Resource resource : GenericDao.getAll(Resource.class)) {
 				attributeCountsPerDataset.put(resource.getName(), resource.getNumAttributes());
 			}
 			stats.put("attributesPerDataset", attributeCountsPerDataset);
 			
 			Map<String, Long> datasetsPerDatasetGroup = new HashMap<String, Long>();
-			for (DatasetGroup datasetGroup : GenericDAO.getAll(DatasetGroup.class)) {
+			for (DatasetGroup datasetGroup : GenericDao.getAll(DatasetGroup.class)) {
 				datasetsPerDatasetGroup.put(datasetGroup.getName(), datasetGroup.getNumDatasets());
 			}
 			stats.put("datasetsPerDatasetGroup", datasetsPerDatasetGroup);
 			
 			Map<String, Long> attributesPerAttributeGroup = new HashMap<String, Long>();
-			for (AttributeGroup attributeGroup : GenericDAO.getAll(AttributeGroup.class)) {
+			for (AttributeGroup attributeGroup : GenericDao.getAll(AttributeGroup.class)) {
 				attributesPerAttributeGroup.put(attributeGroup.getName(), attributeGroup.getNumAttributes());
 			}
 			stats.put("attributesPerAttributeGroup", attributesPerAttributeGroup);

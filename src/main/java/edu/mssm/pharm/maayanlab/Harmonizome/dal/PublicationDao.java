@@ -5,7 +5,7 @@ import java.util.List;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Publication;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class PublicationDAO {
+public class PublicationDao {
 
 	@SuppressWarnings("unchecked")
 	public static List<Publication> getFromResource(String resourceName) {

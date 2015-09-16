@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.StatsDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.StatsDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Stats;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -37,7 +37,7 @@ public class AboutPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			HibernateUtil.beginTransaction();
-			Stats stats = StatsDAO.get();
+			Stats stats = StatsDao.get();
 			request.setAttribute("stats", stats);
 			String introText = introTextBase
 				.replace("{0}", String.valueOf(stats.getNumDatasets()))

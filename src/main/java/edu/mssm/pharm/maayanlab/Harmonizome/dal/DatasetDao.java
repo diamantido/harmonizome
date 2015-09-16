@@ -8,7 +8,7 @@ import org.hibernate.criterion.Restrictions;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class DatasetDAO {
+public class DatasetDao {
 
 	public static Dataset getFromName(String name) {
 		Criteria criteria = HibernateUtil.getCurrentSession()
@@ -23,8 +23,8 @@ public class DatasetDAO {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT DISTINCT dataset FROM Dataset AS dataset " +
-				"JOIN dataset.attributes AS attrs " +
-				"JOIN attrs.features as feats " +
+				"JOIN dataset.geneSets AS geneSets " +
+				"JOIN geneSets.features as feats " +
 				"JOIN feats.gene AS gene " +
 				"WHERE gene.symbol = :symbol"
 			)
@@ -49,8 +49,8 @@ public class DatasetDAO {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT COUNT(feat) FROM Feature AS feat " +
-				"JOIN feat.attribute AS attr " +
-				"JOIN attr.dataset AS dataset " +
+				"JOIN feat.geneSet AS geneSet " +
+				"JOIN geneSet.dataset AS dataset " +
 				"WHERE dataset.name = :datasetName"
 			)
 			.setString("datasetName", datasetName)
@@ -68,18 +68,18 @@ public class DatasetDAO {
 	}
 
 	public static List<Dataset> getByWordInName(String query) {
-		return GenericDAO.getBySubstringInField(Dataset.class, "name", query);
+		return GenericDao.getBySubstringInField(Dataset.class, "name", query);
 	}
 
 	public static List<Dataset> getByWordInNameButIgnoreExactMatch(String query, int idToIgnore) {
-		return GenericDAO.getBySubstringInFieldButIgnoreId(Dataset.class, "dataset", "name", query, idToIgnore);
+		return GenericDao.getBySubstringInFieldButIgnoreId(Dataset.class, "dataset", "name", query, idToIgnore);
 	}
 
 	public static List<String> getSuggestions(String query) {
-		return GenericDAO.getSuggestions("dataset", "name", query);
+		return GenericDao.getSuggestions("dataset", "name", query);
 	}
 
 	public static List<String> getByPrefix(String query) {
-		return GenericDAO.getByPrefix("dataset", "name", query);		
+		return GenericDao.getByPrefix("dataset", "name", query);		
 	}
 }

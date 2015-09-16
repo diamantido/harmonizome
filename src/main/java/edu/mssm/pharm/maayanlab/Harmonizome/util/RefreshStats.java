@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.StatsDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.StatsDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
@@ -33,13 +33,13 @@ public class RefreshStats extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 			
-			Long numDatasets = GenericDAO.getCount(Dataset.class);
-			Long numGenes = GenericDAO.getCount(Gene.class);
-			Long numAttributes = GenericDAO.getCount(Attribute.class);
-			Long numResources = GenericDAO.getCount(Resource.class);
-			Long numFeatures = GenericDAO.getCount(Feature.class);
+			Long numDatasets = GenericDao.getCount(Dataset.class);
+			Long numGenes = GenericDao.getCount(Gene.class);
+			Long numAttributes = GenericDao.getCount(Attribute.class);
+			Long numResources = GenericDao.getCount(Resource.class);
+			Long numFeatures = GenericDao.getCount(Feature.class);
 			
-			Stats stats = StatsDAO.get();
+			Stats stats = StatsDao.get();
 			stats.setNumDatasets(numDatasets);
 			stats.setNumGenes(numGenes);
 			stats.setNumAttributes(numAttributes);
@@ -47,18 +47,18 @@ public class RefreshStats extends HttpServlet {
 			stats.setNumFeatures(numFeatures);
 			
 			Map<DatasetGroup, Long> datasetGroupCounts = new HashMap<DatasetGroup, Long>();
-			for (DatasetGroup datasetGroup : GenericDAO.getAll(DatasetGroup.class)) {
+			for (DatasetGroup datasetGroup : GenericDao.getAll(DatasetGroup.class)) {
 				datasetGroupCounts.put(datasetGroup, new Long(0));
 			}
 			Map<AttributeGroup, Long> attributeGroupCounts = new HashMap<AttributeGroup, Long>();
-			for (AttributeGroup attributeGroup : GenericDAO.getAll(AttributeGroup.class)) {
+			for (AttributeGroup attributeGroup : GenericDao.getAll(AttributeGroup.class)) {
 				attributeGroupCounts.put(attributeGroup, new Long(0));
 			}
 
-			for (Resource resource : GenericDAO.getAll(Resource.class)) {
+			for (Resource resource : GenericDao.getAll(Resource.class)) {
 				long numAttributesPerDataset = 0;
 				for (Dataset dataset : resource.getDatasets()) {
-					numAttributesPerDataset += dataset.getAttributes().size();
+					numAttributesPerDataset += dataset.getGeneSets().size();
 					
 					// Count dataset groups
 					DatasetGroup datasetGroup = dataset.getDatasetGroup();
@@ -69,7 +69,7 @@ public class RefreshStats extends HttpServlet {
 					// Count attribute groups
 					AttributeGroup attributeGroup = dataset.getAttributeGroup();
 					Long currentCount2 = attributeGroupCounts.get(attributeGroup);
-					Long newCount2 = currentCount2 + dataset.getAttributes().size();
+					Long newCount2 = currentCount2 + dataset.getGeneSets().size();
 					attributeGroupCounts.put(attributeGroup, newCount2);
 				}
 				resource.setNumAttributes(numAttributesPerDataset);

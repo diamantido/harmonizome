@@ -1,39 +1,34 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.tuple.ImmutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class AttributeDAO {
+public class AttributeDao {
 
 	public static List<Attribute> getAll(String query, int startAt) {
-		return GenericDAO.getAllFromQuery(Attribute.class, "name_from_dataset", query, startAt);
+		return GenericDao.getAllFromQuery(Attribute.class, "name_from_dataset", query, startAt);
 	}
 
 	public static List<Attribute> getByWordInName(String query) {
-		return GenericDAO.getBySubstringInField(Attribute.class, "name_from_dataset", query);
+		return GenericDao.getBySubstringInField(Attribute.class, "name_from_dataset", query);
 	}
 
 	public static List<Attribute> getByWordInNameButIgnoreExactMatches(String query, List<Integer> idToIgnore) {
-		return GenericDAO.getBySubstringInFieldButIgnoreIds(Attribute.class, "attribute", "name_from_dataset", query, idToIgnore);
+		return GenericDao.getBySubstringInFieldButIgnoreIds(Attribute.class, "attribute", "name_from_dataset", query, idToIgnore);
 	}
 
 	public static List<String> getSuggestions(String query) {
-		return GenericDAO.getSuggestions("attribute", "name_from_dataset", query);
+		return GenericDao.getSuggestions("attribute", "name_from_dataset", query);
 	}
 	
 	public static List<String> getByPrefix(String query) {
-		return GenericDAO.getByPrefix("attribute", "name_from_dataset", query);		
+		return GenericDao.getByPrefix("attribute", "name_from_dataset", query);		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -54,19 +49,6 @@ public class AttributeDAO {
 			)
 			.setString("name", name)
 			.list();
-	}
-	
-	public static Attribute getByNameAndDataset(String attributeName, String datasetName) {
-		return (Attribute) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT attr FROM Attribute AS attr " +
-				"JOIN attr.dataset AS dataset " +
-				"WHERE attr.nameFromDataset = :attributeName AND dataset.name = :datasetName"
-			)
-			.setString("attributeName", attributeName)
-			.setString("datasetName", datasetName)
-			.uniqueResult();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -145,50 +127,6 @@ public class AttributeDAO {
 			.list();
 	}
 
-	@SuppressWarnings("unchecked")
-	public static List<Attribute> getFromDatasetAndGeneAndValue(String datasetName, String geneSymbol, int thresholdValue) {
-		return (List<Attribute>) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT attr FROM Attribute AS attr " +
-				"JOIN attr.features AS feats " +
-				"JOIN attr.dataset AS dataset " +
-				"JOIN feats.gene AS gene " +
-				"WHERE dataset.name = :datasetName AND gene.symbol = :geneSymbol AND feats.thresholdValue = :thresholdValue"
-			)
-			.setString("datasetName", datasetName)
-			.setString("geneSymbol", geneSymbol)
-			.setInteger("thresholdValue", thresholdValue)
-			.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	public static List<Attribute> getFromDataset(String datasetName) {
-		return (List<Attribute>) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT attr FROM Attribute AS attr " +
-				"JOIN attr.dataset AS dataset " +
-				"WHERE dataset.name = :datasetName"
-			)
-			.setString("datasetName", datasetName)
-			.list();
-	}
-	
-	public static List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> getByDatasetsFromGene(String geneSymbol) {
-		List<Dataset> datasetsByGene = DatasetDAO.getByGene(geneSymbol);
-		List<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>> attributesByDatasets = new ArrayList<Pair<Dataset, Pair<List<Attribute>, List<Attribute>>>>();
-		for (Dataset dataset : datasetsByGene) {
-			String datasetName = dataset.getName();
-			List<Attribute> pos = getFromDatasetAndGeneAndValue(datasetName, geneSymbol, 1);
-			List<Attribute> neg = getFromDatasetAndGeneAndValue(datasetName, geneSymbol, -1);
-			Pair<List<Attribute>, List<Attribute>> attributes = new ImmutablePair<List<Attribute>, List<Attribute>>(pos, neg);
-			Pair<Dataset, Pair<List<Attribute>, List<Attribute>>> pair = new ImmutablePair<Dataset, Pair<List<Attribute>, List<Attribute>>>(dataset, attributes); 
-			attributesByDatasets.add(pair);
-		}
-		return attributesByDatasets;
-	}
-	
 	/* Private methods
 	 * --------------- */
 

@@ -15,7 +15,7 @@ public class DatasetStatsSerializer implements JsonSerializer<Dataset> {
 	public JsonElement serialize(final Dataset dataset, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
 		result.add("name", new JsonPrimitive(dataset.getName()));
-		result.add("size", new JsonPrimitive(dataset.getAttributes().size()));
+		//result.add("size", new JsonPrimitive(dataset.getAttributes().size()));
 		return result;
 	}
 }

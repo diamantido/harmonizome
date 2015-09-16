@@ -13,7 +13,7 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.EntityListSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -33,7 +33,7 @@ public class ListApi {
 
 		try {
 			HibernateUtil.beginTransaction();
-			entities = GenericDAO.getAll(klass, startAt);
+			entities = GenericDao.getAll(klass, startAt);
 			schema.setEntities(entities);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {

@@ -66,7 +66,7 @@
 				    		<td>
 				    			<ol class="list-unstyled">
 				    				<li><c:out value="${numGenes}"/> genes</li>
-				    				<li><c:out value="${fn:length(dataset.attributes)}"/> <c:out value="${dataset.attributeType.name}s"/></li>
+				    				<li><c:out value="${fn:length(dataset.geneSets)}"/> <c:out value="${dataset.attributeType.name}s"/></li>
 				    				<li><c:out value="${numGeneAttributeAssociations}"></c:out> gene-<c:out value="${dataset.attributeType.name}"/> associations</li>
 				    			</ol>
 				    		</td>
@@ -106,7 +106,7 @@
 				<section>
 					<h2 class="initial"><c:out value="${dataset.attributeType.name}"></c:out> <span class="note">Gene Sets</span></h2>
 					<p class="instruction">
-						<c:out value="${fn:length(dataset.attributes)}"/> <c:out value="${dataset.geneSetsDescription}"></c:out>
+						<c:out value="${fn:length(dataset.geneSets)}"/> <c:out value="${dataset.geneSetsDescription}"></c:out>
 					</p>
 					<table class="table data-table gene-sets">
 						<thead>
@@ -115,13 +115,13 @@
 								<th>Description</th>
 							</tr>
 						</thead>
-						<c:forEach var="attribute" items="${attributesFromDataset}">
+						<c:forEach var="geneSet" items="${dataset.geneSets}">
 							<tr>
 								<td class="col-md-2">
-									<a href="${GeneSet.ENDPOINT}/${attribute.nameFromDataset}/${dataset.name}"><c:out value="${attribute.nameFromDataset}"/></a>
+									<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}"><c:out value="${geneSet.attribute.nameFromDataset}"/></a>
 								</td>
 								<td  class="col-md-10">
-									<c:out value="${attribute.descriptionFromNamingAuthority}"/>
+									<c:out value="${geneSet.attribute.descriptionFromNamingAuthority}"/>
 								</td>
 							</tr>
 						</c:forEach>

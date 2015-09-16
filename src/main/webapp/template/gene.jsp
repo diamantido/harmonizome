@@ -77,9 +77,9 @@
 								<th>Summary</th>
 							</tr>
 						</thead>
-						<c:forEach var="pair" items="${attributesByDataset}">
+						<c:forEach var="pair" items="${geneSetsByDataset}">
 							<c:set var="dataset" value="${pair.left}"/>
-							<c:set var="attributes" value="${pair.right}"/>
+							<c:set var="geneSets" value="${pair.right}"/>
 							<tr class="dataset-row ${dataset.cssClassName}">
 								<td class="col-md-1" data-dataset-group="${dataset.cssClassName}">
 									<button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true"></button>
@@ -92,14 +92,14 @@
 								</td>
 								<td class="col-md-8">
 									<c:set var="attributeSetDescription" value="${fn:replace(dataset.attributeSetDescription, '{0}', gene.symbol)}"/>
-									<c:set var="attributeCount" value="${fn:length(attributes.left) + fn:length(attributes.right)}"/>
+									<c:set var="attributeCount" value="${fn:length(geneSets.left) + fn:length(geneSets.right)}"/>
 									<c:out value="${attributeCount} ${attributeSetDescription}"/>
 								</td>
 							</tr>
 							<tr class="list attribute-list">
 								<td class="col-md-1"></td>
 								<td class="col-md-11" colspan="2">
-									<c:set var="hasTwoAssociations" value="${fn:length(attributes.right) != 0}"/>
+									<c:set var="hasTwoAssociations" value="${fn:length(geneSets.right) != 0}"/>
 									<c:if test="${not empty fn:trim(dataset.positiveAssociation)}">
 										<p>
 											<strong>
@@ -107,10 +107,10 @@
 											</strong>
 										</p>
 									</c:if>
-									<c:set var="upAttributes" value="${attributes.left}"/>
-									<c:forEach var="attribute" items="${upAttributes}" varStatus="loop">
-										<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedValue}/${dataset.urlEncodedValue}">
-											<c:out value="${attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
+									<c:set var="upGeneSets" value="${geneSets.left}"/>
+									<c:forEach var="geneSet" items="${upGeneSets}" varStatus="loop">
+										<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">
+											<c:out value="${geneSet.attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
 										</a>
 									</c:forEach>
 									<c:if test="${hasTwoAssociations}">
@@ -120,10 +120,10 @@
 													<c:out value="${dataset.negativeAssociation}"/>
 												</strong>
 											</p>
-											<c:set var="downAttributes" value="${attributes.right}"/>
-											<c:forEach var="attribute" items="${downAttributes}" varStatus="loop">
-												<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedValue}/${dataset.urlEncodedValue}">
-													<c:out value="${attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
+											<c:set var="downGeneSets" value="${geneSets.right}"/>
+											<c:forEach var="geneSet" items="${downGeneSets}" varStatus="loop">
+												<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">
+													<c:out value="${geneSet.attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
 												</a>
 											</c:forEach>
 										</div>

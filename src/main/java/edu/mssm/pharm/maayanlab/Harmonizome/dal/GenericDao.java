@@ -12,7 +12,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.BioEntityMetadata;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class GenericDAO {
+public class GenericDao {
 	
 	@SuppressWarnings("unchecked")
 	public static <E> List<E> getAll(Class<E> klass) {

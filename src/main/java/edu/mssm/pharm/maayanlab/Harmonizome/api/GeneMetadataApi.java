@@ -14,11 +14,10 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneMetadataSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
@@ -36,7 +35,7 @@ public class GeneMetadataApi extends HttpServlet {
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Gene.class, new GeneMetadataSerializer());
-		gsonBuilder.registerTypeAdapter(GeneSet.class, new GeneSetLinkSerializer());
+		gsonBuilder.registerTypeAdapter(GeneSet.class, new BioEntityLinkSerializer());
 		gsonBuilder.registerTypeAdapter(Protein.class, new BioEntityLinkSerializer());
 		gsonBuilder.registerTypeAdapter(HgncRootFamily.class, new BioEntityLinkSerializer());
 		gson = gsonBuilder.create();
@@ -49,9 +48,9 @@ public class GeneMetadataApi extends HttpServlet {
 
 		try {
 			HibernateUtil.beginTransaction();
-			gene = GeneDAO.getFromSymbol(symbol);
+			gene = GeneDao.getFromSymbol(symbol);
 			if (gene == null) {
-				gene = GeneDAO.getFromSynonymSymbol(symbol);
+				gene = GeneDao.getFromSynonymSymbol(symbol);
 			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {

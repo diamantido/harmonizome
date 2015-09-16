@@ -5,7 +5,7 @@ import java.util.List;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class FeatureDAO {
+public class FeatureDao {
 
 	@SuppressWarnings("unchecked")
 	public static List<Feature> getByGeneSet(String datasetNameFromDataset, String datasetName) {

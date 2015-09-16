@@ -1,7 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,10 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -42,26 +39,23 @@ public class DatasetPage extends HttpServlet {
 		}
 		try {
 			Dataset dataset = null;
-			List<Attribute> attributesFromDataset = null;
 			Long numGenes = null;
 			Long numGeneAttributeAssociations = null;
 
 			HibernateUtil.beginTransaction();
-			dataset = DatasetDAO.getFromName(query);
+			dataset = DatasetDao.getFromName(query);
 			if (dataset != null) {
 				if (!isTest) {
 					dataset.setNumPageViews(dataset.getNumPageViews() + 1);
 				}
-				numGenes = GeneDAO.getCountByDataset(query);
-				numGeneAttributeAssociations = DatasetDAO.getCountGeneAttributeAssocations(query);
-				attributesFromDataset = AttributeDAO.getFromDataset(query);
+				numGenes = GeneDao.getCountByDataset(query);
+				numGeneAttributeAssociations = DatasetDao.getCountGeneAttributeAssocations(query);
 			}
 			if (dataset == null) {
 				doNotFound(request, response);
 			} else {
 				request.setAttribute("numGenes", numGenes);
 				request.setAttribute("numGeneAttributeAssociations", numGeneAttributeAssociations);
-				request.setAttribute("attributesFromDataset", attributesFromDataset);
 				request.setAttribute("dataset", dataset);
 				RequestDispatcher r = request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp");
 				r.forward(request, response);

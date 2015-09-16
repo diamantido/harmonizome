@@ -11,10 +11,10 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class GeneDAO {
+public class GeneDao {
 
 	public static List<Gene> getAll(String query, int startAt) {
-		return GenericDAO.getAllFromQuery(Gene.class, "symbol", query, startAt);
+		return GenericDao.getAllFromQuery(Gene.class, "symbol", query, startAt);
 	}
 
 	public static Pair<List<Gene>, List<Gene>> getFromAttributeByValue(String attributeName, String datasetName) {
@@ -24,19 +24,19 @@ public class GeneDAO {
 	}
 	
 	public static List<Gene> getByWordInSymbol(String query) {
-		return GenericDAO.getBySubstringInField(Gene.class, "symbol", query);
+		return GenericDao.getBySubstringInField(Gene.class, "symbol", query);
 	}
 
 	public static List<Gene> getByWordInSymbolButIgnoreExactMatch(String query, int idToIgnore) {
-		return GenericDAO.getBySubstringInFieldButIgnoreId(Gene.class, "gene", "symbol", query, idToIgnore);
+		return GenericDao.getBySubstringInFieldButIgnoreId(Gene.class, "gene", "symbol", query, idToIgnore);
 	}
 	
 	public List<String> getSuggestions(String query) {
-		return GenericDAO.getSuggestions("gene", "symbol", query);
+		return GenericDao.getSuggestions("gene", "symbol", query);
 	}
 	
 	public List<String> getByPrefix(String query) {
-		return GenericDAO.getByPrefix("gene", "symbol", query);		
+		return GenericDao.getByPrefix("gene", "symbol", query);		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -66,8 +66,8 @@ public class GeneDAO {
 			.createQuery(
 				"SELECT COUNT (DISTINCT gene) FROM Gene AS gene " +
 				"JOIN gene.features AS feats " +
-				"JOIN feats.attribute AS attr " +
-				"JOIN attr.dataset AS dataset " +
+				"JOIN feats.geneSet AS geneSet " +
+				"JOIN geneSet.dataset AS dataset " +
 				"WHERE dataset.name = :datasetName"
 			)
 			.setString("datasetName", datasetName)
@@ -129,8 +129,9 @@ public class GeneDAO {
 			.createQuery(
 				"SELECT DISTINCT gene FROM Gene AS gene " +
 				"JOIN gene.features AS feats " +
-				"JOIN feats.attribute AS attr " +
-				"JOIN attr.dataset AS dataset " +
+				"JOIN feats.geneSet AS geneSet " +
+				"JOIN geneSet.dataset AS dataset " +
+				"JOIN geneSet.attribute AS attr " +
 				"WHERE attr.nameFromDataset = :attributeName AND dataset.name = :datasetName AND feats.thresholdValue = :thresholdValue"
 			)
 			.setString("attributeName", attributeName)

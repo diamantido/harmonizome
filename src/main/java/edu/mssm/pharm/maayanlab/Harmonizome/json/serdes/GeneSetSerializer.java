@@ -23,11 +23,11 @@ public class GeneSetSerializer implements JsonSerializer<GeneSet> {
 		result.add("dataset", context.serialize(dataset));
 
 		JsonArray jsonArray = new JsonArray();
-		for (Feature feature : attribute.getFeatures()) {
+		for (Feature feature : geneSet.getFeatures()) {
 			jsonArray.add(context.serialize(feature, Feature.class));
 		}
 		result.add("features", jsonArray);		
-		
+
 		return result;
 	}
 }

@@ -9,11 +9,10 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 
-public class DatasetSerializer implements JsonSerializer<Dataset> {
+public class DatasetMetadataSerializer implements JsonSerializer<Dataset> {
 
 	public JsonElement serialize(final Dataset dataset, final Type type, final JsonSerializationContext context) {
 
@@ -25,10 +24,9 @@ public class DatasetSerializer implements JsonSerializer<Dataset> {
 		result.add("measurement", new JsonPrimitive(dataset.getMeasurement().getName()));
 		result.add("attributeGroup", new JsonPrimitive(dataset.getAttributeGroup().getName()));
 		result.add("attributeType", new JsonPrimitive(dataset.getAttributeType().getName()));
-		
+
 		JsonArray geneSets = new JsonArray();
-		for (Attribute attribute : dataset.getAttributes()) {
-			GeneSet geneSet = new GeneSet(attribute, dataset);
+		for (GeneSet geneSet : dataset.getGeneSets()) {
 			geneSets.add(context.serialize(geneSet));
 		}
 		result.add("geneSets", geneSets);

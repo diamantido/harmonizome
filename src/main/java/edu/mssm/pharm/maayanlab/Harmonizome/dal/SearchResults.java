@@ -62,31 +62,31 @@ public class SearchResults {
 	private void queryDatasets() {
 		List<String> datasetSuggestions = suggestions.get("datasets");
 		int datasetIdToIgnore;
-		Dataset exactDataset = DatasetDAO.getFromName(query);
+		Dataset exactDataset = DatasetDao.getFromName(query);
 		if (exactDataset != null) {
 			datasetIdToIgnore = exactDataset.getId();
 			datasets.add(exactDataset);
-			datasets.addAll(DatasetDAO.getByWordInNameButIgnoreExactMatch(query, datasetIdToIgnore));
+			datasets.addAll(DatasetDao.getByWordInNameButIgnoreExactMatch(query, datasetIdToIgnore));
 		} else {
-			datasets.addAll(DatasetDAO.getByWordInName(query));
+			datasets.addAll(DatasetDao.getByWordInName(query));
 		}
-		datasets.addAll(DatasetDAO.getByWordInResourceName(query));
+		datasets.addAll(DatasetDao.getByWordInResourceName(query));
 		if (datasets.size() == 0) {
-			datasetSuggestions.addAll(DatasetDAO.getSuggestions(query));
+			datasetSuggestions.addAll(DatasetDao.getSuggestions(query));
 		}
 	}
 	
 	public void queryGenes() {
-		GeneDAO geneDAO = new GeneDAO();
+		GeneDao geneDAO = new GeneDao();
 		List<String> geneSuggestions = suggestions.get("genes");
 		int geneIdToIgnore;
-		Gene exactGene = GeneDAO.getFromSymbol(query);
+		Gene exactGene = GeneDao.getFromSymbol(query);
 		if (exactGene != null) {
 			geneIdToIgnore = exactGene.getId();
 			genes.add(exactGene);
-			genes.addAll(GeneDAO.getByWordInSymbolButIgnoreExactMatch(query, geneIdToIgnore));
+			genes.addAll(GeneDao.getByWordInSymbolButIgnoreExactMatch(query, geneIdToIgnore));
 		} else {
-			genes.addAll(GeneDAO.getByWordInSymbol(query));
+			genes.addAll(GeneDao.getByWordInSymbol(query));
 		}
 		if (genes.size() == 0) {
 			geneSuggestions.addAll(geneDAO.getSuggestions(query));
@@ -95,19 +95,19 @@ public class SearchResults {
 
 	public void queryAttributes() {
 		List<String> attributeSuggestions = suggestions.get("attributes");
-		List<Attribute> exactAttributes = AttributeDAO.getByName(query);
+		List<Attribute> exactAttributes = AttributeDao.getByName(query);
 		if (exactAttributes.size() != 0) {
 			List<Integer> idsToIgnore = new ArrayList<Integer>();
 			for (Attribute attr : exactAttributes) {
 				idsToIgnore.add(attr.getId());
 			}
 			attributes.addAll(exactAttributes);
-			attributes.addAll(AttributeDAO.getByWordInNameButIgnoreExactMatches(query, idsToIgnore));
+			attributes.addAll(AttributeDao.getByWordInNameButIgnoreExactMatches(query, idsToIgnore));
 		} else {
-			attributes.addAll(AttributeDAO.getByWordInName(query));
+			attributes.addAll(AttributeDao.getByWordInName(query));
 		}
 		if (attributes.size() == 0) {
-			attributeSuggestions.addAll(AttributeDAO.getSuggestions(query));
+			attributeSuggestions.addAll(AttributeDao.getSuggestions(query));
 		}
 	}
 	

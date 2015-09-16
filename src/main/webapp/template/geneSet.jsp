@@ -12,7 +12,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper gene-set-page">
 			<div class="content container">
-				<h1 class="capitalize">${attribute.nameFromDataset} <span class="note gene-set">Gene Set</span></h1>
+				<h1 class="capitalize">${geneSet.attribute.nameFromDataset} <span class="note gene-set">Gene Set</span></h1>
 				<section>
 					<table class="table">
 						<tr>

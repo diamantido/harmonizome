@@ -16,9 +16,9 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -42,15 +42,15 @@ public class SuggestApi extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = request.getParameter("q");
-		GeneDAO geneDAO = new GeneDAO();
+		GeneDao geneDAO = new GeneDao();
 		List<String> suggestions = new ArrayList<String>();
 		
 		try {
 			HibernateUtil.beginTransaction();
 			suggestions.addAll(geneDAO.getByPrefix(query));
-			suggestions.addAll(DatasetDAO.getByPrefix(query));
+			suggestions.addAll(DatasetDao.getByPrefix(query));
 			// There are a lot of attributes. Don't suggest everything.
-			List<String> attributeSuggestions = AttributeDAO.getByPrefix(query);
+			List<String> attributeSuggestions = AttributeDao.getByPrefix(query);
 			if (attributeSuggestions.size() > MAX_ATTRIBUTES_TO_SUGGEST) {
 				attributeSuggestions = attributeSuggestions.subList(0, MAX_ATTRIBUTES_TO_SUGGEST);
 			}

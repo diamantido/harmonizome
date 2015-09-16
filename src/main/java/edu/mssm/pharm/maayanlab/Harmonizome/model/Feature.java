@@ -26,16 +26,10 @@ public class Feature {
 	private Gene gene;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "attribute_fk")
-	private Attribute attribute;
+	@JoinColumn(name = "gene_set_fk")
+	private GeneSet geneSet;
 
 	public Feature() {
-	}
-
-	public Feature(double thresholdValue, Gene gene, Attribute attribute) {
-		this.thresholdValue = thresholdValue;
-		this.gene = gene;
-		this.attribute = attribute;
 	}
 
 	public Long getId() {
@@ -62,11 +56,11 @@ public class Feature {
 		this.gene = gene;
 	}
 
-	public Attribute getAttribute() {
-		return attribute;
+	public GeneSet getGeneSet() {
+		return geneSet;
 	}
 
-	public void setAttribute(Attribute attribute) {
-		this.attribute = attribute;
+	public void setGeneSet(GeneSet geneSet) {
+		this.geneSet = geneSet;
 	}
 }

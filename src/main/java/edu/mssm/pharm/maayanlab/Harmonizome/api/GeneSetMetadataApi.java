@@ -2,7 +2,6 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,9 +14,7 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.FeatureDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneSetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.FeatureSerializer;
@@ -60,28 +57,20 @@ public class GeneSetMetadataApi extends HttpServlet {
 			String attributeName = query[0];
 			String datasetName = query[1];
 
-			GeneSet geneSet = new GeneSet();
-			Attribute attribute = null;
-			Dataset dataset = null;
-			List<Feature> features = null;
+			GeneSet geneSet = null;
 
 			try {
 				HibernateUtil.beginTransaction();
-				attribute = AttributeDAO.getByNameAndDataset(attributeName, datasetName);
-				dataset = DatasetDAO.getFromName(datasetName);
-				features = FeatureDAO.getByGeneSet(attributeName, datasetName);
+				geneSet = GeneSetDao.getFromAttributeAndDataset(attributeName, datasetName);
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				HibernateUtil.rollbackTransaction();
 			}
 			
-			if (attribute == null && dataset == null) {
+			if (geneSet == null) {
 				out.write(gson.toJson(new ErrorSchema()));
 				out.flush();
 			} else {
-				geneSet.setAttribute(attribute);
-				geneSet.setDataset(dataset);
-				geneSet.setFeatures(features);
 				out.write(gson.toJson(geneSet, GeneSet.class));
 				out.flush();
 			}

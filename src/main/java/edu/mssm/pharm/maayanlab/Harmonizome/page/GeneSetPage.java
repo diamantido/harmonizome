@@ -13,12 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.AttributeDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDAO;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneSetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.BioEntityAlphabetizer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -37,10 +36,10 @@ public class GeneSetPage extends HttpServlet {
 				HibernateUtil.beginTransaction();
 				String attributeName = query[0];
 				String datasetName = query[1];
-				Attribute attribute = AttributeDAO.getByNameAndDataset(attributeName, datasetName);
-				Dataset dataset = DatasetDAO.getFromName(datasetName);
-				Pair<List<Gene>, List<Gene>> genesByAttribute = GeneDAO.getFromAttributeByValue(attributeName, datasetName);
-				if (attribute == null) {
+				GeneSet geneSet = GeneSetDao.getFromAttributeAndDataset(attributeName, datasetName);
+				Dataset dataset = geneSet.getDataset();
+				Pair<List<Gene>, List<Gene>> genesByAttribute = GeneDao.getFromAttributeByValue(attributeName, datasetName);
+				if (geneSet == null) {
 					request.setAttribute("query", query);
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "noSearchResults.jsp").forward(request, response);
 				} else {
@@ -48,10 +47,10 @@ public class GeneSetPage extends HttpServlet {
 					Collections.sort(genesByAttribute.getLeft(), new BioEntityAlphabetizer());
 					int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();
 					String geneSetDescription = dataset.getGeneSetDescription();
-					geneSetDescription = geneSetDescription.replace("{0}", attribute.getNameFromDataset());
+					geneSetDescription = geneSetDescription.replace("{0}", geneSet.getAttribute().getNameFromDataset());
 					geneSetDescription = numGenes + " " + geneSetDescription;
 					request.setAttribute("geneSetDescription", geneSetDescription);
-					request.setAttribute("attribute", attribute);
+					request.setAttribute("geneSet", geneSet);
 					request.setAttribute("dataset", dataset);
 					request.setAttribute("genesByAttribute", genesByAttribute);
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "geneSet.jsp").forward(request, response);

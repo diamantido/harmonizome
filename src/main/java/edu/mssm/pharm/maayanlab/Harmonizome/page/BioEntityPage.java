@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.BioEntityMetadata;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -21,7 +21,7 @@ public class BioEntityPage {
 		T bioEntity = null;
 		try {
 			HibernateUtil.beginTransaction();
-			bioEntity = GenericDAO.getBioEntityFromKeyColumn(klass, query);
+			bioEntity = GenericDao.getBioEntityFromKeyColumn(klass, query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();

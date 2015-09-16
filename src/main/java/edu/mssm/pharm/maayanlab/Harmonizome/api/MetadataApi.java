@@ -11,7 +11,7 @@ import org.hibernate.HibernateException;
 
 import com.google.gson.Gson;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -24,7 +24,7 @@ public class MetadataApi {
 
 		try {
 			HibernateUtil.beginTransaction();
-			entity = GenericDAO.getBioEntityFromKeyColumn(klass, query);
+			entity = GenericDao.getBioEntityFromKeyColumn(klass, query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();

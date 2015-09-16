@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDAO;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -26,7 +26,7 @@ public class DownloadPage extends HttpServlet {
 		List<Dataset> datasets = null;
 		try {
 			HibernateUtil.beginTransaction();
-			datasets = GenericDAO.getAll(Dataset.class);
+			datasets = GenericDao.getAll(Dataset.class);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException e) {
 			e.printStackTrace();

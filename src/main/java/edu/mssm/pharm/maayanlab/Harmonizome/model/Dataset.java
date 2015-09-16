@@ -3,7 +3,6 @@ package edu.mssm.pharm.maayanlab.Harmonizome.model;
 import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -98,10 +97,10 @@ public class Dataset implements BioEntity {
 	 * --------------- */
 	@OneToMany(mappedBy = "dataset")
 	private List<Download> downloads;
-
+	
 	@OneToMany(mappedBy = "dataset")
-	private Set<Attribute> attributes;
-		
+	private List<GeneSet> geneSets;
+	
 	/* Utilities
 	 * --------- */
 	@Transient
@@ -270,14 +269,6 @@ public class Dataset implements BioEntity {
 		this.downloads = downloads;
 	}
 
-	public Set<Attribute> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Set<Attribute> attributes) {
-		this.attributes = attributes;
-	}
-
 	public List<Publication> getPublications() {
 		return publications;
 	}
@@ -286,6 +277,13 @@ public class Dataset implements BioEntity {
 		this.publications = publications;
 	}
 	
+	public List<GeneSet> getGeneSets() {
+		return geneSets;
+	}
+
+	public void setGeneSets(List<GeneSet> geneSets) {
+		this.geneSets = geneSets;
+	}
 
 	/* Utility functions
 	 * ----------------- */
