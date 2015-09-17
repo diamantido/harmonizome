@@ -21,6 +21,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "gene")
+@BioEntityMetadata(name = "gene", keyColumn = "symbol", jsp = "gene.jsp")
 public class Gene implements BioEntity {
 
 	@Id

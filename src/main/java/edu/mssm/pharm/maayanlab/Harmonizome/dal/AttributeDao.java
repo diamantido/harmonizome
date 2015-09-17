@@ -11,18 +11,6 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class AttributeDao {
 
-	public static List<Attribute> getAll(String query, int startAt) {
-		return GenericDao.getAllFromQuery(Attribute.class, "name_from_dataset", query, startAt);
-	}
-
-	public static List<String> getSuggestions(String query) {
-		return GenericDao.getSuggestions("attribute", "name_from_dataset", query);
-	}
-	
-	public static List<String> getByPrefix(String query) {
-		return GenericDao.getByPrefix("attribute", "name_from_dataset", query);		
-	}
-
 	@SuppressWarnings("unchecked")
 	public static List<AttributeGroup> getAttributeGroups() {
 		return (List<AttributeGroup>) HibernateUtil
@@ -107,9 +95,6 @@ public class AttributeDao {
 			.setString("geneSymbol", geneSymbol)
 			.list();
 	}
-
-	/* Private methods
-	 * --------------- */
 
 	@SuppressWarnings("unchecked")
 	private static List<AttributeGroup> getAttributeGroupsFromGene(String geneSymbol) {

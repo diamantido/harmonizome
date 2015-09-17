@@ -17,6 +17,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "attribute")
+@BioEntityMetadata(name = "attribute", keyColumn = "name_from_dataset", jsp = "attribute.jsp")
 public class Attribute implements BioEntity {
 
 	@Id

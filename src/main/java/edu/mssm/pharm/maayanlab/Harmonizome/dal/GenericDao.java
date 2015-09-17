@@ -34,12 +34,13 @@ public class GenericDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <E> List<E> getAllFromQuery(Class<E> klass, String field, String query, Integer startAt) {
+	public static <E> List<E> getAllFromQuery(Class<E> klass, String query, Integer startAt) {
 		startAt = (startAt == null) ? 0 : startAt;
 		if (query == null) {
 			return getAll(klass, startAt);
 		}
 		String table = getTableFromClass(klass);
+		String field = getFieldFromClass(klass);
 		String sql = String.format("SELECT * FROM %s WHERE MATCH(%s) AGAINST('%s*' IN BOOLEAN MODE)", table, field, query);
 		return (List<E>) HibernateUtil
 			.getCurrentSession()
@@ -74,7 +75,9 @@ public class GenericDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<String> getSuggestions(String table, String field, String query) {
+	public static <E> List<String> getSuggestions(Class<E> klass, String query) {
+		String table = getTableFromClass(klass);
+		String field = getKeyColumnFromClass(klass);
 		String sql = String.format("SELECT DISTINCT %s FROM %s WHERE %s SOUNDS LIKE '%s'", field, table, field, query);		
 		return (List<String>) HibernateUtil
 			.getCurrentSession()
@@ -83,7 +86,9 @@ public class GenericDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<String> getByPrefix(String table, String field, String query) {
+	public static <E> List<String> getByPrefix(Class<E> klass, String query) {
+		String table = getTableFromClass(klass);
+		String field = getKeyColumnFromClass(klass);
 		String sql = String.format("SELECT DISTINCT %s FROM %s WHERE %s LIKE '%s%s'", field, table, field, query, "%");		
 		return (List<String>) HibernateUtil
 			.getCurrentSession()
@@ -92,8 +97,9 @@ public class GenericDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E> List<E> getBySubstringInField(Class<E> klass, String field, String query) {
+	public static <E> List<E> getBySubstring(Class<E> klass, String query) {
 		String table = getTableFromClass(klass);
+		String field = getFieldFromClass(klass);
 		String sql = String.format("SELECT DISTINCT * FROM %s WHERE MATCH(%s) AGAINST('%s*' IN BOOLEAN MODE)", table, field, query);		
 		return (List<E>) HibernateUtil
 			.getCurrentSession()
@@ -103,7 +109,9 @@ public class GenericDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <E> List<E> getBySubstringInFieldButIgnoreId(Class<E> klass, String table, String field, String query, int id) {
+	public static <E> List<E> getBySubstringButIgnoreId(Class<E> klass, String query, int id) {
+		String table = getTableFromClass(klass);
+		String field = getFieldFromClass(klass);
 		String sql = String.format("SELECT DISTINCT * FROM %s WHERE MATCH(%s) AGAINST('%s*' IN BOOLEAN MODE) AND id != %s", table, field, query, id);		
 		return (List<E>) HibernateUtil
 			.getCurrentSession()
@@ -142,6 +150,10 @@ public class GenericDao {
 	
 	public static <E> String getTableFromClass(Class<E> klass) {
 		return klass.getAnnotation(Table.class).name();
+	}
+	
+	public static <E> String getFieldFromClass(Class<E> klass) {
+		return klass.getAnnotation(BioEntityMetadata.class).keyColumn();
 	}
 	
 	public static <E> String getKeyColumnFromClass(Class<E> klass) {

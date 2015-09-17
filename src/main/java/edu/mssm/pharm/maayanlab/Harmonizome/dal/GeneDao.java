@@ -12,41 +12,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class GeneDao {
-
-	public static List<Gene> getAll(String query, int startAt) {
-		return GenericDao.getAllFromQuery(Gene.class, "symbol", query, startAt);
-	}
-
-	public static Pair<List<Gene>, List<Gene>> getFromAttributeByValue(String attributeName, String datasetName) {
-		List<Gene> pos = getByValue(attributeName, datasetName, 1);
-		List<Gene> neg = getByValue(attributeName, datasetName, -1);
-		return new ImmutablePair<List<Gene>, List<Gene>>(pos, neg);
-	}
 	
-	public static List<Gene> getByWordInSymbol(String query) {
-		return GenericDao.getBySubstringInField(Gene.class, "symbol", query);
-	}
-
-	public static List<Gene> getByWordInSymbolButIgnoreExactMatch(String query, int idToIgnore) {
-		return GenericDao.getBySubstringInFieldButIgnoreId(Gene.class, "gene", "symbol", query, idToIgnore);
-	}
-	
-	public List<String> getSuggestions(String query) {
-		return GenericDao.getSuggestions("gene", "symbol", query);
-	}
-	
-	public List<String> getByPrefix(String query) {
-		return GenericDao.getByPrefix("gene", "symbol", query);		
-	}
-
-	@SuppressWarnings("unchecked")
-	public static List<String> getSymbols() {
-		return (List<String>) HibernateUtil
-			.getCurrentSession()
-			.createQuery("SELECT gene.symbol FROM Gene AS gene")
-			.list();
-	}
-
 	public static Gene getFromSymbol(String symbol) {
 		Criteria criteria = HibernateUtil.getCurrentSession()
 			.createCriteria(Gene.class)
@@ -60,18 +26,10 @@ public class GeneDao {
 		return (geneSynonym == null ? null : geneSynonym.getGene());
 	}
 	
-	public static Long getCountByDataset(String datasetName) {
-		return (Long) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT COUNT (DISTINCT gene) FROM Gene AS gene " +
-				"JOIN gene.features AS feats " +
-				"JOIN feats.geneSet AS geneSet " +
-				"JOIN geneSet.dataset AS dataset " +
-				"WHERE dataset.name = :datasetName"
-			)
-			.setString("datasetName", datasetName)
-			.uniqueResult();
+	public static Pair<List<Gene>, List<Gene>> getFromAttributeByValue(String attributeName, String datasetName) {
+		List<Gene> pos = getByValue(attributeName, datasetName, 1);
+		List<Gene> neg = getByValue(attributeName, datasetName, -1);
+		return new ImmutablePair<List<Gene>, List<Gene>>(pos, neg);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -122,8 +80,22 @@ public class GeneDao {
 			.list();
 	}
 
+	public static Long getCountByDataset(String datasetName) {
+		return (Long) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT COUNT (DISTINCT gene) FROM Gene AS gene " +
+				"JOIN gene.features AS feats " +
+				"JOIN feats.geneSet AS geneSet " +
+				"JOIN geneSet.dataset AS dataset " +
+				"WHERE dataset.name = :datasetName"
+			)
+			.setString("datasetName", datasetName)
+			.uniqueResult();
+	}
+
 	@SuppressWarnings("unchecked")
-	public static List<Gene> getByValue(String attributeName, String datasetName, int thresholdValue) {
+	private static List<Gene> getByValue(String attributeName, String datasetName, int thresholdValue) {
 		return (List<Gene>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(

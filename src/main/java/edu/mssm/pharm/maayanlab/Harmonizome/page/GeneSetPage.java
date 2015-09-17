@@ -23,7 +23,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.BioEntityAlphabetizer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/gene_set", "/gene_set/*" })
+@WebServlet(urlPatterns = { "/" + GeneSet.ENDPOINT, "/" + GeneSet.ENDPOINT + "/*" })
 public class GeneSetPage extends HttpServlet {
 
 	private static final long serialVersionUID = 6236670940063554419L;

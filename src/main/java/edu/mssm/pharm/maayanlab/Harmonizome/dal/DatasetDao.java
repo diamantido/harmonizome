@@ -66,20 +66,4 @@ public class DatasetDao {
 			.addEntity(Dataset.class)
 			.list();
 	}
-
-	public static List<Dataset> getByWordInName(String query) {
-		return GenericDao.getBySubstringInField(Dataset.class, "name", query);
-	}
-
-	public static List<Dataset> getByWordInNameButIgnoreExactMatch(String query, int idToIgnore) {
-		return GenericDao.getBySubstringInFieldButIgnoreId(Dataset.class, "dataset", "name", query, idToIgnore);
-	}
-
-	public static List<String> getSuggestions(String query) {
-		return GenericDao.getSuggestions("dataset", "name", query);
-	}
-
-	public static List<String> getByPrefix(String query) {
-		return GenericDao.getByPrefix("dataset", "name", query);		
-	}
 }

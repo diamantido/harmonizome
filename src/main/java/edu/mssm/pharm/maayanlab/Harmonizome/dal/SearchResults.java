@@ -11,6 +11,7 @@ import org.hibernate.HibernateException;
 
 import com.google.gson.annotations.Expose;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
@@ -66,35 +67,34 @@ public class SearchResults {
 		if (exactDataset != null) {
 			datasetIdToIgnore = exactDataset.getId();
 			datasets.add(exactDataset);
-			datasets.addAll(DatasetDao.getByWordInNameButIgnoreExactMatch(query, datasetIdToIgnore));
+			datasets.addAll(GenericDao.getBySubstringButIgnoreId(Dataset.class, query, datasetIdToIgnore));
 		} else {
-			datasets.addAll(DatasetDao.getByWordInName(query));
+			datasets.addAll(GenericDao.getBySubstring(Dataset.class, query));
 		}
 		datasets.addAll(DatasetDao.getByWordInResourceName(query));
 		if (datasets.size() == 0) {
-			datasetSuggestions.addAll(DatasetDao.getSuggestions(query));
+			datasetSuggestions.addAll(GenericDao.getSuggestions(Dataset.class, query));
 		}
 	}
 	
 	public void queryGenes() {
-		GeneDao geneDAO = new GeneDao();
 		List<String> geneSuggestions = suggestions.get("genes");
 		int geneIdToIgnore;
 		Gene exactGene = GeneDao.getFromSymbol(query);
 		if (exactGene != null) {
 			geneIdToIgnore = exactGene.getId();
 			genes.add(exactGene);
-			genes.addAll(GeneDao.getByWordInSymbolButIgnoreExactMatch(query, geneIdToIgnore));
+			genes.addAll(GenericDao.getBySubstringButIgnoreId(Gene.class, query, geneIdToIgnore));
 		} else {
-			genes.addAll(GeneDao.getByWordInSymbol(query));
+			genes.addAll(GenericDao.getBySubstring(Gene.class, query));
 		}
 		if (genes.size() == 0) {
-			geneSuggestions.addAll(geneDAO.getSuggestions(query));
+			geneSuggestions.addAll(GenericDao.getSuggestions(Gene.class, query));
 		}
 	}
 
 	public void queryGeneSets() {
-		List<String> attributeSuggestions = suggestions.get("geneSets");
+		List<String> getSetSuggestions = suggestions.get("geneSets");
 		List<GeneSet> exactGeneSets = GeneSetDao.getAllFromAttributeName(query);
 		if (exactGeneSets.size() != 0) {
 			List<Integer> idsToIgnore = new ArrayList<Integer>();
@@ -107,7 +107,7 @@ public class SearchResults {
 			geneSets.addAll(GeneSetDao.getByWordInAttributeName(query));
 		}
 		if (geneSets.size() == 0) {
-			attributeSuggestions.addAll(AttributeDao.getSuggestions(query));
+			getSetSuggestions.addAll(GenericDao.getSuggestions(Attribute.class, query));
 		}
 	}
 	
