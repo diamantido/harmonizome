@@ -24,7 +24,7 @@ public class MetadataApi {
 
 		try {
 			HibernateUtil.beginTransaction();
-			entity = GenericDao.getBioEntityFromKeyColumn(klass, query);
+			entity = GenericDao.get(klass, query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();

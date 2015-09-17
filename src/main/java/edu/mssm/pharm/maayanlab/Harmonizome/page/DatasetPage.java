@@ -13,6 +13,7 @@ import org.hibernate.HibernateException;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -43,7 +44,7 @@ public class DatasetPage extends HttpServlet {
 			Long numGeneAttributeAssociations = null;
 
 			HibernateUtil.beginTransaction();
-			dataset = DatasetDao.getFromName(query);
+			dataset = GenericDao.get(Dataset.class, query);
 			if (dataset != null) {
 				if (!isTest) {
 					dataset.setNumPageViews(dataset.getNumPageViews() + 1);

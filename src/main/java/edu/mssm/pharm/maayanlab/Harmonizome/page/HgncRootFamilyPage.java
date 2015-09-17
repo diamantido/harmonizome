@@ -30,7 +30,7 @@ public class HgncRootFamilyPage extends HttpServlet {
 		HgncRootFamily family = null;
 		try {
 			HibernateUtil.beginTransaction();
-			family = GenericDao.getBioEntityFromKeyColumn(HgncRootFamily.class, query);
+			family = GenericDao.get(HgncRootFamily.class, query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();

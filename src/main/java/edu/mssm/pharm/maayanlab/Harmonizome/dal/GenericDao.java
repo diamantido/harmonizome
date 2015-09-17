@@ -15,6 +15,18 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class GenericDao {
 	
 	@SuppressWarnings("unchecked")
+	public static <E> E get(Class<E> klass, String value) {
+		String table = getTableFromClass(klass);
+		String field = getKeyColumnFromClass(klass);
+		String sql = String.format("SELECT * FROM %s WHERE %s = '%s'", table, field, value);
+		return (E) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(sql)
+			.addEntity(klass)
+			.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
 	public static <E> List<E> getAll(Class<E> klass) {
 		return (List<E>) HibernateUtil.getCurrentSession()
 			.createCriteria(klass)
@@ -49,18 +61,6 @@ public class GenericDao {
 			.setFirstResult(startAt)
 			.setMaxResults(startAt + Constant.API_MAX_RESULTS)
 			.list();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static <E> E getBioEntityFromKeyColumn(Class<E> klass, String value) {
-		String table = getTableFromClass(klass);
-		String field = getKeyColumnFromClass(klass);
-		String sql = String.format("SELECT * FROM %s WHERE %s = '%s'", table, field, value);
-		return (E) HibernateUtil
-			.getCurrentSession()
-			.createSQLQuery(sql)
-			.addEntity(klass)
-			.uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")

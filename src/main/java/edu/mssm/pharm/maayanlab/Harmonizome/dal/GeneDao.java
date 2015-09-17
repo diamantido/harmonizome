@@ -32,54 +32,6 @@ public class GeneDao {
 		return new ImmutablePair<List<Gene>, List<Gene>>(pos, neg);
 	}
 
-	@SuppressWarnings("unchecked")
-	public static List<Gene> getFromDatasetAndAttributeAndValue(String datasetName, String attributeName, int thresholdValue) {
-		return (List<Gene>) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT gene FROM Gene AS gene " +
-				"JOIN gene.features AS feats " +
-				"JOIN feats.attribute AS attr " +
-				"JOIN attr.dataset AS dataset " +
-				"WHERE dataset.name = :datasetName AND attr.nameFromDataset = :attributeName AND feats.thresholdValue = :thresholdValue"
-			)
-			.setString("datasetName", datasetName)
-			.setString("attributeName", attributeName)
-			.setInteger("thresholdValue", thresholdValue)
-			.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	public static List<Gene> getFromDataset(String datasetName) {
-		return (List<Gene>) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT gene FROM Gene AS gene " +
-				"JOIN gene.features AS feats " +
-				"JOIN feats.dataset AS dataset " +
-				"WHERE dataset.name = :datasetName"
-			)
-			.setString("datasetName", datasetName)
-			.list();
-	}
-
-	@SuppressWarnings("unchecked")
-	public static List<Gene> getByAttributeAndDatasetAndValue(String attributeName, String datasetName, int thresholdValue) {
-		return (List<Gene>) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT gene FROM Gene AS gene " +
-				"JOIN gene.features AS features " +
-				"JOIN features.attribute AS attribute " +
-				"JOIN features.dataset AS dataset " +
-				"WHERE attribute.name = :attributeName AND dataset.name = :datasetName AND features.thresholdValue = :thresholdValue"
-			)
-			.setString("datasetName", datasetName)
-			.setString("attributeName", attributeName)
-			.setInteger("thresholdValue", thresholdValue)
-			.list();
-	}
-
 	public static Long getCountByDataset(String datasetName) {
 		return (Long) HibernateUtil
 			.getCurrentSession()

@@ -11,7 +11,7 @@ import com.google.gson.JsonSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 
-public class FeatureSerializer implements JsonSerializer<Feature> {
+public class FeatureMetadataSerializer implements JsonSerializer<Feature> {
 
 	public JsonElement serialize(final Feature feature, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();

@@ -14,12 +14,10 @@ public class ResourceMetadataSerializer implements JsonSerializer<Resource> {
 
 	public JsonElement serialize(final Resource resource, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();
-		
 		result.add("name", new JsonPrimitive(resource.getName()));
 		SerDesUtil.add(result, "acronym", resource.getAcronym());
 		SerDesUtil.add(result, "description", resource.getLongDescription());
 		SerDesUtil.add(result, "url", resource.getUrl());
-
 		return result;
 	}
 }

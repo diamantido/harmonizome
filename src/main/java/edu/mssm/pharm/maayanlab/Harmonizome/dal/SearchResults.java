@@ -63,7 +63,7 @@ public class SearchResults {
 	private void queryDatasets() {
 		List<String> datasetSuggestions = suggestions.get("datasets");
 		int datasetIdToIgnore;
-		Dataset exactDataset = DatasetDao.getFromName(query);
+		Dataset exactDataset = GenericDao.get(Dataset.class, query);
 		if (exactDataset != null) {
 			datasetIdToIgnore = exactDataset.getId();
 			datasets.add(exactDataset);

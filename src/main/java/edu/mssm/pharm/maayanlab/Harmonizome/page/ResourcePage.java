@@ -32,7 +32,7 @@ public class ResourcePage extends HttpServlet {
 		List<Publication> publications = null;
 		try {
 			HibernateUtil.beginTransaction();
-			resource = GenericDao.getBioEntityFromKeyColumn(Resource.class, query);
+			resource = GenericDao.get(Resource.class, query);
 			// Use a query so we don't have to remove duplicates manually.
 			publications = PublicationDao.getFromResource(query);
 			HibernateUtil.commitTransaction();

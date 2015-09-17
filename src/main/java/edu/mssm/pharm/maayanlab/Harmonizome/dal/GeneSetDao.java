@@ -12,10 +12,6 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class GeneSetDao {
-
-	public static List<GeneSet> getAll(int startAt) {
-		return GenericDao.getAll(GeneSet.class, startAt);
-	}
 	
 	@SuppressWarnings("unchecked")
 	public static List<GeneSet> getByWordInAttributeName(String query) {
@@ -58,19 +54,6 @@ public class GeneSetDao {
 			.setString("datasetName", datasetName)
 			.uniqueResult();
 	}
-	
-	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getFromDataset(String datasetName) {
-		return (List<GeneSet>) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT geneSet FROM GeneSet AS geneSet " +
-				"JOIN geneSet.dataset AS dataset " +
-				"WHERE dataset.name = :datasetName"
-			)
-			.setString("datasetName", datasetName)
-			.list();
-	}
 
 	@SuppressWarnings("unchecked")
 	public static List<GeneSet> getByWordInAttributeNameButIgnoreExactMatches(String query, List<Integer> idsToIgnore) {
@@ -112,7 +95,7 @@ public class GeneSetDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getFromDatasetAndGeneAndValue(String datasetName, String geneSymbol, int thresholdValue) {
+	private static List<GeneSet> getFromDatasetAndGeneAndValue(String datasetName, String geneSymbol, int thresholdValue) {
 		return (List<GeneSet>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(

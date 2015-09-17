@@ -21,7 +21,7 @@ public class BioEntityPage {
 		T bioEntity = null;
 		try {
 			HibernateUtil.beginTransaction();
-			bioEntity = GenericDao.getBioEntityFromKeyColumn(klass, query);
+			bioEntity = GenericDao.get(klass, query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();

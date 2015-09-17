@@ -22,8 +22,7 @@ public class ProteinMetadataSerializer implements JsonSerializer<Protein> {
 		SerDesUtil.add(result, "uniprotUrl", protein.getUniprotUrl());
 		
 		if (protein.getGene() != null) {
-			JsonElement gene = context.serialize(protein.getGene(), Gene.class);
-			result.add("gene", gene);
+			result.add("gene", context.serialize(protein.getGene(), Gene.class));
 		}
 		
 		return result;
