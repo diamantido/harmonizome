@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
@@ -45,8 +45,8 @@ public class SearchResultsPage extends HttpServlet {
 			} else {
 				Set<Dataset> datasets = searchResults.getDatasets();
 				Set<Gene> genes = searchResults.getGenes();
-				Set<Attribute> attributes = searchResults.getAttributes();
-				String summary = buildSummary(query, datasets, genes, attributes);
+				Set<GeneSet> geneSets = searchResults.getGeneSets();
+				String summary = buildSummary(query, datasets, genes, geneSets);
 				if (type != null) {
 					/* This configures the view to show a "clear" filter. */
 					request.setAttribute("isFilteredPage", true);
@@ -55,7 +55,7 @@ public class SearchResultsPage extends HttpServlet {
 				request.setAttribute("summary", summary);
 				request.setAttribute("datasets", datasets);
 				request.setAttribute("genes", genes);
-				request.setAttribute("attributes", attributes);
+				request.setAttribute("geneSets", geneSets);
 				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "searchResults.jsp").forward(request, response);
 			}
 		}
@@ -66,7 +66,7 @@ public class SearchResultsPage extends HttpServlet {
 		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "noSearchResults.jsp").forward(request, response);
 	}
 
-	private String buildSummary(String query, Set<Dataset> datasets, Set<Gene> genes, Set<Attribute> attributes) {
+	private String buildSummary(String query, Set<Dataset> datasets, Set<Gene> genes, Set<GeneSet> geneSets) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Results for ").append("\"").append(query).append("\": ");
 		if (datasets.size() != 0) {
@@ -75,8 +75,8 @@ public class SearchResultsPage extends HttpServlet {
 		if (genes.size() != 0) {
 			sb.append(genes.size()).append(genes.size() == 1 ? " gene, " : " genes, ");
 		}		
-		if (attributes.size() != 0) {
-			sb.append(attributes.size()).append(attributes.size() == 1 ? " gene set, " : " gene sets, ");
+		if (geneSets.size() != 0) {
+			sb.append(geneSets.size()).append(geneSets.size() == 1 ? " gene set, " : " gene sets, ");
 		}
 		return StringUtils.removeEnd(sb.toString(), ", ");
 	}

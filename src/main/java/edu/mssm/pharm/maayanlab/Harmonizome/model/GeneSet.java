@@ -47,6 +47,14 @@ public class GeneSet implements BioEntity {
 		return attribute;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public void setAttribute(Attribute attribute) {
 		this.attribute = attribute;
 	}

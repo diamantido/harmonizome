@@ -15,14 +15,6 @@ public class AttributeDao {
 		return GenericDao.getAllFromQuery(Attribute.class, "name_from_dataset", query, startAt);
 	}
 
-	public static List<Attribute> getByWordInName(String query) {
-		return GenericDao.getBySubstringInField(Attribute.class, "name_from_dataset", query);
-	}
-
-	public static List<Attribute> getByWordInNameButIgnoreExactMatches(String query, List<Integer> idToIgnore) {
-		return GenericDao.getBySubstringInFieldButIgnoreIds(Attribute.class, "attribute", "name_from_dataset", query, idToIgnore);
-	}
-
 	public static List<String> getSuggestions(String query) {
 		return GenericDao.getSuggestions("attribute", "name_from_dataset", query);
 	}
@@ -39,17 +31,6 @@ public class AttributeDao {
 			.list();
 	}
 	
-	@SuppressWarnings("unchecked")
-	public static List<Attribute> getByName(String name) {
-		return (List<Attribute>) HibernateUtil
-			.getCurrentSession()
-			.createQuery(
-				"SELECT attr FROM Attribute AS attr " +
-				"WHERE attr.nameFromDataset = :name"
-			)
-			.setString("name", name)
-			.list();
-	}
 
 	@SuppressWarnings("unchecked")
 	public static List<AttributeType> getTypesFromGroup(String attributeGroup) {

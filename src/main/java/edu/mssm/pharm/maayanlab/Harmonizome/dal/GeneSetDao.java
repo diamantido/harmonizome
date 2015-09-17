@@ -1,6 +1,7 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -14,6 +15,33 @@ public class GeneSetDao {
 
 	public static List<GeneSet> getAll(int startAt) {
 		return GenericDao.getAll(GeneSet.class, startAt);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<GeneSet> getByWordInAttributeName(String query) {
+		String sql = String.format("" +
+			"SELECT DISTINCT * FROM GeneSet " +
+			"WHERE MATCH(GeneSet.nameFromDataset) AGAINST('%s*' IN BOOLEAN MODE)",
+			query
+		);		
+		return (List<GeneSet>) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(sql)
+			.addEntity(GeneSet.class)
+			.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<GeneSet> getAllFromAttributeName(String attributeName) {
+		return (List<GeneSet>) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT geneSet FROM GeneSet AS geneSet " +
+				"JOIN geneSet.attribute AS attribute " +
+				"WHERE attribute.nameFromDataset = :attributeName"
+			)
+			.setString("attributeName", attributeName)
+			.list();
 	}
 
 	public static GeneSet getFromAttributeAndDataset(String attributeName, String datasetName) {
@@ -43,7 +71,32 @@ public class GeneSetDao {
 			.setString("datasetName", datasetName)
 			.list();
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public static List<GeneSet> getByWordInAttributeNameButIgnoreExactMatches(String query, List<Integer> idsToIgnore) {
+		StringBuilder builder  = new StringBuilder();
+		Iterator<Integer> iter = idsToIgnore.iterator();
+		builder.append("(");
+		while (iter.hasNext()) {
+			builder.append(iter.next());
+	        if (iter.hasNext()) {
+	        	builder.append(",");
+	        }
+		}
+		builder.append(")");
+		String sql = String.format("" +
+			"SELECT DISTINCT * FROM gene_set " +
+			"JOIN attribute ON gene_set.attribute_fk = attribute.id " +
+			"WHERE MATCH(attribute.name_from_dataset) AGAINST('%s*' IN BOOLEAN MODE) AND gene_set.id NOT IN %s", 
+			query, builder.toString()
+		);
+		return (List<GeneSet>) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(sql)
+			.addEntity(GeneSet.class)
+			.list();
+	}
+
 	public static List<Pair<Dataset, Pair<List<GeneSet>, List<GeneSet>>>> getByDatasetsFromGene(String geneSymbol) {
 		List<Dataset> datasetsByGene = DatasetDao.getByGene(geneSymbol);
 		List<Pair<Dataset, Pair<List<GeneSet>, List<GeneSet>>>> geneSetsByDataset = new ArrayList<Pair<Dataset, Pair<List<GeneSet>, List<GeneSet>>>>();

@@ -11,9 +11,9 @@ import org.hibernate.HibernateException;
 
 import com.google.gson.annotations.Expose;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class SearchResults {
@@ -28,7 +28,7 @@ public class SearchResults {
 	private Set<Gene> genes = new LinkedHashSet<Gene>();
 	
 	@Expose
-	private Set<Attribute> attributes = new LinkedHashSet<Attribute>();
+	private Set<GeneSet> geneSets = new LinkedHashSet<GeneSet>();
 	
 	private Map<String, List<String>> suggestions = new HashMap<String, List<String>>();
 	
@@ -37,20 +37,20 @@ public class SearchResults {
 		
 		suggestions.put("datasets", new ArrayList<String>());
 		suggestions.put("genes", new ArrayList<String>());
-		suggestions.put("attributes", new ArrayList<String>());
+		suggestions.put("geneSets", new ArrayList<String>());
 
 		try {
 			HibernateUtil.beginTransaction();
 			if (type == null) {
 				queryDatasets();
 				queryGenes();
-				queryAttributes();
+				queryGeneSets();
 			} else if (type.equals("dataset")) {
 				queryDatasets();
 			} else if (type.equals("gene")) {
 				queryGenes();
-			} else if (type.equals("attribute")) {
-				queryAttributes();
+			} else if (type.equals("geneSet")) {
+				queryGeneSets();
 			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
@@ -93,20 +93,20 @@ public class SearchResults {
 		}
 	}
 
-	public void queryAttributes() {
-		List<String> attributeSuggestions = suggestions.get("attributes");
-		List<Attribute> exactAttributes = AttributeDao.getByName(query);
-		if (exactAttributes.size() != 0) {
+	public void queryGeneSets() {
+		List<String> attributeSuggestions = suggestions.get("geneSets");
+		List<GeneSet> exactGeneSets = GeneSetDao.getAllFromAttributeName(query);
+		if (exactGeneSets.size() != 0) {
 			List<Integer> idsToIgnore = new ArrayList<Integer>();
-			for (Attribute attr : exactAttributes) {
-				idsToIgnore.add(attr.getId());
+			for (GeneSet geneSet : exactGeneSets) {
+				idsToIgnore.add(geneSet.getId());
 			}
-			attributes.addAll(exactAttributes);
-			attributes.addAll(AttributeDao.getByWordInNameButIgnoreExactMatches(query, idsToIgnore));
+			geneSets.addAll(exactGeneSets);
+			geneSets.addAll(GeneSetDao.getByWordInAttributeNameButIgnoreExactMatches(query, idsToIgnore));
 		} else {
-			attributes.addAll(AttributeDao.getByWordInName(query));
+			geneSets.addAll(GeneSetDao.getByWordInAttributeName(query));
 		}
-		if (attributes.size() == 0) {
+		if (geneSets.size() == 0) {
 			attributeSuggestions.addAll(AttributeDao.getSuggestions(query));
 		}
 	}
@@ -123,8 +123,8 @@ public class SearchResults {
 		return genes;
 	}
 
-	public Set<Attribute> getAttributes() {
-		return attributes;
+	public Set<GeneSet> getGeneSets() {
+		return geneSets;
 	}
 
 	public Map<String, List<String>> getSuggestions() {
@@ -142,7 +142,7 @@ public class SearchResults {
 	}
 	
 	private boolean noExactMatchesFound() {
-		return datasets.size() == 0 && genes.size() == 0 && attributes.size() == 0;
+		return datasets.size() == 0 && genes.size() == 0 && geneSets.size() == 0;
 	}
 	
 	private boolean noSuggestionsFound() {

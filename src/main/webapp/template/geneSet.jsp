@@ -23,7 +23,7 @@
 						</tr>
 						<tr>
 							<td class="col-md-2">Type</td>
-							<td class="col-md-10 initial">${attribute.attributeType.name}</td>
+							<td class="col-md-10 initial">${geneSet.attribute.attributeType.name}</td>
 						</tr>
 						<c:if test="${attribute.descriptionFromNamingAuthority != null}">
 							<tr>
@@ -74,7 +74,7 @@
 					<p class="instruction">${geneSetDescription}</p>
 					<div>
 						<c:if test="${dataset.positiveAssociation != null}">
-							<h4>${dataset.positiveAssociation}</h4>
+							<h4 class="initial">${dataset.positiveAssociation}</h4>
 						</c:if>
 						<table class="table data-table genes">
 							<thead>
@@ -90,7 +90,7 @@
 					<c:if test="${fn:length(genesByAttribute.right) > 0}">
 						<div class="last">
 							<c:if test="${dataset.negativeAssociation != null}">
-								<h4>${dataset.negativeAssociation}</h4>
+								<h4 class="initial">${dataset.negativeAssociation}</h4>
 							</c:if>
 							<table class="table data-table genes">
 								<thead>

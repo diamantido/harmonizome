@@ -34,9 +34,9 @@
 											<a href="${Constant.SEARCH_URL}?q=${query}&t=gene">Gene</a>
 										</span>
 									</c:if>
-									<c:if test="${fn:length(attributes) != 0}">
+									<c:if test="${fn:length(geneSets) != 0}">
 										<span class="badge gene-set">
-											<a href="${Constant.SEARCH_URL}?q=${query}&t=attribute">Gene Set</a>
+											<a href="${Constant.SEARCH_URL}?q=${query}&t=geneSet">Gene Set</a>
 										</span>
 									</c:if>
 								</c:otherwise>
@@ -82,15 +82,15 @@
 									</td>
 								</tr>
 							</c:forEach>
-							<c:forEach var="attribute" items="${attributes}">
+							<c:forEach var="geneSet" items="${geneSets}">
 								<tr>
 									<td>
 										<h3>
-											<a href="${GeneSet.ENDPOINT}/${attribute.urlEncodedValue}/${attribute.dataset.urlEncodedValue}">${attribute.nameFromDataset}</a> <span class="note gene-set">Gene Set</span>
+											<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">${geneSet.attribute.nameFromDataset}</a> <span class="note gene-set">Gene Set</span>
 										</h3>
 										<div class="description">
-											<p><em>From <a href="${attribute.dataset.endpoint}/${attribute.dataset.urlEncodedValue}">${attribute.dataset.name}</a></em></p>
-											<p>${fn:replace(attribute.dataset.geneSetDescription, "{0}", attribute.nameFromDataset)}</p>
+											<p><em>From <a href="${geneSet.dataset.endpoint}/${geneSet.dataset.urlEncodedValue}">${geneSet.dataset.name}</a></em></p>
+											<p>${fn:replace(geneSet.dataset.geneSetDescription, "{0}", geneSet.attribute.nameFromDataset)}</p>
 										</div>
 									</td>
 								</tr>
