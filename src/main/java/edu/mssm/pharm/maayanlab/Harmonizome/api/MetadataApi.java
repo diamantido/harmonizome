@@ -27,6 +27,7 @@ public class MetadataApi {
 			entity = GenericDao.get(klass, query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
+			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		}
 		

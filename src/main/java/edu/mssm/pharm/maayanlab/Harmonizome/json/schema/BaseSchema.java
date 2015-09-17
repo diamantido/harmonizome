@@ -10,6 +10,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.NamingAuthority;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
@@ -51,6 +52,12 @@ public class BaseSchema {
 		hgncRootFamilyData.put(Constant.ENTITY_TYPE, "hgnc root family");
 		hgncRootFamilyData.put(Constant.REST_LOCATION_PROP, hgncRootFamilyHref);
 		entities.add(hgncRootFamilyData);
+		
+		Map<String, String> namingAuthorityData = new TreeMap<String, String>();
+		String namingAuthorityHref = "/" + Constant.API_URL + "/" + NamingAuthority.ENDPOINT;
+		namingAuthorityData.put(Constant.ENTITY_TYPE, "naming authority");
+		namingAuthorityData.put(Constant.REST_LOCATION_PROP, namingAuthorityHref);
+		entities.add(namingAuthorityData);
 		
 		Map<String, String> proteinData = new TreeMap<String, String>();
 		String proteinHref = "/" + Constant.API_URL + "/" + Protein.ENDPOINT;

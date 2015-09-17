@@ -23,21 +23,6 @@ public class Attribute implements BioEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-
-	/* From datasets
-	 * ------------- */
-	@Column(name = "name_from_dataset")
-	private String nameFromDataset;
-	
-	@Column(name = "id_from_dataset")
-	private String idFromDataset;
-	
-	@Column(name = "description_from_dataset")
-	@Type(type = "text")
-	private String descriptionFromDataset;
-
-	@Column(name = "url_from_dataset", length = 2083)
-	private String urlFromDataset;
 	
 	/* From naming authority
 	 * --------------------- */
@@ -73,38 +58,6 @@ public class Attribute implements BioEntity {
 
 	public int getId() {
 		return id;
-	}
-
-	public String getNameFromDataset() {
-		return nameFromDataset;
-	}
-
-	public void setNameFromDataset(String nameFromDataset) {
-		this.nameFromDataset = nameFromDataset;
-	}
-
-	public String getIdFromDataset() {
-		return idFromDataset;
-	}
-
-	public void setIdFromDataset(String idFromDataset) {
-		this.idFromDataset = idFromDataset;
-	}
-
-	public String getDescriptionFromDataset() {
-		return descriptionFromDataset;
-	}
-
-	public void setDescriptionFromDataset(String descriptionFromDataset) {
-		this.descriptionFromDataset = descriptionFromDataset;
-	}
-
-	public String getUrlFromDataset() {
-		return urlFromDataset;
-	}
-
-	public void setUrlFromDataset(String urlFromDataset) {
-		this.urlFromDataset = urlFromDataset;
 	}
 
 	public String getNameFromNamingAuthority() {
@@ -164,12 +117,12 @@ public class Attribute implements BioEntity {
 	
 	@Transient
 	public String getValue() {
-		return nameFromDataset;
+		return nameFromNamingAuthority;
 	}
 	
 	@Transient
 	public String getUrlEncodedValue() {
-		return UrlCodec.encode(nameFromDataset);
+		return UrlCodec.encode(nameFromNamingAuthority);
 	}
 
 	@Transient
