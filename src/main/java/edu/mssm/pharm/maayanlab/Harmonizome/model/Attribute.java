@@ -17,7 +17,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "attribute")
-@BioEntityMetadata(name = "attribute", keyColumn = "name_from_dataset", jsp = "attribute.jsp")
+@BioEntityMetadata(name = "attribute", keyColumn = "name_from_naming_authority", jsp = "attribute.jsp")
 public class Attribute implements BioEntity {
 
 	@Id
@@ -41,10 +41,6 @@ public class Attribute implements BioEntity {
 	
 	/* Foreign key relationships
 	 * ------------------------- */
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "attribute_type_fk")
-	private AttributeType attributeType;
-
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "naming_authority_fk")
 	private NamingAuthority namingAuthority;
@@ -90,14 +86,6 @@ public class Attribute implements BioEntity {
 
 	public void setUrlFromNamingAuthority(String urlFromNamingAuthority) {
 		this.urlFromNamingAuthority = urlFromNamingAuthority;
-	}
-
-	public AttributeType getAttributeType() {
-		return attributeType;
-	}
-
-	public void setAttributeType(AttributeType attributeType) {
-		this.attributeType = attributeType;
 	}
 
 	public NamingAuthority getNamingAuthority() {

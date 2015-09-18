@@ -95,7 +95,7 @@ public class SearchResults {
 
 	public void queryGeneSets() {
 		List<String> getSetSuggestions = suggestions.get("geneSets");
-		List<GeneSet> exactGeneSets = GeneSetDao.getAllFromAttributeName(query);
+		List<GeneSet> exactGeneSets = GeneSetDao.getAllFromDatasetName(query);
 		if (exactGeneSets.size() != 0) {
 			List<Integer> idsToIgnore = new ArrayList<Integer>();
 			for (GeneSet geneSet : exactGeneSets) {

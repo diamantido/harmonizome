@@ -28,15 +28,14 @@ public class GeneSetDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getAllFromAttributeName(String attributeName) {
+	public static List<GeneSet> getAllFromDatasetName(String name) {
 		return (List<GeneSet>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
 				"SELECT geneSet FROM GeneSet AS geneSet " +
-				"JOIN geneSet.attribute AS attribute " +
-				"WHERE attribute.nameFromDataset = :attributeName"
+				"WHERE geneSet.nameFromDataset = :name"
 			)
-			.setString("attributeName", attributeName)
+			.setString("name", name)
 			.list();
 	}
 

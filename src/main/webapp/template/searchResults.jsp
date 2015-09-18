@@ -86,11 +86,11 @@
 								<tr>
 									<td>
 										<h3>
-											<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">${geneSet.attribute.nameFromDataset}</a> <span class="note gene-set">Gene Set</span>
+											<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">${geneSet.nameFromDataset}</a> <span class="note gene-set">Gene Set</span>
 										</h3>
 										<div class="description">
 											<p><em>From <a href="${geneSet.dataset.endpoint}/${geneSet.dataset.urlEncodedValue}">${geneSet.dataset.name}</a></em></p>
-											<p>${fn:replace(geneSet.dataset.geneSetDescription, "{0}", geneSet.attribute.nameFromDataset)}</p>
+											<p>${fn:replace(geneSet.dataset.geneSetDescription, "{0}", geneSet.nameFromDataset)}</p>
 										</div>
 									</td>
 								</tr>

@@ -24,7 +24,6 @@ public class AttributeMetadataSerializer implements JsonSerializer<Attribute> {
 		SerDesUtil.add(result, "descriptionFromNamingAuthority", attribute.getDescriptionFromNamingAuthority());
 //		SerDesUtil.add(result, "urlFromDataset", attribute.getUrlFromDataset());
 //		SerDesUtil.add(result, "urlFromNamingAuthority", attribute.getUrlFromNamingAuthority());
-		SerDesUtil.add(result, "attributeType", attribute.getAttributeType().getName());
 
 		NamingAuthority namingAuthority = attribute.getNamingAuthority();
 		if (namingAuthority != null) {

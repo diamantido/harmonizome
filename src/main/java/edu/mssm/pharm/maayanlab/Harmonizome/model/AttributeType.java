@@ -29,7 +29,7 @@ public class AttributeType {
 	private AttributeGroup attributeGroup;
 
 	@OneToMany(mappedBy = "attributeType")
-	private Set<Attribute> attributes;
+	private Set<GeneSet> geneSets;
 
 	@OneToMany(mappedBy = "attributeType")
 	private Set<Dataset> datasets;
@@ -57,12 +57,12 @@ public class AttributeType {
 		this.attributeGroup = attributeGroup;
 	}
 
-	public Set<Attribute> getAttributes() {
-		return attributes;
+	public Set<GeneSet> getAttributes() {
+		return geneSets;
 	}
 
-	public void setAttributes(Set<Attribute> attributes) {
-		this.attributes = attributes;
+	public void setAttributes(Set<GeneSet> geneSets) {
+		this.geneSets = geneSets;
 	}
 
 	public Set<Dataset> getDatasets() {

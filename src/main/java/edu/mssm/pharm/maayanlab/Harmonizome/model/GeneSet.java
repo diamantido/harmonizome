@@ -20,6 +20,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 
 @Entity
 @Table(name = "gene_set")
+@BioEntityMetadata(name = "gene_set", keyColumn = "name_from_dataset", jsp = "geneSet.jsp")
 public class GeneSet implements BioEntity {
 
 	@Id
@@ -54,6 +55,12 @@ public class GeneSet implements BioEntity {
 	@OneToMany(mappedBy = "geneSet")
 	Set<Feature> features;
 
+	/* Foreign key relationships
+	 * ------------------------- */
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "attribute_type_fk")
+	private AttributeType attributeType;
+	
 	public static final String ENDPOINT = "gene_set";
 
 	public GeneSet() {
@@ -125,6 +132,14 @@ public class GeneSet implements BioEntity {
 		this.features = features;
 	}
 
+	public AttributeType getAttributeType() {
+		return attributeType;
+	}
+
+	public void setAttributeType(AttributeType attributeType) {
+		this.attributeType = attributeType;
+	}
+	
 	/* Utility functions
 	 * ----------------- */
 	@Transient
