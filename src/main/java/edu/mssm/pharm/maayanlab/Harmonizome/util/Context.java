@@ -1,5 +1,7 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
+import java.util.Set;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -11,22 +13,22 @@ public class Context implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		System.out.println("STARTING -------------------------------------------------------");
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
-		System.out.println("CLOSING -------------------------------------------------------");
 		HibernateUtil.shutdown();
-
-		try {
-		    AbandonedConnectionCleanupThread.shutdown();
-		} catch (InterruptedException e) {
-		    System.out.println("SEVERE problem cleaning up: " + e.getMessage());
-		    e.printStackTrace();
+		// TODO: Find memory leak that requires server to be restarted after hot deploying several (3?) times.
+		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+		for (Thread t : threadSet) {
+			if (t.getName().contains("Abandoned connection cleanup thread")) {
+				synchronized (t) {
+					System.out.println("Forcibly stopping thread to avoid memory leak: " + t.getName());
+					// Don't complain, it works.
+					t.stop(); 
+				}
+			}
 		}
-		
-		String x = null;
 	}
 }
