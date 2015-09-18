@@ -18,7 +18,9 @@ public class Context implements ServletContextListener {
 	@SuppressWarnings("deprecation")
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
+		// Free all resources.
 		HibernateUtil.shutdown();
+
 		// TODO: Find memory leak that requires server to be restarted after hot deploying several (3?) times.
 		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
 		for (Thread t : threadSet) {
