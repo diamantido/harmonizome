@@ -34,15 +34,15 @@ public class GeneSetPage extends HttpServlet {
 		if (query.length == 2) {
 			try {
 				HibernateUtil.beginTransaction();
-				String attributeName = query[0];
+				String name = query[0];
 				String datasetName = query[1];
-				GeneSet geneSet = GeneSetDao.getFromAttributeAndDataset(attributeName, datasetName);
+				GeneSet geneSet = GeneSetDao.getFromNameAndDataset(name, datasetName);
 				if (geneSet == null) {
 					request.setAttribute("query", query[0] + "/" + query[1]);
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "noSearchResults.jsp").forward(request, response);
 				} else {
 					Dataset dataset = geneSet.getDataset();
-					Pair<List<Gene>, List<Gene>> genesByAttribute = GeneDao.getFromAttributeByValue(attributeName, datasetName);
+					Pair<List<Gene>, List<Gene>> genesByAttribute = GeneDao.getFromGeneSetByValue(name, datasetName);
 					Collections.sort(genesByAttribute.getRight(), new BioEntityAlphabetizer());
 					Collections.sort(genesByAttribute.getLeft(), new BioEntityAlphabetizer());
 					int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();

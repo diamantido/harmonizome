@@ -26,7 +26,7 @@ public class GeneDao {
 		return (geneSynonym == null ? null : geneSynonym.getGene());
 	}
 	
-	public static Pair<List<Gene>, List<Gene>> getFromAttributeByValue(String attributeName, String datasetName) {
+	public static Pair<List<Gene>, List<Gene>> getFromGeneSetByValue(String attributeName, String datasetName) {
 		List<Gene> pos = getByValue(attributeName, datasetName, 1);
 		List<Gene> neg = getByValue(attributeName, datasetName, -1);
 		return new ImmutablePair<List<Gene>, List<Gene>>(pos, neg);
@@ -47,7 +47,7 @@ public class GeneDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	private static List<Gene> getByValue(String attributeName, String datasetName, int thresholdValue) {
+	private static List<Gene> getByValue(String geneSetName, String datasetName, int thresholdValue) {
 		return (List<Gene>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
@@ -55,10 +55,9 @@ public class GeneDao {
 				"JOIN gene.features AS feats " +
 				"JOIN feats.geneSet AS geneSet " +
 				"JOIN geneSet.dataset AS dataset " +
-				"JOIN geneSet.attribute AS attr " +
-				"WHERE attr.nameFromDataset = :attributeName AND dataset.name = :datasetName AND feats.thresholdValue = :thresholdValue"
+				"WHERE geneSet.nameFromDataset = :geneSetName AND dataset.name = :datasetName AND feats.thresholdValue = :thresholdValue"
 			)
-			.setString("attributeName", attributeName)
+			.setString("geneSetName", geneSetName)
 			.setString("datasetName", datasetName)
 			.setInteger("thresholdValue", thresholdValue)
 			.list();

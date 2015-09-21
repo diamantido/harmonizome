@@ -27,10 +27,12 @@
 							<td class="col-md-2">Name</td>
 							<td class="col-md-10 initial">${gene.name}</td>
 						</tr>
-						<tr>
-							<td class="col-md-2">Description</td>
-							<td class="col-md-10">${gene.description}</td>
-						</tr>
+						<c:if test="${not empty gene.description}">
+							<tr>
+								<td class="col-md-2">Description</td>
+								<td class="col-md-10">${gene.description}</td>
+							</tr>
+						</c:if>
 						<c:if test="${fn:length(gene.synonyms) > 0 }">
 							<tr>
 								<td class="col-md-2">Synonyms</td>
@@ -41,14 +43,16 @@
 								</td>
 							</tr>
 						</c:if>
-						<tr>
-							<td class="col-md-2">Proteins</td>
-							<td class="col-md-10">
-								<c:forEach var="protein" items="${gene.proteins}" varStatus="loop">
-									<a href="${protein.endpoint}/${protein.urlEncodedValue}">${protein.symbol}</a><c:if test="${!loop.last}">, </c:if>
-								</c:forEach>
-							</td>
-						</tr>
+						<c:if test="${fn:length(gene.proteins) > 0 }">
+							<tr>
+								<td class="col-md-2">Proteins</td>
+								<td class="col-md-10">
+									<c:forEach var="protein" items="${gene.proteins}" varStatus="loop">
+										<a href="${protein.endpoint}/${protein.urlEncodedValue}">${protein.symbol}</a><c:if test="${!loop.last}">, </c:if>
+									</c:forEach>
+								</td>
+							</tr>
+						</c:if>
 						<tr>
 							<td class="col-md-2">NCBI Gene ID</td>
 							<td class="col-md-10"><a href="${gene.ncbiEntrezGeneUrl}" target="_blank">${gene.ncbiEntrezGeneId}</a></td>
@@ -109,9 +113,7 @@
 									</c:if>
 									<c:set var="upGeneSets" value="${geneSets.left}"/>
 									<c:forEach var="geneSet" items="${upGeneSets}" varStatus="loop">
-										<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">
-											<c:out value="${geneSet.attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
-										</a>
+										<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}"><c:out value="${geneSet.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
 									</c:forEach>
 									<c:if test="${hasTwoAssociations}">
 										<div class="last">
@@ -122,9 +124,7 @@
 											</p>
 											<c:set var="downGeneSets" value="${geneSets.right}"/>
 											<c:forEach var="geneSet" items="${downGeneSets}" varStatus="loop">
-												<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">
-													<c:out value="${geneSet.attribute.nameFromDataset}"/><c:if test="${!loop.last}">, </c:if>
-												</a>
+												<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}"><c:out value="${geneSet.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
 											</c:forEach>
 										</div>
 									</c:if>

@@ -12,7 +12,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper gene-set-page">
 			<div class="content container">
-				<h1 class="capitalize">${geneSet.attribute.nameFromDataset} <span class="note gene-set">Gene Set</span></h1>
+				<h1 class="capitalize">${geneSet.nameFromDataset} <span class="note gene-set">Gene Set</span></h1>
 				<section>
 					<table class="table">
 						<tr>
@@ -23,7 +23,7 @@
 						</tr>
 						<tr>
 							<td class="col-md-2">Type</td>
-							<td class="col-md-10 initial">${geneSet.attribute.attributeType.name}</td>
+							<td class="col-md-10 initial">${geneSet.attributeType.name}</td>
 						</tr>
 						<c:if test="${attribute.descriptionFromNamingAuthority != null}">
 							<tr>

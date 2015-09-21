@@ -39,17 +39,16 @@ public class GeneSetDao {
 			.list();
 	}
 
-	public static GeneSet getFromAttributeAndDataset(String attributeName, String datasetName) {
+	public static GeneSet getFromNameAndDataset(String name, String datasetName) {
 		return (GeneSet) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
 				"SELECT geneSet FROM GeneSet AS geneSet " +
-				"JOIN geneSet.attribute AS attribute " +
 				"JOIN geneSet.dataset AS dataset " +
-				"WHERE attribute.nameFromDataset = :attributeName " +
+				"WHERE geneSet.nameFromDataset = :name " +
 				"AND dataset.name = :datasetName"
 			)
-			.setString("attributeName", attributeName)
+			.setString("name", name)
 			.setString("datasetName", datasetName)
 			.uniqueResult();
 	}
@@ -68,8 +67,7 @@ public class GeneSetDao {
 		builder.append(")");
 		String sql = String.format("" +
 			"SELECT DISTINCT * FROM gene_set " +
-			"JOIN attribute ON gene_set.attribute_fk = attribute.id " +
-			"WHERE MATCH(attribute.name_from_dataset) AGAINST('%s*' IN BOOLEAN MODE) AND gene_set.id NOT IN %s", 
+			"WHERE MATCH(gene_set.name_from_dataset) AGAINST('%s*' IN BOOLEAN MODE) AND gene_set.id NOT IN %s", 
 			query, builder.toString()
 		);
 		return (List<GeneSet>) HibernateUtil

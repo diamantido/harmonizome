@@ -118,7 +118,7 @@
 						<c:forEach var="geneSet" items="${dataset.geneSets}">
 							<tr>
 								<td class="col-md-2">
-									<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}"><c:out value="${geneSet.attribute.nameFromDataset}"/></a>
+									<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}"><c:out value="${geneSet.nameFromDataset}"/></a>
 								</td>
 								<td  class="col-md-10">
 									<c:out value="${geneSet.attribute.descriptionFromNamingAuthority}"/>

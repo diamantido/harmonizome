@@ -44,7 +44,7 @@ public class HgncRootFamily implements BioEntity {
 	/* Getters & Setters 
 	 * ----------------- */
 	@Transient
-	public static final String ENDPOINT = "hgnc_root_family";
+	public static final String ENDPOINT = "gene_family";
 	
 	public HgncRootFamily() {
 	}

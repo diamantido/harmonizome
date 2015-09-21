@@ -9,7 +9,7 @@
 		<%@include file="navbar.html"%>
 		<div class="wrapper">
 			<div class="content container">
-				<h1><c:out value="${hgncRootFamily.name}"/> <span class="note">HGNC Root Family</span></h1>
+				<h1><c:out value="${hgncRootFamily.name}"/> <span class="note">Gene Family</span></h1>
 				<table class="table">
 					<tr>
 						<td class="col-md-2">HGNC Family ID</td>

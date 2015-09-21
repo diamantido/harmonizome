@@ -41,9 +41,6 @@ public class Resource implements BioEntity {
 	@Column(name = "url", length = 2083)
 	private String url;
 
-	@Column(name = "image")
-	private String image;
-
 	@Column(name = "num_attributes")
 	private Long numAttributes;
 	
@@ -108,14 +105,6 @@ public class Resource implements BioEntity {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public String getImage() {
-		return image;
-	}
-
-	public void setImage(String image) {
-		this.image = image;
 	}
 
 	public List<Dataset> getDatasets() {

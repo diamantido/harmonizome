@@ -31,6 +31,14 @@
 							</a>
 						</td>
 					</tr>
+					<tr>
+						<td class="col-md-2">Gene</td>
+						<td class="col-md-10">
+							<a href="${protein.gene.endpoint}/${protein.gene.urlEncodedValue}" target="_blank">
+								<c:out value="${protein.gene.symbol}"/>
+							</a>
+						</td>
+					</tr>
 				</table>
 			</div>
 			<%@include file="footer.html"%>
