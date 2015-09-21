@@ -59,6 +59,8 @@ public class GeneSetPage extends HttpServlet {
 			} catch (HibernateException he) {
 				he.printStackTrace();
 				HibernateUtil.rollbackTransaction();
+			} finally {
+				HibernateUtil.close();
 			}
 		} else {
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);

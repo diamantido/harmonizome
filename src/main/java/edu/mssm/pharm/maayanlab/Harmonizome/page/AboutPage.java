@@ -45,9 +45,11 @@ public class AboutPage extends HttpServlet {
 			request.setAttribute("introText", introText);
 			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "about.jsp").forward(request, response);
 			HibernateUtil.commitTransaction();
-		} catch (HibernateException e) {
-			e.printStackTrace();
+		} catch (HibernateException he) {
+			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 	}
 }

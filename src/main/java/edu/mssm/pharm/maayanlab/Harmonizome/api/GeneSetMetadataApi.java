@@ -64,7 +64,10 @@ public class GeneSetMetadataApi extends HttpServlet {
 				geneSet = GeneSetDao.getFromAttributeAndDataset(attributeName, datasetName);
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
+				he.printStackTrace();
 				HibernateUtil.rollbackTransaction();
+			} finally {
+				HibernateUtil.close();
 			}
 			
 			if (geneSet == null) {

@@ -88,9 +88,11 @@ public class RefreshStats extends HttpServlet {
 			}
 			
 			HibernateUtil.commitTransaction();
-		} catch (HibernateException e) {
-			e.printStackTrace();
+		} catch (HibernateException he) {
+			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 	}
 }
