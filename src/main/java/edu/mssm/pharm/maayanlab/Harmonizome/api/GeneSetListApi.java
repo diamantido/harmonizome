@@ -59,6 +59,8 @@ public class GeneSetListApi extends HttpServlet {
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 
 		if (attributes != null) {

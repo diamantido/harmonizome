@@ -28,9 +28,11 @@ public class DownloadPage extends HttpServlet {
 			HibernateUtil.beginTransaction();
 			datasets = GenericDAO.getAll(Dataset.class);
 			HibernateUtil.commitTransaction();
-		} catch (HibernateException e) {
-			e.printStackTrace();
+		} catch (HibernateException he) {
+			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 		request.setAttribute("datasets", datasets);
 		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "download.jsp").forward(request, response);

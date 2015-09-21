@@ -37,7 +37,10 @@ public class ResourcePage extends HttpServlet {
 			publications = PublicationDAO.getFromResource(query);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
+			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 					
 		if (resource == null) {

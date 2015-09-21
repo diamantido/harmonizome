@@ -25,6 +25,8 @@ public class BioEntityPage {
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 					
 		if (bioEntity == null) {

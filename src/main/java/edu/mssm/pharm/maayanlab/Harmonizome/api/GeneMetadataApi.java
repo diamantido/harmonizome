@@ -55,7 +55,10 @@ public class GeneMetadataApi extends HttpServlet {
 			}
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
+			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 
 		PrintWriter out = response.getWriter();

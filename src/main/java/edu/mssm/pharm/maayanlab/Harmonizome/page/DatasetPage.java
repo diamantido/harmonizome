@@ -67,9 +67,11 @@ public class DatasetPage extends HttpServlet {
 				r.forward(request, response);
 			}
 			HibernateUtil.commitTransaction();
-		} catch (HibernateException e) {
-			e.printStackTrace();
+		} catch (HibernateException he) {
+			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 	}
 	

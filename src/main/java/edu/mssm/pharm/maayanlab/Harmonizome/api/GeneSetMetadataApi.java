@@ -72,7 +72,10 @@ public class GeneSetMetadataApi extends HttpServlet {
 				features = FeatureDAO.getByGeneSet(attributeName, datasetName);
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
+				he.printStackTrace();
 				HibernateUtil.rollbackTransaction();
+			} finally {
+				HibernateUtil.close();
 			}
 			
 			if (attribute == null && dataset == null) {
