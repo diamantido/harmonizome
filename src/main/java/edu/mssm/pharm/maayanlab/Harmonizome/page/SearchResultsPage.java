@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.HibernateException;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
@@ -19,6 +20,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
+import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Constant.SEARCH_URL, "/" + Constant.SEARCH_URL + "/*" })
 public class SearchResultsPage extends HttpServlet {
@@ -27,37 +29,47 @@ public class SearchResultsPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = UrlUtil.getParameter(request, "q");
-		String type = UrlUtil.getParameter(request, "t");
 		
-		if (query == null || query == "") {
-			showNoSearchResults(request, response, "");
-		} else {
-			SearchResults searchResults = new SearchResults(query, type);
-			if (searchResults.noMatches()) {
-				showNoSearchResults(request, response, query);
-			} else if (searchResults.onlySuggestions()) {
-				Map<String, List<String>> suggestions = searchResults.getSuggestions();
-				request.setAttribute("datasetSuggestions", suggestions.get("datasets"));
-				request.setAttribute("geneSuggestions", suggestions.get("genes"));
-				request.setAttribute("attributeSuggestions", suggestions.get("attributes"));
-				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "suggest.jsp").forward(request, response);
+		try {
+			HibernateUtil.beginTransaction();
+			String query = UrlUtil.getParameter(request, "q");
+			String type = UrlUtil.getParameter(request, "t");
+			
+			if (query == null || query == "") {
+				showNoSearchResults(request, response, "");
 			} else {
-				Set<Dataset> datasets = searchResults.getDatasets();
-				Set<Gene> genes = searchResults.getGenes();
-				Set<Attribute> attributes = searchResults.getAttributes();
-				String summary = buildSummary(query, datasets, genes, attributes);
-				if (type != null) {
-					/* This configures the view to show a "clear" filter. */
-					request.setAttribute("isFilteredPage", true);
+				SearchResults searchResults = new SearchResults(query, type);
+				if (searchResults.noMatches()) {
+					showNoSearchResults(request, response, query);
+				} else if (searchResults.onlySuggestions()) {
+					Map<String, List<String>> suggestions = searchResults.getSuggestions();
+					request.setAttribute("datasetSuggestions", suggestions.get("datasets"));
+					request.setAttribute("geneSuggestions", suggestions.get("genes"));
+					request.setAttribute("attributeSuggestions", suggestions.get("attributes"));
+					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "suggest.jsp").forward(request, response);
+				} else {
+					Set<Dataset> datasets = searchResults.getDatasets();
+					Set<Gene> genes = searchResults.getGenes();
+					Set<Attribute> attributes = searchResults.getAttributes();
+					String summary = buildSummary(query, datasets, genes, attributes);
+					if (type != null) {
+						/* This configures the view to show a "clear" filter. */
+						request.setAttribute("isFilteredPage", true);
+					}
+					request.setAttribute("query", query);
+					request.setAttribute("summary", summary);
+					request.setAttribute("datasets", datasets);
+					request.setAttribute("genes", genes);
+					request.setAttribute("attributes", attributes);
+					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "searchResults.jsp").forward(request, response);
 				}
-				request.setAttribute("query", query);
-				request.setAttribute("summary", summary);
-				request.setAttribute("datasets", datasets);
-				request.setAttribute("genes", genes);
-				request.setAttribute("attributes", attributes);
-				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "searchResults.jsp").forward(request, response);
 			}
+			HibernateUtil.commitTransaction();
+		} catch (HibernateException he) {
+			he.printStackTrace();
+			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 	}
 

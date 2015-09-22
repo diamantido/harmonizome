@@ -7,14 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.HibernateException;
-
 import com.google.gson.annotations.Expose;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class SearchResults {
 
@@ -39,25 +36,16 @@ public class SearchResults {
 		suggestions.put("genes", new ArrayList<String>());
 		suggestions.put("attributes", new ArrayList<String>());
 
-		try {
-			HibernateUtil.beginTransaction();
-			if (type == null) {
-				queryDatasets();
-				queryGenes();
-				queryAttributes();
-			} else if (type.equals("dataset")) {
-				queryDatasets();
-			} else if (type.equals("gene")) {
-				queryGenes();
-			} else if (type.equals("attribute")) {
-				queryAttributes();
-			}
-			HibernateUtil.commitTransaction();
-		} catch (HibernateException he) {
-			he.printStackTrace();
-			HibernateUtil.rollbackTransaction();
-		} finally {
-			HibernateUtil.close();
+		if (type == null) {
+			queryDatasets();
+			queryGenes();
+			queryAttributes();
+		} else if (type.equals("dataset")) {
+			queryDatasets();
+		} else if (type.equals("gene")) {
+			queryGenes();
+		} else if (type.equals("attribute")) {
+			queryAttributes();
 		}
 	}
 	

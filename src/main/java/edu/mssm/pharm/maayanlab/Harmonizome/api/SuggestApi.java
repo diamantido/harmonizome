@@ -41,11 +41,11 @@ public class SuggestApi extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = request.getParameter("q");
-		GeneDAO geneDAO = new GeneDAO();
-		List<String> suggestions = new ArrayList<String>();
-		
 		try {
+			String query = request.getParameter("q");
+			GeneDAO geneDAO = new GeneDAO();
+			List<String> suggestions = new ArrayList<String>();
+			
 			HibernateUtil.beginTransaction();
 			suggestions.addAll(geneDAO.getByPrefix(query));
 			suggestions.addAll(DatasetDAO.getByPrefix(query));
@@ -55,6 +55,12 @@ public class SuggestApi extends HttpServlet {
 				attributeSuggestions = attributeSuggestions.subList(0, MAX_ATTRIBUTES_TO_SUGGEST);
 			}
 			suggestions.addAll(attributeSuggestions);
+			
+			PrintWriter out = response.getWriter();
+			String json = gson.toJson(suggestions);
+			out.write(json);
+			out.flush();
+			
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -62,10 +68,5 @@ public class SuggestApi extends HttpServlet {
 		} finally {
 			HibernateUtil.close();
 		}
-		
-		PrintWriter out = response.getWriter();
-		String json = gson.toJson(suggestions);
-		out.write(json);
-		out.flush();
 	}
 }

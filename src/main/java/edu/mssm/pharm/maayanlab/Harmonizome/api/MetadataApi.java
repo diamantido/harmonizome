@@ -19,12 +19,19 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class MetadataApi {
 
 	public static <E> void doGet(HttpServletRequest request, HttpServletResponse response, Class<E> klass, Gson gson) throws ServletException, IOException {
-		String query = UrlUtil.getPath(request);
-		E entity = null;
-
 		try {
+			String query = UrlUtil.getPath(request);
+			E entity = null;
+			
 			HibernateUtil.beginTransaction();
 			entity = GenericDAO.getBioEntityFromKeyColumn(klass, query);
+			PrintWriter out = response.getWriter();
+			if (entity == null) {
+				out.write(gson.toJson(new ErrorSchema()));
+			} else {
+				out.write(gson.toJson(entity, klass));
+			}
+			out.flush();
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -32,13 +39,5 @@ public class MetadataApi {
 		} finally {
 			HibernateUtil.close();
 		}
-		
-		PrintWriter out = response.getWriter();
-		if (entity == null) {
-			out.write(gson.toJson(new ErrorSchema()));
-		} else {
-			out.write(gson.toJson(entity, klass));
-		}
-		out.flush();
 	}
 }

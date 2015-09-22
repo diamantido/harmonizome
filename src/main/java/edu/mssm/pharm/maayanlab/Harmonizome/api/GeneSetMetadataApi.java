@@ -49,45 +49,41 @@ public class GeneSetMetadataApi extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] query = UrlUtil.getPathAsArray(request, true);
-		PrintWriter out = response.getWriter();
-		if (query == null) {
-			response.sendRedirect("/" + Constant.HARMONIZOME + "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT);
-		} else if (query.length != 2) {
-			out.write(gson.toJson(new ErrorSchema()));
-			out.flush();
-		} else {
-			String attributeName = query[0];
-			String datasetName = query[1];
-
-			GeneSet geneSet = new GeneSet();
-			Attribute attribute = null;
-			Dataset dataset = null;
-			List<Feature> features = null;
-
-			try {
-				HibernateUtil.beginTransaction();
-				attribute = AttributeDAO.getByNameAndDataset(attributeName, datasetName);
-				dataset = DatasetDAO.getFromName(datasetName);
-				features = FeatureDAO.getByGeneSet(attributeName, datasetName);
-				HibernateUtil.commitTransaction();
-			} catch (HibernateException he) {
-				he.printStackTrace();
-				HibernateUtil.rollbackTransaction();
-			} finally {
-				HibernateUtil.close();
-			}
+		try {
+			HibernateUtil.beginTransaction();
 			
-			if (attribute == null && dataset == null) {
+			String[] query = UrlUtil.getPathAsArray(request, true);
+			PrintWriter out = response.getWriter();
+			if (query == null) {
+				response.sendRedirect("/" + Constant.HARMONIZOME + "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT);
+			} else if (query.length != 2) {
 				out.write(gson.toJson(new ErrorSchema()));
 				out.flush();
 			} else {
-				geneSet.setAttribute(attribute);
-				geneSet.setDataset(dataset);
-				geneSet.setFeatures(features);
-				out.write(gson.toJson(geneSet, GeneSet.class));
-				out.flush();
+				String attributeName = query[0];
+				String datasetName = query[1];
+				GeneSet geneSet = new GeneSet();
+				Attribute attribute = AttributeDAO.getByNameAndDataset(attributeName, datasetName);
+				Dataset dataset = DatasetDAO.getFromName(datasetName);
+				List<Feature> features = FeatureDAO.getByGeneSet(attributeName, datasetName);
+				
+				if (attribute == null && dataset == null) {
+					out.write(gson.toJson(new ErrorSchema()));
+					out.flush();
+				} else {
+					geneSet.setAttribute(attribute);
+					geneSet.setDataset(dataset);
+					geneSet.setFeatures(features);
+					out.write(gson.toJson(geneSet, GeneSet.class));
+					out.flush();
+				}
 			}
+			HibernateUtil.commitTransaction();
+		} catch (HibernateException he) {
+			he.printStackTrace();
+			HibernateUtil.rollbackTransaction();
+		} finally {
+			HibernateUtil.close();
 		}
 	}
 }
