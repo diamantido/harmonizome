@@ -37,3 +37,5 @@ target/
 
 # TeXlipse plugin
 .texlipse
+
+nohup.out
