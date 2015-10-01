@@ -110,9 +110,13 @@ $(function() {
 			});
 
 			$('.enrichr').click(function() {
+				var geneStr = "";
+				$.each(geneSymbols, function(i, gene) {
+					geneStr += gene + "\n";
+				});
 				enrich({
 					description: getDescription(),
-					list: geneSymbols
+					list: geneStr
 				});
 			});
 		}

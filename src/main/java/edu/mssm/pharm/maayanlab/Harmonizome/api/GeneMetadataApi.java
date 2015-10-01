@@ -17,6 +17,7 @@ import com.google.gson.GsonBuilder;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneMetadataBasicSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneMetadataSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
@@ -32,13 +33,13 @@ public class GeneMetadataApi extends HttpServlet {
 	private static final long serialVersionUID = -5484736863604374714L;
 
 	private static Gson gson;
+	private static GsonBuilder gsonBuilder;
 	static {
-		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Gene.class, new GeneMetadataSerializer());
 		gsonBuilder.registerTypeAdapter(GeneSet.class, new BioEntityLinkSerializer());
 		gsonBuilder.registerTypeAdapter(Protein.class, new BioEntityLinkSerializer());
 		gsonBuilder.registerTypeAdapter(HgncRootFamily.class, new BioEntityLinkSerializer());
-		gson = gsonBuilder.create();
 	}
 
 	@Override
@@ -46,6 +47,14 @@ public class GeneMetadataApi extends HttpServlet {
 		String symbol = UrlUtil.getPath(request);
 		Gene gene = null;
 
+		String min = UrlUtil.getParameter(request, "min");
+		if (min != null && min.equals("true")) {
+			gsonBuilder.registerTypeAdapter(Gene.class, new GeneMetadataBasicSerializer());
+		} else {
+			gsonBuilder.registerTypeAdapter(Gene.class, new GeneMetadataSerializer());
+		}
+		gson = gsonBuilder.create();
+		
 		try {
 			HibernateUtil.beginTransaction();
 			gene = GeneDao.getFromSymbol(symbol);
@@ -68,4 +77,4 @@ public class GeneMetadataApi extends HttpServlet {
 		}
 		out.flush();
 	}
-}
+}		

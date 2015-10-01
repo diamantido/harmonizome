@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.HibernateException;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -20,6 +22,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
+import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Constant.SEARCH_URL + "/*" })
 public class SearchApi extends HttpServlet {
@@ -41,12 +44,21 @@ public class SearchApi extends HttpServlet {
 		String query = UrlUtil.getParameter(request, "q");
 		String type = UrlUtil.getParameter(request, "t");
 		PrintWriter out = response.getWriter();
-		String json;
+		String json = null;
 		if (query == null || query.equals("")) {
 			json = gson.toJson(new ErrorSchema());
 		} else {
-			SearchResults searchResults = new SearchResults(query, type);
-			json = gson.toJson(searchResults, SearchResults.class);
+			try {
+				HibernateUtil.beginTransaction();
+				SearchResults searchResults = new SearchResults(query, type);
+				json = gson.toJson(searchResults, SearchResults.class);
+				HibernateUtil.commitTransaction();
+			} catch (HibernateException he) {
+				he.printStackTrace();
+				HibernateUtil.rollbackTransaction();
+			} finally {
+				HibernateUtil.close();
+			}
 		}
 		out.write(json);
 		out.flush();
