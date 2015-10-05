@@ -5,7 +5,7 @@
     <head>
     	<%@include file="globalIncludes.html" %>
     	<%@include file="commonTitle.html" %>
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
+    	<script src="lib/highcharts/highcharts.js"></script>
         <script src="script/about.js"></script>
     </head>
     <body>
@@ -21,7 +21,6 @@
 					<div class="row stats">
 						<h2 class="col-md-12">Stats</h2>
 						<div class="col-md-4">
-							<h4>Content Summary</h4>
 							<ul class="list-unstyled">
 								<li><strong><c:out value="${stats.getNumFeatures()}"></c:out> associations</strong> between</li>
 								<li><strong><c:out value="${stats.getNumAttributes()}"></c:out> attributes</strong> and</li>
@@ -31,34 +30,15 @@
 							</ul>
 						</div>
 						<div class="col-md-4">
-							<h4>Datasets by Category</h4>
-							<div>
-								<canvas id="dataset-pie-chart"></canvas>
-							</div>
+							<div id="dataset-pie-chart"></div>
 						</div>
 						<div class="col-md-4">
-							<h4>Attributes by Category</h4>
-							<div>
-								<canvas id="attribute-pie-chart"></canvas>
-							</div>
+							<div id="attribute-pie-chart"></div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<h4>Gene Sets by Resource</h4>
-							<p class="instruction">The the y-axis is on a log base 10 scale. Hover over the bars to see the actual counts.</p>
-							<!--
-								ChartJS scales the canvas to the width of the
-								container. Since Bootstrap containers have
-								padding, the canvas is sized slightly larger
-								than the edges of the container. Just wrap the
-								canvas in a div, so that the div sizes to the
-								width of col-md-12, and the canvas scales to
-								the width of the div.
-							 -->
-							<div>
-								<canvas id="bar-chart"></canvas>
-							</div>
+							<div id="bar-chart"></div>
 						</div>
 					</div>
 				</div>

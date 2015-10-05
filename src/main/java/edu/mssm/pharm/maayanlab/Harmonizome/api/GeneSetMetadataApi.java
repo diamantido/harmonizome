@@ -54,28 +54,25 @@ public class GeneSetMetadataApi extends HttpServlet {
 			out.write(gson.toJson(new ErrorSchema()));
 			out.flush();
 		} else {
-			String attributeName = query[0];
-			String datasetName = query[1];
-
-			GeneSet geneSet = null;
-
 			try {
 				HibernateUtil.beginTransaction();
+				String attributeName = query[0];
+				String datasetName = query[1];
+				GeneSet geneSet = null;
 				geneSet = GeneSetDao.getFromNameAndDataset(attributeName, datasetName);
+				if (geneSet == null) {
+					out.write(gson.toJson(new ErrorSchema()));
+					out.flush();
+				} else {
+					out.write(gson.toJson(geneSet, GeneSet.class));
+					out.flush();
+				}
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				he.printStackTrace();
 				HibernateUtil.rollbackTransaction();
 			} finally {
 				HibernateUtil.close();
-			}
-			
-			if (geneSet == null) {
-				out.write(gson.toJson(new ErrorSchema()));
-				out.flush();
-			} else {
-				out.write(gson.toJson(geneSet, GeneSet.class));
-				out.flush();
 			}
 		}
 	}

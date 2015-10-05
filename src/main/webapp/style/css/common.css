@@ -117,6 +117,9 @@ table ol {
 .capitalize {
   text-transform: capitalize;
 }
+.underline {
+  text-decoration: underline !important;
+}
 /* Show once DataTables is ready. */
 .data-table {
   display: none;
@@ -239,6 +242,9 @@ table ol {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
+.footer p {
+  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
 .footer #share a {
   float: right;
 }
@@ -343,6 +349,9 @@ table ol {
 .about-page .stats ul {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 25px;
+}
+.about-page #bar-chart {
+  margin-top: 50px;
 }
 /* Bootstrap overwrites.
  * ------------------------------------------------------------------------- */

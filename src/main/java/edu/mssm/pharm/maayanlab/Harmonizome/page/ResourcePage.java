@@ -27,30 +27,31 @@ public class ResourcePage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = UrlUtil.getPath(request);
-		Resource resource = null;
-		List<Publication> publications = null;
 		try {
 			HibernateUtil.beginTransaction();
+			
+			String query = UrlUtil.getPath(request);
+			Resource resource = null;
+			List<Publication> publications = null;
 			resource = GenericDao.get(Resource.class, query);
 			// Use a query so we don't have to remove duplicates manually.
 			publications = PublicationDao.getFromResource(query);
+			if (resource == null) {
+				request.setAttribute("query", query);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
+			} else {
+				BioEntityMetadata anno = Resource.class.getAnnotation(BioEntityMetadata.class);
+				request.setAttribute("publications", publications);
+				request.setAttribute(anno.name(), resource);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + anno.jsp()).forward(request, response);
+			}
+
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		} finally {
 			HibernateUtil.close();
-		}
-					
-		if (resource == null) {
-			request.setAttribute("query", query);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
-		} else {
-			BioEntityMetadata anno = Resource.class.getAnnotation(BioEntityMetadata.class);
-			request.setAttribute("publications", publications);
-			request.setAttribute(anno.name(), resource);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + anno.jsp()).forward(request, response);
 		}
 	}
 }

@@ -47,11 +47,15 @@ public class SearchApi extends HttpServlet {
 		String json = null;
 		if (query == null || query.equals("")) {
 			json = gson.toJson(new ErrorSchema());
+			out.write(json);
+			out.flush();
 		} else {
 			try {
 				HibernateUtil.beginTransaction();
 				SearchResults searchResults = new SearchResults(query, type);
 				json = gson.toJson(searchResults, SearchResults.class);
+				out.write(json);
+				out.flush();
 				HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				he.printStackTrace();
@@ -60,7 +64,5 @@ public class SearchApi extends HttpServlet {
 				HibernateUtil.close();
 			}
 		}
-		out.write(json);
-		out.flush();
 	}
 }

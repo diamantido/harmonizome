@@ -22,19 +22,24 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class ListApi {
 	
 	public static <T> void doGet(HttpServletRequest request, HttpServletResponse response, Class<T> klass, String endpoint) throws ServletException, IOException {
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		gsonBuilder.registerTypeAdapter(klass, new BioEntityLinkSerializer());
-		Gson gson = gsonBuilder.create();
-		
-		String cursor = request.getParameter(Constant.API_CURSOR);
-		int startAt = cursor == null ? 0 : Integer.parseInt(cursor);
-		EntityListSchema<T> schema = new EntityListSchema<T>(endpoint, startAt);
-		List<T> entities = null;
-
 		try {
 			HibernateUtil.beginTransaction();
+			
+			GsonBuilder gsonBuilder = new GsonBuilder();
+			gsonBuilder.registerTypeAdapter(klass, new BioEntityLinkSerializer());
+			Gson gson = gsonBuilder.create();
+			
+			String cursor = request.getParameter(Constant.API_CURSOR);
+			int startAt = cursor == null ? 0 : Integer.parseInt(cursor);
+			EntityListSchema<T> schema = new EntityListSchema<T>(endpoint, startAt);
+			
+			List<T> entities = null;
 			entities = GenericDao.getAll(klass, startAt);
 			schema.setEntities(entities);
+			PrintWriter out = response.getWriter();
+			out.write(gson.toJson(schema));
+			out.flush();
+			
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -42,9 +47,5 @@ public class ListApi {
 		} finally {
 			HibernateUtil.close();
 		}
-
-		PrintWriter out = response.getWriter();
-		out.write(gson.toJson(schema));
-		out.flush();
 	}
 }

@@ -10,6 +10,10 @@
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
+		
+		<c:set var="dataset" value="${geneSet.dataset}"/>
+		<c:set var="attribute" value="${geneSet.attribute}"/>
+		
 		<div class="wrapper gene-set-page">
 			<div class="content container">
 				<h1 class="capitalize">${geneSet.nameFromDataset} <span class="note gene-set">Gene Set</span></h1>
@@ -32,11 +36,11 @@
 								</td>
 							</tr>
 						</c:if>
-						<c:if test="${attribute.urlFromDataset != null}">
+						<c:if test="${geneSet.urlFromDataset != null}">
 							<tr>
 								<td class="col-md-2">External Link</td>
 								<td class="col-md-10">
-									<a href="${attribute.urlFromDataset}" target="_blank">${attribute.urlFromDataset}</a>
+									<a href="${geneSet.urlFromDataset}" target="_blank">${geneSet.urlFromDataset}</a>
 								</td>
 							</tr>
 						</c:if>
@@ -51,7 +55,7 @@
 										data-toggle="tooltip"
 										data-placement="right"
 										title="Access the gene set from the API."
-										href="${Constant.API_URL}/${GeneSet.ENDPOINT}/${attribute.urlEncodedValue}/${dataset.urlEncodedValue}"
+										href="${Constant.API_URL}/${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}"
 										target="_blank">
 									</a>
 

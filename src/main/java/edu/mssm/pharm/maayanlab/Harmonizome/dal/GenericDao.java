@@ -64,6 +64,18 @@ public class GenericDao {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public static <E> E getBioEntityFromKeyColumn(Class<E> klass, String value) {
+		String table = getTableFromClass(klass);
+		String field = getKeyColumnFromClass(klass);
+		String sql = String.format("SELECT * FROM %s WHERE %s = '%s'", table, field, value);
+		return (E) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(sql)
+			.addEntity(klass)
+			.uniqueResult();
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static <E> E getFromField(Class<E> klass, String field, String value) {
 		String table = getTableFromClass(klass);
 		String sql = String.format("SELECT * FROM %s WHERE %s = '%s'", table, field, value);

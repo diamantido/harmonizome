@@ -17,24 +17,24 @@
 				<section>
 				    <table class="table">
 				    	<tr>
-				    		<td>Description</td>
-				    		<td class="initial"><c:out value="${dataset.description}"/></td>
+				    		<td class="col-md-2">Description</td>
+				    		<td class="col-md-10 initial"><c:out value="${dataset.description}"/></td>
 				    	</tr>
 				    	<tr>
-				    		<td>Measurement</td>
-				    		<td class="initial"><c:out value="${dataset.measurement.name}"/></td>
+				    		<td class="col-md-2">Measurement</td>
+				    		<td class="col-md-10 initial"><c:out value="${dataset.measurement.name}"/></td>
 				    	</tr>
 				    	<tr>
-				    		<td>Association</td>
-				    		<td class="initial"><c:out value="${dataset.association}"/></td>
+				    		<td class="col-md-2">Association</td>
+				    		<td class="col-md-10 initial"><c:out value="${dataset.association}"/></td>
 				    	</tr>
 				    	<tr>
-				    		<td>Category</td>
-				    		<td class="initial"><c:out value="${dataset.datasetGroup.name}"/></td>
+				    		<td class="col-md-2">Category</td>
+				    		<td class="col-md-10 initial"><c:out value="${dataset.datasetGroup.name}"/></td>
 				    	</tr>
 				    	<tr>
-				    		<td>Resource</td>
-				    		<td>
+				    		<td class="col-md-2">Resource</td>
+				    		<td class="col-md-10">
 				    			<a href="${dataset.resource.endpoint}/${dataset.resource.urlEncodedValue}">
 				    				<c:out value="${dataset.resource.name}"/>
 				    			</a>
@@ -42,8 +42,8 @@
 				    	</tr>
 				    	<c:if test="${fn:length(dataset.publications) > 0}">
 					    	<tr>
-					    		<td>Citation(s)</td>
-					    		<td>
+					    		<td class="col-md-2">Citation(s)</td>
+					    		<td class="col-md-10">
 					    			<ul>
 										<c:forEach var="pub" items="${dataset.publications}">
 											<li>
@@ -55,15 +55,15 @@
 					    	</tr>
 					    </c:if>
 				    	<tr>
-				    		<td>Last Updated</td>
-				    		<td>
+				    		<td class="col-md-2">Last Updated</td>
+				    		<td class="col-md-10">
 				    			<fmt:parseDate value="${dataset.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate"/>
 				    			<fmt:formatDate value="${parsedDate}" pattern="yyyy MMM dd"/>
 				    		</td>
 				    	</tr>
 				    	<tr>
-				    		<td>Stats</td>
-				    		<td>
+				    		<td class="col-md-2">Stats</td>
+				    		<td class="col-md-10">
 				    			<ol class="list-unstyled">
 				    				<li><c:out value="${numGenes}"/> genes</li>
 				    				<li><c:out value="${fn:length(dataset.geneSets)}"/> <c:out value="${dataset.attributeType.name}s"/></li>

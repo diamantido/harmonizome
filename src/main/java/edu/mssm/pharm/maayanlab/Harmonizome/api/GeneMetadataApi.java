@@ -45,8 +45,6 @@ public class GeneMetadataApi extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String symbol = UrlUtil.getPath(request);
-		Gene gene = null;
-
 		String min = UrlUtil.getParameter(request, "min");
 		if (min != null && min.equals("true")) {
 			gsonBuilder.registerTypeAdapter(Gene.class, new GeneMetadataBasicSerializer());
@@ -57,24 +55,24 @@ public class GeneMetadataApi extends HttpServlet {
 		
 		try {
 			HibernateUtil.beginTransaction();
+			Gene gene = null;
 			gene = GeneDao.getFromSymbol(symbol);
 			if (gene == null) {
 				gene = GeneDao.getFromSynonymSymbol(symbol);
 			}
+			PrintWriter out = response.getWriter();
+			if (gene == null) {
+				out.write(gson.toJson(new ErrorSchema()));
+			} else {
+				out.write(gson.toJson(gene, Gene.class));
+			}
+			out.flush();
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 		} finally {
 			HibernateUtil.close();
-		}
-
-		PrintWriter out = response.getWriter();
-		if (gene == null) {
-			out.write(gson.toJson(new ErrorSchema()));
-		} else {
-			out.write(gson.toJson(gene, Gene.class));
-		}
-		out.flush();
+		}		
 	}
 }		

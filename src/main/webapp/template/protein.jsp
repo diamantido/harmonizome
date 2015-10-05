@@ -34,7 +34,7 @@
 					<tr>
 						<td class="col-md-2">Gene</td>
 						<td class="col-md-10">
-							<a href="${protein.gene.endpoint}/${protein.gene.urlEncodedValue}" target="_blank">
+							<a href="${protein.gene.endpoint}/${protein.gene.urlEncodedValue}">
 								<c:out value="${protein.gene.symbol}"/>
 							</a>
 						</td>

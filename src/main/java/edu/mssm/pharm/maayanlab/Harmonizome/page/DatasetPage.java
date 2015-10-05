@@ -39,11 +39,11 @@ public class DatasetPage extends HttpServlet {
 			doNotFound(request, response);
 		}
 		try {
+			HibernateUtil.beginTransaction();
+			
 			Dataset dataset = null;
 			Long numGenes = null;
 			Long numGeneAttributeAssociations = null;
-
-			HibernateUtil.beginTransaction();
 			dataset = GenericDao.get(Dataset.class, query);
 			if (dataset != null) {
 				if (!isTest) {
@@ -61,6 +61,7 @@ public class DatasetPage extends HttpServlet {
 				RequestDispatcher r = request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset.jsp");
 				r.forward(request, response);
 			}
+
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();

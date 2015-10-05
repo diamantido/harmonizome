@@ -26,24 +26,27 @@ public class HgncRootFamilyPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = UrlUtil.getPath(request);
-		HgncRootFamily family = null;
 		try {
 			HibernateUtil.beginTransaction();
+
+			String query = UrlUtil.getPath(request);
+			HgncRootFamily family = null;
 			family = GenericDao.get(HgncRootFamily.class, query);
+			if (family == null) {
+				request.setAttribute("query", query);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
+			} else {
+				BioEntityMetadata anno = HgncRootFamily.class.getAnnotation(BioEntityMetadata.class);
+				Collections.sort(family.getGenes(), new BioEntityAlphabetizer());
+				request.setAttribute(anno.name(), family);
+				request.getRequestDispatcher(Constant.TEMPLATE_DIR + anno.jsp()).forward(request, response);
+			}
+			
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			HibernateUtil.rollbackTransaction();
-		}
-					
-		if (family == null) {
-			request.setAttribute("query", query);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
-		} else {
-			BioEntityMetadata anno = HgncRootFamily.class.getAnnotation(BioEntityMetadata.class);
-			Collections.sort(family.getGenes(), new BioEntityAlphabetizer());
-			request.setAttribute(anno.name(), family);
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + anno.jsp()).forward(request, response);
+		} finally {
+			HibernateUtil.close();
 		}
 	}
 }

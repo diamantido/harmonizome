@@ -7,61 +7,67 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hibernate.HibernateException;
-
 import com.google.gson.annotations.Expose;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
-import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
+/* Represents the search results for a single user query. This object *must*
+ * be wrapped in a Hibernate transaction like so:
+ * 
+ * try {
+ *     HibernateUtil.beginTransaction();
+ *     SearchResults searchResults = new SearchResults(query, type);
+ *     
+ *     // Do something with results here. Hibernate lazily loads the data,
+ *     // so any data access must happen inside the transaction.
+ *   
+ *     HibernateUtil.commitTransaction();
+ * } catch (HibernateException he) {
+ *     he.printStackTrace();
+ *     HibernateUtil.rollbackTransaction();
+ * } finally {
+ *     HibernateUtil.close();
+ * }
+ */
 public class SearchResults {
 
 	private String query;
-	
+
 	// We use linked hash sets so we can enforce uniqueness and order.
 	@Expose
 	private Set<Dataset> datasets = new LinkedHashSet<Dataset>();
-	
+
 	@Expose
 	private Set<Gene> genes = new LinkedHashSet<Gene>();
-	
+
 	@Expose
 	private Set<GeneSet> geneSets = new LinkedHashSet<GeneSet>();
-	
+
 	private Map<String, List<String>> suggestions = new HashMap<String, List<String>>();
-	
+
 	public SearchResults(String query, String type) {
 		this.query = query;
-		
+
 		suggestions.put("datasets", new ArrayList<String>());
 		suggestions.put("genes", new ArrayList<String>());
 		suggestions.put("geneSets", new ArrayList<String>());
 
-		try {
-			HibernateUtil.beginTransaction();
-			if (type == null) {
-				queryDatasets();
-				queryGenes();
-				queryGeneSets();
-			} else if (type.equals("dataset")) {
-				queryDatasets();
-			} else if (type.equals("gene")) {
-				queryGenes();
-			} else if (type.equals("geneSet")) {
-				queryGeneSets();
-			}
-			HibernateUtil.commitTransaction();
-		} catch (HibernateException he) {
-			he.printStackTrace();
-			HibernateUtil.rollbackTransaction();
-		} finally {
-			HibernateUtil.close();
+		if (type == null) {
+			queryDatasets();
+			queryGenes();
+			queryGeneSets();
+		} else if (type.equals("dataset")) {
+			queryDatasets();
+		} else if (type.equals("gene")) {
+			queryGenes();
+		} else if (type.equals("geneSet")) {
+			queryGeneSets();
 		}
 	}
-	
+
 	private void queryDatasets() {
 		List<String> datasetSuggestions = suggestions.get("datasets");
 		int datasetIdToIgnore;
@@ -78,7 +84,7 @@ public class SearchResults {
 			datasetSuggestions.addAll(GenericDao.getSuggestions(Dataset.class, query));
 		}
 	}
-	
+
 	public void queryGenes() {
 		List<String> geneSuggestions = suggestions.get("genes");
 		int geneIdToIgnore;
@@ -112,11 +118,11 @@ public class SearchResults {
 			getSetSuggestions.addAll(GenericDao.getSuggestions(Attribute.class, query));
 		}
 	}
-	
+
 	public String getQuery() {
 		return query;
 	}
-	
+
 	public Set<Dataset> getDatasets() {
 		return datasets;
 	}
@@ -133,22 +139,23 @@ public class SearchResults {
 		return suggestions;
 	}
 
-	/* Utility methods
+	/*
+	 * Utility methods
 	 */
 	public boolean noMatches() {
 		return query == null || (noExactMatchesFound() && noSuggestionsFound());
 	}
-	
+
 	public boolean onlySuggestions() {
 		return noExactMatchesFound() && !noSuggestionsFound();
 	}
-	
+
 	private boolean noExactMatchesFound() {
 		return datasets.size() == 0 && genes.size() == 0 && geneSets.size() == 0;
 	}
-	
+
 	private boolean noSuggestionsFound() {
 		return suggestions.get("datasets").size() == 0 && suggestions.get("genes").size() == 0 && suggestions.get("attributes").size() == 0;
 	}
-	
+
 }

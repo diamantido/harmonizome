@@ -15,7 +15,6 @@ import org.hibernate.HibernateException;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneSetDao;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
@@ -41,17 +40,17 @@ public class GeneSetPage extends HttpServlet {
 					request.setAttribute("query", query[0] + "/" + query[1]);
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "noSearchResults.jsp").forward(request, response);
 				} else {
-					Dataset dataset = geneSet.getDataset();
+					//Dataset dataset = geneSet.getDataset();
 					Pair<List<Gene>, List<Gene>> genesByAttribute = GeneDao.getFromGeneSetByValue(name, datasetName);
 					Collections.sort(genesByAttribute.getRight(), new BioEntityAlphabetizer());
 					Collections.sort(genesByAttribute.getLeft(), new BioEntityAlphabetizer());
 					int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();
-					String geneSetDescription = dataset.getGeneSetDescription();
+					String geneSetDescription = geneSet.getDataset().getGeneSetDescription();
 					geneSetDescription = geneSetDescription.replace("{0}", geneSet.getNameFromDataset());
 					geneSetDescription = numGenes + " " + geneSetDescription;
 					request.setAttribute("geneSetDescription", geneSetDescription);
 					request.setAttribute("geneSet", geneSet);
-					request.setAttribute("dataset", dataset);
+					//request.setAttribute("dataset", dataset);
 					request.setAttribute("genesByAttribute", genesByAttribute);
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "geneSet.jsp").forward(request, response);
 				}

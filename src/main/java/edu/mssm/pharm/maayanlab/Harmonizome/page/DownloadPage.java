@@ -23,10 +23,12 @@ public class DownloadPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Dataset> datasets = null;
 		try {
 			HibernateUtil.beginTransaction();
+			List<Dataset> datasets = null;
 			datasets = GenericDao.getAll(Dataset.class);
+			request.setAttribute("datasets", datasets);
+			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "download.jsp").forward(request, response);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -34,7 +36,5 @@ public class DownloadPage extends HttpServlet {
 		} finally {
 			HibernateUtil.close();
 		}
-		request.setAttribute("datasets", datasets);
-		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "download.jsp").forward(request, response);
 	}
 }

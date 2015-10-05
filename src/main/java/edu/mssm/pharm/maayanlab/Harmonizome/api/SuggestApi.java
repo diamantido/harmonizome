@@ -47,6 +47,7 @@ public class SuggestApi extends HttpServlet {
 		
 		try {
 			HibernateUtil.beginTransaction();
+
 			suggestions.addAll(GenericDao.getByPrefix(Gene.class, query));
 			suggestions.addAll(GenericDao.getByPrefix(Dataset.class, query));
 			// There are a lot of attributes. Don't suggest everything.
@@ -55,6 +56,11 @@ public class SuggestApi extends HttpServlet {
 				attributeSuggestions = attributeSuggestions.subList(0, MAX_ATTRIBUTES_TO_SUGGEST);
 			}
 			suggestions.addAll(attributeSuggestions);
+			PrintWriter out = response.getWriter();
+			String json = gson.toJson(suggestions);
+			out.write(json);
+			out.flush();
+			
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -62,10 +68,5 @@ public class SuggestApi extends HttpServlet {
 		} finally {
 			HibernateUtil.close();
 		}
-		
-		PrintWriter out = response.getWriter();
-		String json = gson.toJson(suggestions);
-		out.write(json);
-		out.flush();
 	}
 }

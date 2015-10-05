@@ -33,25 +33,25 @@ public class GenePage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String query = UrlUtil.getPath(request);
-		
-		// If the gene is a synonym, we save the original query to notify the
-		// user where we are redirecting from.
-		String originalQuery = null;
-		Gene gene = null;
-		boolean isSynonym = false;
-		int numAssociations = 0;
-		int numCategories = 0;
-		int numDatasets = 0;
-		String entityList = "";
-		List<Pair<Dataset, Pair<List<GeneSet>, List<GeneSet>>>> geneSetsByDataset = null;
-
-		// We could make another DB query, but the number datasets should
-		// never be greater than ~100.
-		Set<String> uniqueAttributeGroups = new HashSet<String>();
-		
 		try {
 			HibernateUtil.beginTransaction();
+			
+			String query = UrlUtil.getPath(request);
+			
+			// If the gene is a synonym, we save the original query to notify the
+			// user where we are redirecting from.
+			String originalQuery = null;
+			Gene gene = null;
+			boolean isSynonym = false;
+			int numAssociations = 0;
+			int numCategories = 0;
+			int numDatasets = 0;
+			String entityList = "";
+			List<Pair<Dataset, Pair<List<GeneSet>, List<GeneSet>>>> geneSetsByDataset = null;
+
+			// We could make another DB query, but the number datasets should
+			// never be greater than ~100.
+			Set<String> uniqueAttributeGroups = new HashSet<String>();
 			if (query != null) {
 				gene = GeneDao.getFromSymbol(query);
 				if (gene == null) {

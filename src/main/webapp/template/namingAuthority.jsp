@@ -15,27 +15,27 @@
 				<section>
 				    <table class="table">
 				    	<tr>
-				    		<td>Acronym</td>
-				    		<td class="initial">
+				    		<td class="col-md-2">Acronym</td>
+				    		<td class="initial col-md-10">
 				    			<c:out value="${namingAuthority.acronym}"/>
 				    		</td>
 				    	</tr>
 				    	<tr>
-				    		<td>Description</td>
-				    		<td class="initial">
+				    		<td class="col-md-2">Description</td>
+				    		<td class="initial col-md-10">
 				    			<c:out value="${namingAuthority.description}"/>
 				    		</td>
 				    	</tr>
 
 				    	<tr>
-				    		<td>External Link</td>
-				    		<td>
-				    			<a href="${namingAuthority.url}">${namingAuthority.url}</a>
+				    		<td class="col-md-2">External Link</td>
+				    		<td class="col-md-10">
+				    			<a href="${namingAuthority.url}" target="_blank">${namingAuthority.url}</a>
 				    		</td>
 				    	</tr>
 				    	<tr>
-				    		<td>Citation</td>
-				    		<td class="initial">
+				    		<td class="col-md-2">Citation</td>
+				    		<td class="initial col-md-10">
 				    			<a href="${namingAuthority.publication.pubmedUrl}" target="_blank">
 				    				<c:out value="${namingAuthority.publication.longCitation}"></c:out>
 				    			</a>
