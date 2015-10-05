@@ -353,6 +353,13 @@ table ol {
 .about-page #bar-chart {
   margin-top: 50px;
 }
+.feedback-page label {
+  display: block;
+  font-weight: normal;
+}
+.feedback-page textarea {
+  height: 150px;
+}
 /* Bootstrap overwrites.
  * ------------------------------------------------------------------------- */
 .table > tbody > tr > td,
