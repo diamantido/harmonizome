@@ -44,7 +44,7 @@ public class SearchResultsPage extends HttpServlet {
 					Map<String, List<String>> suggestions = searchResults.getSuggestions();
 					request.setAttribute("datasetSuggestions", suggestions.get("datasets"));
 					request.setAttribute("geneSuggestions", suggestions.get("genes"));
-					request.setAttribute("attributeSuggestions", suggestions.get("attributes"));
+					request.setAttribute("geneSetSuggestions", suggestions.get("geneSets"));
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "suggest.jsp").forward(request, response);
 				} else {
 					Set<Dataset> datasets = searchResults.getDatasets();

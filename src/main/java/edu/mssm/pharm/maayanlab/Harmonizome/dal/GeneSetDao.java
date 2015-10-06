@@ -16,8 +16,8 @@ public class GeneSetDao {
 	@SuppressWarnings("unchecked")
 	public static List<GeneSet> getByWordInAttributeName(String query) {
 		String sql = String.format("" +
-			"SELECT DISTINCT * FROM GeneSet " +
-			"WHERE MATCH(GeneSet.nameFromDataset) AGAINST('%s*' IN BOOLEAN MODE)",
+			"SELECT DISTINCT * FROM gene_set " +
+			"WHERE MATCH(gene_set.name_from_dataset) AGAINST('%s*' IN BOOLEAN MODE)",
 			query
 		);		
 		return (List<GeneSet>) HibernateUtil

@@ -1,15 +1,7 @@
-<%@ page import="java.util.List" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
-<%
-	@SuppressWarnings("unchecked")
-List<String> datasetSuggestions = (List<String>) request.getAttribute("datasetSuggestions");
-@SuppressWarnings("unchecked")
-List<String> geneSuggestions = (List<String>) request.getAttribute("geneSuggestions");
-@SuppressWarnings("unchecked")
-List<String> attributeSuggestions = (List<String>) request.getAttribute("attributeSuggestions");
-%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,37 +17,28 @@ List<String> attributeSuggestions = (List<String>) request.getAttribute("attribu
 					<h1>Suggestions</h1>
 					<p class="note">Did you mean...</p>
 					<ul class="list-inline">
-					<%
-						for (String name : datasetSuggestions) {
-					%>
+					<c:forEach var="name" items="${datasetSuggestions}">
+						<c:out value="${name}"/>
 						<li>
 							<span class="badge dataset">
-								<a href="<%=Constant.SEARCH_URL%>?q=<%=UrlCodec.encode(name)%>"><%=name%></a>
+								<a href="${Constant.API_URL}?q=${UrlCodec.encode(name)}">${name}</a>
 							</span>
 						</li>
-					<%
-						}
-					%>
-					<%
-						for (String symbol : geneSuggestions) {
-					%>
+					</c:forEach>
+					<c:forEach var="name" items="${geneSuggestions}">
 						<li>
 							<span class="badge gene">
-								<a href="<%=Constant.SEARCH_URL%>?q=<%=UrlCodec.encode(symbol)%>"><%=symbol%></a>
+								<a href="${Constant.SEARCH_URL}?q=${UrlCodec.encode(name)}">${name}</a>
 							</span>
 						</li>
-					<%
-						}
-					%>
-					<%
-						for (String name : attributeSuggestions) {
-					%>
+					</c:forEach>
+					<c:forEach var="name" items="${geneSetSuggestions}">
 						<li>
-							<span class="badge attribute">
-								<a href="<%=Constant.SEARCH_URL%>?q=<%=UrlCodec.encode(name)%>"><%= name %></a>
+							<span class="badge gene-set">
+								<a href="${Constant.SEARCH_URL}?q=${UrlCodec.encode(name)}">${name}</a>
 							</span>
 						</li>
-					<% } %>
+					</c:forEach>
 					</ul>
 				</div>
 			</div>

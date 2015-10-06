@@ -9,7 +9,6 @@ import java.util.Set;
 
 import com.google.gson.annotations.Expose;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
@@ -115,7 +114,7 @@ public class SearchResults {
 			geneSets.addAll(GeneSetDao.getByWordInAttributeName(query));
 		}
 		if (geneSets.size() == 0) {
-			getSetSuggestions.addAll(GenericDao.getSuggestions(Attribute.class, query));
+			getSetSuggestions.addAll(GenericDao.getSuggestions(GeneSet.class, query));
 		}
 	}
 
@@ -155,7 +154,7 @@ public class SearchResults {
 	}
 
 	private boolean noSuggestionsFound() {
-		return suggestions.get("datasets").size() == 0 && suggestions.get("genes").size() == 0 && suggestions.get("attributes").size() == 0;
+		return suggestions.get("datasets").size() == 0 && suggestions.get("genes").size() == 0 && suggestions.get("geneSets").size() == 0;
 	}
 
 }
