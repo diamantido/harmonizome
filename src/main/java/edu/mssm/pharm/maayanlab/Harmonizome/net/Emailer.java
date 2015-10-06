@@ -33,14 +33,16 @@ public class Emailer {
 	}
 
 	public static void send(String user, String topic, String body) throws UnsupportedEncodingException {
-		String username = props.getProperty("email.username");
-		String password = props.getProperty("email.password");
-		String maayanLabRecipient = props.getProperty("email.recipient");
-
+		String botEmail = props.getProperty("email.username");
+		String botPassword = props.getProperty("email.password");
+		String avi = props.getProperty("email.avi");
+		String andrew = props.getProperty("email.andrew");
+		String greg = props.getProperty("email.greg");
+		
         Session session = Session.getInstance(props,
         	new javax.mail.Authenticator() {
             	protected PasswordAuthentication getPasswordAuthentication() {
-            		return new PasswordAuthentication(username, password);
+            		return new PasswordAuthentication(botEmail, botPassword);
             	}
             });
         
@@ -54,8 +56,10 @@ public class Emailer {
         
         try {
             Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(username, "Harmonizome Bot"));
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(maayanLabRecipient));
+            msg.setFrom(new InternetAddress(botEmail, "Harmonizome Bot"));
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(avi));
+            msg.addRecipient(Message.RecipientType.CC, new InternetAddress(andrew));
+            msg.addRecipient(Message.RecipientType.CC, new InternetAddress(greg));
             msg.setSubject("Feedback from user " + user);
             msg.setText(finalMessage.toString());
             Transport.send(msg);
