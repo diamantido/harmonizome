@@ -78,13 +78,13 @@ table {
 	font-size: 14px;
 	font-style: italic;
 	&.dataset {
-		color: @color-blue;
+		color: @color-entity-blue;
 	}
 	&.gene {
-		color: @color-yellow;
+		color: @color-entity-yellow;
 	}
 	&.gene-set {
-		color: @color-red;
+		color: @color-entity-red;
 	}
 }
 .glyphicon-search {
@@ -233,17 +233,6 @@ table {
 		list-style-type: none;
 		padding: 0;
 	}
-	table {
-		td {
-			vertical-align: top;
-			strong {
-				text-transform: uppercase;
-			}
-			&:first-child {
-				padding-right: 10px;
-			}
-		}
-	}
 	a {
 		color: @color-charcoal;
 		font-family: @font-family-primary;
@@ -264,8 +253,8 @@ table {
             }
         }
 	}
-	em {
-		margin-bottom: 2px;
+	#funders {
+		font-style: italics;
 	}
 }
 @media (max-width: 992px) {
@@ -379,13 +368,18 @@ table {
 		margin-top: 50px;
 	}
 }
-.feedback-page {
+.contact-page {
 	label {
 		display: block;
 		font-weight: normal;
 	}
 	textarea {
 		height: 150px;
+	}
+	label {
+		span {
+			color: @color-highlight-red;
+		}
 	}
 }
 
@@ -428,13 +422,13 @@ table {
 		}
 	}
 	&.dataset {
-		background-color: @color-blue;
+		background-color: @color-entity-blue;
 	}
 	&.gene {
-		background-color: @color-yellow;
+		background-color: @color-entity-yellow;
 	}
 	&.gene-set {
-		background-color: @color-red;
+		background-color: @color-entity-red;
 	}
 }
 .tooltip {

@@ -5,19 +5,21 @@
     <head>
     	<%@include file="globalIncludes.html" %>
     	<%@include file="commonTitle.html" %>
+    	<script src="script/contact.js"></script>
     </head>
     <body>
 		<%@include file="navbar.html" %>
 		<div class="wrapper">
-			<div class="content container-full feedback-page">
+			<div class="content container-full contact-page">
 				<div class="container">
-					<h1>Feedback</h1>
+					<h1>Contact</h1>
 					<div class="col-md-6">
 						<div class="row">
-							<form method="POST" action="feedback">
-								<label for="topic">How can we help?</label>
+							<form method="POST" action="contact">
+								<label for="topic">How can we help? <span class="hidden">(Required)</span></label>
 								<div class="form-group">
 									<select name="topic" class="form-control">
+										<option>Please select a topic</option>
 										<option>I have a question about the site</option>
 										<option>I would like to report a bug</option>
 										<option>I have a suggestion for a feature</option>
@@ -25,14 +27,14 @@
 									</select>
 								</div>
 								<div class="form-group">
-									<label for="email">Your email</label>
+									<label for="email">Your email <span class="hidden">(Required)</span></label>
 									<input type="text" name="email" class="form-control">
 								</div>
 								<div class="form-group">
-									<label>Please describe your issue.</label>
-									<textarea name="text" class="form-control"></textarea>
+									<label for="details">Please describe your issue <span class="hidden">(Required)</span></label>
+									<textarea name="details" class="form-control"></textarea>
 								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
+								<button id="contact-form-btn" type="submit" class="btn btn-default">Submit</button>
 							</form>
 						</div>
 					</div>

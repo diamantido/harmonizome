@@ -39,3 +39,5 @@ target/
 .texlipse
 
 nohup.out
+
+*.properties

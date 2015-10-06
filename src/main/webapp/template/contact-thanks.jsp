@@ -11,7 +11,7 @@
 		<div class="wrapper">
 			<div class="content container-full feedback-page">
 				<div class="container">
-					<h1>Feedback</h1>
+					<h1>Contact</h1>
 					<p class="instruction">Thanks for your feedback.</p>
 				</div>
 			</div>

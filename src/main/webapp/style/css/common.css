@@ -13,11 +13,11 @@ body {
 }
 .wrapper {
   min-height: 100%;
-  padding-bottom: 120px;
+  padding-bottom: 140px;
   position: relative;
 }
 .footer {
-  height: 120px;
+  height: 140px;
 }
 /* Push all content out from under the fix nav. Do not use "margin-top" because
  * this pushes the sticky footer down as well.
@@ -25,7 +25,7 @@ body {
 .content {
   position: relative;
   top: 50px;
-  padding-bottom: 120px;
+  padding-bottom: 140px;
 }
 /* Tag selectors.
  * ------------------------------------------------------------------------- */
@@ -228,15 +228,6 @@ table ol {
   list-style-type: none;
   padding: 0;
 }
-.footer table td {
-  vertical-align: top;
-}
-.footer table td strong {
-  text-transform: uppercase;
-}
-.footer table td:first-child {
-  padding-right: 10px;
-}
 .footer a {
   color: #444444;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -255,8 +246,8 @@ table ol {
 .footer #share img:hover {
   opacity: 0.7;
 }
-.footer em {
-  margin-bottom: 2px;
+.footer #funders {
+  font-style: italics;
 }
 @media (max-width: 992px) {
   .footer {
@@ -353,12 +344,15 @@ table ol {
 .about-page #bar-chart {
   margin-top: 50px;
 }
-.feedback-page label {
+.contact-page label {
   display: block;
   font-weight: normal;
 }
-.feedback-page textarea {
+.contact-page textarea {
   height: 150px;
+}
+.contact-page label span {
+  color: #ff0000;
 }
 /* Bootstrap overwrites.
  * ------------------------------------------------------------------------- */

@@ -2,7 +2,7 @@ $(function() {
 	
 	Highcharts.setOptions({
 		//colors: ['#343844', '#203d5b', '#2e5986', '#C3D2FF', '#35679c', '#3c76b1', '#5c92ca', '#86aed9'],
-		colors: ['#2e5986', '#EC1E8E', '#A026DE', '#38CF4B', '#86aed9', '#ED412B', '#EDB22B', '#EC1E8E', '#4161B9'],
+		colors: ['#2e5986', '#A51563', '#A026DE', '#2CA53C', '#86aed9', '#ED412B', '#EDB22B', '#EC1E8E', '#4161B9'],
 		style: {
             fontFamily: '"Open Source Sans", helvetica, arial, sans-serif'
         }
