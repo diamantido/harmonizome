@@ -77,7 +77,7 @@ $(function() {
 	        },
 	        yAxis: {
 	            title: {
-	                text: 'Gene signatures'
+	                text: 'Gene Sets'
 	            }
 	        },
 	        tooltip: {
