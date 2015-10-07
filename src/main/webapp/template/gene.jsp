@@ -7,8 +7,10 @@
 	<head>
 		<title><c:out value="Gene - ${gene.symbol} - Harmonizome"/></title>
     	<%@include file="globalIncludes.html" %>
-    	<meta description=""/>
-    	<meta keywords="foo"/>
+    	<c:if test="${not empty gene.description}">
+    		<meta description="Harmonizome: gene.description"/>
+    	</c:if>
+    	<meta keywords="${gene.symbol} harmonizome"/>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>

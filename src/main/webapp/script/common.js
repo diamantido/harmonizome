@@ -57,22 +57,22 @@ $(function() {
 		$geneList.append($listTd);
 
 		if (data.up.association) {
-			$listTd.append('<p><strong>' + data.up.association + '</strong></p>');
+			$listTd.append('<p><strong>' + data.up.list.length + ' <em>' + data.up.association + '</em> associations</strong></p>');
 		}
 		
 		var upGenes = [];
 		$.each(data.up.list, function(i, obj) {
 			upGenes.push('<a href="' + cleanGeneSetHref(obj.href) + '">' + cleanGeneSetName(obj.name) + '</a>');
 		});
-		$listTd.append('<p class="instruction">' + + ' associations</p>');
 		$listTd.append(upGenes.join(', '));
 		
 		if (data.down.length != 0) {
 			if (data.down.association) {
-				$listTd.append('<p class="last"><strong>' + data.down.association + '</strong></p>');
+				$listTd.append('<p class="last"><strong>' + data.down.list.length + ' <em>' + data.down.association + '</em> associations</strong></p>');
 			}
 			var downGenes = [];
 			$.each(data.down.list, function(i, obj) {
+
 				downGenes.push('<a href="' + cleanGeneSetHref(obj.href) + '">' + cleanGeneSetName(obj.name) + '</a>');
 			});
 			$listTd.append(downGenes.join(', '));
