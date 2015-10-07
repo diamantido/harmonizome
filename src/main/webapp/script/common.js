@@ -28,26 +28,76 @@ $(function() {
 	function setupShowByGroupFunctionality() {
 		var $showHideButtons = $('.dataset-row .glyphicon');
 		$showHideButtons.click(function(evt) {
-			var datasetGroup = $(evt.target).parent().attr('data-dataset-group');
-			showItemsByDatasetGroup(datasetGroup);
+			var $dataset = $(evt.target),
+				url = $dataset.attr('data-gene-list-more-url'),
+				dataset = $dataset.attr('data-gene-list-css-selector'),
+				$geneList = $('.attribute-list.' + dataset);
+
+			$.ajax({
+				url: url,
+				method: 'GET',
+				success: function(data) {
+					data = JSON.parse(data);
+					showGeneSets($dataset, $geneList, data);
+				}
+			});
 		});
 	}
 	
-	/* Show genes or attributes by dataset group.
+	/* Show gene sets based on dataset selected on gene page.
 	 */
-	function showItemsByDatasetGroup(group) {
-		var $group = $('.' + group),
-			$items = $group.next(),
-			$plusButton = $group.find('.glyphicon.glyphicon-plus'),
-			$minusButton = $group.find('.glyphicon.glyphicon-minus');
-		if ($items.hasClass('active')) {
-			$items.fadeOut();
+	function showGeneSets($dataset, $geneList, data) {
+		var $fillerTd = $('<td class="col-md-1"></td>'),
+			$listTd = $('<td class="col-md-11" colspan="2"></td>'),
+			$plusButton = $dataset.find('.glyphicon.glyphicon-plus'),
+			$minusButton = $dataset.find('.glyphicon.glyphicon-minus');
+
+		$geneList.empty();
+		$geneList.append($fillerTd);
+		$geneList.append($listTd);
+
+		if (data.up.association) {
+			$listTd.append('<p><strong>' + data.up.association + '</strong></p>');
+		}
+		
+		var upGenes = [];
+		$.each(data.up.list, function(i, obj) {
+			upGenes.push('<a href="' + cleanGeneSetHref(obj.href) + '">' + cleanGeneSetName(obj.name) + '</a>');
+		});
+		$listTd.append('<p class="instruction">' + + ' associations</p>');
+		$listTd.append(upGenes.join(', '));
+		
+		if (data.down.length != 0) {
+			if (data.down.association) {
+				$listTd.append('<p class="last"><strong>' + data.down.association + '</strong></p>');
+			}
+			var downGenes = [];
+			$.each(data.down.list, function(i, obj) {
+				downGenes.push('<a href="' + cleanGeneSetHref(obj.href) + '">' + cleanGeneSetName(obj.name) + '</a>');
+			});
+			$listTd.append(downGenes.join(', '));
+		}
+		
+		if ($geneList.hasClass('active')) {
+			$geneList.fadeOut();
 		} else {
-			$items.fadeIn();
+			$geneList.fadeIn();
 		}
 		$plusButton.toggleClass('hidden');
 		$minusButton.toggleClass('hidden');
-		$items.toggleClass('active');
+		$geneList.toggleClass('active');
+	}
+	
+	/* Returns a user readable version of a gene set name.
+	 */
+	function cleanGeneSetName(geneSetName) {
+		return geneSetName.split('/')[0];
+	}
+	
+	/* Returns a link for the gene set page rather than API endpoint.
+	 */
+	function cleanGeneSetHref(geneSetHref) {
+		return geneSetHref.replace('/' + API_URL, '');
 	}
 
 	/* Setup datasets table if it exists.

@@ -313,7 +313,7 @@ public class Dataset implements BioEntity {
 	}
 	
 	@Transient
-	public String getCssClassName() {
+	public String getCssSelectorName() {
 		return StringUtils.join(
 			name.replace(",", "").replace(".", "").split(" "),
 			"-"

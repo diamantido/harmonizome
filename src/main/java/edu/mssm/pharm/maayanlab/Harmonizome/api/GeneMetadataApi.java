@@ -73,6 +73,6 @@ public class GeneMetadataApi extends HttpServlet {
 			HibernateUtil.rollbackTransaction();
 		} finally {
 			HibernateUtil.close();
-		}		
+		}
 	}
 }		

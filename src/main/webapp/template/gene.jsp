@@ -7,6 +7,8 @@
 	<head>
 		<title><c:out value="Gene - ${gene.symbol} - Harmonizome"/></title>
     	<%@include file="globalIncludes.html" %>
+    	<meta description=""/>
+    	<meta keywords="foo"/>
 	</head>
 	<body>
 		<%@include file="navbar.html" %>
@@ -15,14 +17,16 @@
 				<h1 class="initial">${gene.symbol} <span class="note gene">${note}</span></h1>
 				<section>
 					<table class="table">
-						<tr>
-							<td class="col-md-2">HGNC Family</td>
-							<td class="col-md-10">
-								<c:forEach var="family" items="${gene.hgncRootFamilies}" varStatus="loop">
-									<a href="${family.endpoint}/${family.urlEncodedValue}">${family.name}</a><c:if test="${!loop.last}">, </c:if>
-								</c:forEach>
-							</td>
-						</tr>
+						<c:if test="${fn:length(gene.hgncRootFamilies) > 0 }">
+							<tr>
+								<td class="col-md-2">HGNC Family</td>
+								<td class="col-md-10">
+									<c:forEach var="family" items="${gene.hgncRootFamilies}" varStatus="loop">
+										<a href="${family.endpoint}/${family.urlEncodedValue}">${family.name}</a><c:if test="${!loop.last}">, </c:if>
+									</c:forEach>
+								</td>
+							</tr>
+						</c:if>
 						<tr>
 							<td class="col-md-2">Name</td>
 							<td class="col-md-10 initial">${gene.name}</td>
@@ -81,12 +85,14 @@
 								<th>Summary</th>
 							</tr>
 						</thead>
-						<c:forEach var="pair" items="${geneSetsByDataset}">
-							<c:set var="dataset" value="${pair.left}"/>
-							<c:set var="geneSets" value="${pair.right}"/>
-							<tr class="dataset-row ${dataset.cssClassName}">
-								<td class="col-md-1" data-dataset-group="${dataset.cssClassName}">
-									<button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true"></button>
+						<c:forEach var="dataset" items="${datasetsByGene}">
+							<tr class="dataset-row ${dataset.cssSelectorName}" >
+								<td class="col-md-1">
+									<button
+										class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true"
+										data-gene-list-css-selector="${dataset.cssSelectorName}"
+										data-gene-list-more-url="${Constant.API_URL}/${GeneSet.ENDPOINT}?gene=${gene.urlEncodedValue}&dataset=${dataset.urlEncodedValue}"
+									></button>
 									<button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
 								</td>
 								<td class="col-md-3">
@@ -94,43 +100,13 @@
 										<c:out value="${dataset.name}"/>
 									</a>
 								</td>
-								<td class="col-md-8">
+								<td class="col-md-8 initial">
 									<c:set var="attributeSetDescription" value="${fn:replace(dataset.attributeSetDescription, '{0}', gene.symbol)}"/>
-									<c:set var="attributeCount" value="${fn:length(geneSets.left) + fn:length(geneSets.right)}"/>
-									<c:out value="${attributeCount} ${attributeSetDescription}"/>
+<%-- 									<c:set var="attributeCount" value="${fn:length(dataset.geneSets)}"/> --%>
+									<c:out value="${attributeSetDescription}"/>
 								</td>
 							</tr>
-							<tr class="list attribute-list">
-								<td class="col-md-1"></td>
-								<td class="col-md-11" colspan="2">
-									<c:set var="hasTwoAssociations" value="${fn:length(geneSets.right) != 0}"/>
-									<c:if test="${not empty fn:trim(dataset.positiveAssociation)}">
-										<p>
-											<strong>
-												<c:out value="${dataset.positiveAssociation}"/>
-											</strong>
-										</p>
-									</c:if>
-									<c:set var="upGeneSets" value="${geneSets.left}"/>
-									<c:forEach var="geneSet" items="${upGeneSets}" varStatus="loop">
-										<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}"><c:out value="${geneSet.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
-									</c:forEach>
-									<c:if test="${hasTwoAssociations}">
-										<div class="last">
-											<p>
-												<strong>
-													<c:out value="${dataset.negativeAssociation}"/>
-												</strong>
-											</p>
-											<c:set var="downGeneSets" value="${geneSets.right}"/>
-											<c:forEach var="geneSet" items="${downGeneSets}" varStatus="loop">
-												<a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}"><c:out value="${geneSet.nameFromDataset}"/></a><c:if test="${!loop.last}">, </c:if>
-											</c:forEach>
-										</div>
-									</c:if>
-								</td>
-							</tr>							
-							
+							<tr class="list attribute-list ${dataset.cssSelectorName}"></tr>
 						</c:forEach>
 					</table>
 				</section>

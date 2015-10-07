@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
-@WebServlet(urlPatterns = {
-	"/" + Constant.API_URL + "/" + GeneSet.ENDPOINT,
-	"/" + Constant.API_URL + "/" + GeneSet.ENDPOINT + "/"
-})
+@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT + "/" })
 public class GeneSetListApi extends HttpServlet {
 
 	private static final long serialVersionUID = 3857700637067563773L;

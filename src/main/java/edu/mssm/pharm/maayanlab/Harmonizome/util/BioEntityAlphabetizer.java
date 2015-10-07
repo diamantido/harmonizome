@@ -8,6 +8,8 @@ public class BioEntityAlphabetizer implements Comparator<BioEntity> {
 
     @Override
     public int compare(BioEntity entity1, BioEntity entity2) {
-        return entity1.getValue().compareTo(entity2.getValue());
+    	String value1 = entity1.getValue().toLowerCase();
+    	String value2 = entity2.getValue().toLowerCase();
+        return value1.compareTo(value2);
     }
 }
