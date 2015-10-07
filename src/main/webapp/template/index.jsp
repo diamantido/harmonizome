@@ -5,6 +5,7 @@
     <head>
     	<%@include file="globalIncludes.html" %>
     	<%@include file="commonTitle.html" %>
+    	<meta name="description" content="Search for genes and functional terms extracted and organized from over a hundred publicly available resources."/>
 	</head>
 	<body>
 		<%@include file="navbar.html"%>

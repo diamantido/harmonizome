@@ -34,4 +34,12 @@ public class Constant {
 	public static final int API_MAX_RESULTS = 100;
 	
 	public static final String MACHINE_LEARNING_URL = "learn";
+	
+	public static final String META_KEYWORDS = "" +
+		"harmonizome, " +
+		"lincs, bd2k, dcic, bd2k-lincs dcic, data coordination and integration center, " +
+		"biomedical, systems biology, drug discovery, gene signature, " +
+		"genomics, transcriptomics, proteomics, metabolomics, " +
+		"genes, proteins, cell lines, tissues, perturbations, diseases, phenotypes, drugs, " +
+		"maayan lab, avi ma'ayan, avi maayan";
 }

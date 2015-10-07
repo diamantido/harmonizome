@@ -66,7 +66,7 @@ $(function() {
 		});
 		$listTd.append(upGenes.join(', '));
 		
-		if (data.down.length != 0) {
+		if (data.down.list.length != 0) {
 			if (data.down.association) {
 				$listTd.append('<p class="last"><strong>' + data.down.list.length + ' <em>' + data.down.association + '</em> associations</strong></p>');
 			}
