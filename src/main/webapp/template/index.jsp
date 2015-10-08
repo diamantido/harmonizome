@@ -20,11 +20,11 @@
 								<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources.</p>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-offset-2 col-md-8">
+<!-- 						<div class="row">
+							<div class="col-md-offset-2 col-md-8"> -->
 								<%@include file="searchBar.html" %>
-							</div>	
-						</div>
+<!-- 							</div>
+						</div> -->
 						<div class="row">
 							<div class="col-md-12 top-buffer text-center">
 								<strong>Example searches</strong>

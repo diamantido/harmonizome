@@ -8,7 +8,7 @@ $(function() {
 	if ($dataTables.length && typeof $().dataTable !== 'undefined') {
 		setupDataTables($dataTables);
 	}
-	var $searchEl = $('.search');
+	var $searchEl = $('.search-bar');
 	if ($searchEl.length) {
 		setupSearch($searchEl);
 	}	

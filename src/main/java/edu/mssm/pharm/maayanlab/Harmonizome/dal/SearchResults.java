@@ -54,7 +54,7 @@ public class SearchResults {
 		suggestions.put("genes", new ArrayList<String>());
 		suggestions.put("geneSets", new ArrayList<String>());
 
-		if (type == null) {
+		if (type == null || type.equals("all")) {
 			queryDatasets();
 			queryGenes();
 			queryGeneSets();
