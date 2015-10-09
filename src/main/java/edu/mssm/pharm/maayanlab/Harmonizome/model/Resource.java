@@ -41,8 +41,8 @@ public class Resource implements BioEntity {
 	@Column(name = "url", length = 2083)
 	private String url;
 
-	@Column(name = "num_attributes")
-	private Long numAttributes;
+	@Column(name = "num_gene_sets")
+	private Long numGeneSets;
 	
 	/* Foreign key relationships
 	 * ------------------------- */
@@ -137,11 +137,11 @@ public class Resource implements BioEntity {
 		return ENDPOINT;
 	}
 
-	public void setNumAttributes(Long numAttributes) {
-		this.numAttributes = numAttributes;
+	public Long getNumGeneSets() {
+		return numGeneSets;
 	}
 
-	public Long getNumAttributes() {
-		return numAttributes;
+	public void setNumGeneSets(Long numGeneSets) {
+		this.numGeneSets = numGeneSets;
 	}
 }

@@ -27,6 +27,6 @@ public class ContactPage extends HttpServlet {
 		String email = request.getParameter("email");
 		String details = request.getParameter("details");
 		Emailer.send(email, topic, details);
-		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "contact-thanks.jsp").forward(request, response);
+		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "contactThanks.jsp").forward(request, response);
 	}
 }

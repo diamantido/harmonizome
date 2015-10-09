@@ -20,13 +20,9 @@
 								<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources.</p>
 							</div>
 						</div>
-<!-- 						<div class="row">
-							<div class="col-md-offset-2 col-md-8"> -->
-								<%@include file="searchBar.html" %>
-<!-- 							</div>
-						</div> -->
-						<div class="row">
-							<div class="col-md-12 top-buffer text-center">
+						<%@include file="searchBar.html" %>
+						<div class="row top-buffer text-center">
+							<div class="col-md-4 col-md-offset-2">
 								<strong>Example searches</strong>
 								<ul class="list-inline">
 									<li>
@@ -39,6 +35,12 @@
 										<a href="${Constant.SEARCH_URL}?q=breast+cancer">breast cancer</a>
 									</li>
 								</ul>
+							</div>
+							<div class="col-md-4 about">
+								<strong>Where does the data come from?</strong>
+								<p>
+									<a href="about#resources">About the data</a>
+								</p>
 							</div>
 					    </div>
 					</div>

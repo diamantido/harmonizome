@@ -387,9 +387,6 @@ table ol {
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 25px;
 }
-.about-page #bar-chart {
-  margin-top: 50px;
-}
 .contact-page label {
   display: block;
   font-weight: normal;
@@ -549,4 +546,23 @@ select {
   div.dataTables_paginate {
     text-align: left;
   }
+}
+/* Highcharts overwrites
+ * ------------------------------------------------------------------------- */
+.highcharts-tooltip {
+  background: white !important;
+  opacity: 1 !important;
+}
+.highcharts-tooltip span {
+  height: auto;
+  width: 400px;
+  white-space: normal !important;
+  z-index: 9999 !important;
+}
+.highcharts-tooltip table td {
+  vertical-align: top !important;
+  padding-right: 5px;
+}
+.highchart-custom-label {
+  z-index: 1;
 }

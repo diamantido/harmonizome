@@ -39,7 +39,7 @@
 										</li>
 									</c:forEach>
 								</ul>
-							</td>					
+							</td>
 						</tr>
 					</c:if>
 					<c:if test="${not empty resource.acronym}">
@@ -56,6 +56,10 @@
 							</td>
 						</tr>
 					</c:if>
+					<tr>
+						<td>Gene Sets</td>
+						<td><c:out value="${resource.numGeneSets}"/></td>
+					</tr>
 				</table>
 			</div>
 			<%@include file="footer.html"%>

@@ -56,9 +56,9 @@ public class RefreshStats extends HttpServlet {
 			}
 
 			for (Resource resource : GenericDao.getAll(Resource.class)) {
-				long numAttributesPerDataset = 0;
+				long numGeneSetsPerResource = 0;
 				for (Dataset dataset : resource.getDatasets()) {
-					numAttributesPerDataset += dataset.getGeneSets().size();
+					numGeneSetsPerResource += dataset.getGeneSets().size();
 					
 					// Count dataset groups
 					DatasetGroup datasetGroup = dataset.getDatasetGroup();
@@ -72,7 +72,7 @@ public class RefreshStats extends HttpServlet {
 					Long newCount2 = currentCount2 + dataset.getGeneSets().size();
 					attributeGroupCounts.put(attributeGroup, newCount2);
 				}
-				resource.setNumAttributes(numAttributesPerDataset);
+				resource.setNumGeneSets(numGeneSetsPerResource);
 			}
 			
 			for (Entry<DatasetGroup, Long> entry : datasetGroupCounts.entrySet()) {

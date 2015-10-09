@@ -3,6 +3,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -17,6 +18,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.StatsSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.ResourceStatsSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
@@ -32,6 +35,7 @@ public class StatsAPI extends HttpServlet {
 	private static final Gson gson;
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.registerTypeAdapter(Resource.class, new ResourceStatsSerializer());
 		gson = gsonBuilder.create();
 	}
 	
@@ -39,27 +43,20 @@ public class StatsAPI extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			HibernateUtil.beginTransaction();
-			
-			Map<String, Map<String, Long>> stats = new HashMap<String, Map<String, Long>>();
-			
-			Map<String, Long> attributeCountsPerDataset = new HashMap<String, Long>();
-			for (Resource resource : GenericDao.getAll(Resource.class)) {
-				attributeCountsPerDataset.put(resource.getName(), resource.getNumAttributes());
-			}
-			stats.put("attributesPerDataset", attributeCountsPerDataset);
-			
+
+			List<Resource> resources = GenericDao.getAll(Resource.class);
+
 			Map<String, Long> datasetsPerDatasetGroup = new HashMap<String, Long>();
 			for (DatasetGroup datasetGroup : GenericDao.getAll(DatasetGroup.class)) {
 				datasetsPerDatasetGroup.put(datasetGroup.getName(), datasetGroup.getNumDatasets());
 			}
-			stats.put("datasetsPerDatasetGroup", datasetsPerDatasetGroup);
 			
 			Map<String, Long> attributesPerAttributeGroup = new HashMap<String, Long>();
 			for (AttributeGroup attributeGroup : GenericDao.getAll(AttributeGroup.class)) {
 				attributesPerAttributeGroup.put(attributeGroup.getName(), attributeGroup.getNumAttributes());
 			}
-			stats.put("attributesPerAttributeGroup", attributesPerAttributeGroup);
 
+			StatsSchema stats = new StatsSchema(resources, datasetsPerDatasetGroup, attributesPerAttributeGroup);
 			String json = gson.toJson(stats);
 			PrintWriter out = response.getWriter();
 			out.write(json);

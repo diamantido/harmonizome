@@ -51,7 +51,7 @@ public class SearchResultsPage extends HttpServlet {
 					Set<Gene> genes = searchResults.getGenes();
 					Set<GeneSet> geneSets = searchResults.getGeneSets();
 					String summary = buildSummary(query, datasets, genes, geneSets);
-					if (type != null) {
+					if (type != null && !type.equals("all")) {
 						/* This configures the view to show a "clear" filter. */
 						request.setAttribute("isFilteredPage", true);
 					}
