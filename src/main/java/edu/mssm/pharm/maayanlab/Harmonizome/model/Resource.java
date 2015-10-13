@@ -41,7 +41,7 @@ public class Resource implements BioEntity {
 	@Column(name = "url", length = 2083)
 	private String url;
 
-	@Column(name = "num_gene_sets")
+	@Column(name = "num_attributes")
 	private Long numGeneSets;
 	
 	/* Foreign key relationships

@@ -229,7 +229,7 @@ $(function() {
 
 	/* Setups search bar.
 	 */
-	function setupSearch($parentEl) {
+	function setupSearch($parentEl) {		
 		$.ajax({
 			method: 'GET',
 			url: API_URL + 'gene',
@@ -241,6 +241,11 @@ $(function() {
 					queryTokenizer: Bloodhound.tokenizers.whitespace,
 					remote: {
 						url: API_URL + 'suggest?q=%QUERY',
+						replace: function(url, urlEncodedQuery) {
+							var type = $('.search-bar .filters :selected').val();
+							url = url.replace('%QUERY', urlEncodedQuery);
+							return url + '&t=' + type;
+						},
 						wildcard: '%QUERY'
 					}
 				});

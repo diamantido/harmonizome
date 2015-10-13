@@ -9,44 +9,39 @@
 	</head>
 	<body>
 		<%@include file="navbar.html"%>
-		<div class="wrapper">
-			<div class="content container-full">
-				<div class="container">
-					<div id="landing">
-						<div class="row">
-							<div class="col-md-12 text-center">
-								<img src="image/logo_100x87.png">
-								<h1 class="project-title">Harmonizome</h1>
-								<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources.</p>
-							</div>
+		<div class="content container-full">
+			<div class="container">
+				<div id="landing">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<img src="image/logo_100x87.png">
+							<h1 class="project-title">Harmonizome</h1>
+							<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources.</p>
 						</div>
-						<%@include file="searchBar.html" %>
-						<div class="row top-buffer text-center">
-							<div class="col-md-4 col-md-offset-2">
-								<strong>Example searches</strong>
-								<ul class="list-inline">
-									<li>
-										<a href="${Constant.SEARCH_URL}?q=achilles">achilles</a>
-									</li>
-									<li>
-										<a href="${Constant.SEARCH_URL}?q=STAT3">STAT3</a>
-									</li>
-									<li>
-										<a href="${Constant.SEARCH_URL}?q=breast+cancer">breast cancer</a>
-									</li>
-								</ul>
-							</div>
-							<div class="col-md-4 about">
-								<strong>Where does the data come from?</strong>
-								<p>
-									<a href="about#resources">About the data</a>
-								</p>
-							</div>
-					    </div>
 					</div>
+					<%@include file="searchBar.html" %>
+					<div class="row top-buffer text-center">
+						<div class="col-md-12">
+							<strong>Example searches</strong>
+							<ul class="list-inline">
+								<li>
+									<a href="${Constant.SEARCH_URL}?q=achilles">achilles</a>
+								</li>
+								<li>
+									<a href="${Constant.SEARCH_URL}?q=STAT3">STAT3</a>
+								</li>
+								<li>
+									<a href="${Constant.SEARCH_URL}?q=breast+cancer">breast cancer</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-12 about">
+							<strong><a href="about">About the data</a></strong>
+						</div>
+				    </div>
 				</div>
 			</div>
-			<%@include file="footer.html"%>
 		</div>
+		<%@include file="footer.html"%>
 	</body>
 </html>

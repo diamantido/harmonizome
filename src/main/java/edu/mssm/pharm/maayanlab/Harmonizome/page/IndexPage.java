@@ -19,4 +19,5 @@ public class IndexPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "index.jsp").forward(request, response);
 	}
+	
 }

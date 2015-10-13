@@ -43,19 +43,34 @@ public class SuggestApi extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = request.getParameter("q");
+		String type = request.getParameter("t");
+		
 		List<String> suggestions = new ArrayList<String>();
 		
 		try {
 			HibernateUtil.beginTransaction();
 
-			suggestions.addAll(GenericDao.getByPrefix(Gene.class, query));
-			suggestions.addAll(GenericDao.getByPrefix(Dataset.class, query));
-			// There are a lot of attributes. Don't suggest everything.
-			List<String> attributeSuggestions = GenericDao.getByPrefix(Attribute.class, query);
-			if (attributeSuggestions.size() > MAX_ATTRIBUTES_TO_SUGGEST) {
-				attributeSuggestions = attributeSuggestions.subList(0, MAX_ATTRIBUTES_TO_SUGGEST);
+			List<String> attributeSuggestions = null;
+			if (type.equals("gene")) {
+				suggestions.addAll(GenericDao.getByPrefix(Gene.class, query));
+			} else if (type.equals("dataset")) {
+				suggestions.addAll(GenericDao.getByPrefix(Dataset.class, query));
+			} else if (type.equals("geneSet")) {
+				attributeSuggestions = GenericDao.getByPrefix(Attribute.class, query);
+			} else {
+				suggestions.addAll(GenericDao.getByPrefix(Gene.class, query));
+				suggestions.addAll(GenericDao.getByPrefix(Dataset.class, query));
+				attributeSuggestions = GenericDao.getByPrefix(Attribute.class, query);
 			}
-			suggestions.addAll(attributeSuggestions);
+			
+			// There are a lot of attributes. Don't suggest everything.
+			if (attributeSuggestions != null) {
+				if (attributeSuggestions.size() > MAX_ATTRIBUTES_TO_SUGGEST) {
+					attributeSuggestions = attributeSuggestions.subList(0, MAX_ATTRIBUTES_TO_SUGGEST);
+				}
+				suggestions.addAll(attributeSuggestions);
+			}
+			
 			PrintWriter out = response.getWriter();
 			String json = gson.toJson(suggestions);
 			out.write(json);
