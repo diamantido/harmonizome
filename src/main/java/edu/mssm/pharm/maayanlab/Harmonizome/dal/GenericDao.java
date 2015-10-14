@@ -109,7 +109,7 @@ public class GenericDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E> List<String> getByPrefix(Class<E> klass, String query) {
+	public static <E> List<String> getFromPrefix(Class<E> klass, String query) {
 		String table = getTableFromClass(klass);
 		String field = getKeyColumnFromClass(klass);
 		String sql = String.format(
@@ -124,7 +124,7 @@ public class GenericDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E> List<E> getBySubstring(Class<E> klass, String query) {
+	public static <E> List<E> getFromSubstring(Class<E> klass, String query) {
 		String table = getTableFromClass(klass);
 		String field = getFieldFromClass(klass);
 		String sql = String.format(
@@ -140,7 +140,7 @@ public class GenericDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static <E> List<E> getBySubstringButIgnoreId(Class<E> klass, String query, int id) {
+	public static <E> List<E> getFromSubstringButIgnoreId(Class<E> klass, String query, int id) {
 		String table = getTableFromClass(klass);
 		String field = getFieldFromClass(klass);
 		String sql = String.format(
@@ -156,7 +156,7 @@ public class GenericDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E> List<E> getBySubstringInFieldButIgnoreIds(Class<E> klass, String table, String field, String query, List<Integer> ids) {
+	public static <E> List<E> getFromSubstringInFieldButIgnoreIds(Class<E> klass, String table, String field, String query, List<Integer> ids) {
 		StringBuilder builder  = new StringBuilder();
 		Iterator<Integer> iter = ids.iterator();
 		builder.append("(");
@@ -201,7 +201,7 @@ public class GenericDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static <E> List<String> getBySubsequence(Class<E> klass, String query) {
+	public static <E> List<String> getFromWordInField(Class<E> klass, String query) {
 		String table = getTableFromClass(klass);
 		String field = getKeyColumnFromClass(klass);
 		String sql = String.format(

@@ -12,7 +12,7 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class GeneSetDao {
 	
 	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getByWordInGeneSetName(String query) {
+	public static List<GeneSet> getFromWordInName(String query) {
 		return (List<GeneSet>) HibernateUtil
 			.getCurrentSession()
 			.createSQLQuery(
@@ -51,7 +51,7 @@ public class GeneSetDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getByWordInAttributeNameButIgnoreExactMatches(String query, List<Integer> idsToIgnore) {
+	public static List<GeneSet> getFromWordInNameButIgnoreExactMatches(String query, List<Integer> idsToIgnore) {
 		StringBuilder builder  = new StringBuilder();
 		Iterator<Integer> iter = idsToIgnore.iterator();
 		builder.append("(");

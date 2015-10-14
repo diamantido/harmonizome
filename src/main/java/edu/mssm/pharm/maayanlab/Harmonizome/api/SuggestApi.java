@@ -49,13 +49,13 @@ public class SuggestApi extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 
-			suggestions.addAll(GenericDao.getByPrefix(Gene.class, query));
-			suggestions.addAll(GenericDao.getByPrefix(Dataset.class, query));
-			suggestions.addAll(GenericDao.getBySubsequence(Dataset.class, query));
-			suggestions.addAll(GenericDao.getByPrefix(Resource.class, query));
-			suggestions.addAll(GenericDao.getBySubsequence(Resource.class, query));
+			suggestions.addAll(GenericDao.getFromPrefix(Gene.class, query));
+			suggestions.addAll(GenericDao.getFromPrefix(Dataset.class, query));
+			suggestions.addAll(GenericDao.getFromWordInField(Dataset.class, query));
+			suggestions.addAll(GenericDao.getFromPrefix(Resource.class, query));
+			suggestions.addAll(GenericDao.getFromWordInField(Resource.class, query));
 			// There are a lot of attributes. Don't suggest everything.
-			List<String> attributeSuggestions = GenericDao.getByPrefix(Attribute.class, query);
+			List<String> attributeSuggestions = GenericDao.getFromPrefix(Attribute.class, query);
 			if (attributeSuggestions.size() > MAX_ATTRIBUTES_TO_SUGGEST) {
 				attributeSuggestions = attributeSuggestions.subList(0, MAX_ATTRIBUTES_TO_SUGGEST);
 			}

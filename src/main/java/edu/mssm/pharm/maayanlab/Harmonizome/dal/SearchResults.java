@@ -71,17 +71,15 @@ public class SearchResults {
 		List<String> datasetSuggestions = suggestions.get("datasets");
 		int datasetIdToIgnore;
 		Dataset exactDataset = GenericDao.get(Dataset.class, query);
-
 		if (exactDataset != null) {
 			datasetIdToIgnore = exactDataset.getId();
 			datasets.add(exactDataset);
-			datasets.addAll(GenericDao.getBySubstringButIgnoreId(Dataset.class, query, datasetIdToIgnore));
+			datasets.addAll(GenericDao.getFromSubstringButIgnoreId(Dataset.class, query, datasetIdToIgnore));
 		} else {
-			datasets.addAll(GenericDao.getBySubstring(Dataset.class, query));
+			datasets.addAll(GenericDao.getFromSubstring(Dataset.class, query));
 			datasets.addAll(DatasetDao.getByResourceName(query));
 			datasets.addAll(DatasetDao.getByWordInResourceName(query));
 		}
-		
 		if (datasets.size() == 0) {
 			datasetSuggestions.addAll(GenericDao.getSuggestions(Dataset.class, query));
 		}
@@ -94,10 +92,10 @@ public class SearchResults {
 		if (exactGene != null) {
 			geneIdToIgnore = exactGene.getId();
 			genes.add(exactGene);
-			genes.addAll(GenericDao.getBySubstringButIgnoreId(Gene.class, query, geneIdToIgnore));
+			genes.addAll(GenericDao.getFromSubstringButIgnoreId(Gene.class, query, geneIdToIgnore));
 		} else {
+			genes.addAll(GenericDao.getFromSubstring(Gene.class, query));
 			genes.addAll(GeneDao.getFromName(query));
-			genes.addAll(GenericDao.getBySubstring(Gene.class, query));
 		}
 		if (genes.size() == 0) {
 			geneSuggestions.addAll(GenericDao.getSuggestions(Gene.class, query));
@@ -113,9 +111,9 @@ public class SearchResults {
 				idsToIgnore.add(geneSet.getId());
 			}
 			geneSets.addAll(exactGeneSets);
-			geneSets.addAll(GeneSetDao.getByWordInAttributeNameButIgnoreExactMatches(query, idsToIgnore));
+			geneSets.addAll(GeneSetDao.getFromWordInNameButIgnoreExactMatches(query, idsToIgnore));
 		} else {
-			geneSets.addAll(GeneSetDao.getByWordInGeneSetName(query));
+			geneSets.addAll(GeneSetDao.getFromWordInName(query));
 		}
 		if (geneSets.size() == 0) {
 			getSetSuggestions.addAll(GenericDao.getSuggestions(GeneSet.class, query));
