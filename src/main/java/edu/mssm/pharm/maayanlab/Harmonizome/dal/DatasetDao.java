@@ -8,7 +8,7 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class DatasetDao {
 
 	@SuppressWarnings("unchecked")
-	public static List<Dataset> getByGene(String geneSymbol) {
+	public static List<Dataset> getFromGene(String geneSymbol) {
 		return (List<Dataset>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
@@ -34,9 +34,9 @@ public class DatasetDao {
 			.setString("datasetName", datasetName)
 			.uniqueResult();
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public static List<Dataset> getByResourceName(String query) {
+	public static List<Dataset> getFromResourceName(String query) {
 		return (List<Dataset>) HibernateUtil
 			.getCurrentSession()
 			.createSQLQuery(
@@ -50,7 +50,7 @@ public class DatasetDao {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static List<Dataset> getByWordInResourceName(String query) {
+	public static List<Dataset> getFromWordInResourceName(String query) {
 		return (List<Dataset>) HibernateUtil
 			.getCurrentSession()
 			.createSQLQuery(
