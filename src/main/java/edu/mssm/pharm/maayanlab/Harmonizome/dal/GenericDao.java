@@ -151,7 +151,7 @@ public class GenericDao {
 			.getCurrentSession()
 			.createSQLQuery(sql)
 			.addEntity(klass)
-			.setString("query", query + "*")
+			.setString("query", "*" + query + "*")
 			.list();
 	}
 
@@ -175,7 +175,7 @@ public class GenericDao {
 			.getCurrentSession()
 			.createSQLQuery(sql)
 			.addEntity(klass)
-			.setString("query", query + "*")
+			.setString("query", "*" + query + "*")
 			.list();
 	}
 	

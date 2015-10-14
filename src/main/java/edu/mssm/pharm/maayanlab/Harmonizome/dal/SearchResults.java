@@ -77,9 +77,9 @@ public class SearchResults {
 			datasets.add(exactDataset);
 			datasets.addAll(GenericDao.getBySubstringButIgnoreId(Dataset.class, query, datasetIdToIgnore));
 		} else {
+			datasets.addAll(GenericDao.getBySubstring(Dataset.class, query));
 			datasets.addAll(DatasetDao.getByResourceName(query));
 			datasets.addAll(DatasetDao.getByWordInResourceName(query));
-			datasets.addAll(GenericDao.getBySubstring(Dataset.class, query));
 		}
 		
 		if (datasets.size() == 0) {
