@@ -16,7 +16,6 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
@@ -51,7 +50,6 @@ public class SuggestApi extends HttpServlet {
 			HibernateUtil.beginTransaction();
 
 			suggestions.addAll(GenericDao.getByPrefix(Gene.class, query));
-			//suggestions.addAll(GeneDao.getByDescription(query));
 			suggestions.addAll(GenericDao.getByPrefix(Dataset.class, query));
 			suggestions.addAll(GenericDao.getBySubsequence(Dataset.class, query));
 			suggestions.addAll(GenericDao.getByPrefix(Resource.class, query));

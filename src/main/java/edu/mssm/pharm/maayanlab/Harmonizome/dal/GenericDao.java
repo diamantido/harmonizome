@@ -85,7 +85,7 @@ public class GenericDao {
 			.addEntity(klass)
 			.uniqueResult();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static <E> List<String> getSuggestions(Class<E> klass, String query) {
 		String table = getTableFromClass(klass);

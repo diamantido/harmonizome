@@ -96,6 +96,7 @@ public class SearchResults {
 			genes.add(exactGene);
 			genes.addAll(GenericDao.getBySubstringButIgnoreId(Gene.class, query, geneIdToIgnore));
 		} else {
+			genes.addAll(GeneDao.getFromName(query));
 			genes.addAll(GenericDao.getBySubstring(Gene.class, query));
 		}
 		if (genes.size() == 0) {
