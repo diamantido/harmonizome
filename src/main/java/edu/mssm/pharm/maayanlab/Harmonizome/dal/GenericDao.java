@@ -172,4 +172,17 @@ public class GenericDao {
 		BioEntityMetadata anno = klass.getAnnotation(BioEntityMetadata.class);
 		return anno.keyColumn();
 	}
+
+	@SuppressWarnings("unchecked")
+	public static <E> List<String> getBySubsequence(Class<E> klass, String query) {
+		String table = getTableFromClass(klass);
+		String field = getKeyColumnFromClass(klass);
+		String sql = String.format(
+			"SELECT DISTINCT %s FROM %s WHERE MATCH(%s) AGAINST('*%s*' IN BOOLEAN MODE);", field, table, field, query
+		);		
+		return (List<String>) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(sql)
+			.list();
+	}
 }

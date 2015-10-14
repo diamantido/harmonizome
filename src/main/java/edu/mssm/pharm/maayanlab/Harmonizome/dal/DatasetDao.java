@@ -36,8 +36,27 @@ public class DatasetDao {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public static List<Dataset> getByResourceName(String query) {
+		return (List<Dataset>) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(
+				"SELECT * FROM dataset " +
+				"JOIN resource ON dataset.resource_fk = resource.id " +
+				"WHERE resource.name = ?"
+			)
+			.addEntity(Dataset.class)
+			.setParameter(0, query)
+			.list();
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static List<Dataset> getByWordInResourceName(String query) {
-		String sql = String.format("SELECT * FROM dataset JOIN resource ON dataset.resource_fk = resource.id WHERE MATCH(resource.name) AGAINST('%s*' IN BOOLEAN MODE)", query);		
+		String sql = String.format("" +
+			"SELECT * FROM dataset " +
+			"JOIN resource ON dataset.resource_fk = resource.id " +
+			"WHERE MATCH(resource.name) AGAINST('%s*' IN BOOLEAN MODE)",
+			query
+		);
 		return (List<Dataset>) HibernateUtil
 			.getCurrentSession()
 			.createSQLQuery(sql)

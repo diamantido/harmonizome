@@ -1,5 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -62,4 +63,20 @@ public class GeneDao {
 			.setInteger("thresholdValue", thresholdValue)
 			.list();
 	}
+
+//	public static List<String> getByDescription(String query) {
+//		return (List<String>) HibernateUtil
+//			.getCurrentSession()
+//			.createQuery(
+//				"SELECT DISTINCT gene FROM Gene AS gene " +
+//				"JOIN gene.features AS feats " +
+//				"JOIN feats.geneSet AS geneSet " +
+//				"JOIN geneSet.dataset AS dataset " +
+//				"WHERE geneSet.nameFromDataset = :geneSetName AND dataset.name = :datasetName AND feats.thresholdValue = :thresholdValue"
+//			)
+//			.setString("geneSetName", geneSetName)
+//			.setString("datasetName", datasetName)
+//			.setInteger("thresholdValue", thresholdValue)
+//			.list();
+//	}
 }

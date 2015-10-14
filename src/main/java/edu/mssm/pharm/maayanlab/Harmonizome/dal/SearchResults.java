@@ -71,14 +71,17 @@ public class SearchResults {
 		List<String> datasetSuggestions = suggestions.get("datasets");
 		int datasetIdToIgnore;
 		Dataset exactDataset = GenericDao.get(Dataset.class, query);
+
 		if (exactDataset != null) {
 			datasetIdToIgnore = exactDataset.getId();
 			datasets.add(exactDataset);
 			datasets.addAll(GenericDao.getBySubstringButIgnoreId(Dataset.class, query, datasetIdToIgnore));
 		} else {
+			datasets.addAll(DatasetDao.getByResourceName(query));
+			datasets.addAll(DatasetDao.getByWordInResourceName(query));
 			datasets.addAll(GenericDao.getBySubstring(Dataset.class, query));
 		}
-		datasets.addAll(DatasetDao.getByWordInResourceName(query));
+		
 		if (datasets.size() == 0) {
 			datasetSuggestions.addAll(GenericDao.getSuggestions(Dataset.class, query));
 		}
