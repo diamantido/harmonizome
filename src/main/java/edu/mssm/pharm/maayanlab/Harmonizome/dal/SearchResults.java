@@ -115,7 +115,7 @@ public class SearchResults {
 			geneSets.addAll(exactGeneSets);
 			geneSets.addAll(GeneSetDao.getByWordInAttributeNameButIgnoreExactMatches(query, idsToIgnore));
 		} else {
-			geneSets.addAll(GeneSetDao.getByWordInAttributeName(query));
+			geneSets.addAll(GeneSetDao.getByWordInGeneSetName(query));
 		}
 		if (geneSets.size() == 0) {
 			getSetSuggestions.addAll(GenericDao.getSuggestions(GeneSet.class, query));

@@ -37,9 +37,9 @@ public class GeneDao {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT COUNT (DISTINCT gene) FROM Gene AS gene " +
-				"JOIN gene.features AS feats " +
-				"JOIN feats.geneSet AS geneSet " +
-				"JOIN geneSet.dataset AS dataset " +
+				"  JOIN gene.features AS feats " +
+				"  JOIN feats.geneSet AS geneSet " +
+				"  JOIN geneSet.dataset AS dataset " +
 				"WHERE dataset.name = :datasetName"
 			)
 			.setString("datasetName", datasetName)
@@ -52,10 +52,12 @@ public class GeneDao {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT DISTINCT gene FROM Gene AS gene " +
-				"JOIN gene.features AS feats " +
-				"JOIN feats.geneSet AS geneSet " +
-				"JOIN geneSet.dataset AS dataset " +
-				"WHERE geneSet.nameFromDataset = :geneSetName AND dataset.name = :datasetName AND feats.thresholdValue = :thresholdValue"
+				"  JOIN gene.features AS feats " +
+				"  JOIN feats.geneSet AS geneSet " +
+				"  JOIN geneSet.dataset AS dataset " +
+				"WHERE geneSet.nameFromDataset = :geneSetName " +
+				"  AND dataset.name = :datasetName " +
+				"  AND feats.thresholdValue = :thresholdValue"
 			)
 			.setString("geneSetName", geneSetName)
 			.setString("datasetName", datasetName)
@@ -67,9 +69,12 @@ public class GeneDao {
 	public static List<Gene> getFromName(String query) {	
 		return (List<Gene>) HibernateUtil
 			.getCurrentSession()
-			.createSQLQuery("SELECT DISTINCT * FROM gene WHERE MATCH(gene.name) AGAINST(:geneName IN BOOLEAN MODE)")
+			.createSQLQuery(
+				"SELECT DISTINCT * FROM gene " +
+				"WHERE MATCH(gene.name) AGAINST(:geneName IN BOOLEAN MODE)"
+			)
 			.addEntity(Gene.class)
-			.setParameter("geneName", "%" + query + "%")
+			.setString("geneName", "%" + query + "%")
 			.list();
 	}
 }
