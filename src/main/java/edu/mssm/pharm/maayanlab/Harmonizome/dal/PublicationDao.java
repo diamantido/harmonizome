@@ -13,8 +13,8 @@ public class PublicationDao {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT DISTINCT publication FROM Publication AS publication " +
-				"JOIN publication.datasets AS dataset " +
-				"JOIN dataset.resource AS resource " +
+				"  JOIN publication.datasets AS dataset " +
+				"  JOIN dataset.resource AS resource " +
 				"WHERE resource.name = :resourceName"
 			)
 			.setString("resourceName", resourceName)

@@ -204,9 +204,8 @@ table {
 		width: 100px;
 	}
 	.bar {
-		width: 420px;
+		width: 460px;
 	}
-	.advanced-search,
 	.submit-button {
 		width: 40px;
 	}
@@ -295,12 +294,20 @@ table {
 		}
 	}
 }
-@media (max-width: 992px) {
+@media (max-width: 584px) {
     .footer {
         height: 230px;
         #share {
         	float: left !important;
+        	a {
+        		position: relative;
+        		left: -5px;
+        	}
         }
+    }
+}
+@media (max-width: 464px) {
+    .footer {
         #contact {
 			.last {
 				border-left: none;

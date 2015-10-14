@@ -20,6 +20,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
@@ -51,16 +52,19 @@ public class SuggestApi extends HttpServlet {
 			HibernateUtil.beginTransaction();
 
 			List<String> attributeSuggestions = null;
-			if (type.equals("gene")) {
-				suggestions.addAll(GenericDao.getByPrefix(Gene.class, query));
-			} else if (type.equals("dataset")) {
-				suggestions.addAll(GenericDao.getByPrefix(Dataset.class, query));
-			} else if (type.equals("geneSet")) {
-				attributeSuggestions = GenericDao.getByPrefix(Attribute.class, query);
-			} else {
-				suggestions.addAll(GenericDao.getByPrefix(Gene.class, query));
-				suggestions.addAll(GenericDao.getByPrefix(Dataset.class, query));
-				attributeSuggestions = GenericDao.getByPrefix(Attribute.class, query);
+			boolean searchAll = (type == null || type.equals("all"));
+			
+			if (searchAll || type.equals("gene")) {
+				suggestions.addAll(GenericDao.getFromPrefix(Gene.class, query));
+			}
+			if (searchAll || type.equals("dataset")) {
+				suggestions.addAll(GenericDao.getFromPrefix(Dataset.class, query));
+				suggestions.addAll(GenericDao.getFromWordInField(Dataset.class, query));
+				suggestions.addAll(GenericDao.getFromPrefix(Resource.class, query));
+				suggestions.addAll(GenericDao.getFromWordInField(Resource.class, query));
+			}
+			if (searchAll || type.equals("geneSet")) {
+				attributeSuggestions = GenericDao.getFromPrefix(Attribute.class, query);
 			}
 			
 			// There are a lot of attributes. Don't suggest everything.

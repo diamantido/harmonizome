@@ -12,16 +12,15 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class GeneSetDao {
 	
 	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getByWordInAttributeName(String query) {
-		String sql = String.format("" +
-			"SELECT DISTINCT * FROM gene_set " +
-			"WHERE MATCH(gene_set.name_from_dataset) AGAINST('%s*' IN BOOLEAN MODE)",
-			query
-		);		
+	public static List<GeneSet> getFromWordInName(String query) {
 		return (List<GeneSet>) HibernateUtil
 			.getCurrentSession()
-			.createSQLQuery(sql)
+			.createSQLQuery(
+				"SELECT DISTINCT * FROM gene_set " +
+				"WHERE MATCH(gene_set.name_from_dataset) AGAINST(:query IN BOOLEAN MODE)"		
+			)
 			.addEntity(GeneSet.class)
+			.setString("query", query + "*")
 			.list();
 	}
 	
@@ -42,9 +41,9 @@ public class GeneSetDao {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT geneSet FROM GeneSet AS geneSet " +
-				"JOIN geneSet.dataset AS dataset " +
+				"  JOIN geneSet.dataset AS dataset " +
 				"WHERE geneSet.nameFromDataset = :name " +
-				"AND dataset.name = :datasetName"
+				"  AND dataset.name = :datasetName"
 			)
 			.setString("name", name)
 			.setString("datasetName", datasetName)
@@ -52,7 +51,7 @@ public class GeneSetDao {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getByWordInAttributeNameButIgnoreExactMatches(String query, List<Integer> idsToIgnore) {
+	public static List<GeneSet> getFromWordInNameButIgnoreExactMatches(String query, List<Integer> idsToIgnore) {
 		StringBuilder builder  = new StringBuilder();
 		Iterator<Integer> iter = idsToIgnore.iterator();
 		builder.append("(");
@@ -65,13 +64,15 @@ public class GeneSetDao {
 		builder.append(")");
 		String sql = String.format("" +
 			"SELECT DISTINCT * FROM gene_set " +
-			"WHERE MATCH(gene_set.name_from_dataset) AGAINST('%s*' IN BOOLEAN MODE) AND gene_set.id NOT IN %s", 
-			query, builder.toString()
+			"WHERE MATCH(gene_set.name_from_dataset) AGAINST(:query IN BOOLEAN MODE) " +
+			"  AND gene_set.id NOT IN %s", 
+			builder.toString()
 		);
 		return (List<GeneSet>) HibernateUtil
 			.getCurrentSession()
 			.createSQLQuery(sql)
 			.addEntity(GeneSet.class)
+			.setString("query", query + "*")
 			.list();
 	}
 	
@@ -87,10 +88,12 @@ public class GeneSetDao {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT geneSet FROM GeneSet AS geneSet " +
-				"JOIN geneSet.features AS feats " +
-				"JOIN geneSet.dataset AS dataset " +
-				"JOIN feats.gene AS gene " +
-				"WHERE dataset.name = :datasetName AND gene.symbol = :geneSymbol AND feats.thresholdValue = :thresholdValue"
+				"  JOIN geneSet.features AS feats " +
+				"  JOIN geneSet.dataset AS dataset " +
+				"  JOIN feats.gene AS gene " +
+				"WHERE dataset.name = :datasetName " +
+				"  AND gene.symbol = :geneSymbol " +
+				"  AND feats.thresholdValue = :thresholdValue"
 			)
 			.setString("datasetName", datasetName)
 			.setString("geneSymbol", geneSymbol)

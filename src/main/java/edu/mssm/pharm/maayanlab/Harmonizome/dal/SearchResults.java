@@ -74,11 +74,15 @@ public class SearchResults {
 		if (exactDataset != null) {
 			datasetIdToIgnore = exactDataset.getId();
 			datasets.add(exactDataset);
-			datasets.addAll(GenericDao.getBySubstringButIgnoreId(Dataset.class, query, datasetIdToIgnore));
+			datasets.addAll(GenericDao.getFromSubstringButIgnoreId(Dataset.class, query, datasetIdToIgnore));
 		} else {
-			datasets.addAll(GenericDao.getBySubstring(Dataset.class, query));
+			List<Dataset> datasetsFromResource = DatasetDao.getFromResourceName(query);
+			if (datasetsFromResource.size() != 0) {
+				datasets.addAll(datasetsFromResource);
+			} else {
+				datasets.addAll(DatasetDao.getFromWordInResourceName(query));
+			}
 		}
-		datasets.addAll(DatasetDao.getByWordInResourceName(query));
 		if (datasets.size() == 0) {
 			datasetSuggestions.addAll(GenericDao.getSuggestions(Dataset.class, query));
 		}
@@ -91,9 +95,10 @@ public class SearchResults {
 		if (exactGene != null) {
 			geneIdToIgnore = exactGene.getId();
 			genes.add(exactGene);
-			genes.addAll(GenericDao.getBySubstringButIgnoreId(Gene.class, query, geneIdToIgnore));
+			genes.addAll(GenericDao.getFromSubstringButIgnoreId(Gene.class, query, geneIdToIgnore));
 		} else {
-			genes.addAll(GenericDao.getBySubstring(Gene.class, query));
+			genes.addAll(GenericDao.getFromSubstring(Gene.class, query));
+			genes.addAll(GeneDao.getFromName(query));
 		}
 		if (genes.size() == 0) {
 			geneSuggestions.addAll(GenericDao.getSuggestions(Gene.class, query));
@@ -109,9 +114,9 @@ public class SearchResults {
 				idsToIgnore.add(geneSet.getId());
 			}
 			geneSets.addAll(exactGeneSets);
-			geneSets.addAll(GeneSetDao.getByWordInAttributeNameButIgnoreExactMatches(query, idsToIgnore));
+			geneSets.addAll(GeneSetDao.getFromWordInNameButIgnoreExactMatches(query, idsToIgnore));
 		} else {
-			geneSets.addAll(GeneSetDao.getByWordInAttributeName(query));
+			geneSets.addAll(GeneSetDao.getFromWordInName(query));
 		}
 		if (geneSets.size() == 0) {
 			getSetSuggestions.addAll(GenericDao.getSuggestions(GeneSet.class, query));

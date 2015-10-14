@@ -61,7 +61,7 @@ public class GenePage extends HttpServlet {
 					}
 				}
 				if (gene != null) {
-					datasetsByGene = DatasetDao.getByGene(query);
+					datasetsByGene = DatasetDao.getFromGene(query);
 					Collections.sort(datasetsByGene, new BioEntityAlphabetizer());
 					for (Dataset dataset : datasetsByGene) {
 						uniqueAttributeGroups.add(dataset.getAttributeGroup().getName());
