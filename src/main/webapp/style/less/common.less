@@ -202,6 +202,19 @@ table {
 	}
 	.filters {
 		width: 100px;
+		&.gene {
+			border: 2px solid @color-entity-yellow;
+		}
+		&.geneSet {
+			border: 2px solid @color-entity-red;
+		}
+		&.dataset {
+			border: 2px solid @color-entity-blue;
+		}
+		&.all {
+			/* Don't use a variable for CCC. This is explicitly matching Bootstrap. */
+			border: 1px solid #ccc;
+		}
 	}
 	.bar {
 		width: 460px;
@@ -295,16 +308,9 @@ table {
 	}
 }
 @media (max-width: 584px) {
-    .footer {
-        height: 230px;
-        #share {
-        	float: left !important;
-        	a {
-        		position: relative;
-        		left: -5px;
-        	}
-        }
-    }
+	.hide-on-mobile {
+       	display: none;
+	}
 }
 @media (max-width: 464px) {
     .footer {
@@ -606,20 +612,24 @@ select {
 
 /* Highcharts overwrites
  * ------------------------------------------------------------------------- */
+.highcharts-container {
+/* 	overflow: visible !important;
+ */}
 .highcharts-tooltip {
-	background: white !important;
-	opacity: 1 !important;
+	z-index: 9999 !important;
 	span {
+		padding: 6px;
 		height: auto;
-		width: 400px;
+		background: white !important;
+		width: 362px;
 		white-space: normal !important;
 		z-index: 9999 !important;
-	}
-	table td {
-		vertical-align: top !important;
-		padding-right: 5px;
+		img {
+			width: 350px;
+		}
 	}
 }
+.label,
 .highchart-custom-label {
-	z-index: 1;
+	z-index: 1 !important;
 }

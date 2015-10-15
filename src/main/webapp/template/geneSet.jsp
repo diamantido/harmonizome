@@ -82,11 +82,21 @@
 						</c:if>
 						<table class="table data-table genes">
 							<thead>
-								<tr><th>Gene</th></tr>
+								<tr>
+									<th>Gene</th>
+									<th>Description</th>
+								</tr>
 							</thead>
 							<c:forEach var="gene" items="${genesByAttribute.left}">
 								<tr>
-									<td><a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a></td>
+									<td>
+										<a href="${gene.endpoint}/${gene.urlEncodedValue}">
+											<c:out value="${gene.symbol}"/>
+										</a>
+									</td>
+									<td>
+										<c:out value="${gene.description}"/>
+									</td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -98,11 +108,21 @@
 							</c:if>
 							<table class="table data-table genes">
 								<thead>
-									<tr><th>Gene</th></tr>
+									<tr>
+										<th>Gene</th>
+										<th>Description</th>
+									</tr>
 								</thead>
 								<c:forEach var="gene" items="${genesByAttribute.right}">
 									<tr>
-										<td><a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a></td>
+										<td>
+											<a href="${gene.endpoint}/${gene.urlEncodedValue}">
+												<c:out value="${gene.symbol}"/>
+											</a>
+										</td>
+										<td>
+											<c:out value="${gene.description}"/>
+										</td>
 									</tr>
 								</c:forEach>
 							</table>

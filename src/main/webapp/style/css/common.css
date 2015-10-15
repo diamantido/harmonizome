@@ -206,6 +206,19 @@ table ol {
 .search-bar .filters {
   width: 100px;
 }
+.search-bar .filters.gene {
+  border: 2px solid #ed8c2b;
+}
+.search-bar .filters.geneSet {
+  border: 2px solid #ec1e8e;
+}
+.search-bar .filters.dataset {
+  border: 2px solid #309fab;
+}
+.search-bar .filters.all {
+  /* Don't use a variable for CCC. This is explicitly matching Bootstrap. */
+  border: 1px solid #ccc;
+}
 .search-bar .bar {
   width: 460px;
 }
@@ -287,15 +300,8 @@ table ol {
   padding-left: 8px;
 }
 @media (max-width: 584px) {
-  .footer {
-    height: 230px;
-  }
-  .footer #share {
-    float: left !important;
-  }
-  .footer #share a {
-    position: relative;
-    left: -5px;
+  .hide-on-mobile {
+    display: none;
   }
 }
 @media (max-width: 464px) {
@@ -563,20 +569,25 @@ select {
 }
 /* Highcharts overwrites
  * ------------------------------------------------------------------------- */
+.highcharts-container {
+  /* 	overflow: visible !important;
+ */
+}
 .highcharts-tooltip {
-  background: white !important;
-  opacity: 1 !important;
+  z-index: 9999 !important;
 }
 .highcharts-tooltip span {
+  padding: 6px;
   height: auto;
-  width: 400px;
+  background: white !important;
+  width: 362px;
   white-space: normal !important;
   z-index: 9999 !important;
 }
-.highcharts-tooltip table td {
-  vertical-align: top !important;
-  padding-right: 5px;
+.highcharts-tooltip span img {
+  width: 350px;
 }
+.label,
 .highchart-custom-label {
-  z-index: 1;
+  z-index: 1 !important;
 }

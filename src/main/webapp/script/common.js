@@ -14,6 +14,7 @@ $(function() {
 	}	
 	setupTooltips();
 	setupShowByGroupFunctionality();
+	monitorSearchSelect();
 	
 	var $downloadsTools = $('.gene-set-page .downloads-tools');
 	if ($downloadsTools.length) {
@@ -268,4 +269,14 @@ $(function() {
 	function setupTooltips() {
 		$('[data-toggle="tooltip"]').tooltip();
 	};
+	
+	/* Changes the styling of the select dropdown, depending on entity type.
+	 */
+	function monitorSearchSelect() {
+		var $select = $('.search-bar select.filters');
+		$select.change(function(evt) {
+			$(this).removeClass('all gene geneSet dataset');
+			$(this).addClass($(this).val());
+		});
+	}
 });

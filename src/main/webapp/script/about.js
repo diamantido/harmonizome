@@ -95,20 +95,19 @@ $(function() {
 	            	})[0];
 
 	                return '' +
-	                	'<table>' +
-	                    	'<caption>' + resource.name + '</caption>' +
-	                    	'<tr>' +
-	                    		'<td>Gene Sets</td><td>' + Math.round(Math.pow(10, this.y)) + '</td>' +
-	                    	'</tr>' +
-	                    	'<tr>' +
-	                    		'<td>Description</td><td>' + resource.description + '</td>' +
-	                    	'</tr>' +
-	                    '</table>';
+	                	'<h4>' + resource.name + '</h4>' +
+	                	'<img src="https://placeholdit.imgix.net/~text?txtsize=13&txt=350%C3%9750&w=350&h=50"/>' +
+	                	'<p class="top-buffer">Gene sets: ' + Math.round(Math.pow(10, this.y)) + '</p>' +
+	                    '<p>' + resource.description + '</p>';
 	            },
 	            useHTML: true,
 	            borderRadius: 0,
-	            borderWidth: 1,
-	            backgroundColor: "rgba(255,255,255,1)"
+	            borderWidth: 0,
+	            backgroundColor: "rgba(255,255,255,1)",
+	            style: {
+	            	padding: 0
+	            },
+	            shared: true
 	        },
 	        series: series
 	    });
