@@ -44,6 +44,9 @@ public class Resource implements BioEntity {
 	@Column(name = "num_attributes")
 	private Long numGeneSets;
 	
+	@Column(name = "image")
+	private String image;
+	
 	/* Foreign key relationships
 	 * ------------------------- */
 	@OneToMany(mappedBy = "resource")
@@ -115,6 +118,22 @@ public class Resource implements BioEntity {
 		this.datasets = datasets;
 	}
 	
+	public Long getNumGeneSets() {
+		return numGeneSets;
+	}
+
+	public void setNumGeneSets(Long numGeneSets) {
+		this.numGeneSets = numGeneSets;
+	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	/* Utility functions
 	 * ----------------- */
 	@Transient
@@ -135,13 +154,5 @@ public class Resource implements BioEntity {
 	@Transient
 	public String getEndpoint() {
 		return ENDPOINT;
-	}
-
-	public Long getNumGeneSets() {
-		return numGeneSets;
-	}
-
-	public void setNumGeneSets(Long numGeneSets) {
-		this.numGeneSets = numGeneSets;
 	}
 }

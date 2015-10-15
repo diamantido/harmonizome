@@ -20,6 +20,7 @@ public class ResourceStatsSerializer implements JsonSerializer<Resource> {
 		SerDesUtil.add(result, "url", resource.getUrl());
 		SerDesUtil.add(result, "numGeneSets", resource.getNumGeneSets());
 		SerDesUtil.add(result, "link", Resource.ENDPOINT + "/" + resource.getUrlEncodedValue());
+		SerDesUtil.add(result, "image", resource.getImage());
 		return result;
 	}
 }

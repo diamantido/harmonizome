@@ -35,7 +35,7 @@
 								<ul>
 									<c:forEach var="publication" items="${publications}">
 										<li>
-											<a href="${publication.pubmedUrl}" target="">${publication.longCitation}</a>
+											<a href="${publication.pubmedUrl}" target="_blank">${publication.longCitation}</a>
 										</li>
 									</c:forEach>
 								</ul>

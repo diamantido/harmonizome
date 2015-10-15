@@ -187,6 +187,7 @@ table ol {
 }
 #navbar-wrapper #menu {
   background-color: #343844;
+  margin-bottom: 20px;
 }
 .search-bar {
   width: 600px;
@@ -569,14 +570,15 @@ select {
 }
 /* Highcharts overwrites
  * ------------------------------------------------------------------------- */
-.highcharts-container {
-  /* 	overflow: visible !important;
- */
+.highcharts-container,
+.highcharts-container svg {
+  overflow: visible !important;
 }
 .highcharts-tooltip {
   z-index: 9999 !important;
 }
 .highcharts-tooltip span {
+  border: 1px solid #666666;
   padding: 6px;
   height: auto;
   background: white !important;
@@ -585,7 +587,8 @@ select {
   z-index: 9999 !important;
 }
 .highcharts-tooltip span img {
-  width: 350px;
+  max-width: 350px;
+  /* max-height: 100px; */
 }
 .label,
 .highchart-custom-label {

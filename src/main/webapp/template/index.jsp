@@ -16,7 +16,7 @@
 						<div class="col-md-12 text-center">
 							<img src="image/logo_100x87.png">
 							<h1 class="project-title">Harmonizome</h1>
-							<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources.</p>
+							<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources. <a href="about"><strong>Learn more</strong></a>.</p>
 						</div>
 					</div>
 					<%@include file="searchBar.html" %>
@@ -34,9 +34,6 @@
 									<a href="${Constant.SEARCH_URL}?q=breast+cancer">breast cancer</a>
 								</li>
 							</ul>
-						</div>
-						<div class="col-md-12 about">
-							<strong><a href="about">About the data</a></strong>
 						</div>
 				    </div>
 				</div>

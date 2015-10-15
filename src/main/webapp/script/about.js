@@ -93,14 +93,20 @@ $(function() {
 	            	resource = $.grep(resources, function(v) {
 	            	    return v.name === name;
 	            	})[0];
+	            	
+	            	var title = '<h4>' + resource.name + '</h4>';
+	            	if (resource.image && resource.image !== 'null') {
+	            		title = '<img src="image/resource/' + resource.image + '"/>';
+	            	}
 
 	                return '' +
-	                	'<h4>' + resource.name + '</h4>' +
-	                	'<img src="https://placeholdit.imgix.net/~text?txtsize=13&txt=350%C3%9750&w=350&h=50"/>' +
+	                	title +
 	                	'<p class="top-buffer">Gene sets: ' + Math.round(Math.pow(10, this.y)) + '</p>' +
 	                    '<p>' + resource.description + '</p>';
 	            },
 	            useHTML: true,
+	            shape: 'square',
+	            shadow: false,
 	            borderRadius: 0,
 	            borderWidth: 0,
 	            backgroundColor: "rgba(255,255,255,1)",
