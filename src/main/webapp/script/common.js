@@ -293,12 +293,19 @@ $(function() {
 	function placeSuggestionMenu() {
 		var $ttMenu = $('.tt-menu'),
 			$input = $('.search-bar .input-bar'),
-			$dropdown = $('.search-bar .entity-dropdown'),
+			$dropdown = $('.search-bar .entity-dropdown');
+		
+		/* On small screens */
+		if ($dropdown.css('display') === 'none') {
+			offset = $input.offset();
+			offset.top += $input.outerHeight();
+		} else {
 			offset = $dropdown.offset();
-
-		// Include the padding when placing the dropdown.
-		offset.top += $dropdown.outerHeight();
-		offset.left += $dropdown.outerWidth();
+			// Include the padding when placing the dropdown.
+			offset.top += $dropdown.outerHeight();
+			offset.left += $dropdown.outerWidth();
+		}
+		
 		$ttMenu.css(offset).css('width', $input.width());
 	}
 	
