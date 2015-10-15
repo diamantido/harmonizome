@@ -278,6 +278,11 @@ table ol {
     width: 100%;
   }
 }
+@media (max-width: 375px) {
+  .search-bar.in-navbar .input-bar {
+    width: 120px;
+  }
+}
 .footer {
   background: #eeeeee;
   color: #444444;
