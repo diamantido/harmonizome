@@ -292,8 +292,8 @@ $(function() {
 	 */
 	function placeSuggestionMenu() {
 		var $ttMenu = $('.tt-menu'),
-			$input = $('.input-bar'),
-			$dropdown = $('.entity-dropdown'),
+			$input = $('.search-bar .input-bar'),
+			$dropdown = $('.search-bar .entity-dropdown'),
 			offset = $dropdown.offset();
 
 		// Include the padding when placing the dropdown.
@@ -308,5 +308,26 @@ $(function() {
 		$('.tt-menu').appendTo('body');
 		placeSuggestionMenu();
 		$(window).on('resize', placeSuggestionMenu);
+		if (!$('#landing').length) {
+			setOverlayWhenTyping();
+		}
+	}
+	
+	/* Highlights user typing rather than screen contents.
+	 */
+	function setOverlayWhenTyping() {
+		var $input = $('.search-bar .input-bar .tt-input');
+		$input.keypress(function() {
+			
+		});
+		$input.keyup(function() {
+			var term = $input.val();
+			console.log(term);
+			if (term) {
+				$('.content').css('opacity', .1);
+			} else {
+				$('.content').css('opacity', 1);
+			}
+		});
 	}
 });

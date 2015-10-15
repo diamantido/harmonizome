@@ -3,20 +3,7 @@
     <head>
     	<%@include file="globalIncludes.html" %>
     	<%@include file="commonTitle.html" %>
-		<style>
-			/* Inline as a temporary fix. */
-			iframe {
-				border: none;
-				height: 100%;
-				width: 100%;
-			}
-			.content {
-				height: 100%;
-			}
-			.footer {
-				bottom: -50px;
-			}
-		</style>
+    	<script src="script/visualization.js"></script>
 	</head>
 <body>
 	<body>
