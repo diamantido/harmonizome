@@ -9,7 +9,7 @@
     	<%@include file="commonTitle.html" %>
 	</head>
 	<body>
-		<%@include file="navbar.html"%>
+		<%@include file="navbarWithSearch.jsp"%>
 		
 		<c:set var="dataset" value="${geneSet.dataset}"/>
 		<c:set var="attribute" value="${geneSet.attribute}"/>
@@ -83,18 +83,18 @@
 						<table class="table data-table genes">
 							<thead>
 								<tr>
-									<th>Gene</th>
-									<th>Description</th>
+									<th class="col-md-2">Gene</th>
+									<th class="col-md-10">Description</th>
 								</tr>
 							</thead>
 							<c:forEach var="gene" items="${genesByAttribute.left}">
 								<tr>
-									<td>
+									<td class="col-md-2">
 										<a href="${gene.endpoint}/${gene.urlEncodedValue}">
 											<c:out value="${gene.symbol}"/>
 										</a>
 									</td>
-									<td>
+									<td class="col-md-10">
 										<c:out value="${gene.description}"/>
 									</td>
 								</tr>
@@ -115,12 +115,12 @@
 								</thead>
 								<c:forEach var="gene" items="${genesByAttribute.right}">
 									<tr>
-										<td>
+										<td class="col-md-2">
 											<a href="${gene.endpoint}/${gene.urlEncodedValue}">
 												<c:out value="${gene.symbol}"/>
 											</a>
 										</td>
-										<td>
+										<td class="col-md-10">
 											<c:out value="${gene.description}"/>
 										</td>
 									</tr>

@@ -10,7 +10,7 @@
     	<%@include file="commonTitle.html" %>
     </head>
     <body>
-		<%@include file="navbar.html" %>
+		<%@include file="navbarWithSearch.jsp" %>
 		<div class="wrapper">
 			<div class="content container-full">
 				<div class="container suggest-page">

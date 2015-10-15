@@ -6,7 +6,7 @@
     	<%@include file="commonTitle.html" %>
 	</head>
 	<body>
-		<%@include file="navbar.html"%>
+		<%@include file="navbarWithSearch.jsp"%>
 		<div class="wrapper">
 			<div class="content container">
 				<h1><c:out value="${protein.symbol}"/> <span class="note">Protein</span></h1>

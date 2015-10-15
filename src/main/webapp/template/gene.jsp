@@ -74,7 +74,7 @@
 					</table>
 				</section>
 				<section>
-					<h2>Associations</h2>
+					<h2>Functional Associations</h2>
 					<p class="instruction">
 						<c:out value="${allAssociationsSummary}"/>	
 					</p>

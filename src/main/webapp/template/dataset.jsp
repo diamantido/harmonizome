@@ -10,7 +10,7 @@
     	<%@include file="commonTitle.html" %>
 	</head>
 	<body>
-		<%@include file="navbar.html" %>
+		<%@include file="navbarWithSearch.jsp" %>
 		<div class="wrapper">
 			<div class="content container dataset-page">
 				<h1><c:out value="${dataset.name}"/> <span class="note dataset">Dataset</span></h1>
