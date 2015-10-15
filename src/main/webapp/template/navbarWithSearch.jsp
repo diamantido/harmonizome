@@ -9,7 +9,9 @@
 	
 		<!-- MENU -->
 		
-		<%@include file="searchBar.html" %>
+		<jsp:include page="searchBar.jsp">
+			<jsp:param value="in-navbar" name="location"/>
+		</jsp:include>
 
 		<!-- This is the dropdown button for the mobile version of the site -->
 		<div id="menu-dropdown" class="navbar-header">

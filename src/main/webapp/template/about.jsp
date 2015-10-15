@@ -20,7 +20,9 @@
 						</div>
 					</div>
 					<div class="row stats">
-						<h2 class="col-md-12">Stats</h2>
+						<div class="col-md-12">
+							<h2>Stats</h2>
+						</div>
 						<div class="col-md-4">
 							<ul class="list-unstyled">
 								<li><strong><c:out value="${stats.getNumFeatures()}"></c:out> associations</strong> between</li>

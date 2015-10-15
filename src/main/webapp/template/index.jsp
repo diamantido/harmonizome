@@ -16,10 +16,12 @@
 						<div class="col-md-12 text-center">
 							<img src="image/logo_100x87.png">
 							<h1 class="project-title">Harmonizome</h1>
-							<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources. <a href="about"><strong>Learn more</strong></a>.</p>
+							<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources. <a href="about#resources"><strong>Learn more</strong></a>.</p>
 						</div>
 					</div>
-					<%@include file="searchBar.html" %>
+					<jsp:include page="searchBar.jsp">
+						<jsp:param value="on-index-page" name="location"/>
+					</jsp:include>
 					<div class="row top-buffer text-center">
 						<div class="col-md-12">
 							<strong>Example searches</strong>

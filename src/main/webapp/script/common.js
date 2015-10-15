@@ -11,7 +11,8 @@ $(function() {
 	var $searchEl = $('.search-bar');
 	if ($searchEl.length) {
 		setupSearch($searchEl);
-	}	
+	}
+
 	setupTooltips();
 	setupShowByGroupFunctionality();
 	monitorSearchSelect();
@@ -243,7 +244,7 @@ $(function() {
 					remote: {
 						url: API_URL + 'suggest?q=%QUERY',
 						replace: function(url, urlEncodedQuery) {
-							var type = $('.search-bar .filters :selected').val();
+							var type = $('.search-bar .entity-dropdown :selected').val();
 							url = url.replace('%QUERY', urlEncodedQuery);
 							return url + '&t=' + type;
 						},
@@ -260,6 +261,12 @@ $(function() {
 						name: 'genes',
 						source: genes.ttAdapter()
 					});
+				
+				/* Now move the Typeahead suggestion box outside of the input
+				 * form. We do this because the input form needs
+				 * "overflow: hidden". See: http://jsfiddle.net/0z1uup9t/
+				 */
+				monitorSuggestionsDropdown();
 			}
 		});
 	}
@@ -273,10 +280,33 @@ $(function() {
 	/* Changes the styling of the select dropdown, depending on entity type.
 	 */
 	function monitorSearchSelect() {
-		var $select = $('.search-bar select.filters');
+		var $select = $('.search-bar select.entity-dropdown');
 		$select.change(function(evt) {
 			$(this).removeClass('all gene geneSet dataset');
 			$(this).addClass($(this).val());
+			placeSuggestionMenu();
 		});
+	}
+	
+	/* Correctly places the suggestion menu.
+	 */
+	function placeSuggestionMenu() {
+		var $ttMenu = $('.tt-menu'),
+			$input = $('.input-bar'),
+			$dropdown = $('.entity-dropdown'),
+			offset = $dropdown.offset();
+
+		// Include the padding when placing the dropdown.
+		offset.top += $dropdown.outerHeight();
+		offset.left += $dropdown.outerWidth();
+		$ttMenu.css(offset).css('width', $input.width());
+	}
+	
+	/* Handle correctly displaying Twitter Typeahead dropdown on any page.
+	 */
+	function monitorSuggestionsDropdown() {
+		$('.tt-menu').appendTo('body');
+		placeSuggestionMenu();
+		$(window).on('resize', placeSuggestionMenu);
 	}
 });

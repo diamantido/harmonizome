@@ -13,7 +13,7 @@
     	<meta name="keywords" content="${gene.symbol}, ${Constant.META_KEYWORDS}"/>
 	</head>
 	<body>
-		<%@include file="navbar.html" %>
+		<%@include file="navbarWithSearch.jsp" %>
 		<div class="wrapper">
 			<div class="content container">
 				<h1 class="initial">${gene.symbol} <span class="note gene">${note}</span></h1>

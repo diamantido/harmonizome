@@ -19,7 +19,9 @@
 					</ul>
 				</div>
 				<div class="col-md-6 input-group">
-					<%@include file="searchBar.html" %>
+					<jsp:include page="searchBar.jsp">
+						<jsp:param value="on-no-results-page" name="location"/>
+					</jsp:include>
 				</div>
 			</div>
 			<%@include file="footer.html"%>

@@ -127,6 +127,10 @@ table ol {
   background-color: #343844;
   height: 50px;
   padding: 10px;
+  /* Important! Otherwise the dropdown menu doesn't work!
+     * See: http://stackoverflow.com/a/16156332/1830334
+     */
+  position: relative;
 }
 #navbar-wrapper h1 {
   border: none;
@@ -189,45 +193,14 @@ table ol {
   background-color: #343844;
   margin-bottom: 20px;
 }
-.search-bar {
-  width: 600px;
-  margin: 0 auto;
-}
-.search-bar .filters,
-.search-bar .bar,
-.search-bar .submit-button,
-.search-bar .advanced-search {
-  float: left;
-}
-.search-bar input {
-  /* Remove double border from Bootstrap form-controls. */
-  border-left: none;
-  border-right: none;
-}
-.search-bar .filters {
-  width: 100px;
-}
-.search-bar .filters.gene {
-  border: 2px solid #ed8c2b;
-}
-.search-bar .filters.geneSet {
-  border: 2px solid #ec1e8e;
-}
-.search-bar .filters.dataset {
-  border: 2px solid #309fab;
-}
-.search-bar .filters.all {
-  /* Don't use a variable for CCC. This is explicitly matching Bootstrap. */
-  border: 1px solid #ccc;
-}
-.search-bar .bar {
-  width: 460px;
-}
-.search-bar .submit-button {
-  width: 40px;
-}
 @media (max-width: 1000px) {
+  #navbar-wrapper {
+    /* If these two selectors seem nonsensical, it's because they target two different pages. */
+  }
   #navbar-wrapper h1 .credits {
+    display: none;
+  }
+  #navbar-wrapper h1 .project-title {
     display: none;
   }
 }
@@ -245,24 +218,64 @@ table ol {
   #navbar-wrapper #menu li {
     padding: 5px 10px;
   }
+  #navbar-wrapper .search-bar .entity-dropdown {
+    display: none;
+  }
   #navbar-wrapper ul {
     top: 0;
   }
-  .search-bar {
+}
+.search-bar.on-index-page {
+  margin: 0 auto;
+  width: 600px;
+}
+.search-bar.in-navbar {
+  float: left;
+  margin: 0 0 0 10px;
+  position: relative;
+  bottom: 2px;
+}
+.search-bar form {
+  width: 100%;
+  display: inline-block;
+}
+.search-bar .input-bar {
+  overflow: hidden;
+}
+.search-bar .input-bar input {
+  /* Remove double border from Bootstrap form-controls. */
+  border-left: none;
+  border-right: none;
+  width: 100%;
+}
+.search-bar .entity-dropdown {
+  float: left;
+}
+.search-bar .entity-dropdown.gene {
+  border: 2px solid #ed8c2b;
+  width: 80px;
+}
+.search-bar .entity-dropdown.geneSet {
+  border: 2px solid #ec1e8e;
+  width: 105px;
+}
+.search-bar .entity-dropdown.dataset {
+  border: 2px solid #309fab;
+  width: 95px;
+}
+.search-bar .entity-dropdown.all {
+  /* Don't use a variable for CCC. This is explicitly matching Bootstrap. */
+  border: 1px solid #ccc;
+  width: 55px;
+}
+.search-bar .submit-button {
+  float: right;
+  background: lightblue;
+  width: 40px;
+}
+@media (max-width: 768px) {
+  .search-bar.on-index-page {
     width: 100%;
-  }
-  .search-bar input {
-    border-left: 1px solid #ccc;
-  }
-  .search-bar .filters,
-  .search-bar .advanced-search {
-    display: none;
-  }
-  .search-bar .bar {
-    width: 90%;
-  }
-  .search-bar .submit-button {
-    width: 10%;
   }
 }
 .footer {
@@ -500,26 +513,33 @@ select {
 .dropdown-menu > li {
   display: table-cell;
 }
+.nav > li > a:focus,
+.nav > li > a:hover {
+  background-color: #343844;
+}
 /* jQuery UI overwrites.
  * ------------------------------------------------------------------------- */
 .twitter-typeahead {
   float: left;
 }
-.twitter-typeahead .tt-query,
-.twitter-typeahead .tt-hint {
+.tt-query,
+.tt-hint {
   color: #aaaaaa;
 }
-.twitter-typeahead .tt-menu {
-  width: 100%;
+.tt-menu {
   padding: 8px 0;
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  /* Twitter Bootstrap nav's have a z-index of 1000.
+     * We need !important because Typeahead sets it to 100.
+     */
+  z-index: 1001 !important;
 }
-.twitter-typeahead .tt-suggestion {
+.tt-suggestion {
   padding: 3px 20px;
 }
-.twitter-typeahead .tt-suggestion:hover {
+.tt-suggestion:hover {
   background: #eeeeee;
   cursor: pointer;
 }
