@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
-@WebServlet(urlPatterns = { "/advanced+search" })
-public class AdvancedSearchPage extends HttpServlet {
+@WebServlet(urlPatterns = { "/mobile" })
+public class MobilePage extends HttpServlet {
 
 	private static final long serialVersionUID = -5032535770681745969L;
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "advancedSearch.jsp").forward(request, response);
+		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "mobile.jsp").forward(request, response);
 	}
 }

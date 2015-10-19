@@ -16,7 +16,7 @@
 						<div class="col-md-12 text-center">
 							<img src="image/logo_100x87.png">
 							<h1 class="project-title">Harmonizome</h1>
-							<p class="instruction">Search for genes and functional terms extracted and organized from over a hundred publicly available resources. <a href="about#resources"><strong>Learn more</strong></a>.</p>
+							<p class="instruction">Search for genes or proteins and their functional terms extracted and organized from over a hundred publicly available resources. <a href="about#resources"><strong>Learn more</strong></a>.</p>
 						</div>
 					</div>
 					<jsp:include page="searchBar.jsp">

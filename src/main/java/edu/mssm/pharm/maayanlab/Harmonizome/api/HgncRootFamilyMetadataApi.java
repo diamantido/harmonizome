@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.HgncRootFamilyMetadataSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
@@ -24,6 +26,7 @@ public class HgncRootFamilyMetadataApi extends HttpServlet {
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(HgncRootFamily.class, new HgncRootFamilyMetadataSerializer());
+		gsonBuilder.registerTypeAdapter(Gene.class, new BioEntityLinkSerializer());
 		gson = gsonBuilder.create();
 	}
 

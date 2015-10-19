@@ -193,18 +193,23 @@ table ol {
   background-color: #343844;
   margin-bottom: 20px;
 }
-@media (max-width: 1000px) {
+@media (max-width: 1200px) {
   #navbar-wrapper {
     /* If these two selectors seem nonsensical, it's because they target two different pages. */
   }
   #navbar-wrapper h1 .credits {
     display: none;
   }
-  #navbar-wrapper h1 .project-title {
-    display: none;
+}
+@media (max-width: 1000px) {
+  #navbar-wrapper {
+    /* If these two selectors seem nonsensical, it's because they target two different pages. */
   }
 }
 @media (max-width: 768px) {
+  #navbar-wrapper h1 .project-title {
+    display: none;
+  }
   #navbar-wrapper #menu {
     width: 100%;
   }

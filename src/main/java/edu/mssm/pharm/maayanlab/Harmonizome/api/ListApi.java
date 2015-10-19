@@ -15,6 +15,7 @@ import com.google.gson.GsonBuilder;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.EntityListSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -31,13 +32,19 @@ public class ListApi {
 			
 			String cursor = request.getParameter(Constant.API_CURSOR);
 			int startAt = cursor == null ? 0 : Integer.parseInt(cursor);
-			EntityListSchema<T> schema = new EntityListSchema<T>(endpoint, startAt);
+			Long count = GenericDao.getCount(klass);
 			
-			List<T> entities = null;
-			entities = GenericDao.getAll(klass, startAt);
-			schema.setEntities(entities);
 			PrintWriter out = response.getWriter();
-			out.write(gson.toJson(schema));
+			if (startAt >= count) {
+				ErrorSchema schema = new ErrorSchema(ErrorSchema.Status.NOT_FOUND, "Cursor is out of range.");
+				out.write(gson.toJson(schema));
+			} else {
+				EntityListSchema<T> schema = new EntityListSchema<T>(count, endpoint, startAt);
+				List<T> entities = null;
+				entities = GenericDao.getAll(klass, startAt);
+				schema.setEntities(entities);
+				out.write(gson.toJson(schema));
+			}
 			out.flush();
 			
 			HibernateUtil.commitTransaction();
