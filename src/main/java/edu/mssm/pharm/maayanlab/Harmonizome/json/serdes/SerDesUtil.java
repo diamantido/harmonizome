@@ -7,26 +7,27 @@ import com.google.gson.JsonPrimitive;
 public class SerDesUtil {
 	
 	public static void add(JsonObject result, String key, String value) {
-		if (value != null) {
-			result.add(key, new JsonPrimitive(value));
+		if (value == null) {
+			value = "";
 		}
+		result.add(key, new JsonPrimitive(value));
 	}
 	
 	public static void add(JsonObject result, String key, Integer value) {
-		if (value != null) {
-			result.add(key, new JsonPrimitive(value));
+		if (value == null) {
+			value = 0;
 		}
+		result.add(key, new JsonPrimitive(value));
 	}
 	
 	public static void add(JsonObject result, String key, Long value) {
-		if (value != null) {
-			result.add(key, new JsonPrimitive(value));
+		if (value == null) {
+			value = new Long(0);
 		}
+		result.add(key, new JsonPrimitive(value));
 	}
 
 	public static void add(JsonObject result, String key, JsonArray array) {
-		if (array.size() > 0) {
-			result.add(key, array);
-		}
+		result.add(key, array);
 	}
 }
