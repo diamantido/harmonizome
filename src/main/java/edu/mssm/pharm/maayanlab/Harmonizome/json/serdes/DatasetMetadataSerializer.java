@@ -11,6 +11,7 @@ import com.google.gson.JsonSerializer;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Publication;
 
 public class DatasetMetadataSerializer implements JsonSerializer<Dataset> {
 
@@ -18,13 +19,20 @@ public class DatasetMetadataSerializer implements JsonSerializer<Dataset> {
 
 		JsonObject result = new JsonObject();
 		result.add("name", new JsonPrimitive(dataset.getName()));
+		result.add("resource", context.serialize(dataset.getResource()));
 		result.add("association", new JsonPrimitive(dataset.getAssociation()));
 		result.add("description", new JsonPrimitive(dataset.getDescription()));
 		result.add("datasetGroup", new JsonPrimitive(dataset.getDatasetGroup().getName()));
 		result.add("measurement", new JsonPrimitive(dataset.getMeasurement().getName()));
 		result.add("attributeGroup", new JsonPrimitive(dataset.getAttributeGroup().getName()));
 		result.add("attributeType", new JsonPrimitive(dataset.getAttributeType().getName()));
-
+		
+		JsonArray pubMedIds = new JsonArray();
+		for (Publication publication : dataset.getPublications()) {
+			pubMedIds.add(new JsonPrimitive(publication.getPmid()));
+		}
+		result.add("pubMedIds", pubMedIds);
+		
 		JsonArray geneSets = new JsonArray();
 		for (GeneSet geneSet : dataset.getGeneSets()) {
 			geneSets.add(context.serialize(geneSet));

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.ResourceMetadataSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
@@ -24,6 +26,7 @@ public class ResourceMetadataApi extends HttpServlet {
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Resource.class, new ResourceMetadataSerializer());
+		gsonBuilder.registerTypeAdapter(Dataset.class, new BioEntityLinkSerializer());
 		gson = gsonBuilder.create();
 	}
 

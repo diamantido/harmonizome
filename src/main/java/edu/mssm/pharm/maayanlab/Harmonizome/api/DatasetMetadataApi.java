@@ -15,6 +15,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.DatasetMetadataSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Dataset.ENDPOINT + "/*" })
@@ -26,6 +27,7 @@ public class DatasetMetadataApi extends HttpServlet {
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Dataset.class, new DatasetMetadataSerializer());
+		gsonBuilder.registerTypeAdapter(Resource.class, new BioEntityLinkSerializer());
 		gsonBuilder.registerTypeAdapter(GeneSet.class, new BioEntityLinkSerializer());
 		gson = gsonBuilder.create();
 	}

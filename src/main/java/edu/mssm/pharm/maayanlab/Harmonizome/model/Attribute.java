@@ -1,5 +1,7 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -44,6 +47,11 @@ public class Attribute implements BioEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "naming_authority_fk")
 	private NamingAuthority namingAuthority;
+	
+	/* Back references
+	 * --------------- */
+	@OneToMany(mappedBy = "attribute")
+	private Set<GeneSet> geneSets;
 
 	/* Utilities
 	 * --------- */
@@ -54,6 +62,10 @@ public class Attribute implements BioEntity {
 
 	public int getId() {
 		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getNameFromNamingAuthority() {
@@ -94,6 +106,14 @@ public class Attribute implements BioEntity {
 
 	public void setNamingAuthority(NamingAuthority namingAuthority) {
 		this.namingAuthority = namingAuthority;
+	}
+
+	public Set<GeneSet> getGeneSets() {
+		return geneSets;
+	}
+
+	public void setGeneSets(Set<GeneSet> geneSets) {
+		this.geneSets = geneSets;
 	}
 
 	/* Utility functions
