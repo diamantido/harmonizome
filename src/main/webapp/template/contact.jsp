@@ -8,7 +8,7 @@
     	<script src="script/contact.js"></script>
     </head>
     <body>
-		<%@include file="navbar.html" %>
+		<%@include file="navbar.jsp" %>
 		<div class="wrapper">
 			<div class="content container-full contact-page">
 				<div class="container">

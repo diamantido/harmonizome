@@ -283,7 +283,7 @@ $(function() {
 		var $select = $('.search-bar select.entity-dropdown');
 		$select.change(function(evt) {
 			$(this).removeClass('all gene geneSet dataset');
-			$(this).addClass($(this).val());
+			$(this).addClass($(this).val(), 10000);
 			placeSuggestionMenu();
 		});
 	}

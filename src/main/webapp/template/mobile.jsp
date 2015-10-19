@@ -6,22 +6,38 @@
     	<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
     </head>
     <body>
-		<%@include file="navbar.html" %>
+		<%@include file="navbar.jsp" %>
 		<div class="wrapper">
-			<div class="content container-full about-page">
+			<div class="content container-full mobile-page">
 				<div class="container">
 					<div class="row">
 						<h1 class="col-md-12">Mobile</h1>
 					</div>
 					<div class="row">
-						<p class="col-md-6">
-							With the Harmonizome app you can explore aggregated knowledge about human genes. Most online databases that enlist properties of human genes only include information from hand full of resources. To create the Harmonizome mobile app we assembled, extracted, and organized knowledge from over 60 online resources including novel databases that we created. The Harmonizome serves this accumulated knowledge in an easy to access interface where users can enter their gene of interest to discover properties of gene. The knowledge spans from expression in cells, tissues and diseases; regulation by transcription factors, chromatin marks and microRNAs; functional membership in protein complexes, pathways and ontologies; genomic association with disease, and differential expression upon treatment of cells with drugs; as well as structural and other genomic features.
-						</p>
-						<ul class="col-md-6 list-unstyled">
-							<h4>Install</h4>
-							<li><a href="">Android</a></li>
-							<li><a href="">iOS</a></li>
-						</ul>
+						<div class="col-md-6">
+							<ul class="list-unstyled list-inline icons">
+								<li><i class="fa fa-laptop fa-3x"></i></li>
+								<li><i class="fa fa-tablet fa-3x"></i></li>
+								<li><i class="fa fa-mobile fa-3x"></i></li>
+							</ul>
+							<h4>Take the Harmonizome with you</h4>
+							<p>
+								With your free Harmonizome app, you can explore genes, proteins, and functional terms from anywhere.
+							</p>
+							<ul class="list-unstyled app-store-links">
+								<li>
+									<i class="fa fa-android fa-2x"></i>
+									<a href="https://itunes.apple.com/us/app/harmonizome/id1046990905" target="_blank">Free for iPhone</a>
+								</li>
+								<li>
+									<i class="fa fa-apple fa-2x"></i>
+									<a href="https://play.google.com/store/apps/details?id=com.maayanlab.harmonizome&hl=en" target="_blank">Free for Android</a>
+								</li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<img src="image/mobile_screenshot.png">
+						</div>
 					</div>
 				</div>
 			</div>

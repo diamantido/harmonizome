@@ -7,7 +7,7 @@
     	<%@include file="commonTitle.html" %>
 	</head>
 	<body>
-		<%@include file="navbar.html"%>
+		<%@include file="navbar.jsp"%>
 		<div class="wrapper">
 			<div class="content container">
 				<h1>${resource.name} <span class="note">Resource</span></h1>

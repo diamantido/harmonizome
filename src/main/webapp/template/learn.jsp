@@ -6,7 +6,7 @@
     	<%@include file="commonTitle.html" %>
 	</head>
 	<body>
-		<%@include file="navbar.html"%>
+		<%@include file="navbar.jsp"%>
 		<div class="wrapper">
 			<div class="content container browse">
 				<h1>Learn</h1>

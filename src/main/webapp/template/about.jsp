@@ -9,7 +9,7 @@
         <script src="script/about.js"></script>
     </head>
     <body>
-		<%@include file="navbar.html" %>
+		<%@include file="navbar.jsp" %>
 		<div class="wrapper">
 			<div class="content container-full about-page">
 				<div class="container">

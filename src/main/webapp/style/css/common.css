@@ -21,6 +21,9 @@ body {
   height: 140px;
   width: 100%;
 }
+.wrapper {
+  padding-bottom: 20px;
+}
 /* Tag selectors.
  * ------------------------------------------------------------------------- */
 html {
@@ -48,24 +51,21 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 h1,
 h2,
 h3 {
   border-bottom: 1px solid #aaaaaa;
-  font-weight: 400;
+  font-weight: 300;
 }
 h4,
 h5,
 h6 {
-  font-weight: bold;
+  font-weight: 500;
 }
 input {
   width: 100%;
-}
-.clear {
-  clear: both;
 }
 ul {
   list-style-type: square;
@@ -75,11 +75,18 @@ table ul,
 table ol {
   margin-bottom: 0;
 }
+strong {
+  font-weight: 500;
+}
 /* Generic classes
  * ------------------------------------------------------------------------- */
+.clear {
+  clear: both;
+}
 .note {
   font-size: 14px;
   font-style: italic;
+  font-weight: 500;
 }
 .note.dataset {
   color: #309fab;
@@ -125,6 +132,7 @@ table ol {
  * ------------------------------------------------------------------------- */
 #navbar-wrapper {
   background-color: #343844;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   height: 50px;
   padding: 10px;
   /* Important! Otherwise the dropdown menu doesn't work!
@@ -139,8 +147,9 @@ table ol {
   margin-top: 0;
 }
 #navbar-wrapper h1 span.credits {
-  font-family: Georgia, sans-serif;
-  font-size: 19px;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 20px;
   margin-left: 10px;
 }
 #navbar-wrapper h1 a:hover {
@@ -153,8 +162,8 @@ table ol {
 }
 #navbar-wrapper a {
   color: white;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 400;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
 }
 #navbar-wrapper a:hover,
 #navbar-wrapper a:active {
@@ -300,11 +309,11 @@ table ol {
 }
 .footer a {
   color: #444444;
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 400;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 300;
 }
 .footer p {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .footer #share a {
   float: right;
@@ -389,7 +398,8 @@ table ol {
   -moz-box-sizing: border-box;
 }
 .search-results-page h3 {
-  font-family: Arial, sans-serif;
+  /* font-family: @font-family-base; */
+  font-weight: normal;
   font-size: 18px;
   border-bottom: none;
   margin: 0;
@@ -406,6 +416,9 @@ table ol {
 .search-results-page .note {
   font-size: 12px;
 }
+.search-results-page table td {
+  padding-bottom: 15px !important;
+}
 .suggest-page ul li {
   margin-bottom: 2px;
   padding: 0;
@@ -415,7 +428,7 @@ table ol {
   padding: 3px;
 }
 .about-page .stats ul {
-  font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 25px;
 }
 .contact-page label {
@@ -427,6 +440,38 @@ table ol {
 }
 .contact-page label span {
   color: #ff0000;
+}
+.mobile-page {
+  padding-bottom: 40px;
+}
+.mobile-page .container {
+  border-bottom: 1px solid #eeeeee;
+}
+.mobile-page ul.icons {
+  /* Approximately even with the top of the mobile device. */
+  margin-top: 64px;
+}
+.mobile-page i {
+  color: #555c6f;
+}
+.mobile-page img {
+  height: 600px;
+}
+.mobile-page .app-store-links i {
+  position: relative;
+  top: -2px;
+}
+.mobile-page .app-store-links a {
+  font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 30px;
+  font-weight: 300;
+  padding-left: 10px;
+}
+.mobile-page .app-store-links a:hover,
+.mobile-page .app-store-links a:active,
+.mobile-page .app-store-links a:focus {
+  text-decoration: none;
+  opacity: .7;
 }
 /* Bootstrap overwrites.
  * ------------------------------------------------------------------------- */

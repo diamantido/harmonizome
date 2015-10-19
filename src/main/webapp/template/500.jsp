@@ -8,7 +8,7 @@
     	<title>Unknown Server Error</title>
 	</head>
 	<body>
-		<%@include file="navbar.html"%>
+		<%@include file="navbar.jsp"%>
 		<div class="wrapper">
 			<div class="content container-full">
 				<div class="container not-found-page">

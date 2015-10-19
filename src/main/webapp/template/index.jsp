@@ -8,7 +8,7 @@
     	<meta name="description" content="Search for genes and functional terms extracted and organized from over a hundred publicly available resources."/>
 	</head>
 	<body>
-		<%@include file="navbar.html"%>
+		<%@include file="navbar.jsp"%>
 		<div class="content container-full">
 			<div class="container">
 				<div id="landing">

@@ -3,10 +3,13 @@
     <head>
     	<%@include file="globalIncludes.html" %>
     	<%@include file="commonTitle.html" %>
+    	<link rel="stylesheet" href="lib/highlight/highlight.css">
     	<link rel="stylesheet" type="text/css" href="/Harmonizome/style/css/documentation.css">
+    	<script src="lib/highlight/highlight.js"></script>
+    	<script>hljs.initHighlightingOnLoad();</script>
     </head>
     <body>
-		<%@include file="navbar.html" %>
+		<%@include file="navbar.jsp" %>
 		<div class="wrapper">
 			<div class="content container-full">
 				<div class="container">
@@ -20,7 +23,7 @@
 							<section>
 								<h2>Traversing the URLs</h2>
 								<p>These APIs provide direct access to the data via URL paths and were designed to be used without any knowledge beyond the base URL. The base URL returns a list of the available data entities:</p>
-<pre>
+<pre><code class="json">
 GET /Harmonizome/api/1.0
 
 {
@@ -44,12 +47,14 @@ GET /Harmonizome/api/1.0
         },
         ...
     ]
-}</pre>
+}</code></pre>
 								<p>Any enitity's <span class="mono">href</span> property can be requested for more information:</p>
-<pre>
+<pre><code class="json">
 GET /Harmonizome/api/1.0/gene
 
 {
+    "count": 56720,
+    "selection": [0, 100],
     "next": "/api/1.0/gene?cursor=100",
     "entities": [
         {
@@ -66,15 +71,14 @@ GET /Harmonizome/api/1.0/gene
          },
          ...
      ]
-}
-								</pre>
+}</code></pre>
 							</section>
 							<section>
 								<h2>The Cursor</h2>
 								<p>In order to minimize database queries and request times, this API uses a technique called "cursoring" to paginate large result sets. Add a query parameter <span class="mono">cursor</span> to the <span class="mono">GET</span> request to see the selection of data starting at the cursor:</p>
-<pre>
+<pre><code class="bash">
 GET /Harmonizome/api/1.0/gene?cursor=3141
-</pre>
+</code></pre>
 								<p>If no cursor is provided, the API defaults to 0. The maximum result set size is 100, and the <span class="mono">next</span> property will be returned with a link to the next selection of data.</p>
 							</section>
 							<section>
@@ -84,22 +88,15 @@ GET /Harmonizome/api/1.0/gene?cursor=3141
 GET /Harmonizome/api/1.0/gene/nanog
 </pre>
 								<p>Will return</p>
-<pre>
+<pre><code class="json">
 {
     "symbol": "NANOG",
     "name": "Nanog homeobox",
     "ncbiEntrezGeneId": 79923,
     "ncbiEntrezGeneUrl": "http://www.ncbi.nlm.nih.gov/gene/79923",
-    "geneSets": [
-        {
-            "attribute": "urinary tract",
-            "dataset": "TISSUES Curated Tissue Protein Expression Evidence Scores",
-            "href" :"/api/1.0/gene_set/urinary+tract/TISSUES+Curated+Tissue+Protein+Expression+Evidence+Scores"
-        },
-        ...
-    ]
+    ...
 }
-</pre>
+</code></pre>
 								<p>Note that the <span class="mono">geneSets</span> property is an array of entities; therefore, each gene set has its own <span class="mono">href</span> property which can be traversed.</p>
 							</section>
 						</div>

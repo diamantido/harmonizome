@@ -7,7 +7,7 @@
 	</head>
 <body>
 	<body>
-		<%@include file="navbar.html"%>
+		<%@include file="navbar.jsp"%>
 		<div class="content container-full">
 			<iframe src="http://amp.pharm.mssm.edu/harmonogram/"></iframe>
 		</div>

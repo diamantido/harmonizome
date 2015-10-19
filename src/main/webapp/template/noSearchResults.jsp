@@ -5,7 +5,7 @@
 		<title>Query Not Found</title>
 	</head>
 	<body>
-		<%@include file="navbar.html"%>
+		<%@include file="navbar.jsp"%>
 		<div class="wrapper">
 			<div class="content container no-search-results-page">
 				<h1>No Search Results</h1>

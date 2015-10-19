@@ -17,6 +17,9 @@ body {
     height: @dimension-footer-height;
     width: 100%;
 }
+.wrapper {
+	padding-bottom: 20px;
+}
 
 /* Tag selectors.
  * ------------------------------------------------------------------------- */
@@ -47,13 +50,10 @@ h1, h2, h3 {
     font-weight: @font-weight-primary;
 }
 h4, h5, h6 {
-	font-weight: bold;
+	font-weight: @font-weight-bold;
 }
 input {
 	width: 100%;
-}
-.clear {
-    clear: both;
 }
 ul {
     list-style-type: square;
@@ -65,12 +65,19 @@ table {
 		margin-bottom: 0;
 	}
 }
+strong {
+	font-weight: @font-weight-bold;
+}
 
 /* Generic classes
  * ------------------------------------------------------------------------- */
+.clear {
+    clear: both;
+}
 .note {
 	font-size: 14px;
 	font-style: italic;
+	font-weight: @font-weight-bold;
 	&.dataset {
 		color: @color-entity-blue;
 	}
@@ -119,6 +126,7 @@ table {
  * ------------------------------------------------------------------------- */
 #navbar-wrapper {
 	background-color: @color-navbar-background;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     height: @dimension-nav-height;
     padding: 10px;
     /* Important! Otherwise the dropdown menu doesn't work!
@@ -131,8 +139,9 @@ table {
         margin-bottom: 4px;
         margin-top: 0;
         span.credits {
-        	font-family: @font-family-accent;
-        	font-size: 19px;
+        	font-family: @font-family-primary;
+        	font-weight: @font-weight-primary;
+        	font-size: 20px;
         	margin-left: 10px;
         }
         a {
@@ -419,7 +428,8 @@ table {
 		-moz-box-sizing: border-box;
 	}
 	h3 {
-		font-family: @font-family-base;
+		/* font-family: @font-family-base; */
+		font-weight: normal;
 		font-size: 18px;
 		border-bottom: none;
 		margin: 0;
@@ -435,6 +445,11 @@ table {
 	}
 	.note {
 		font-size: 12px;
+	}
+	table {
+		td {
+			padding-bottom: 15px !important;
+		}
 	}
 }
 .suggest-page {
@@ -468,6 +483,40 @@ table {
 	label {
 		span {
 			color: @color-highlight-red;
+		}
+	}
+}
+.mobile-page {
+	padding-bottom: 40px;
+	.container {
+		border-bottom: 1px solid @color-gray-light;
+	}
+	ul.icons {
+		/* Approximately even with the top of the mobile device. */
+		margin-top: 64px;
+	}
+	i {
+		color: @color-primary-smoky;
+	}
+	img {
+		height: 600px;
+	}
+	.app-store-links {
+		i {
+			position: relative;
+			top: -2px;
+		}
+		a {
+			font-family: @font-family-primary;
+			font-size: 30px;
+			font-weight: @font-weight-primary;
+			padding-left: 10px;
+			&:hover,
+			&:active,
+			&:focus {
+				text-decoration: none;
+				opacity: .7;
+			}
 		}
 	}
 }
