@@ -23,8 +23,7 @@
 							<section>
 								<h2>Traversing the URLs</h2>
 								<p>These APIs provide direct access to the data via URL paths and were designed to be used without any knowledge beyond the base URL. The base URL returns a list of the available data entities:</p>
-<pre><code class="json">
-GET /Harmonizome/api/1.0
+<pre><code class="json">GET /Harmonizome/api/1.0
 
 {
     "version" :1.0,
@@ -49,8 +48,7 @@ GET /Harmonizome/api/1.0
     ]
 }</code></pre>
 								<p>Any enitity's <span class="mono">href</span> property can be requested for more information:</p>
-<pre><code class="json">
-GET /Harmonizome/api/1.0/gene
+<pre><code class="json">GET /Harmonizome/api/1.0/gene
 
 {
     "count": 56720,
@@ -76,20 +74,16 @@ GET /Harmonizome/api/1.0/gene
 							<section>
 								<h2>The Cursor</h2>
 								<p>In order to minimize database queries and request times, this API uses a technique called "cursoring" to paginate large result sets. Add a query parameter <span class="mono">cursor</span> to the <span class="mono">GET</span> request to see the selection of data starting at the cursor:</p>
-<pre><code class="bash">
-GET /Harmonizome/api/1.0/gene?cursor=3141
+<pre><code class="bash">GET /Harmonizome/api/1.0/gene?cursor=3141
 </code></pre>
 								<p>If no cursor is provided, the API defaults to 0. The maximum result set size is 100, and the <span class="mono">next</span> property will be returned with a link to the next selection of data.</p>
 							</section>
 							<section>
 								<h2>Entities</h2>
 								<p>Entities provide actual data and have no <span class="mono">href</span> property. For example</p>
-<pre>
-GET /Harmonizome/api/1.0/gene/nanog
-</pre>
+<pre><code class="bash">GET /Harmonizome/api/1.0/gene/nanog</code></pre>
 								<p>Will return</p>
-<pre><code class="json">
-{
+<pre><code class="json">{
     "symbol": "NANOG",
     "name": "Nanog homeobox",
     "ncbiEntrezGeneId": 79923,
