@@ -1,16 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import java.io.IOException;
-import java.util.Collections;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.BioEntityMetadata;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
@@ -18,6 +7,15 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.BioEntityAlphabetizer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collections;
 
 @WebServlet(urlPatterns = { "/" + HgncRootFamily.ENDPOINT + "/*" })
 public class HgncRootFamilyPage extends HttpServlet {
@@ -33,8 +31,7 @@ public class HgncRootFamilyPage extends HttpServlet {
 			HgncRootFamily family = null;
 			family = GenericDao.get(HgncRootFamily.class, query);
 			if (family == null) {
-				request.setAttribute("query", query);
-				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			} else {
 				BioEntityMetadata anno = HgncRootFamily.class.getAnnotation(BioEntityMetadata.class);
 				Collections.sort(family.getGenes(), new BioEntityAlphabetizer());

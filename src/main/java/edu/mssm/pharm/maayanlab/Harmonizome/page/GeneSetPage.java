@@ -1,18 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.tuple.Pair;
-import org.hibernate.HibernateException;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneSetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
@@ -21,6 +8,17 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.BioEntityAlphabetizer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.apache.commons.lang3.tuple.Pair;
+import org.hibernate.HibernateException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 @WebServlet(urlPatterns = { "/" + GeneSet.ENDPOINT, "/" + GeneSet.ENDPOINT + "/*" })
 public class GeneSetPage extends HttpServlet {
@@ -40,7 +38,6 @@ public class GeneSetPage extends HttpServlet {
 					request.setAttribute("query", query[0] + "/" + query[1]);
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "noSearchResults.jsp").forward(request, response);
 				} else {
-					//Dataset dataset = geneSet.getDataset();
 					Pair<List<Gene>, List<Gene>> genesByAttribute = GeneDao.getFromGeneSetByValue(name, datasetName);
 					Collections.sort(genesByAttribute.getRight(), new BioEntityAlphabetizer());
 					Collections.sort(genesByAttribute.getLeft(), new BioEntityAlphabetizer());
@@ -50,7 +47,6 @@ public class GeneSetPage extends HttpServlet {
 					geneSetDescription = numGenes + " " + geneSetDescription;
 					request.setAttribute("geneSetDescription", geneSetDescription);
 					request.setAttribute("geneSet", geneSet);
-					//request.setAttribute("dataset", dataset);
 					request.setAttribute("genesByAttribute", genesByAttribute);
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "geneSet.jsp").forward(request, response);
 				}
@@ -62,7 +58,7 @@ public class GeneSetPage extends HttpServlet {
 				HibernateUtil.close();
 			}
 		} else {
-			request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 		}
 	}
 }

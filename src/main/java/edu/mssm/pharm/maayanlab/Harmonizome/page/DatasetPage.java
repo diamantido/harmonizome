@@ -1,16 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
@@ -18,6 +7,15 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @WebServlet(urlPatterns = { "/" + Dataset.ENDPOINT + "/*" })
 public class DatasetPage extends HttpServlet {
@@ -72,6 +70,6 @@ public class DatasetPage extends HttpServlet {
 	}
 	
 	private void doNotFound(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
+		response.sendError(HttpServletResponse.SC_NOT_FOUND);
 	}
 }

@@ -4,12 +4,44 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 	<display-name>Harmonizome</display-name>
-	<error-page> 
-    	<error-code>404</error-code>
-    	<location>/template/404.jsp</location>
-	</error-page>
-	<error-page> 
-    	<error-code>500</error-code>
-    	<location>/template/500.jsp</location>
-	</error-page>
+
+    <welcome-file-list>
+        <welcome-file>/template/index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-name>documentation.jsp</servlet-name>
+        <jsp-file>/template/documentation.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>documentation.jsp</servlet-name>
+        <url-pattern>/documentation</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>visualize.jsp</servlet-name>
+        <jsp-file>/template/visualize.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>visualize.jsp</servlet-name>
+        <url-pattern>/visualize</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>mobile.jsp</servlet-name>
+        <jsp-file>/template/mobile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mobile.jsp</servlet-name>
+        <url-pattern>/mobile</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/template/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/template/500.jsp</location>
+    </error-page>
 </web-app>

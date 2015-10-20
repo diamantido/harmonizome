@@ -1,19 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import java.io.IOException;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
@@ -22,6 +8,18 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.BioEntityAlphabetizer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @WebServlet(urlPatterns = { "/gene", "/gene/*" })
 public class GenePage extends HttpServlet {
@@ -72,7 +70,7 @@ public class GenePage extends HttpServlet {
 			}
 			
 			if (gene == null) {
-				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			} else {
 				StringBuilder groups = new StringBuilder();
 				int i = 0;

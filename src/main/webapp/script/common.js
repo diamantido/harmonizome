@@ -39,6 +39,7 @@ $(function() {
 				url: url,
 				method: 'GET',
 				success: function(data) {
+                    console.log(data);
 					data = JSON.parse(data);
 					showGeneSets($dataset, $geneList, data);
 				}

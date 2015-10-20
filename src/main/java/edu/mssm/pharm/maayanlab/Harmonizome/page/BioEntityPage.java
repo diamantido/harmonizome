@@ -1,18 +1,16 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.BioEntityMetadata;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class BioEntityPage {
 
@@ -24,8 +22,7 @@ public class BioEntityPage {
 			T bioEntity = null;
 			bioEntity = GenericDao.get(klass, query);
 			if (bioEntity == null) {
-				request.setAttribute("query", query);
-				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			} else {
 				BioEntityMetadata anno = klass.getAnnotation(BioEntityMetadata.class);
 				request.setAttribute(anno.name(), bioEntity);

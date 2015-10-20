@@ -1,16 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.PublicationDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.BioEntityMetadata;
@@ -19,6 +8,15 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 @WebServlet(urlPatterns = { "/" + Resource.ENDPOINT + "/*" })
 public class ResourcePage extends HttpServlet {
@@ -37,8 +35,7 @@ public class ResourcePage extends HttpServlet {
 			// Use a query so we don't have to remove duplicates manually.
 			publications = PublicationDao.getFromResource(query);
 			if (resource == null) {
-				request.setAttribute("query", query);
-				request.getRequestDispatcher(Constant.TEMPLATE_DIR + "404.jsp").forward(request, response);				
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			} else {
 				BioEntityMetadata anno = Resource.class.getAnnotation(BioEntityMetadata.class);
 				request.setAttribute("publications", publications);

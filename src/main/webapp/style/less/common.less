@@ -1,3 +1,6 @@
+/*
+ * Common styling across every page.
+ */
 @import "variable.less";
 
 /* Structure all pages to allow for footer. Other styling for these elements is
@@ -7,9 +10,11 @@ html {
     position: relative;
     min-height: 100%;
 }
+
 body {
     margin-bottom: @dimension-footer-height;
 }
+
 .footer {
     position: absolute;
     left: 0;
@@ -17,8 +22,9 @@ body {
     height: @dimension-footer-height;
     width: 100%;
 }
+
 .wrapper {
-	padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 /* Tag selectors.
@@ -26,47 +32,58 @@ body {
 html {
     font-family: @font-family-base;
 }
+
 a,
 a:link {
     color: @color-link-blue;
     text-decoration: none;
 }
+
 a:hover {
     color: @color-link-blue;
     text-decoration: underline;
 }
+
 a:visited,
 a:active {
     text-decoration: none;
 }
+
 a.btn {
-	color: black;
+    color: black;
 }
+
 h1, h2, h3, h4, h5, h6 {
     font-family: @font-family-primary;
 }
+
 h1, h2, h3 {
     border-bottom: 1px solid @color-gray-medium;
     font-weight: @font-weight-primary;
 }
+
 h4, h5, h6 {
-	font-weight: @font-weight-bold;
+    font-weight: @font-weight-bold;
 }
+
 input {
-	width: 100%;
+    width: 100%;
 }
+
 ul {
     list-style-type: square;
     padding-left: 15px;
 }
+
 table {
-	ul,
-	ol {
-		margin-bottom: 0;
-	}
+    ul,
+    ol {
+        margin-bottom: 0;
+    }
 }
+
 strong {
-	font-weight: @font-weight-bold;
+    font-weight: @font-weight-bold;
 }
 
 /* Generic classes
@@ -74,59 +91,70 @@ strong {
 .clear {
     clear: both;
 }
+
 .note {
-	font-size: 14px;
-	font-style: italic;
-	font-weight: @font-weight-bold;
-	&.dataset {
-		color: @color-entity-blue;
-	}
-	&.gene {
-		color: @color-entity-yellow;
-	}
-	&.gene-set {
-		color: @color-entity-red;
-	}
+    font-size: 14px;
+    font-style: italic;
+    font-weight: @font-weight-bold;
+    &.dataset {
+        color: @color-entity-blue;
+    }
+    &.gene {
+        color: @color-entity-yellow;
+    }
+    &.gene-set {
+        color: @color-entity-red;
+    }
 }
+
 .glyphicon-search {
-	cursor: pointer;
+    cursor: pointer;
 }
+
 .instruction {
-	font-style: italic;
+    font-style: italic;
 }
+
 .cursor-pointer {
-	cursor: pointer;
+    cursor: pointer;
 }
+
 .top-buffer {
-	margin-top: 20px;
+    margin-top: 20px;
 }
+
 .bottom-buffer {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
+
 .initial {
-	&:first-letter {
-		text-transform: uppercase;
-	}
+    &:first-letter {
+        text-transform: uppercase;
+    }
 }
+
 .capitalize {
-	text-transform: capitalize;
+    text-transform: capitalize;
 }
+
 .underline {
-	text-decoration: underline !important;
+    text-decoration: underline !important;
 }
+
 /* Show once DataTables is ready. */
 .data-table {
-	display: none;
+    display: none;
 }
+
 .no-padding {
-	padding: 0;
+    padding: 0;
 }
 
 /* Section selectors.
  * ------------------------------------------------------------------------- */
 #navbar-wrapper {
-	background-color: @color-navbar-background;
-	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    background-color: @color-navbar-background;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     height: @dimension-nav-height;
     padding: 10px;
     /* Important! Otherwise the dropdown menu doesn't work!
@@ -134,202 +162,209 @@ strong {
      */
     position: relative;
     h1 {
-    	border: none;
-    	font-size: 25px;
+        border: none;
+        font-size: 25px;
         margin-bottom: 4px;
         margin-top: 0;
         span.credits {
-        	font-family: @font-family-primary;
-        	font-weight: @font-weight-primary;
-        	font-size: 20px;
-        	margin-left: 10px;
+            font-family: @font-family-primary;
+            font-weight: @font-weight-primary;
+            font-size: 20px;
+            margin-left: 10px;
         }
         a {
-        	&:hover {
-        		text-decoration: none;
-        	}
+            &:hover {
+                text-decoration: none;
+            }
         }
     }
     img {
-    	bottom: 2px;
-    	position: relative;
-    	margin-right: 14px;
+        bottom: 2px;
+        position: relative;
+        margin-right: 14px;
     }
     a {
-    	color: white;
-    	font-family: @font-family-primary;
-    	font-weight: @font-weight-primary;
+        color: white;
+        font-family: @font-family-primary;
+        font-weight: @font-weight-primary;
         &:hover,
         &:active {
-        	color: @color-gray-light;
-        	background-color: @color-navbar-background;
+            color: @color-gray-light;
+            background-color: @color-navbar-background;
         }
     }
     .navbar-nav.list-inline {
-    	a {
-    		padding: 0 1px;
-    	}
+        a {
+            padding: 0 1px;
+        }
     }
     .navbar-toggle {
-    	padding: 0;
-    	span {
-    		background-color: white;
-    	}
+        padding: 0;
+        span {
+            background-color: white;
+        }
     }
     ul {
-    	/* Line up with title text */
-    	position: relative;
-    	top: 7px;
-    	text-transform: uppercase;
+        /* Line up with title text */
+        position: relative;
+        top: 7px;
+        text-transform: uppercase;
     }
     .search {
-    	bottom: 6px;
-    	float: left;
-    	left: 20px;
-    	position: relative;
-    	width: 25%;
-    	top: -2px;
-    	/* .input-group {
-    		.twitter-typeahead {
-    			width: 100%;
-    		}
-    	} */
+        bottom: 6px;
+        float: left;
+        left: 20px;
+        position: relative;
+        width: 25%;
+        top: -2px;
+        /* .input-group {
+            .twitter-typeahead {
+                width: 100%;
+            }
+        } */
     }
     #menu {
-    	background-color: @color-navbar-background;
-    	margin-bottom: 20px;
+        background-color: @color-navbar-background;
+        margin-bottom: 20px;
     }
 }
+
 @media (max-width: 1200px) {
-	#navbar-wrapper {
-		/* If these two selectors seem nonsensical, it's because they target two different pages. */
-		h1 {
-			.credits {
-				display: none;
-			}
-		}
-	}
+    #navbar-wrapper {
+        /* If these two selectors seem nonsensical, it's because they target two different pages. */
+        h1 {
+            .credits {
+                display: none;
+            }
+        }
+    }
 }
+
 @media (max-width: 1000px) {
-	#navbar-wrapper {
-		/* If these two selectors seem nonsensical, it's because they target two different pages. */
-		
-	}
+    #navbar-wrapper {
+        /* If these two selectors seem nonsensical, it's because they target two different pages. */
+
+    }
 }
+
 @media (max-width: 768px) {
-	#navbar-wrapper {
-		h1 {
-			.project-title {
-				display: none;
-			}
-		}
-		#menu {
-			width: 100%;
-			a {
-				padding: 2px 5px;
-				&:hover,
-		       	&focus {
-		       		background-color: @color-navbar-background-light;
-		       	}
-			}
-			li {
-				padding: 5px 10px;
-			}
-		}
-		.search-bar {
-			.entity-dropdown {
-				display: none;
-			}
-		}
-		ul {
-    		top: 0;
-		}
-	}
+    #navbar-wrapper {
+        h1 {
+            .project-title {
+                display: none;
+            }
+        }
+        #menu {
+            width: 100%;
+            a {
+                padding: 2px 5px;
+                &:hover,
+                &focus {
+                    background-color: @color-navbar-background-light;
+                }
+            }
+            li {
+                padding: 5px 10px;
+            }
+        }
+        .search-bar {
+            .entity-dropdown {
+                display: none;
+            }
+        }
+        ul {
+            top: 0;
+        }
+    }
 }
+
 .search-bar {
-	&.on-index-page {
-		margin: 0 auto;
-		width: 600px;
-	}
-	&.in-navbar {
-		float: left;
-		margin: 0 0 0 10px;
-		position: relative;
-		bottom: 2px;
-	}
-	form {
-		width: 100%;
-		display: inline-block;
-	}
-	.input-bar {
-		overflow: hidden;
-		input {
-			/* Remove double border from Bootstrap form-controls. */
-			border-left: none;
-			border-right: none;
-			width: 100%;
-		}
-	}
-	.entity-dropdown {
-		float: left;
-		&.gene {
-			border: 2px solid @color-entity-yellow;
-			width: 80px;
-		}
-		&.geneSet {
-			border: 2px solid @color-entity-red;
-			width: 105px;
-		}
-		&.dataset {
-			border: 2px solid @color-entity-blue;
-			width: 95px;
-		}
-		&.all {
-			/* Don't use a variable for CCC. This is explicitly matching Bootstrap. */
-			border: 1px solid #ccc;
-			width: 55px;
-		}
-	}
-	.submit-button {
-		float: right;
-		background: lightblue;
-		width: 40px;
-	}
+    &.on-index-page {
+        margin: 0 auto;
+        width: 600px;
+    }
+    &.in-navbar {
+        float: left;
+        margin: 0 0 0 10px;
+        position: relative;
+        bottom: 2px;
+    }
+    form {
+        width: 100%;
+        display: inline-block;
+    }
+    .input-bar {
+        overflow: hidden;
+        input {
+            /* Remove double border from Bootstrap form-controls. */
+            border-left: none;
+            border-right: none;
+            width: 100%;
+        }
+    }
+    .entity-dropdown {
+        float: left;
+        &.gene {
+            border: 2px solid @color-entity-yellow;
+            width: 80px;
+        }
+        &.geneSet {
+            border: 2px solid @color-entity-red;
+            width: 105px;
+        }
+        &.dataset {
+            border: 2px solid @color-entity-blue;
+            width: 95px;
+        }
+        &.all {
+            /* Don't use a variable for CCC. This is explicitly matching Bootstrap. */
+            border: 1px solid #ccc;
+            width: 55px;
+        }
+    }
+    .submit-button {
+        float: right;
+        background: lightblue;
+        width: 40px;
+    }
 }
+
 @media (max-width: 768px) {
-	.search-bar {
-		&.on-index-page {
-			width: 100%;
-		}
-	}
+    .search-bar {
+        &.on-index-page {
+            width: 100%;
+        }
+    }
 }
+
 @media (max-width: 375px) {
-	.search-bar {
-		&.in-navbar {
-			.input-bar {
-				width: 120px;
-			}
-		}
-	}
+    .search-bar {
+        &.in-navbar {
+            .input-bar {
+                width: 120px;
+            }
+        }
+    }
 }
+
 .footer {
-	background: @color-gray-light;
-	color: @color-charcoal;
-	padding: 13px;
-	width: 100%;
-	ul {
-		list-style-type: none;
-		padding: 0;
-	}
-	a {
-		color: @color-charcoal;
-		font-family: @font-family-primary;
-		font-weight: @font-weight-primary;
-	}
-	p {
-		font-family: @font-family-primary;
-	}
-	#share {
+    background: @color-gray-light;
+    color: @color-charcoal;
+    padding: 13px;
+    width: 100%;
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    a {
+        color: @color-charcoal;
+        font-family: @font-family-primary;
+        font-weight: @font-weight-primary;
+    }
+    p {
+        font-family: @font-family-primary;
+    }
+    #share {
         a {
             float: right;
         }
@@ -337,397 +372,38 @@ strong {
             padding-left: 5px;
             width: 30px;
             &:hover {
-            	opacity: 0.7;
+                opacity: 0.7;
             }
         }
-	}
-	#funders {
-		font-style: italics;
-	}
-	#contact {
-		.last {
-			border-left: 1px solid @color-gray-medium;
-			padding-left: 8px;
-		}
-	}
+    }
+    #contact {
+        .last {
+            border-left: 1px solid @color-gray-medium;
+            padding-left: 8px;
+        }
+    }
 }
+
 @media (max-width: 584px) {
-	.hide-on-mobile {
-       	display: none;
-	}
+    .hide-on-mobile {
+        display: none;
+    }
 }
+
 @media (max-width: 464px) {
     .footer {
         #contact {
-			.last {
-				border-left: none;
-				padding-left: 5px;
-			}
-		}
+            .last {
+                border-left: none;
+                padding-left: 5px;
+            }
+        }
     }
 }
-#landing {
-	margin-top: 100px;
-	h1 {
-		border: none;
-		color: #555;
-		font-size: 40px;
-	}
-	.instruction {
-		bottom: 2px;
-		color: @color-charcoal;
-		font-style: normal;
-		margin-right: 14px;
-		position: relative;
-	}
-}
-#landing,
-.not-found-page,
-.no-search-results-page {
-	.twitter-typeahead {
-		width: 100%;
-	}
-}
+
+
 .project-title {
-	font-family: @font-family-accent;
-}
-.list {
-	&.attribute-list {
-		display: none;
-	}
-	.last {
-		border-top: 1px solid @color-gray-medium;
-		padding-top: 10px;
-		margin-top: 10px;
-	}
-}
-.gene-set-page {
-	.downloads-tools {
-		.enrichr {
-			img {
-				height: 28px;
-			}
-			padding: 2px;
-			position: relative;
-			top: 1px;
-		}
-	}
-}
-.item-list {
-	display: none;
-	td {
-		padding-left: 20px !important;
-	}
-	div {
-		padding-bottom: 10px;
-	}
-}
-.search-results-page {
-	padding-top: 20px;
-	form {
-		-moz-box-sizing: border-box;
-	}
-	h3 {
-		/* font-family: @font-family-base; */
-		font-weight: normal;
-		font-size: 18px;
-		border-bottom: none;
-		margin: 0;
-	}
-	.metadata {
-		margin-bottom: 20px;
-	}
-	.description {
-		color: @color-gray;
-		p {
-			margin: 0;
-		}
-	}
-	.note {
-		font-size: 12px;
-	}
-	table {
-		td {
-			padding-bottom: 15px !important;
-		}
-	}
-}
-.suggest-page {
-	ul {
-		li {
-			margin-bottom: 2px;
-			padding: 0;
-		}
-	}
-}
-.dataset-page table.gene-sets td,
-.gene-set-page table.genes td {
-	padding: 3px;
-}
-.about-page {
-	.stats {
-		ul {
-			font-family: @font-family-primary;
-			font-size: 25px;
-		}
-	}
-}
-.contact-page {
-	label {
-		display: block;
-		font-weight: normal;
-	}
-	textarea {
-		height: 150px;
-	}
-	label {
-		span {
-			color: @color-highlight-red;
-		}
-	}
-}
-.mobile-page {
-	padding-bottom: 40px;
-	.container {
-		border-bottom: 1px solid @color-gray-light;
-	}
-	ul.icons {
-		/* Approximately even with the top of the mobile device. */
-		margin-top: 64px;
-	}
-	i {
-		color: @color-primary-smoky;
-	}
-	img {
-		height: 600px;
-	}
-	.app-store-links {
-		i {
-			position: relative;
-			top: -2px;
-		}
-		a {
-			font-family: @font-family-primary;
-			font-size: 30px;
-			font-weight: @font-weight-primary;
-			padding-left: 10px;
-			&:hover,
-			&:active,
-			&:focus {
-				text-decoration: none;
-				opacity: .7;
-			}
-		}
-	}
-}
-
-/* Bootstrap overwrites.
- * ------------------------------------------------------------------------- */
-.table > tbody > tr > td,
-.table > tbody > tr > th,
-.table > tfoot > tr > td,
-.table > tfoot > tr > th,
-.table > thead > tr > td,
-.table > thead > tr > th {
-	vertical-align: middle;
-}
-.table > tbody > tr:first-child > td {
-    border: none;
-}
-.form-control {
-	border-radius: 0;
-}
-.btn {
-	border-radius: 0;
-}
-.badge {
-	background-color: @color-gray-light;
-	border-radius: 0;
-	padding: 2px 5px;
-	color: @color-charcoal;
-	a {
-		color: @color-charcoal;
-		&:hover {
-			color: @color-charcoal;
-		}
-	}
-	&.dataset,
-	&.gene,
-	&.gene-set {
-		color: white;
-		a {
-			color: white;
-		}
-	}
-	&.dataset {
-		background-color: @color-entity-blue;
-	}
-	&.gene {
-		background-color: @color-entity-yellow;
-	}
-	&.gene-set {
-		background-color: @color-entity-red;
-	}
-}
-.tooltip {
-	.tooltip-inner {
-		background: @color-charcoal;
-		border-radius: 0;
-		text-align: left;
-	}
-	&.right {
-		.tooltip-arrow {
-			/* This is the color of the arrow: http://stackoverflow.com/a/15383656/1830334 */
-		    border-top:5px solid transparent;
-		    border-bottom:5px solid transparent;
-		    border-right:5px solid @color-charcoal;
-		}
-	}
-}
-.table-responsive {
-    overflow-x: auto;
-    padding-top: 10px;
-}
-.container-fluid > .navbar-collapse,
-.container-fluid > .navbar-header,
-.container > .navbar-collapse,
-.container > .navbar-header {
-	margin-left: 0;
-	margin-right: 0;
-	-webkit-box-shadow: none;
-	box-shadow: none;
-}
-select {
-	-webkit-appearance: none;
-    -moz-appearance: none;
-    background-position: right 50%;
-    background-repeat: no-repeat;
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NDZFNDEwNjlGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NDZFNDEwNkFGNzFEMTFFMkJEQ0VDRTM1N0RCMzMyMkIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0NkU0MTA2N0Y3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0NkU0MTA2OEY3MUQxMUUyQkRDRUNFMzU3REIzMzIyQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuGsgwQAAAA5SURBVHjaYvz//z8DOYCJgUxAf42MQIzTk0D/M+KzkRGPoQSdykiKJrBGpOhgJFYTWNEIiEeAAAMAzNENEOH+do8AAAAASUVORK5CYII=) !important;
-    padding: .5em;
-    padding-right: 1.5em
-}
-.nav > li.dropdown.open {
-	position: static;
-}
-.nav > li.dropdown.open .dropdown-menu {
-	display: table;
-	width: 100%;
-	text-align: center;
-	left:0;
-	right:0;
-}
-.dropdown-menu > li {
-	display: table-cell;
-}
-.nav > li > a:focus,
-.nav > li > a:hover {
-	background-color: @color-navbar-background;
-}
-
-/* jQuery UI overwrites.
- * ------------------------------------------------------------------------- */
-.twitter-typeahead {
-	float:left;
-}
-.tt-query,
-.tt-hint {
-	color: @color-gray-medium;
-}
-.tt-menu {
-    padding: 8px 0;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, 0.2);
-    /* Twitter Bootstrap nav's have a z-index of 1000.
-     * We need !important because Typeahead sets it to 100.
-     */
-    z-index: 1001 !important;
-}
-.tt-suggestion {
-    padding: 3px 20px;
-    &:hover {
-    	background: @color-gray-light;
-    	cursor: pointer;
-    }
+    font-family: @font-family-accent;
 }
 
 
-/* DataTable overwrites.
- * ------------------------------------------------------------------------- */
-.dataTables_filter {
-	label {
-		font-weight: bold !important;
-	}
-}
-.dataTables_wrapper {
-	margin-bottom: 30px;
-	input {
-		border: 1px solid @color-gray-medium;
-	}
-	thead {
-		td {
-			font-weight: bold;
-		}
-	}
-}
-.pagination > li:first-child > a,
-.pagination > li:first-child > span {
-	border-radius: 0;
-}
-.pagination > li > a,
-.pagination > li > span {
-	border-color: @color-gray-light;
-}
-.pagination > .active > a,
-.pagination > .active > a:focus,
-.pagination > .active > a:hover,
-.pagination > .active > span,
-.pagination > .active > span:focus,
-.pagination > .active > span:hover {
-	background-color: @color-gray-light;
-	border-color: @color-gray-light;
-	color: @color-charcoal;
-}
-.pagination > li > a,
-.pagination > li > span {
-	color: @color-link-blue;
-}
-@media (max-width: 767px) {
-	div.dataTables_wrapper > div.row > div,
-	div.dataTables_length,
-	div.dataTables_filter,
-	div.dataTables_info,
-	div.dataTables_paginate {
-		text-align: left;
-	}
-}
-select.input-sm {
-	line-height: inherit;
-}
-
-/* Highcharts overwrites
- * ------------------------------------------------------------------------- */
-.highcharts-container,
-.highcharts-container svg {
-    overflow: visible !important;
-}
-.highcharts-tooltip {
-	z-index: 9999 !important;
-	span {
-		border: 1px solid @color-gray;
-		padding: 6px;
-		height: auto;
-		background: white !important;
-		width: 362px;
-		white-space: normal !important;
-		z-index: 9999 !important;
-		img {
-			max-width: 350px;
-			/* max-height: 100px; */
-		}
-	}
-}
-.label,
-.highchart-custom-label {
-	z-index: 1 !important;
-}
