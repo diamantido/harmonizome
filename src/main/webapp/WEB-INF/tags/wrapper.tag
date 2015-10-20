@@ -43,10 +43,10 @@
     <body>
         <c:choose>
             <c:when test="${navType == 'withSearch'}">
-                <%@include file="/template/navbarWithSearch.jsp" %>
+                <%@include file="/template/fragment/navbarWithSearch.jsp" %>
             </c:when>
             <c:otherwise>
-                <%@include file="/template/navbar.jsp" %>
+                <%@include file="/template/fragment/navbar.jsp" %>
             </c:otherwise>
         </c:choose>
         <div class="wrapper">

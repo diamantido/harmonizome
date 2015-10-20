@@ -18,6 +18,6 @@
 			</button>
 		</div>
 
-		<%@include file="fragment/menu.jsp" %>
+		<%@include file="/template/fragment/menu.jsp" %>
 	</div>
 </div>
