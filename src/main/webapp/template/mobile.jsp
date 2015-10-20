@@ -2,6 +2,9 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:wrapper title="Mobile">
+
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
+
     <div class="mobile-page">
         <div class="row">
             <h1 class="col-md-12">Mobile</h1>

@@ -4,6 +4,7 @@
 <%@ attribute name="description" %>
 <%@ attribute name="extraKeywords" %>
 <%@ attribute name="navType" %>
+<%@ attribute name="pageWidth" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -39,6 +40,15 @@
                 <meta name="keywords" content="${keywords}"/>
             </c:otherwise>
         </c:choose>
+
+        <c:choose>
+            <c:when test="${pageWidth == 'full'}">
+                <c:set var="bootstrapClass" value="container-full"/>
+            </c:when>
+            <c:otherwise>
+                <c:set var="bootstrapClass" value="container"/>
+            </c:otherwise>
+        </c:choose>
     </head>
     <body>
         <c:choose>
@@ -50,7 +60,7 @@
             </c:otherwise>
         </c:choose>
         <div class="wrapper">
-            <div class="container">
+            <div class="${bootstrapClass}">
                 <jsp:doBody/>
             </div>
         </div>

@@ -1,19 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.HibernateException;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
@@ -21,6 +7,18 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.HibernateException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @WebServlet(urlPatterns = { "/" + Constant.SEARCH_URL, "/" + Constant.SEARCH_URL + "/*" })
 public class SearchResultsPage extends HttpServlet {
@@ -54,6 +52,8 @@ public class SearchResultsPage extends HttpServlet {
 					if (type != null && !type.equals("all")) {
 						/* This configures the view to show a "clear" filter. */
 						request.setAttribute("isFilteredPage", true);
+					} else {
+						request.setAttribute("isFilteredPage", false);
 					}
 					request.setAttribute("query", query);
 					request.setAttribute("summary", summary);
