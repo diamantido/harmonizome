@@ -11,7 +11,7 @@
 				<p class="instruction">Search for genes or proteins and their functional terms extracted and organized from over a hundred publicly available resources. <a href="about#resources"><strong>Learn more</strong></a>.</p>
 			</div>
 		</div>
-		<jsp:include page="searchBar.jsp">
+		<jsp:include page="fragment/searchBar.jsp">
 			<jsp:param value="on-index-page" name="location"/>
 		</jsp:include>
 		<div class="row top-buffer text-center">

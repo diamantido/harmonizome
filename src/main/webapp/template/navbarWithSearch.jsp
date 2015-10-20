@@ -9,7 +9,7 @@
 	
 		<!-- MENU -->
 		
-		<jsp:include page="searchBar.jsp">
+		<jsp:include page="fragment/searchBar.jsp">
 			<jsp:param value="in-navbar" name="location"/>
 		</jsp:include>
 
@@ -23,6 +23,6 @@
 			</button>
 		</div>
 
-		<%@include file="menu.jsp" %>
+		<%@include file="fragment/menu.jsp" %>
 	</div>
 </div>

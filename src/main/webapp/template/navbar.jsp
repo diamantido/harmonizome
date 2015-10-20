@@ -7,8 +7,6 @@
 				<span class="credits">Integrated Knowledge About Genes & Proteins</span>
 			</a>
 		</h1>
-	
-		<!-- MENU -->
 
 		<!-- This is the dropdown button for the mobile version of the site -->
 		<div id="menu-dropdown" class="navbar-header">
@@ -20,6 +18,6 @@
 			</button>
 		</div>
 
-		<%@include file="menu.jsp" %>
+		<%@include file="fragment/menu.jsp" %>
 	</div>
 </div>

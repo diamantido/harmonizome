@@ -19,7 +19,6 @@ $(function() {
 	
 	var $downloadsTools = $('.gene-set-page .downloads-tools');
 	if ($downloadsTools.length) {
-		//setupDownloadLinks($downloadsTools);
 		setupEnrichrLink();
 	}
 	
@@ -221,14 +220,6 @@ $(function() {
 	        pom.click();
 	    }
 	}
-	
-	/* Setup download links on gene page.
-	 */
-	function setupDownloadLinks(genes) {
-		$('.glyphicon-download-alt').click(function(evt) {
-			download(getDescription() + ".txt", genes.join("\n"));
-		});
-	}
 
 	/* Setups search bar.
 	 */
@@ -325,16 +316,13 @@ $(function() {
 	 */
 	function setOverlayWhenTyping() {
 		var $input = $('.search-bar .input-bar .tt-input');
-		$input.keypress(function() {
-			
-		});
+			isNotIndexPage = $('.landing-page').length === 0;
 		$input.keyup(function() {
 			var term = $input.val();
-			console.log(term);
-			if (term) {
-				$('.content').css('opacity', .1);
+			if (term && isNotIndexPage) {
+				$('.wrapper').css('opacity', .1);
 			} else {
-				$('.content').css('opacity', 1);
+				$('.wrapper').css('opacity', 1);
 			}
 		});
 	}

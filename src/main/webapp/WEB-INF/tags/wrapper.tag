@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <%@include file="/template/globalIncludes.html" %>
+        <%@include file="/template/fragment/globalIncludes.jsp" %>
         <c:choose>
             <c:when test="${not empty title}">
                 <title><c:out value="${title}"/></title>
@@ -54,6 +54,6 @@
                 <jsp:doBody/>
             </div>
         </div>
-        <%@include file="/template/footer.html" %>
+        <%@include file="/template/fragment/footer.jsp" %>
     </body>
 </html>

@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div class="search-bar ${param.location}">
 	<form accept-charset="utf-8" class="form-horizontal" action="search" method="GET">
 		<select class="entity-dropdown form-control all" name="t">
