@@ -10,9 +10,10 @@ build_db.sh
 # Generated files
 target/
 
-# Eclipse Core
+# Eclipse and IntelliJ
 .project
 .settings/
+.idea/
 
 # External tool builders
 .externalToolBuilders/
