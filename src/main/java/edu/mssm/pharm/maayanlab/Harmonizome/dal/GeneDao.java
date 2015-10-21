@@ -12,14 +12,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class GeneDao {
-	
-	public static Gene getFromSymbol(String symbol) {
-		Criteria criteria = HibernateUtil.getCurrentSession()
-			.createCriteria(Gene.class)
-			.add(Restrictions.eq("symbol", symbol).ignoreCase());
-		return (Gene) criteria.uniqueResult();
-	}
-	
+
 	public static Gene getFromSynonymSymbol(String symbol) {
 		Criteria criteria = HibernateUtil.getCurrentSession().createCriteria(GeneSynonym.class).add(Restrictions.eq("symbol", symbol).ignoreCase());
 		GeneSynonym geneSynonym = (GeneSynonym) criteria.uniqueResult();

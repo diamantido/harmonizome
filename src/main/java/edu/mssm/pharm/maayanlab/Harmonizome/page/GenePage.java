@@ -2,6 +2,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
@@ -49,7 +50,7 @@ public class GenePage extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 			if (query != null) {
-				gene = GeneDao.getFromSymbol(query);
+				gene = GenericDao.get(Gene.class, query);
 				if (gene == null) {
 					gene = GeneDao.getFromSynonymSymbol(query);
 					if (gene != null) {

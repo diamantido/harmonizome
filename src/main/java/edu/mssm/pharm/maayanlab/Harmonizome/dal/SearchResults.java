@@ -1,17 +1,11 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.gson.annotations.Expose;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
+
+import java.util.*;
 
 /* Represents the search results for a single user query. This object *must*
  * be wrapped in a Hibernate transaction like so:
@@ -76,6 +70,7 @@ public class SearchResults {
 			datasets.add(exactDataset);
 			datasets.addAll(GenericDao.getFromSubstringButIgnoreId(Dataset.class, query, datasetIdToIgnore));
 		} else {
+			datasets.addAll(GenericDao.getFromSubstring(Dataset.class, query));
 			List<Dataset> datasetsFromResource = DatasetDao.getFromResourceName(query);
 			if (datasetsFromResource.size() != 0) {
 				datasets.addAll(datasetsFromResource);
@@ -91,7 +86,7 @@ public class SearchResults {
 	public void queryGenes() {
 		List<String> geneSuggestions = suggestions.get("genes");
 		int geneIdToIgnore;
-		Gene exactGene = GeneDao.getFromSymbol(query);
+		Gene exactGene = GenericDao.get(Gene.class, query);
 		if (exactGene != null) {
 			geneIdToIgnore = exactGene.getId();
 			genes.add(exactGene);
@@ -114,9 +109,9 @@ public class SearchResults {
 				idsToIgnore.add(geneSet.getId());
 			}
 			geneSets.addAll(exactGeneSets);
-			geneSets.addAll(GeneSetDao.getFromWordInNameButIgnoreExactMatches(query, idsToIgnore));
-		} else {
-			geneSets.addAll(GeneSetDao.getFromWordInName(query));
+			geneSets.addAll(GenericDao.getFromSubstringInFieldButIgnoreIds(GeneSet.class, query, idsToIgnore));
+        } else {
+			geneSets.addAll(GenericDao.getFromSubstring(GeneSet.class, query));
 		}
 		if (geneSets.size() == 0) {
 			getSetSuggestions.addAll(GenericDao.getSuggestions(GeneSet.class, query));

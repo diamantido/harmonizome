@@ -10,20 +10,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class GeneSetDao {
-	
-	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getFromWordInName(String query) {
-		return (List<GeneSet>) HibernateUtil
-			.getCurrentSession()
-			.createSQLQuery(
-				"SELECT DISTINCT * FROM gene_set " +
-				"WHERE MATCH(gene_set.name_from_dataset) AGAINST(:query IN BOOLEAN MODE)"		
-			)
-			.addEntity(GeneSet.class)
-			.setString("query", query + "*")
-			.list();
-	}
-	
+
 	@SuppressWarnings("unchecked")
 	public static List<GeneSet> getAllFromDatasetName(String name) {
 		return (List<GeneSet>) HibernateUtil
@@ -48,32 +35,6 @@ public class GeneSetDao {
 			.setString("name", name)
 			.setString("datasetName", datasetName)
 			.uniqueResult();
-	}
-
-	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getFromWordInNameButIgnoreExactMatches(String query, List<Integer> idsToIgnore) {
-		StringBuilder builder  = new StringBuilder();
-		Iterator<Integer> iter = idsToIgnore.iterator();
-		builder.append("(");
-		while (iter.hasNext()) {
-			builder.append(iter.next());
-	        if (iter.hasNext()) {
-	        	builder.append(",");
-	        }
-		}
-		builder.append(")");
-		String sql = String.format("" +
-			"SELECT DISTINCT * FROM gene_set " +
-			"WHERE MATCH(gene_set.name_from_dataset) AGAINST(:query IN BOOLEAN MODE) " +
-			"  AND gene_set.id NOT IN %s", 
-			builder.toString()
-		);
-		return (List<GeneSet>) HibernateUtil
-			.getCurrentSession()
-			.createSQLQuery(sql)
-			.addEntity(GeneSet.class)
-			.setString("query", query + "*")
-			.list();
 	}
 	
 	public static Pair<List<GeneSet>, List<GeneSet>> getFromGeneAndDataset(String geneSymbol, String datasetName) {

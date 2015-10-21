@@ -1,20 +1,9 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneMetadataBasicSerializer;
@@ -26,6 +15,15 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Gene.ENDPOINT + "/*" })
 public class GeneMetadataApi extends HttpServlet {
@@ -56,7 +54,7 @@ public class GeneMetadataApi extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 			Gene gene = null;
-			gene = GeneDao.getFromSymbol(symbol);
+			gene = GenericDao.get(Gene.class, symbol);
 			if (gene == null) {
 				gene = GeneDao.getFromSynonymSymbol(symbol);
 			}

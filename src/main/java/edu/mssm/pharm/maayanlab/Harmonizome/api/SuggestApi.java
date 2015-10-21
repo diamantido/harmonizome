@@ -1,21 +1,7 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
@@ -23,6 +9,19 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Returns a list of keywords based on query. This method is not part of the
@@ -74,9 +73,15 @@ public class SuggestApi extends HttpServlet {
 				}
 				suggestions.addAll(attributeSuggestions);
 			}
+
+
+			Set<String> finalSuggestions = new HashSet<String>();
+			for (String suggestion : suggestions) {
+				finalSuggestions.add(suggestion);
+			}
 			
 			PrintWriter out = response.getWriter();
-			String json = gson.toJson(suggestions);
+			String json = gson.toJson(finalSuggestions);
 			out.write(json);
 			out.flush();
 			

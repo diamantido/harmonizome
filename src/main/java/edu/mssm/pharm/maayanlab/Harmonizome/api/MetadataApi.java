@@ -1,20 +1,17 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
 import com.google.gson.Gson;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 public class MetadataApi {
 
@@ -24,7 +21,7 @@ public class MetadataApi {
 			E entity = null;
 			
 			HibernateUtil.beginTransaction();
-			entity = GenericDao.getBioEntityFromKeyColumn(klass, query);
+			entity = GenericDao.get(klass, query);
 			PrintWriter out = response.getWriter();
 			if (entity == null) {
 				out.write(gson.toJson(new ErrorSchema()));
