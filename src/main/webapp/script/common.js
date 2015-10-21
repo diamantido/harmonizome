@@ -223,49 +223,44 @@ $(function() {
 
 	/* Setups search bar.
 	 */
-	function setupSearch($parentEl) {		
-		$.ajax({
-			method: 'GET',
-			url: API_URL + 'gene',
-			success: function(geneDictionary) {
-				var genes = new Bloodhound({
-					datumTokenizer: function (datum) {
-						return Bloodhound.tokenizers.whitespace(datum.value);
-				    },
-					queryTokenizer: Bloodhound.tokenizers.whitespace,
-					remote: {
-						url: API_URL + 'suggest?q=%QUERY',
-						replace: function(url, urlEncodedQuery) {
-							var type = getEntityType();
-							url = url.replace('%QUERY', urlEncodedQuery);
-							return url + '&t=' + type;
-						},
-						wildcard: '%QUERY'
-					}
-				});
-				var $input = $parentEl
-                    .find('input')
-					.typeahead(
-                        {
-                            hint: true,
-                            highlight: true,
-                            minLength: 1
-                        },
-                        {
-                            name: 'genes',
-                            source: genes.ttAdapter()
-                        }
-                    ).on('typeahead:selected', function(event, selection) {
-                        makeSearch(selection);
-                    });
-				
-				/* Now move the Typeahead suggestion box outside of the input
-				 * form. We do this because the input form needs
-				 * "overflow: hidden". See: http://jsfiddle.net/0z1uup9t/
-				 */
-				monitorSuggestionsDropdown();
+	function setupSearch($parentEl) {
+		var genes = new Bloodhound({
+			datumTokenizer: function (datum) {
+				return Bloodhound.tokenizers.whitespace(datum.value);
+			},
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			remote: {
+				url: API_URL + 'suggest?q=%QUERY',
+				replace: function(url, urlEncodedQuery) {
+					var type = getEntityType();
+					url = url.replace('%QUERY', urlEncodedQuery);
+					return url + '&t=' + type;
+				},
+				wildcard: '%QUERY'
 			}
 		});
+
+		$parentEl
+			.find('input')
+			.typeahead(
+				{
+					hint: true,
+					highlight: true,
+					minLength: 1
+				},
+				{
+					name: 'genes',
+					source: genes.ttAdapter()
+				}
+			).on('typeahead:selected', function(event, selection) {
+				makeSearch(selection);
+			});
+
+		/* Now move the Typeahead suggestion box outside of the input
+		 * form. We do this because the input form needs
+		 * "overflow: hidden". See: http://jsfiddle.net/0z1uup9t/
+		 */
+		monitorSuggestionsDropdown();
 	}
 
     function makeSearch(query) {
