@@ -23,12 +23,12 @@
                 </p>
                 <ul class="list-unstyled app-store-links">
                     <li>
-                        <i class="fa fa-android fa-2x"></i>
+                        <i class="fa fa-apple fa-2x"></i>
                         <a href="https://itunes.apple.com/us/app/harmonizome/id1046990905" target="_blank">Free for
                             iPhone</a>
                     </li>
                     <li>
-                        <i class="fa fa-apple fa-2x"></i>
+                        <i class="fa fa-android fa-2x"></i>
                         <a href="https://play.google.com/store/apps/details?id=com.maayanlab.harmonizome&hl=en"
                            target="_blank">Free for Android</a>
                     </li>

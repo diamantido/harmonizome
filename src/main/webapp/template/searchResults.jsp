@@ -5,7 +5,7 @@
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
 
-<t:wrapper title="${query}" navType="withSearch" pageWidth="full">
+<t:wrapper title="${query}" navType="withSearch" pageWidth="full" userSearch="${query}">
     <div class="search-results-page">
         <div class="metadata container-full">
             <div class="container">

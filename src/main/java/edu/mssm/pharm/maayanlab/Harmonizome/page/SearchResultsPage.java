@@ -1,6 +1,7 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.UserSearchDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
@@ -29,12 +30,19 @@ public class SearchResultsPage extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String query = UrlUtil.getParameter(request, "q");
 		String type = UrlUtil.getParameter(request, "t");
+        String meta = UrlUtil.getParameter(request, "m");
 		
 		if (query == null || query == "") {
 			showNoSearchResults(request, response, "");
 		} else {
 			try {
 				HibernateUtil.beginTransaction();
+
+                // The example links send "m=example" so we don't save a bunch of "STAT3" queries.
+                if (meta == null) {
+                    UserSearchDao.save(query);
+                }
+
 				SearchResults searchResults = new SearchResults(query, type);
 				if (searchResults.noMatches()) {
 					showNoSearchResults(request, response, query);
@@ -62,6 +70,8 @@ public class SearchResultsPage extends HttpServlet {
 					request.setAttribute("geneSets", geneSets);
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "searchResults.jsp").forward(request, response);
 				}
+
+                HibernateUtil.commitTransaction();
 			} catch (HibernateException he) {
 				he.printStackTrace();
 				HibernateUtil.rollbackTransaction();

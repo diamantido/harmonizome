@@ -158,6 +158,23 @@ strong {
 #navbar-wrapper h1 a:hover {
   text-decoration: none;
 }
+#navbar-wrapper .nav li {
+  padding: 0;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+#navbar-wrapper .nav li:hover,
+#navbar-wrapper .nav li:focus,
+#navbar-wrapper .nav li:active {
+  background-color: #343844;
+}
+#navbar-wrapper .nav a:hover,
+#navbar-wrapper .nav a:focus {
+  color: white;
+  opacity: .7;
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), -webkit-transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 #navbar-wrapper img {
   bottom: 2px;
   position: relative;
@@ -170,7 +187,6 @@ strong {
 }
 #navbar-wrapper a:hover,
 #navbar-wrapper a:active {
-  color: #eeeeee;
   background-color: #343844;
 }
 #navbar-wrapper .navbar-nav.list-inline a {
@@ -258,15 +274,15 @@ strong {
   float: left;
 }
 .search-bar .entity-dropdown.gene {
-  border: 2px solid #ed8c2b;
+  border: 1px solid #ed8c2b;
   width: 80px;
 }
 .search-bar .entity-dropdown.geneSet {
-  border: 2px solid #ec1e8e;
+  border: 1px solid #ec1e8e;
   width: 105px;
 }
 .search-bar .entity-dropdown.dataset {
-  border: 2px solid #309fab;
+  border: 1px solid #309fab;
   width: 95px;
 }
 .search-bar .entity-dropdown.all {

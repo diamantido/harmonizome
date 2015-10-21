@@ -33,5 +33,6 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Resource" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Stats" />
+        <mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.UserSearch" />
 	</session-factory>
 </hibernate-configuration>

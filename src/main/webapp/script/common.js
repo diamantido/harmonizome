@@ -236,23 +236,28 @@ $(function() {
 					remote: {
 						url: API_URL + 'suggest?q=%QUERY',
 						replace: function(url, urlEncodedQuery) {
-							var type = $('.search-bar .entity-dropdown :selected').val();
+							var type = getEntityType();
 							url = url.replace('%QUERY', urlEncodedQuery);
 							return url + '&t=' + type;
 						},
 						wildcard: '%QUERY'
 					}
 				});
-				var $input = $parentEl.find('input')
-					.typeahead({
-						hint: true,
-						highlight: true,
-						minLength: 1
-					},
-					{
-						name: 'genes',
-						source: genes.ttAdapter()
-					});
+				var $input = $parentEl
+                    .find('input')
+					.typeahead(
+                        {
+                            hint: true,
+                            highlight: true,
+                            minLength: 1
+                        },
+                        {
+                            name: 'genes',
+                            source: genes.ttAdapter()
+                        }
+                    ).on('typeahead:selected', function(event, selection) {
+                        makeSearch(selection);
+                    });
 				
 				/* Now move the Typeahead suggestion box outside of the input
 				 * form. We do this because the input form needs
@@ -262,20 +267,39 @@ $(function() {
 			}
 		});
 	}
-	
+
+    function makeSearch(query) {
+        var type = getEntityType();
+        window.location = 'search?q=' + query + '&t=' + type;
+    }
+
+    function getEntityType() {
+        return $('.search-bar .entity-dropdown :selected').val();
+    }
+
 	/* Setup Twitter Bootstrap JS tooltips.
 	 */
 	function setupTooltips() {
 		$('[data-toggle="tooltip"]').tooltip();
-	};
+	}
 	
 	/* Changes the styling of the select dropdown, depending on entity type.
+	 *
+     * Sets the class on the search entity drop down on page load. This is
+     * because the browser back button will load the page with the previously
+     * selected option.
 	 */
 	function monitorSearchSelect() {
-		var $select = $('.search-bar select.entity-dropdown');
+        var $select = $('.search-bar select.entity-dropdown'),
+            selectedValue = $select.find(':selected').val(),
+            classes = 'all gene geneSet dataset',
+            transition = 'slow';
+
+        $select.removeClass(classes);
+        $select.addClass(selectedValue, transition);
 		$select.change(function(evt) {
-			$(this).removeClass('all gene geneSet dataset');
-			$(this).addClass($(this).val(), 10000);
+			$(this).removeClass(classes);
+			$(this).addClass($(this).val(), transition);
 			placeSuggestionMenu();
 		});
 	}
@@ -307,19 +331,17 @@ $(function() {
 		$('.tt-menu').appendTo('body');
 		placeSuggestionMenu();
 		$(window).on('resize', placeSuggestionMenu);
-		if (!$('#landing').length) {
-			setOverlayWhenTyping();
-		}
+		setOverlayWhenTyping();
 	}
 	
 	/* Highlights user typing rather than screen contents.
 	 */
 	function setOverlayWhenTyping() {
 		var $input = $('.search-bar .input-bar .tt-input');
-			isNotIndexPage = $('.landing-page').length === 0;
+			inNav = $('.search-bar.in-navbar').length > 0;
 		$input.keyup(function() {
 			var term = $input.val();
-			if (term && isNotIndexPage) {
+			if (term && inNav) {
 				$('.wrapper').css('opacity', .1);
 			} else {
 				$('.wrapper').css('opacity', 1);

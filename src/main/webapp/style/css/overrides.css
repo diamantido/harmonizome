@@ -84,10 +84,6 @@ select {
 .dropdown-menu > li {
   display: table-cell;
 }
-.nav > li > a:focus,
-.nav > li > a:hover {
-  background-color: #343844;
-}
 /* jQuery UI overwrites.
  * ------------------------------------------------------------------------- */
 .twitter-typeahead {
@@ -149,6 +145,11 @@ select {
 .pagination > li > a,
 .pagination > li > span {
   color: #1a0dab;
+}
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 @media (max-width: 767px) {
   div.dataTables_wrapper > div.row > div,

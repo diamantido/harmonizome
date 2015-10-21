@@ -5,7 +5,7 @@ public class Constant {
 	public static final String HARMONIZOME = "Harmonizome";
 	
 	public static final String API_URL = "api/1.0";
-	
+
 	public static final String DATA_DIRECTORY = "http://amp.pharm.mssm.edu/static/hdfs/harmonizome/data";
 	
 	// This has no preceding slash because we typically use it as a relative URL in JSP templates.

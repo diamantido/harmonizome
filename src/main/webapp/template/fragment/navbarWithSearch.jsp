@@ -6,11 +6,10 @@
 				<span class="project-title">Harmonizome</span>
 			</a>
 		</h1>
-	
-		<!-- MENU -->
-		
+
 		<jsp:include page="/template/fragment/searchBar.jsp">
-			<jsp:param value="in-navbar" name="location"/>
+			<jsp:param name="location" value="in-navbar"/>
+            <jsp:param name="userSearch" value="${param.userSearch}"/>
 		</jsp:include>
 
 		<!-- This is the dropdown button for the mobile version of the site -->

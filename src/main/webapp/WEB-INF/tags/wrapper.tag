@@ -5,6 +5,7 @@
 <%@ attribute name="extraKeywords" %>
 <%@ attribute name="navType" %>
 <%@ attribute name="pageWidth" %>
+<%@ attribute name="userSearch" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -53,10 +54,12 @@
     <body>
         <c:choose>
             <c:when test="${navType == 'withSearch'}">
-                <%@include file="/template/fragment/navbarWithSearch.jsp" %>
+                <jsp:include page="/template/fragment/navbarWithSearch.jsp">
+                    <jsp:param name="userSearch" value="${userSearch}"/>
+                </jsp:include>
             </c:when>
             <c:otherwise>
-                <%@include file="/template/fragment/navbar.jsp" %>
+                <jsp:include page="/template/fragment/navbar.jsp"></jsp:include>
             </c:otherwise>
         </c:choose>
         <div class="wrapper">

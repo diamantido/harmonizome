@@ -19,13 +19,13 @@
 				<strong>Example searches</strong>
 				<ul class="list-inline">
 					<li>
-						<a href="${Constant.SEARCH_URL}?q=achilles">achilles</a>
+						<a href="${Constant.SEARCH_URL}?q=achilles&m=example">achilles</a>
 					</li>
 					<li>
-						<a href="${Constant.SEARCH_URL}?q=STAT3">STAT3</a>
+						<a href="${Constant.SEARCH_URL}?q=STAT3&m=example">STAT3</a>
 					</li>
 					<li>
-						<a href="${Constant.SEARCH_URL}?q=breast+cancer">breast cancer</a>
+						<a href="${Constant.SEARCH_URL}?q=breast+cancer&m=example">breast cancer</a>
 					</li>
 				</ul>
 			</div>

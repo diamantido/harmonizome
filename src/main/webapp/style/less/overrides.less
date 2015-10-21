@@ -96,11 +96,6 @@ select {
     display: table-cell;
 }
 
-.nav > li > a:focus,
-.nav > li > a:hover {
-    background-color: @color-navbar-background;
-}
-
 /* jQuery UI overwrites.
  * ------------------------------------------------------------------------- */
 .twitter-typeahead {
@@ -175,6 +170,12 @@ select {
 .pagination > li > a,
 .pagination > li > span {
     color: @color-link-blue;
+}
+
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 @media (max-width: 767px) {

@@ -38,8 +38,14 @@
   border-bottom: none;
   margin: 0;
 }
+.search-results-page table {
+  margin-top: 20px !important;
+}
 .search-results-page table td {
   padding-bottom: 15px !important;
+}
+.search-results-page table thead {
+  display: none;
 }
 .search-results-page .filters li {
   padding-left: 0;
