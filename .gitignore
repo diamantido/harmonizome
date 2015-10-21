@@ -5,6 +5,7 @@
 data/
 src/main/webapp/node_modules/
 *.pyc
+__pychache__
 nohup.out
 *.properties
 
