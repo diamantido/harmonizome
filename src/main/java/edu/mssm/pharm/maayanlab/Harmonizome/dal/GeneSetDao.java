@@ -3,6 +3,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -12,13 +13,13 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class GeneSetDao {
 
 	@SuppressWarnings("unchecked")
-	public static List<GeneSet> getAllFromDatasetName(String name) {
+	public static List<GeneSet> getAllFromNameFromDataset(String name) {
 		return (List<GeneSet>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
-				"SELECT geneSet FROM GeneSet AS geneSet " +
-				"WHERE geneSet.nameFromDataset = :name"
-			)
+                "SELECT geneSet FROM GeneSet AS geneSet " +
+                "WHERE geneSet.nameFromDataset = :name"
+            )
 			.setString("name", name)
 			.list();
 	}

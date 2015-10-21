@@ -28,4 +28,6 @@ public class Constant {
 	public static final String ENTITY_TYPE = "entity";
 
 	public static final int API_MAX_RESULTS = 100;
+
+    public static final int DB_MAX_RESULTS = 1000;
 }

@@ -40,7 +40,6 @@ public class GenericDao {
 		return (List<E>) HibernateUtil.getCurrentSession()
 			.createCriteria(klass)
 			.setFirstResult(startAt)
-			.setMaxResults(Constant.API_MAX_RESULTS)
 			.list();
 	}
 
@@ -56,6 +55,7 @@ public class GenericDao {
 			.getCurrentSession()
 			.createSQLQuery(sql)
 			.setString("query", query)
+            .setMaxResults(Constant.DB_MAX_RESULTS)
 			.list();
 	}
 
@@ -71,6 +71,7 @@ public class GenericDao {
 			.getCurrentSession()
 			.createSQLQuery(sql)
 			.setString("query", query + "%")
+            .setMaxResults(Constant.DB_MAX_RESULTS)
 			.list();
 	}
 
@@ -87,6 +88,7 @@ public class GenericDao {
 			.createSQLQuery(sql)
 			.addEntity(klass)
 			.setString("query", query + "*")
+            .setMaxResults(Constant.DB_MAX_RESULTS)
 			.list();
 	}
 	
@@ -103,6 +105,7 @@ public class GenericDao {
 			.createSQLQuery(sql)
 			.addEntity(klass)
 			.setString("query", "*" + query + "*")
+            .setMaxResults(Constant.DB_MAX_RESULTS)
 			.list();
 	}
 
@@ -131,6 +134,7 @@ public class GenericDao {
 			.createSQLQuery(sql)
 			.addEntity(klass)
 			.setString("query", "*" + query + "*")
+            .setMaxResults(Constant.DB_MAX_RESULTS)
 			.list();
 	}
 	
@@ -162,7 +166,7 @@ public class GenericDao {
 		String sql = String.format(
 			"SELECT DISTINCT %s FROM %s WHERE MATCH(%s) AGAINST(:query IN BOOLEAN MODE);",
 			field, table, field
-		);		
+		);
 		return (List<String>) HibernateUtil
 			.getCurrentSession()
 			.createSQLQuery(sql)

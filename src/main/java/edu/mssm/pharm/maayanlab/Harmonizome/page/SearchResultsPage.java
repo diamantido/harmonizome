@@ -89,14 +89,28 @@ public class SearchResultsPage extends HttpServlet {
 	private String buildSummary(String query, Set<Dataset> datasets, Set<Gene> genes, Set<GeneSet> geneSets) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Results for ").append("\"").append(query).append("\": ");
-		if (datasets.size() != 0) {
+		if (datasets.size() > 0) {
 			sb.append(datasets.size()).append(datasets.size() == 1 ? " dataset, " : " datasets, ");
 		}
-		if (genes.size() != 0) {
-			sb.append(genes.size()).append(genes.size() == 1 ? " gene, " : " genes, ");
+		if (genes.size() > 0) {
+            int count = genes.size();
+			if (count == Constant.DB_MAX_RESULTS) {
+                String countStr = Integer.toString(count) + "+";
+                sb.append(countStr);
+            } else {
+                sb.append(count);
+            }
+            sb.append(count == 1 ? " gene, " : " genes, ");
 		}		
-		if (geneSets.size() != 0) {
-			sb.append(geneSets.size()).append(geneSets.size() == 1 ? " gene set, " : " gene sets, ");
+		if (geneSets.size() > 0) {
+            int count = geneSets.size();
+            if (count == Constant.DB_MAX_RESULTS) {
+                String countStr = Integer.toString(count) + "+";
+                sb.append(countStr);
+            } else {
+                sb.append(count);
+            }
+            sb.append(count == 1 ? " gene set, " : " gene sets, ");
 		}
 		return StringUtils.removeEnd(sb.toString(), ", ");
 	}

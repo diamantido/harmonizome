@@ -22,7 +22,7 @@
 			<label for="q" class="sr-only">Search</label>
             <c:choose>
                 <c:when test="${not empty param.userSearch}">
-                    <input data-provide="typeahead" type="text" class="form-control" name="q" placeholder="${param.userSearch}">
+                    <input data-provide="typeahead" type="text" class="form-control" name="q" value="${param.userSearch}">
                 </c:when>
                 <c:otherwise>
                     <input data-provide="typeahead" type="text" class="form-control" name="q">
