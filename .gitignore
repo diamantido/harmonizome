@@ -1,8 +1,12 @@
+# Misc
 .DS_Store
 *.swp
 *.swo
 data/
 src/main/webapp/node_modules/
+*.pyc
+nohup.out
+*.properties
 
 # Config w/ password
 build_db.sh
@@ -39,6 +43,5 @@ target/
 # TeXlipse plugin
 .texlipse
 
-nohup.out
 
-*.properties
+

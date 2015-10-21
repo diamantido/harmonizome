@@ -15,6 +15,7 @@
                 <section>
                     <h2>Introduction</h2>
                     <p>This document describes the REST APIs provided by the Harmonizome. These APIs are for developers who want to integrate the Harmonizome's data into their own applications or who want to run batch scripts against the data.</p>
+                    <p>If you're comfortable with Python, you can use an API wrapper written in Python. See <a href="documentation#quick-start">Quick Start in Python</a>.</p>
                 </section>
                 <section>
                     <h2>Traversing the URLs</h2>
@@ -70,8 +71,7 @@
                 <section>
                     <h2>The Cursor</h2>
                     <p>In order to minimize database queries and request times, this API uses a technique called "cursoring" to paginate large result sets. Add a query parameter <span class="mono">cursor</span> to the <span class="mono">GET</span> request to see the selection of data starting at the cursor:</p>
-<pre><code class="bash">GET /Harmonizome/api/1.0/gene?cursor=3141
-    </code></pre>
+<pre><code class="bash">GET /Harmonizome/api/1.0/gene?cursor=3141</code></pre>
                     <p>If no cursor is provided, the API defaults to 0. The maximum result set size is 100, and the <span class="mono">next</span> property will be returned with a link to the next selection of data.</p>
                 </section>
                 <section>
@@ -88,6 +88,23 @@
 }
 </code></pre>
                     <p>Note that the <span class="mono">geneSets</span> property is an array of entities; therefore, each gene set has its own <span class="mono">href</span> property which can be traversed.</p>
+                </section>
+                <section id="quick-start">
+                    <h2>Quick Start in Python</h2>
+                    <ul>
+                        <li>Download this Python class: <span class="mono"><a href="static/harmonizome.py" target="_blank">harmonizome.py</a></span>.</li>
+                        <li>Call <span class="mono">fetch</span> with a supported <span class="mono">Entity</span>. For example:</li>
+                    </ul>
+<pre><code class="python">&gt;&gt;&gt; from harmonizome import Harmonizome, Entity
+&gt;&gt;&gt; pid_dataset = Harmonizome.fetch(Entity.DATASET, name='PID pathways')</code></pre>
+                    <ul>
+                        <li>To get a list of the entities, omit the <span class="mono">name</span>.</li>
+                    </ul>
+<pre><code class="python">&gt;&gt;&gt; entity_list = Harmonizome.fetch(Entity.GENE)</code></pre>
+                    <ul>
+                        <li>To get more of the same entity, pass in the response object to the <span class="mono">next</span> function.</li>
+                    </ul>
+<pre><code class="python">&gt;&gt;&gt; more = Harmonizome.next(entity_list)</code></pre>
                 </section>
             </div>
         </div>

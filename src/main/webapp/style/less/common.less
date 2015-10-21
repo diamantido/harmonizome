@@ -217,11 +217,6 @@ strong {
         position: relative;
         width: 25%;
         top: -2px;
-        /* .input-group {
-            .twitter-typeahead {
-                width: 100%;
-            }
-        } */
     }
     #menu {
         background-color: @color-navbar-background;
@@ -231,7 +226,6 @@ strong {
 
 @media (max-width: 1200px) {
     #navbar-wrapper {
-        /* If these two selectors seem nonsensical, it's because they target two different pages. */
         h1 {
             .credits {
                 display: none;
@@ -242,18 +236,21 @@ strong {
 
 @media (max-width: 1000px) {
     #navbar-wrapper {
-        /* If these two selectors seem nonsensical, it's because they target two different pages. */
-
-    }
-}
-
-@media (max-width: 768px) {
-    #navbar-wrapper {
         h1 {
             .project-title {
                 display: none;
             }
         }
+    }
+}
+
+@media (max-width: 768px) {
+    #navbar-wrapper {
+        //h1 {
+        //    .project-title {
+        //        display: none;
+        //    }
+        //}
         #menu {
             width: 100%;
             a {
@@ -384,7 +381,7 @@ strong {
     }
 }
 
-@media (max-width: 584px) {
+@media (max-width: 615px) {
     .hide-on-mobile {
         display: none;
     }
@@ -401,9 +398,6 @@ strong {
     }
 }
 
-
 .project-title {
     font-family: @font-family-accent;
 }
-
-

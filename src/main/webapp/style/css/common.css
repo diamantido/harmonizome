@@ -195,33 +195,22 @@ strong {
   position: relative;
   width: 25%;
   top: -2px;
-  /* .input-group {
-            .twitter-typeahead {
-                width: 100%;
-            }
-        } */
 }
 #navbar-wrapper #menu {
   background-color: #343844;
   margin-bottom: 20px;
 }
 @media (max-width: 1200px) {
-  #navbar-wrapper {
-    /* If these two selectors seem nonsensical, it's because they target two different pages. */
-  }
   #navbar-wrapper h1 .credits {
     display: none;
   }
 }
 @media (max-width: 1000px) {
-  #navbar-wrapper {
-    /* If these two selectors seem nonsensical, it's because they target two different pages. */
-  }
-}
-@media (max-width: 768px) {
   #navbar-wrapper h1 .project-title {
     display: none;
   }
+}
+@media (max-width: 768px) {
   #navbar-wrapper #menu {
     width: 100%;
   }
@@ -332,7 +321,7 @@ strong {
   border-left: 1px solid #aaaaaa;
   padding-left: 8px;
 }
-@media (max-width: 584px) {
+@media (max-width: 615px) {
   .hide-on-mobile {
     display: none;
   }

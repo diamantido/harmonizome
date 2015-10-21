@@ -38,6 +38,12 @@
   border-bottom: none;
   margin: 0;
 }
+.search-results-page table td {
+  padding-bottom: 15px !important;
+}
+.search-results-page .filters li {
+  padding-left: 0;
+}
 .search-results-page .metadata {
   padding-top: 20px;
   background-color: #f5f5f5;
@@ -50,11 +56,35 @@
 .search-results-page .description p {
   margin: 0;
 }
+.search-results-page .filters-text {
+  margin-right: 15px;
+}
 .search-results-page .note {
   font-size: 12px;
 }
-.search-results-page table td {
-  padding-bottom: 15px !important;
+.search-results-page .badge.all,
+.search-results-page .badge.dataset,
+.search-results-page .badge.gene,
+.search-results-page .badge.gene-set {
+  color: white;
+}
+.search-results-page .badge.all a,
+.search-results-page .badge.dataset a,
+.search-results-page .badge.gene a,
+.search-results-page .badge.gene-set a {
+  color: white;
+}
+.search-results-page .badge.all {
+  background-color: #666666;
+}
+.search-results-page .badge.dataset {
+  background-color: #309fab;
+}
+.search-results-page .badge.gene {
+  background-color: #ed8c2b;
+}
+.search-results-page .badge.gene-set {
+  background-color: #ec1e8e;
 }
 /* Suggest page
  * ------------------------------------------------------------------------- */
@@ -140,12 +170,14 @@
   font-size: 25px;
 }
 .documentation-page pre {
-  background-color: white;
   padding: 0;
   border-radius: 0;
   border: none;
 }
 .documentation-page .mono {
+  background-color: #f8f8f8;
+  color: #d14;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   font-size: 12px;
+  padding: 2px;
 }

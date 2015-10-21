@@ -2,25 +2,31 @@
 """
 
 
-from enum import Enum
 import json
 
 # Support for both Python2.X and 3.X.
 try:
     from urllib.request import urlopen
     from urllib.parse import quote_plus
+    from enum import Enum
 except ImportError:
     from urllib2 import urlopen
     from urllib import quote_plus
 
 
-class Entity(Enum):
-    """The entity types supported by the Harmonizome API.
+class Enum(set):
+    """Simple Enum shim since Python 2.X does not have them.
     """
-    DATASET = 'dataset'
-    GENE = 'gene'
-    GENE_SET = 'gene_set'
-    ATTRIBUTE = 'attribute'
+
+    def __getattr__(self, name):
+        if name in self:
+            return name
+        raise AttributeError
+
+
+# The entity types supported by the Harmonizome API.
+Entity = Enum(['DATASET', 'GENE', 'GENE_SET', 'ATTRIBUTE', 'GENE_FAMILY',
+               'NAMING_AUTHORITY', 'PROTEIN', 'RESOURCE'])
 
 
 class Harmonizome(object):
@@ -36,54 +42,55 @@ class Harmonizome(object):
     # ----------
 
     @classmethod
-    def fetch(cls, entity, name=None, start_at=None):
+    def get(cls, entity, name=None, start_at=None):
         """Returns a single entity or a list, depending on if a name is
         provided. If no name is provided and start_at is specified, returns a
         list starting at that cursor position.
         """
+        entity = entity.lower()
         if name is not None:
             name = cls._encode(name)
-            return cls._fetch_by_name(entity, name)
+            return cls._get_by_name(entity, name)
         if start_at is not None and type(start_at) is int:
-            return cls._fetch_with_cursor(entity, start_at)
+            return cls._get_with_cursor(entity, start_at)
 
-        url = '%s/%s/%s' % (cls.BASE_URL, cls.VERSION, entity.value)
+        url = '%s/%s/%s' % (cls.BASE_URL, cls.VERSION, entity)
         result = cls._open(url)
         return result
 
     @classmethod
-    def fetch_next(cls, response):
+    def next(cls, response):
         """Returns the next set of entities based on a previous API response.
         """
         start_at = cls._get_next(response)
         entity = cls._get_entity(response)
-        return cls.fetch(entity=entity, start_at=start_at)
+        return cls.get(entity=entity, start_at=start_at)
 
 
     # Utility functions
     # -----------------
 
     @classmethod
-    def _fetch_with_cursor(cls, entity, start_at):
+    def _get_with_cursor(cls, entity, start_at):
         """Returns a list of entities based on cursor position.
         """
         url = '%s/%s/%s?cursor=%s' % (
             cls.BASE_URL,
             cls.VERSION,
-            entity.value,
+            entity,
             str(start_at)
         )
         result = cls._open(url)
         return result
 
     @classmethod
-    def _fetch_by_name(cls, entity, name):
+    def _get_by_name(cls, entity, name):
         """Returns a single entity based on name.
         """
         url = '%s/%s/%s/%s' % (
             cls.BASE_URL,
             cls.VERSION,
-            entity.value,
+            entity,
             name
         )
         return cls._open(url)
@@ -101,7 +108,7 @@ class Harmonizome(object):
         """Returns the entity from an API response.
         """
         path = response['next'].split('?')[0]
-        return Entity(path.split('/')[3])
+        return path.split('/')[3]
 
     @classmethod
     def _get_next(cls, response):
@@ -116,8 +123,3 @@ class Harmonizome(object):
         """URL encodes a string.
         """
         return quote_plus(url)
-
-
-if __name__ == '__main__':
-    response = Harmonizome.fetch(Entity.DATASET, name='PID pathways')
-    print(response)

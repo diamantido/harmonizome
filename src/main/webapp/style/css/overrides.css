@@ -1,4 +1,4 @@
-b/*
+/*
  * Overrides for library-specific selectors.
  */
 /* https://color.adobe.com/21-Flat-Business-Icons-color-theme-6339907/?showPublished=true
@@ -37,25 +37,6 @@ b/*
 }
 .badge a:hover {
   color: #444444;
-}
-.badge.dataset,
-.badge.gene,
-.badge.gene-set {
-  color: white;
-}
-.badge.dataset a,
-.badge.gene a,
-.badge.gene-set a {
-  color: white;
-}
-.badge.dataset {
-  background-color: #309fab;
-}
-.badge.gene {
-  background-color: #ed8c2b;
-}
-.badge.gene-set {
-  background-color: #ec1e8e;
 }
 .tooltip .tooltip-inner {
   background: #444444;

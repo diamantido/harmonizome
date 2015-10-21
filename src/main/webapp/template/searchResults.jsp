@@ -9,56 +9,45 @@
     <div class="search-results-page">
         <div class="metadata container-full">
             <div class="container">
+                <c:choose>
+                    <c:when test="${isFilteredPage}">
+                        <ul class="list-inline">
+                            <li>
+                                <span class="badge all">
+                                    <a href="${Constant.SEARCH_URL}?q=${query}">Clear Filter</a>
+                                </span>
+                            </li>
+                        </ul>
+                    </c:when>
+                    <c:otherwise>
+                        <strong class="pull-left filters-text">Filters:</strong>
+                        <ul class="list-inline pull-left filters">
+                            <c:if test="${fn:length(datasets) != 0}">
+                                <li>
+                                    <span class="badge dataset">
+                                        <a href="${Constant.SEARCH_URL}?q=${query}&t=dataset">Dataset</a>
+                                    </span>
+                                </li>
+                            </c:if>
+                            <c:if test="${fn:length(genes) != 0}">
+                                <li>
+                                    <span class="badge gene">
+                                        <a href="${Constant.SEARCH_URL}?q=${query}&t=gene">Gene</a>
+                                    </span>
+                                </li>
+                            </c:if>
+                            <c:if test="${fn:length(geneSets) != 0}">
+                                <li>
+                                    <span class="badge gene-set">
+                                        <a href="${Constant.SEARCH_URL}?q=${query}&t=geneSet">Gene Set</a>
+                                    </span>
+                                </li>
+                            </c:if>
+                        </ul>
+                        <div class="clear"></div>
+                    </c:otherwise>
+                </c:choose>
                 <p class="instruction"><c:out value="${summary}"/></p>
-                <c:out value="${isFilteredPage}"/>
-                <ul class="list-inline">
-                    <li class="all">
-                        <a href="${Constant.SEARCH_URL}?q=${query}">All</a>
-                    </li>
-                    <c:if test="${fn:length(datasets) != 0}">
-                        <li class="dataset">
-                            <a href="${Constant.SEARCH_URL}?q=${query}&t=dataset">Dataset</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${fn:length(genes) != 0}">
-                        <li class="gene">
-                            <a href="${Constant.SEARCH_URL}?q=${query}&t=gene">Gene</a>
-                        </li>
-                    </c:if>
-                    <c:if test="${fn:length(geneSets) != 0}">
-                        <li class="gene-set">
-                            <a href="${Constant.SEARCH_URL}?q=${query}&t=geneSet">Gene Set</a>
-                        </li>
-                    </c:if>
-
-                </ul>
-                <%--<p>--%>
-                    <%--<c:choose>--%>
-                        <%--<c:when test="${isFilteredPage}">--%>
-                            <%--<span class="badge">--%>
-                                <%--<a href="search?q=${query}">Clear Filter</a>--%>
-                            <%--</span>--%>
-                        <%--</c:when>--%>
-                        <%--<c:otherwise>--%>
-                            <%--Filter By:--%>
-                            <%--<c:if test="${fn:length(datasets) != 0}">--%>
-                                <%--<span class="badge dataset">--%>
-                                    <%--<a href="${Constant.SEARCH_URL}?q=${query}&t=dataset">Dataset</a>--%>
-                                <%--</span>--%>
-                            <%--</c:if>--%>
-                            <%--<c:if test="${fn:length(genes) != 0}">--%>
-                                <%--<span class="badge gene">--%>
-                                    <%--<a href="${Constant.SEARCH_URL}?q=${query}&t=gene">Gene</a>--%>
-                                <%--</span>--%>
-                            <%--</c:if>--%>
-                            <%--<c:if test="${fn:length(geneSets) != 0}">--%>
-                                <%--<span class="badge gene-set">--%>
-                                    <%--<a href="${Constant.SEARCH_URL}?q=${query}&t=geneSet">Gene Set</a>--%>
-                                <%--</span>--%>
-                            <%--</c:if>--%>
-                        <%--</c:otherwise>--%>
-                    <%--</c:choose>--%>
-                <%--</p>--%>
             </div>
         </div>
         <div class="container">

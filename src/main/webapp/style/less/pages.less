@@ -39,6 +39,16 @@
         border-bottom: none;
         margin: 0;
     }
+    table {
+        td {
+            padding-bottom: 15px !important;
+        }
+    }
+    .filters {
+        li {
+            padding-left: 0;
+        }
+    }
     .metadata {
         padding-top: 20px;
         background-color: @color-gray-light-very;
@@ -51,12 +61,33 @@
             margin: 0;
         }
     }
+    .filters-text {
+        margin-right: 15px;
+    }
     .note {
         font-size: 12px;
     }
-    table {
-        td {
-            padding-bottom: 15px !important;
+    .badge {
+        &.all,
+        &.dataset,
+        &.gene,
+        &.gene-set {
+            color: white;
+            a {
+                color: white;
+            }
+        }
+        &.all {
+            background-color: @color-gray;
+        }
+        &.dataset {
+            background-color: @color-entity-blue;
+        }
+        &.gene {
+            background-color: @color-entity-yellow;
+        }
+        &.gene-set {
+            background-color: @color-entity-red;
         }
     }
 }
@@ -172,13 +203,15 @@
         font-size: 25px;
     }
     pre {
-        background-color: white;
         padding: 0;
         border-radius: 0;
         border: none;
     }
     .mono {
+        background-color: #f8f8f8;
+        color: #d14;
         font-family: @font-family-mono;
         font-size: 12px;
+        padding: 2px;
     }
 }
