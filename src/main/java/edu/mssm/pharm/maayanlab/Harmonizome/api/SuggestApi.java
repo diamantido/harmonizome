@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -45,7 +44,7 @@ public class SuggestApi extends HttpServlet {
 		String query = request.getParameter("q");
 		String type = request.getParameter("t");
 		
-		List<String> suggestions = new ArrayList<String>();
+		Set<String> suggestions = new HashSet<String>();
 		
 		try {
 			HibernateUtil.beginTransaction();
@@ -73,15 +72,9 @@ public class SuggestApi extends HttpServlet {
 				}
 				suggestions.addAll(attributeSuggestions);
 			}
-
-
-			Set<String> finalSuggestions = new HashSet<String>();
-			for (String suggestion : suggestions) {
-				finalSuggestions.add(suggestion);
-			}
 			
 			PrintWriter out = response.getWriter();
-			String json = gson.toJson(finalSuggestions);
+			String json = gson.toJson(suggestions);
 			out.write(json);
 			out.flush();
 			
