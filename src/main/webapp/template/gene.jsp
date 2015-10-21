@@ -5,7 +5,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:wrapper title="Gene - ${gene.symbol}" extraKeywords="${gene.symbol}">
+<t:wrapper title="Gene - ${gene.symbol}" navType="withSearch" extraKeywords="${gene.symbol}">
     <div class="gene-page">
         <h1 class="initial">${gene.symbol} <span class="note gene">${note}</span></h1>
         <section>
