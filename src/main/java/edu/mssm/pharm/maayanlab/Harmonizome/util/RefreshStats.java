@@ -2,11 +2,12 @@ package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneSetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.StatsDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.*;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
-import org.hibernate.HibernateException;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 @WebServlet(urlPatterns = { "/" + Constant.ADMIN_URL + "/refresh_stats" })
 public class RefreshStats extends HttpServlet {
@@ -46,58 +46,37 @@ public class RefreshStats extends HttpServlet {
 			stats.setNumAttributes(numAttributes);
 			stats.setNumResources(numResources);
 			stats.setNumFeatures(numFeatures);
-			
-			Map<DatasetGroup, Long> datasetGroupCounts = new HashMap<DatasetGroup, Long>();
-			for (DatasetGroup datasetGroup : GenericDao.getAll(DatasetGroup.class)) {
-				datasetGroupCounts.put(datasetGroup, new Long(0));
-			}
-			Map<AttributeGroup, Long> attributeGroupCounts = new HashMap<AttributeGroup, Long>();
-			for (AttributeGroup attributeGroup : GenericDao.getAll(AttributeGroup.class)) {
-				attributeGroupCounts.put(attributeGroup, new Long(0));
-			}
+            message.put("basic stats", "success");
 
-			for (Resource resource : GenericDao.getAll(Resource.class)) {
-				long numGeneSetsPerResource = 0;
-				for (Dataset dataset : resource.getDatasets()) {
-					numGeneSetsPerResource += dataset.getGeneSets().size();
-					
-					// Count dataset groups
-					DatasetGroup datasetGroup = dataset.getDatasetGroup();
-					Long currentCount = datasetGroupCounts.get(datasetGroup);
-					Long newCount = currentCount + 1;
-					datasetGroupCounts.put(datasetGroup, newCount);
-					
-					// Count attribute groups
-					AttributeGroup attributeGroup = dataset.getAttributeGroup();
-					Long currentCount2 = attributeGroupCounts.get(attributeGroup);
-					Long newCount2 = currentCount2 + dataset.getGeneSets().size();
-					attributeGroupCounts.put(attributeGroup, newCount2);
-				}
-				resource.setNumGeneSets(numGeneSetsPerResource);
-			}
-			
-			for (Entry<DatasetGroup, Long> entry : datasetGroupCounts.entrySet()) {
-				DatasetGroup datasetGroup = entry.getKey();
-				Long count = entry.getValue();
-				datasetGroup.setNumDatasets(count);
-			}
-			
-			for (Entry<AttributeGroup, Long> entry : attributeGroupCounts.entrySet()) {
-				AttributeGroup attributeGroup = entry.getKey();
-				Long count = entry.getValue();
-				attributeGroup.setNumAttributes(count);
-			}
+            for (Resource resource : GenericDao.getAll(Resource.class)) {
+                long numDatasetsPerResource = DatasetDao.getCountByResource(resource.getName());
+                long numGeneSetsPerResource = GeneSetDao.getCountByResource(resource.getName());
+                resource.setNumDatasets(numDatasetsPerResource);
+                resource.setNumGeneSets(numGeneSetsPerResource);
+            }
+            message.put("resources", "success");
 
-            message.put("message", "success!");
+            for (DatasetGroup datasetGroup : GenericDao.getAll(DatasetGroup.class)) {
+                Long count = GeneSetDao.getCountByDatasetGroup(datasetGroup.getName());
+                datasetGroup.setNumDatasets(count);
+            }
+            message.put("dataset groups", "success");
+
+            for (AttributeGroup attributeGroup : GenericDao.getAll(AttributeGroup.class)) {
+                Long count = GeneSetDao.getCountByAttributeGroup(attributeGroup.getName());
+                attributeGroup.setNumAttributes(count);
+            }
+            message.put("attribute groups", "success");
+
             String json = gson.toJson(message);
             out.write(json);
 
 			HibernateUtil.commitTransaction();
-		} catch (HibernateException he) {
-			he.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 			HibernateUtil.rollbackTransaction();
 
-            message.put("message", "Hibernate error.");
+            message.put("message", "unknown error.");
             String json = gson.toJson(message);
             out.write(json);
 		} finally {

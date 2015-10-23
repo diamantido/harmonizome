@@ -62,4 +62,16 @@ public class DatasetDao {
 			.setString("query", query + "*")
 			.list();
 	}
+
+	public static Long getCountByResource(String resourceName) {
+		return (Long) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT COUNT(dataset) FROM Dataset AS dataset " +
+				"  JOIN dataset.resource AS resource " +
+				"WHERE resource.name = :resourceName"
+			)
+			.setString("resourceName", resourceName)
+			.uniqueResult();
+	}
 }

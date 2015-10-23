@@ -1,19 +1,10 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 import org.hibernate.annotations.Type;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "resource")
@@ -43,7 +34,10 @@ public class Resource implements BioEntity {
 
 	@Column(name = "num_attributes")
 	private Long numGeneSets;
-	
+
+    @Column(name = "num_datasets")
+    private Long numDatasets;
+
 	@Column(name = "image")
 	private String image;
 	
@@ -125,8 +119,16 @@ public class Resource implements BioEntity {
 	public void setNumGeneSets(Long numGeneSets) {
 		this.numGeneSets = numGeneSets;
 	}
-	
-	public String getImage() {
+
+    public Long getNumDatasets() {
+        return numDatasets;
+    }
+
+    public void setNumDatasets(Long numDatasets) {
+        this.numDatasets = numDatasets;
+    }
+
+    public String getImage() {
 		return image;
 	}
 

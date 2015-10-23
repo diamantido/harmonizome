@@ -1,10 +1,9 @@
 $(function() {
 	
 	Highcharts.setOptions({
-		//colors: ['#343844', '#203d5b', '#2e5986', '#C3D2FF', '#35679c', '#3c76b1', '#5c92ca', '#86aed9'],
 		colors: ['#2e5986', '#A51563', '#A026DE', '#2CA53C', '#86aed9', '#ED412B', '#EDB22B', '#EC1E8E', '#4161B9'],
 		style: {
-            fontFamily: '"Open Source Sans", helvetica, arial, sans-serif'
+            fontFamily: '"Roboto", helvetica, arial, sans-serif'
         }
 	});
 
@@ -101,7 +100,8 @@ $(function() {
 
 	                return '' +
 	                	title +
-	                	'<p class="top-buffer">Gene sets: ' + Math.round(Math.pow(10, this.y)) + '</p>' +
+	                	'<p class="top-buffer">Gene sets: ' + resource.numGeneSets + '</p>' +
+                        '<p>Datasets: ' + resource.numDatasets + '</p>' +
 	                    '<p>' + resource.description + '</p>';
 	            },
 	            useHTML: true,

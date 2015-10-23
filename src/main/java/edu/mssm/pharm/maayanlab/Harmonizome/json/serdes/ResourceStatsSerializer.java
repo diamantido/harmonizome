@@ -1,14 +1,9 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.json.serdes;
 
-import java.lang.reflect.Type;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.JsonSerializationContext;
-import com.google.gson.JsonSerializer;
-
+import com.google.gson.*;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
+
+import java.lang.reflect.Type;
 
 public class ResourceStatsSerializer implements JsonSerializer<Resource> {
 
@@ -19,6 +14,7 @@ public class ResourceStatsSerializer implements JsonSerializer<Resource> {
 		SerDesUtil.add(result, "description", resource.getLongDescription());
 		SerDesUtil.add(result, "url", resource.getUrl());
 		SerDesUtil.add(result, "numGeneSets", resource.getNumGeneSets());
+		SerDesUtil.add(result, "numDatasets", resource.getNumDatasets());
 		SerDesUtil.add(result, "link", Resource.ENDPOINT + "/" + resource.getUrlEncodedValue());
 		SerDesUtil.add(result, "image", resource.getImage());
 		return result;

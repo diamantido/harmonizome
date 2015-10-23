@@ -37,7 +37,7 @@ public class GeneSetDao {
 			.setString("datasetName", datasetName)
 			.uniqueResult();
 	}
-	
+
 	public static Pair<List<GeneSet>, List<GeneSet>> getFromGeneAndDataset(String geneSymbol, String datasetName) {
 		List<GeneSet> pos = getFromDatasetAndGeneAndValue(datasetName, geneSymbol, 1);
 		List<GeneSet> neg = getFromDatasetAndGeneAndValue(datasetName, geneSymbol, -1);
@@ -62,4 +62,50 @@ public class GeneSetDao {
 			.setInteger("thresholdValue", thresholdValue)
 			.list();
 	}
+
+	/* For stats page
+	 * --------------
+	 */
+
+	@SuppressWarnings("unchecked")
+	public static Long getCountByResource(String resourceName) {
+		return (Long) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT COUNT(geneSet) FROM GeneSet AS geneSet" +
+				"  JOIN geneSet.dataset AS dataset " +
+				"  JOIN dataset.resource AS resource " +
+				"WHERE resource.name = :resourceName"
+			)
+			.setString("resourceName", resourceName)
+			.uniqueResult();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Long getCountByDatasetGroup(String datasetGroupName) {
+		return (Long) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+                "SELECT COUNT(geneSet) FROM GeneSet AS geneSet" +
+                "  JOIN geneSet.dataset AS dataset " +
+                "  JOIN dataset.datasetGroup AS datasetGroup " +
+                "WHERE datasetGroup.name = :datasetGroupName"
+            )
+			.setString("datasetGroupName", datasetGroupName)
+			.uniqueResult();
+	}
+
+    @SuppressWarnings("unchecked")
+    public static Long getCountByAttributeGroup(String attributeGroupName) {
+        return (Long) HibernateUtil
+            .getCurrentSession()
+            .createQuery(
+                "SELECT COUNT(geneSet) FROM GeneSet AS geneSet" +
+                "  JOIN geneSet.dataset AS dataset " +
+                "  JOIN dataset.attributeGroup AS attributeGroup " +
+                "WHERE attributeGroup.name = :attributeGroupName"
+            )
+            .setString("attributeGroupName", attributeGroupName)
+            .uniqueResult();
+    }
 }
