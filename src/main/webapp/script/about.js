@@ -100,7 +100,7 @@ $(function() {
 
 	                return '' +
 	                	title +
-	                	'<p class="top-buffer">Gene sets: ' + resource.numGeneSets + '</p>' +
+	                	'<p>Gene sets: ' + resource.numGeneSets + '</p>' +
                         '<p>Datasets: ' + resource.numDatasets + '</p>' +
 	                    '<p>' + resource.description + '</p>';
 	            },

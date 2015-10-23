@@ -32,11 +32,11 @@ public class UserSearch {
         this.id = id;
     }
 
-    public String getText() {
+    public String getKeywords() {
         return keywords;
     }
 
-    public void setText(String keywords) {
+    public void setKeywords(String keywords) {
         this.keywords = keywords;
     }
 

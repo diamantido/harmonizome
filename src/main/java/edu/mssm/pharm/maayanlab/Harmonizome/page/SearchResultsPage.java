@@ -5,6 +5,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.dal.UserSearchDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.IpAddresser;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,6 +29,8 @@ import java.util.Set;
 public class SearchResultsPage extends HttpServlet {
 
 	private static final long serialVersionUID = 8241820002853425713L;
+
+    private static DateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,6 +47,10 @@ public class SearchResultsPage extends HttpServlet {
                 // The example links send "m=example" so we don't save a bunch of "STAT3" queries.
                 if (meta == null) {
                     UserSearchDao.save(query);
+                    String ipAddress = IpAddresser.getClientIpAddress(request);
+                    Date date = new Date();
+                    System.out.println(ipAddress);
+                    System.out.println(dateFormatter.format(date));
                 }
 
 				SearchResults searchResults = new SearchResults(query, type);
