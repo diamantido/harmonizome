@@ -1,27 +1,22 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.StatsDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.*;
+import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.StatsDao;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Resource;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Stats;
-import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @WebServlet(urlPatterns = { "/" + Constant.ADMIN_URL + "/refresh_stats" })
 public class RefreshStats extends HttpServlet {
@@ -29,7 +24,13 @@ public class RefreshStats extends HttpServlet {
 	private static final long serialVersionUID = 4359405827672550544L;
 
 	@Override
-	public void doGet(HttpServletRequest request, HttpServletResponse response) {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        PrintWriter out = response.getWriter();
+        Map<String, String> message = new HashMap<String, String>();
+
 		try {
 			HibernateUtil.beginTransaction();
 			
@@ -86,13 +87,23 @@ public class RefreshStats extends HttpServlet {
 				Long count = entry.getValue();
 				attributeGroup.setNumAttributes(count);
 			}
-			
+
+            message.put("message", "success!");
+            String json = gson.toJson(message);
+            out.write(json);
+
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
 			HibernateUtil.rollbackTransaction();
+
+            message.put("message", "Hibernate error.");
+            String json = gson.toJson(message);
+            out.write(json);
 		} finally {
 			HibernateUtil.close();
 		}
+
+        out.flush();
 	}
 }
