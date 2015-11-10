@@ -122,7 +122,8 @@ $(function() {
 	function buildGroupPieChart(groups, elemId, title) {
 		var series = [{
             colorByPoint: true,
-			data: []
+			data: [],
+            name: title
 		}];
 		
 		for (var key in groups) {

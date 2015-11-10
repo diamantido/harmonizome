@@ -1,5 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="utf-8" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:wrapper title="Naming Authority - ${namingAuthority.name}" navType="withSearch">
 	<h1><c:out value="${namingAuthority.name}"/> <span class="note">Naming Authority</span></h1>

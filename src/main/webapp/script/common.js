@@ -6,7 +6,11 @@ $(function() {
 	 * --------------------------------------------------------------------- */	
 	var $dataTables = $('.data-table');
 	if ($dataTables.length && typeof $().dataTable !== 'undefined') {
-		setupDataTables($dataTables);
+		var bSort = false;
+		if ($('.download-page').length) {
+			bSort = true;
+		}
+		setupDataTables($dataTables, bSort);
 	}
 	var $searchEl = $('.search-bar');
 	if ($searchEl.length) {
@@ -104,10 +108,10 @@ $(function() {
 
 	/* Setup datasets table if it exists.
 	 */
-	function setupDataTables($dataTables) {
+	function setupDataTables($dataTables, bSort) {
 		$dataTables.dataTable({
 			bPaginate: true,
-			bSort: false,
+			bSort: bSort,
 			iDisplayLength: 20,
 			oLanguage: {
 				sSearch: "Filter"

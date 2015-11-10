@@ -34,7 +34,7 @@
 				<div id="attribute-pie-chart"></div>
 			</div>
 		</div>
-		<div id="resources" class="row">
+		<div id="resources" name="resources" class="row">
 			<div class="col-md-12">
 				<h2>Resources</h2>
 				<p>To create the Harmonizome, we distilled information from original datasets into attribute tables that define significant associations between genes and attributes, where attributes could be genes, proteins, cell lines, tissues, experimental perturbations, diseases, phenotypes, or drugs, depending on the dataset. Gene and protein identifiers were mapped to NCBI Entrez Gene Symbols and attributes were mapped to appropriate ontologies. We also computed gene-gene and attribute-attribute similarity networks from the attribute tables. These attribute tables and similarity networks can be integrated to perform many types of computational analyses for knowledge discovery and hypothesis generation.</p>
