@@ -43,8 +43,10 @@ public class GeneSetPage extends HttpServlet {
 					Collections.sort(genesByAttribute.getLeft(), new BioEntityAlphabetizer());
 					int numGenes = genesByAttribute.getLeft().size() + genesByAttribute.getRight().size();
 					String geneSetDescription = geneSet.getDataset().getGeneSetDescription();
-					geneSetDescription = geneSetDescription.replace("{0}", geneSet.getNameFromDataset());
+					String strongName = "<strong>" + geneSet.getNameFromDataset() + "</strong>";
+					geneSetDescription = geneSetDescription.replace("{0}", strongName);
 					geneSetDescription = numGenes + " " + geneSetDescription;
+                    System.out.println(geneSetDescription);
 					request.setAttribute("geneSetDescription", geneSetDescription);
 					request.setAttribute("geneSet", geneSet);
 					request.setAttribute("genesByAttribute", genesByAttribute);

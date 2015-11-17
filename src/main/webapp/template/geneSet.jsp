@@ -46,6 +46,18 @@
                     </tr>
                 </c:if>
                 <tr>
+                    <td class="col-md-2">Similar Terms</td>
+                    <td class="col-md-10">
+                        <a class="btn btn-default glyphicon glyphicon-search"
+                           data-toggle="tooltip"
+                           data-placement="right"
+                           title="Search for similar gene sets with related terms."
+                           href="${Constant.SEARCH_URL}?q=${geneSet.attribute.urlEncodedValue}&t=geneSet"
+                           target="_blank">
+                        </a>
+                    </td>
+                </tr>
+                <tr>
                     <td class="col-md-2">Downloads &amp; Tools</td>
                     <td class="col-md-10">
                         <noscript>
@@ -61,7 +73,7 @@
                             </a>
 
                             <!-- It doesn't make sense to pipe to Enrichr without enough genes -->
-                            <c:if test="${fn:length(genesByAttribute.right) <= 1}">
+                            <c:if test="${fn:length(genesByAttribute.right) <= 5}">
                                 <button class="btn btn-default enrichr"
                                     data-toggle="tooltip"
                                     data-placement="right"
@@ -84,8 +96,8 @@
                 <table class="table data-table genes">
                     <thead>
                         <tr>
-                            <th class="col-md-2">Gene</th>
-                            <th class="col-md-10">Description</th>
+                            <th class="col-md-2">Symbol</th>
+                            <th class="col-md-10">Name</th>
                         </tr>
                     </thead>
                     <c:forEach var="gene" items="${genesByAttribute.left}">
@@ -96,7 +108,7 @@
                                 </a>
                             </td>
                             <td class="col-md-10">
-                                <c:out value="${gene.description}"/>
+                                <c:out value="${gene.name}"/>
                             </td>
                         </tr>
                     </c:forEach>
@@ -110,8 +122,8 @@
                     <table class="table data-table genes">
                         <thead>
                             <tr>
-                                <th>Gene</th>
-                                <th>Description</th>
+                                <th>Symbol</th>
+                                <th>Name</th>
                             </tr>
                         </thead>
                         <c:forEach var="gene" items="${genesByAttribute.right}">
@@ -122,7 +134,7 @@
                                     </a>
                                 </td>
                                 <td class="col-md-10">
-                                    <c:out value="${gene.description}"/>
+                                    <c:out value="${gene.name}"/>
                                 </td>
                             </tr>
                         </c:forEach>
