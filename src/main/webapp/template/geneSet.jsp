@@ -2,6 +2,8 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
 
 <t:wrapper title="Gene Set - ${geneSet.nameFromDataset}" navType="withSearch">
 
@@ -13,9 +15,15 @@
         <section>
             <table class="table">
                 <tr>
-                    <td class="col-md-2">Source</td>
+                    <td class="col-md-2">Dataset</td>
                     <td class="col-md-10">
                         <a href="${dataset.endpoint}/${dataset.urlEncodedValue}">${dataset.name}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">Category</td>
+                    <td class="col-md-10 initial">
+                        <c:out value="${dataset.datasetGroup.name}"/>
                     </td>
                 </tr>
                 <tr>

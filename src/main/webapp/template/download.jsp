@@ -9,7 +9,7 @@
         <p class="instruction">Click on a dataset to access its downloads. Click on a column header to sort the table by that column. Type in the search bar to filter.</p>
         <p class="instruction">To download the data programmatically, use <a href="documentation">the API</a> or <a href="static/harmonizomedownloader.py" target="_blank">this Python script</a>.</p>
         <div class="table-responsive">
-            <table class="table dt-responsive data-table">
+            <table class="table data-table">
                 <thead>
                     <tr>
                         <th>Resource</th>

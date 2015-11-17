@@ -75,7 +75,18 @@
                     <td class="col-md-2">API</td>
                     <td class="col-md-10">
                         <a href="${Constant.API_URL}/${dataset.endpoint}/${dataset.urlEncodedValue}" target="_blank">
-                            <button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access ${dataset.name} programmatically."></button>
+                            <button class="btn btn-default glyphicon glyphicon-cloud" data-toggle="tooltip" data-placement="right" title="Access data through JSON API."></button>
+                        </a>
+                        <a href="static/harmonizomeapi.py" target="_blank">
+                            <button class="btn btn-default glyphicon glyphicon-cloud-download" data-toggle="tooltip" data-placement="right" title="Access API through Python module."></button>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-2">Script</td>
+                    <td class="col-md-10">
+                        <a href="static/harmonizomedownloader.py" target="_blank">
+                            <button class="btn btn-default glyphicon glyphicon-check" data-toggle="tooltip" data-placement="right" title="Use Python script to pick and choose what to download for all datasets."></button>
                         </a>
                     </td>
                 </tr>

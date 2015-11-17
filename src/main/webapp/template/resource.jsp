@@ -13,20 +13,20 @@
                     <c:out value="${resource.longDescription}"/>
                 </td>
             </tr>
-            <tr>
-                <td class="col-md-2">Datasets</td>
-                <td class="col-md-10">
-                    <ul>
-                        <c:forEach var="dataset" items="${resource.datasets}">
-                            <li>
-                                <a href="dataset/${dataset.urlEncodedValue}">
-                                    <c:out value="${dataset.nameWithoutResource}"/>
-                                </a>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </td>
-            </tr>
+            <%--<tr>--%>
+                <%--<td class="col-md-2">Datasets</td>--%>
+                <%--<td class="col-md-10">--%>
+                    <%--<ul>--%>
+                        <%--<c:forEach var="dataset" items="${resource.datasets}">--%>
+                            <%--<li>--%>
+                                <%--<a href="dataset/${dataset.urlEncodedValue}">--%>
+                                    <%--<c:out value="${dataset.nameWithoutResource}"/>--%>
+                                <%--</a>--%>
+                            <%--</li>--%>
+                        <%--</c:forEach>--%>
+                    <%--</ul>--%>
+                <%--</td>--%>
+            <%--</tr>--%>
             <c:if test="${fn:length(publications) > 0}">
                 <tr>
                     <td class="col-md-2">Citation(s)</td>
@@ -61,12 +61,29 @@
                     </td>
                 </tr>
             </c:if>
-            <tr>
-                <td>Gene Sets</td>
-                <td>
-                    <c:out value="${resource.numGeneSets}"/>
-                </td>
-            </tr>
         </table>
+        <h2>Datasets</h2>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Dataset</th>
+                        <th>Description</th>
+                        <th>Category</th>
+                        <th>Attribute</th>
+                        <th>Views</th>
+                    </tr>
+                </thead>
+                <c:forEach var="dataset" items="${resource.datasets}">
+                    <tr>
+                        <td>${dataset.nameWithoutResource}</td>
+                        <td>${dataset.description}</td>
+                        <td>${dataset.datasetGroup.name}</td>
+                        <td>${dataset.attributeType.name}</td>
+                        <td>${dataset.numPageViews}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
     </div>
 </t:wrapper>
