@@ -1,5 +1,6 @@
-"""A static class for reading and parsing data from the Harmonizome API.
-"""
+"""---------------------------------------------------------------------------
+A static class for reading and parsing data from the Harmonizome API.
+---------------------------------------------------------------------------"""
 
 
 import json
@@ -29,7 +30,7 @@ Entity = Enum(['DATASET', 'GENE', 'GENE_SET', 'ATTRIBUTE', 'GENE_FAMILY',
                'NAMING_AUTHORITY', 'PROTEIN', 'RESOURCE'])
 
 
-class Harmonizome(object):
+class HarmonizomeAPI(object):
 
     BASE_URL = 'http://amp.pharm.mssm.edu/Harmonizome/api'
     VERSION = '1.0'
