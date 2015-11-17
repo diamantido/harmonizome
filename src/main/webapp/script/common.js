@@ -33,7 +33,7 @@ $(function() {
 	function setupShowByGroupFunctionality() {
 		var $showHideButtons = $('.dataset-row .glyphicon');
 		$showHideButtons.click(function(evt) {
-			var $dataset = $(evt.target),
+			var $dataset = $(evt.target).parent(),
 				url = $dataset.attr('data-gene-list-more-url'),
 				dataset = $dataset.attr('data-gene-list-css-selector'),
 				$geneList = $('.attribute-list.' + dataset);
@@ -42,7 +42,6 @@ $(function() {
 				url: url,
 				method: 'GET',
 				success: function(data) {
-                    console.log(data);
 					data = JSON.parse(data);
 					showGeneSets($dataset, $geneList, data);
 				}
@@ -89,6 +88,7 @@ $(function() {
 		} else {
 			$geneList.fadeIn();
 		}
+
 		$plusButton.toggleClass('hidden');
 		$minusButton.toggleClass('hidden');
 		$geneList.toggleClass('active');

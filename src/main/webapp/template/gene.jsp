@@ -80,12 +80,11 @@
                 </thead>
                 <c:forEach var="dataset" items="${datasetsByGene}">
                     <tr class="dataset-row ${dataset.cssSelectorName}" >
-                        <td class="col-md-1">
-                            <button
-                                class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true"
-                                data-gene-list-css-selector="${dataset.cssSelectorName}"
-                                data-gene-list-more-url="${Constant.API_URL}/${GeneSet.ENDPOINT}?gene=${gene.urlEncodedValue}&dataset=${dataset.urlEncodedValue}"
-                            ></button>
+                        <td class="col-md-1"
+                            data-gene-list-css-selector="${dataset.cssSelectorName}"
+                            data-gene-list-more-url="${Constant.API_URL}/${GeneSet.ENDPOINT}?gene=${gene.urlEncodedValue}&dataset=${dataset.urlEncodedValue}"
+                        >
+                            <button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true"></button>
                             <button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
                         </td>
                         <td class="col-md-3">

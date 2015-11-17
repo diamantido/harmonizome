@@ -108,4 +108,18 @@ public class GeneSetDao {
             .setString("attributeGroupName", attributeGroupName)
             .uniqueResult();
     }
+
+	@SuppressWarnings("unchecked")
+	public static Long getNumAssociationsFromGene(String geneSymbol) {
+		return (Long) HibernateUtil
+            .getCurrentSession()
+            .createQuery(
+                "SELECT COUNT(geneSet) FROM GeneSet AS geneSet" +
+                "  JOIN geneSet.features AS feature " +
+                "  JOIN feature.gene AS gene " +
+                "WHERE gene.symbol = :geneSymbol"
+            )
+            .setString("geneSymbol", geneSymbol)
+            .uniqueResult();
+	}
 }

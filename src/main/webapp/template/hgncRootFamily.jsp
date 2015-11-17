@@ -14,14 +14,25 @@
 					</a>
 				</td>
 			</tr>
-			<tr>
-				<td class="col-md-2">Genes</td>
-				<td class="col-md-10">
-					<c:forEach var="gene" items="${hgncRootFamily.genes}" varStatus="loop">
-						<a href="${gene.endpoint}/${gene.urlEncodedValue}"><c:out value="${gene.symbol}"/></a><c:if test="${!loop.last}">, </c:if>
-					</c:forEach>
-				</td>
-			</tr>
 		</table>
+		<h2>Genes</h2>
+        <div class="table-responsive">
+            <table class="table data-table">
+                <thead>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                </thead>
+                <c:forEach var="gene" items="${hgncRootFamily.genes}">
+                    <tr>
+                        <td>
+                            <a href="${gene.endpoint}/${gene.urlEncodedValue}"><c:out value="${gene.symbol}"/></a>
+                        </td>
+                        <td>
+                            <c:out value="${gene.name}"/>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
 	</div>
 </t:wrapper>
