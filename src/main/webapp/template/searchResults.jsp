@@ -2,6 +2,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="cfn" uri="http://amp.pharm.mssm.edu/functions" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
 
@@ -62,13 +63,19 @@
                         <tr>
                             <td>
                                 <h3>
-                                    <a href="${dataset.endpoint}/${dataset.urlEncodedValue}">${dataset.name}</a> <span class="note dataset">Dataset</span>
+                                    <a href="${dataset.endpoint}/${dataset.urlEncodedValue}">
+                                        <c:out value="${cfn:highlightSearchTerm(dataset.name, query)}" escapeXml="false"/>
+                                    </a> <span class="note dataset">Dataset</span>
                                 </h3>
                                 <div class="description">
                                     <p>
-                                        From <a href="${dataset.resource.endpoint}/${dataset.resource.urlEncodedValue}"><c:out value="${dataset.resource.name}"/></a>
+                                        From <a href="${dataset.resource.endpoint}/${dataset.resource.urlEncodedValue}">
+                                            <c:out value="${cfn:highlightSearchTerm(dataset.resource.name, query)}" escapeXml="false"/>
+                                    </a>
                                     </p>
-                                    <p>${dataset.description} (${dataset.datasetGroup.name})</p>
+                                    <p>
+                                        <c:out value="${cfn:highlightSearchTerm(dataset.description, query)}" escapeXml="false"/>
+                                    </p>
                                 </div>
                             </td>
                         </tr>
@@ -77,16 +84,20 @@
                         <tr>
                             <td>
                                 <h3>
-                                    <a href="${gene.endpoint}/${gene.urlEncodedValue}">${gene.symbol}</a> <span class="note gene">Gene</span>
+                                    <a href="${gene.endpoint}/${gene.urlEncodedValue}">
+                                        <c:out value="${cfn:highlightSearchTerm(gene.symbol, query)}" escapeXml="false"/>
+                                    </a> <span class="note gene">Gene</span>
                                 </h3>
                                 <div class="description">
                                     <c:if test="${gene.name != null}">
                                         <p>
-                                            <em><c:out value="${gene.name}"/></em>
+                                            <em><c:out value="${cfn:highlightSearchTerm(gene.name, query)}" escapeXml="false"/></em>
                                         </p>
                                     </c:if>
                                     <c:if test="${gene.description != null}">
-                                        <p><c:out value="${gene.description}"/></p>
+                                        <p>
+                                            <c:out value="${cfn:highlightSearchTerm(gene.description, query)}" escapeXml="false"/>
+                                        </p>
                                     </c:if>
                                 </div>
                             </td>
@@ -96,11 +107,16 @@
                         <tr>
                             <td>
                                 <h3>
-                                    <a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">${geneSet.nameFromDataset}</a> <span class="note gene-set">Gene Set</span>
+                                    <a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">
+                                        <c:out value="${cfn:highlightSearchTerm(geneSet.nameFromDataset, query)}" escapeXml="false"/>
+                                    </a> <span class="note gene-set">Gene Set</span>
                                 </h3>
                                 <div class="description">
                                     <p><em>From <a href="${geneSet.dataset.endpoint}/${geneSet.dataset.urlEncodedValue}"><c:out value="${geneSet.dataset.name}"/></a></em></p>
-                                    <p>${fn:replace(geneSet.dataset.geneSetDescription, "{0}", geneSet.nameFromDataset)}</p>
+                                    <c:set var="geneSetDescription" value="${fn:replace(geneSet.dataset.geneSetDescription, '{0}', geneSet.nameFromDataset)}"/>
+                                    <p>
+                                        <c:out value="${cfn:highlightSearchTerm(geneSetDescription, query)}" escapeXml="false"/>
+                                    </p>
                                 </div>
                             </td>
                         </tr>
