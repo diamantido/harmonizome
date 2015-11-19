@@ -6,9 +6,11 @@ $(function () {
      * --------------------------------------------------------------------- */
     var $dataTables = $('.data-table');
     if ($dataTables.length && typeof $().dataTable !== 'undefined') {
-        var bSort = false;
+        var bSort;
         if ($('.download-page').length) {
             bSort = true;
+        } else {
+            bSort = false;
         }
         setupDataTables($dataTables, bSort);
     }
@@ -109,7 +111,7 @@ $(function () {
     /* Setup datasets table if it exists.
      */
     function setupDataTables($dataTables, bSort) {
-        $dataTables.DataTable({
+        $dataTables.dataTable({
             bPaginate: true,
             bSort: bSort,
             iDisplayLength: 20,
@@ -117,27 +119,6 @@ $(function () {
                 sSearch: "Filter"
             },
             fnInitComplete: function() {
-                //this.api().columns().every(function() {
-                //    var column = this;
-                //    var select = $('<select><option value=""></option></select>')
-                //        .appendTo($(column.header()).empty())
-                //        .on('change', function() {
-                //            var val = $.fn.dataTable.util.escapeRegex(
-                //                $(this).val()
-                //            );
-                //            column
-                //                .search(val ? '^' + val + '$' : '', true, false)
-                //                .draw();
-                //        });
-                //    column.data().unique().sort().each(function(d, j) {
-                //        try {
-                //            d = $(d).text();
-                //        } catch (e) {
-                //            d = d;
-                //        }
-                //        select.append('<option value="' + d + '">' + d + '</option>')
-                //    });
-                //});
                 $dataTables.fadeIn();
             }
         });

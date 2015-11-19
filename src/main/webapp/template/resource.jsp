@@ -76,7 +76,11 @@
                 </thead>
                 <c:forEach var="dataset" items="${resource.datasets}">
                     <tr>
-                        <td>${dataset.nameWithoutResource}</td>
+                        <td>
+                            <a href="${dataset.endpoint}/${dataset.urlEncodedValue}">
+                                <c:out value="${dataset.nameWithoutResource}"/>
+                            </a>
+                        </td>
                         <td>${dataset.description}</td>
                         <td>${dataset.datasetGroup.name}</td>
                         <td>${dataset.attributeType.name}</td>
