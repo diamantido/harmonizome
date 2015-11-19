@@ -50,7 +50,8 @@
   border-right: 5px solid #444444;
 }
 .table-responsive {
-  overflow-x: auto;
+  /* See http://stackoverflow.com/a/33809511/1830334 */
+  overflow-x: inherit;
   padding-top: 10px;
 }
 .container-fluid > .navbar-collapse,
