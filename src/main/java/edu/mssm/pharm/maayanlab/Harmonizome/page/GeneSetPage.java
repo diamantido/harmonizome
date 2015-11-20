@@ -27,7 +27,7 @@ public class GeneSetPage extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] query = UrlUtil.getPathAsArray(request, true);
+		String[] query = UrlUtil.getPathAsArray(request);
 		if (query.length == 2) {
 			try {
 				HibernateUtil.beginTransaction();

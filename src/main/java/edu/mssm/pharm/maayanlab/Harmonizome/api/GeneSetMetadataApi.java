@@ -1,32 +1,25 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneSetDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.FeatureMetadataSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetMetadataSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.*;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
+import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import org.hibernate.HibernateException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.hibernate.HibernateException;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneSetDao;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.FeatureMetadataSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneSetMetadataSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
+import java.io.IOException;
+import java.io.PrintWriter;
 
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT + "/*" })
 public class GeneSetMetadataApi extends HttpServlet {
@@ -46,7 +39,7 @@ public class GeneSetMetadataApi extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] query = UrlUtil.getPathAsArray(request, true);
+		String[] query = UrlUtil.getPathAsArray(request);
 		PrintWriter out = response.getWriter();
 		if (query == null) {
 			response.sendRedirect("/" + Constant.HARMONIZOME + "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT);

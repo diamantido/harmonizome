@@ -1,9 +1,8 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.net;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class UrlUtil {
 
@@ -18,7 +17,7 @@ public class UrlUtil {
 		}
 	}
 
-	public static String[] getPathAsArray(HttpServletRequest request, boolean decodeUrl) throws UnsupportedEncodingException {
+	public static String[] getPathAsArray(HttpServletRequest request) throws UnsupportedEncodingException {
 		String pathStr = request.getPathInfo();
 		if (pathIsNull(pathStr)) {
 			return null;
