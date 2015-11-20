@@ -2,7 +2,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-public class MatrixDao {
+public class HeatMapDao {
 
 	public static String getImage(String dataset_1, String dataset_2) {
         return (String) HibernateUtil.getCurrentSession()

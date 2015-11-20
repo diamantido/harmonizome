@@ -2,7 +2,7 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.MatrixDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.HeatMapDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.ProteinMetadataSerializer;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(urlPatterns = {"/" + Constant.API_URL + "/matrix/*"})
-public class MatrixApi extends HttpServlet {
+public class HeatMapApi extends HttpServlet {
 
     private static Gson gson;
 
@@ -45,7 +45,7 @@ public class MatrixApi extends HttpServlet {
                 Map<String, String> schema = new HashMap<String, String>();
                 System.out.println(query[0]);
                 System.out.println(query[1]);
-                String image = MatrixDao.getImage(query[0], query[1]);
+                String image = HeatMapDao.getImage(query[0], query[1]);
                 Dataset ds1 = GenericDao.get(Dataset.class, query[0]);
                 Dataset ds2 = GenericDao.get(Dataset.class, query[1]);
                 System.out.println(image);

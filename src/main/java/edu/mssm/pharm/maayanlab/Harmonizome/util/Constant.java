@@ -12,6 +12,10 @@ public class Constant {
 	public static final String SEARCH_URL = "search";
 	
 	public static final String SUGGEST_URL = "suggest";
+
+    public static final String VISUALIZE = "visualize";
+
+	public static final String HEAT_MAPS_URL = VISUALIZE + "/heat_map";
 	
 	public static final String getSEARCH_URL() {
 		return SEARCH_URL;

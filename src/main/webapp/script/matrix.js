@@ -1,5 +1,11 @@
 $(function() {
 
+    // global heat map
+    // dataset heat maps
+    // gene similarity heat maps
+    // attribute similarity heat maps
+    // cross-dataset attribute similarity heat maps
+
     $('button').click(function() {
        var selectMsg = '(Please select a dataset)',
            ds1 = $('#dataset-1').find(':selected').val(),

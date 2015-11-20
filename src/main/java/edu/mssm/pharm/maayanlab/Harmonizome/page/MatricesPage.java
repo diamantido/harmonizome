@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet(urlPatterns = {"/matrix"})
+@WebServlet(urlPatterns = { Constant.HEAT_MAPS_URL + "/cross-dataset_attribute_similarity"})
 public class MatricesPage extends HttpServlet {
 
     @Override
@@ -24,7 +24,7 @@ public class MatricesPage extends HttpServlet {
             HibernateUtil.beginTransaction();
             List<Dataset> datasets = GenericDao.getAll(Dataset.class);
             request.setAttribute("datasets", datasets);
-            request.getRequestDispatcher(Constant.TEMPLATE_DIR + "matrix.jsp").forward(request, response);
+            request.getRequestDispatcher(Constant.TEMPLATE_DIR + "dataset-pairs.jsp").forward(request, response);
             HibernateUtil.commitTransaction();
         } catch (HibernateException he) {
             he.printStackTrace();
