@@ -2,9 +2,11 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDatasetMatricesDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.MatrixDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.ProteinMetadataSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
@@ -22,8 +24,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/" + Constant.API_URL + "/dataset_dataset/*"})
-public class DatasetDatasetMatricesApi extends HttpServlet {
+@WebServlet(urlPatterns = {"/" + Constant.API_URL + "/matrix/*"})
+public class MatrixApi extends HttpServlet {
 
     private static Gson gson;
 
@@ -41,8 +43,15 @@ public class DatasetDatasetMatricesApi extends HttpServlet {
         	try {
     			HibernateUtil.beginTransaction();
                 Map<String, String> schema = new HashMap<String, String>();
-                String image = DatasetDatasetMatricesDao.get(query[0], query[1]);
+                System.out.println(query[0]);
+                System.out.println(query[1]);
+                String image = MatrixDao.getImage(query[0], query[1]);
+                Dataset ds1 = GenericDao.get(Dataset.class, query[0]);
+                Dataset ds2 = GenericDao.get(Dataset.class, query[1]);
+                System.out.println(image);
                 schema.put("image", image);
+                schema.put("attribute_type_1", ds1.getAttributeType().getName());
+                schema.put("attribute_type_2", ds2.getAttributeType().getName());
                 String json = gson.toJson(schema);
                 PrintWriter out = response.getWriter();
                 out.write(json);
