@@ -174,7 +174,58 @@
     }
 }
 
-/* Gene page
+/* Dataset Pairs /Harmonizome/visualize/heat_map/dataset_pairs
+ * ------------------------------------------------------------------------- */
+@image-width: 930px;
+@image-height: 733px;
+
+.dataset-pairs-page {
+    label {
+        margin-right: 10px;
+    }
+    .section {
+        margin-bottom: 10px;
+    }
+    .heat-map,
+    .button-wrapper {
+        padding-top: 10px;
+        border-top: 1px solid @color-gray-light;
+    }
+    .heat-map {
+        margin-top: 10px;
+        .image-wrapper {
+            display: none;
+            .header {
+                width: @image-width;
+                text-align: center;
+                margin-bottom: 20px;
+                p {
+                    margin: 0;
+                }
+            }
+            img {
+                display: block;
+                width: @image-width;
+                height: @image-height;
+            }
+        }
+        .rotate {
+            div {
+                position: absolute;
+            }
+            /* FF3.5+ */
+            -moz-transform: rotate(-90.0deg);
+            /* Opera 10.5 */
+            -o-transform: rotate(-90.0deg);
+            /* Saf3.1+, Chrome */
+            -webkit-transform: rotate(-90.0deg);
+            /* Standard */
+            transform: rotate(-90.0deg);
+        }
+    }
+}
+
+/* Gene page /Harmonizome/gene/STAT3
  * ------------------------------------------------------------------------- */
 .gene-page {
     .list {

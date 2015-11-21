@@ -24,7 +24,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>visualize.jsp</servlet-name>
-        <url-pattern>/visualize</url-pattern>
+        <url-pattern>/visualize/heat_map/global</url-pattern>
     </servlet-mapping>
 
     <servlet>

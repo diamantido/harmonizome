@@ -151,7 +151,52 @@
   text-decoration: none;
   opacity: .7;
 }
-/* Gene page
+/* Dataset Pairs /Harmonizome/visualize/heat_map/dataset_pairs
+ * ------------------------------------------------------------------------- */
+.dataset-pairs-page label {
+  margin-right: 10px;
+}
+.dataset-pairs-page .section {
+  margin-bottom: 10px;
+}
+.dataset-pairs-page .heat-map,
+.dataset-pairs-page .button-wrapper {
+  padding-top: 10px;
+  border-top: 1px solid #eeeeee;
+}
+.dataset-pairs-page .heat-map {
+  margin-top: 10px;
+}
+.dataset-pairs-page .heat-map .image-wrapper {
+  display: none;
+}
+.dataset-pairs-page .heat-map .image-wrapper .header {
+  width: 930px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.dataset-pairs-page .heat-map .image-wrapper .header p {
+  margin: 0;
+}
+.dataset-pairs-page .heat-map .image-wrapper img {
+  display: block;
+  width: 930px;
+  height: 733px;
+}
+.dataset-pairs-page .heat-map .rotate {
+  /* FF3.5+ */
+  -moz-transform: rotate(-90deg);
+  /* Opera 10.5 */
+  -o-transform: rotate(-90deg);
+  /* Saf3.1+, Chrome */
+  -webkit-transform: rotate(-90deg);
+  /* Standard */
+  transform: rotate(-90deg);
+}
+.dataset-pairs-page .heat-map .rotate div {
+  position: absolute;
+}
+/* Gene page /Harmonizome/gene/STAT3
  * ------------------------------------------------------------------------- */
 .gene-page .list p {
   margin: 10px 0 5px 0;

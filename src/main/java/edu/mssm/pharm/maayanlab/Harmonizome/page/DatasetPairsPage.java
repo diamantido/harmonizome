@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet(urlPatterns = { Constant.HEAT_MAPS_URL + "/cross-dataset_attribute_similarity"})
-public class MatricesPage extends HttpServlet {
+@WebServlet(urlPatterns = {"/" + Constant.HEAT_MAPS_URL + "/dataset_pairs"})
+public class DatasetPairsPage extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
