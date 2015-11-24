@@ -7,7 +7,7 @@ $(function () {
     var $dataTables = $('.data-table');
     if ($dataTables.length && typeof $().dataTable !== 'undefined') {
         var bSort;
-        if ($('.download-page').length) {
+        if ($('.download-page').length || $('.analytics-page').length) {
             bSort = true;
         } else {
             bSort = false;
