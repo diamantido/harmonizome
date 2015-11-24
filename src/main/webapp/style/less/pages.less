@@ -112,6 +112,19 @@
     padding: 3px;
 }
 
+/* Dataset page
+ * ------------------------------------------------------------------------- */
+.dataset-page {
+    iframe {
+        border: 1px solid @color-gray-light;
+        height: 800px;
+        width: 100%;
+    }
+    .glyphicon-th {
+        font-size: 5em;
+    }
+}
+
 /* About page
  * ------------------------------------------------------------------------- */
 .about-page {
@@ -179,7 +192,7 @@
 @image-width: 930px;
 @image-height: 733px;
 
-.dataset-pairs-page {
+.heat-map-page {
     label {
         margin-right: 10px;
     }
@@ -196,7 +209,6 @@
         .image-wrapper {
             display: none;
             .header {
-                width: @image-width;
                 text-align: center;
                 margin-bottom: 20px;
                 p {
@@ -205,22 +217,14 @@
             }
             img {
                 display: block;
-                width: @image-width;
-                height: @image-height;
+                max-width: @image-width;
+                max-height: @image-height;
             }
-        }
-        .rotate {
-            div {
-                position: absolute;
+            iframe {
+                border: 1px solid @color-gray-light;
+                height: 800px;
+                width: 100%;
             }
-            /* FF3.5+ */
-            -moz-transform: rotate(-90.0deg);
-            /* Opera 10.5 */
-            -o-transform: rotate(-90.0deg);
-            /* Saf3.1+, Chrome */
-            -webkit-transform: rotate(-90.0deg);
-            /* Standard */
-            transform: rotate(-90.0deg);
         }
     }
 }

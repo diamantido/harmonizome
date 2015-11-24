@@ -108,6 +108,15 @@
                 </tr>
             </table>
         </section>
+        <c:if test="${not empty dataset.datasetVisualizations}">
+            <section>
+                <h2>Visualizations</h2>
+                <%--<c:forEach var="visualization" items="${dataset.datasetVisualizations}">--%>
+                    <%--<iframe src="${visualization.clustergrammerLink}?preview=true"></iframe>--%>
+                <%--</c:forEach>--%>
+                <span class="btn btn-default glyphicon glyphicon-th"></span>
+            </section>
+        </c:if>
         <section>
             <h2 class="initial"><c:out value="${dataset.attributeType.name}"></c:out> <span class="note">Gene Sets</span></h2>
             <p class="instruction">

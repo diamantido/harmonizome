@@ -2,12 +2,12 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<t:wrapper title="Dataset Pairs">
+<t:wrapper title="Dataset Pair Heat Maps">
 
     <script src="script/heatmaps.js"></script>
 
-    <div class="dataset-pairs-page">
-        <h1>Dataset Pairs</h1>
+    <div class="heat-map-page dataset-pair-heat-maps-page">
+        <h1>Dataset Pair Heat Maps</h1>
         <p class="instruction">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         <div class="section">
             <label>Dataset 1</label>

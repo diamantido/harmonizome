@@ -19,11 +19,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>visualize.jsp</servlet-name>
-        <jsp-file>/template/visualize.jsp</jsp-file>
+        <servlet-name>globalHeatMap.jsp</servlet-name>
+        <jsp-file>/template/globalHeatMap.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>visualize.jsp</servlet-name>
+        <servlet-name>globalHeatMap.jsp</servlet-name>
         <url-pattern>/visualize/heat_map/global</url-pattern>
     </servlet-mapping>
 

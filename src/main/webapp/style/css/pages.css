@@ -102,6 +102,16 @@
 .gene-set-page table.genes td {
   padding: 3px;
 }
+/* Dataset page
+ * ------------------------------------------------------------------------- */
+.dataset-page iframe {
+  border: 1px solid #eeeeee;
+  height: 800px;
+  width: 100%;
+}
+.dataset-page .glyphicon-th {
+  font-size: 5em;
+}
 /* About page
  * ------------------------------------------------------------------------- */
 .about-page .stats ul {
@@ -153,48 +163,39 @@
 }
 /* Dataset Pairs /Harmonizome/visualize/heat_map/dataset_pairs
  * ------------------------------------------------------------------------- */
-.dataset-pairs-page label {
+.heat-map-page label {
   margin-right: 10px;
 }
-.dataset-pairs-page .section {
+.heat-map-page .section {
   margin-bottom: 10px;
 }
-.dataset-pairs-page .heat-map,
-.dataset-pairs-page .button-wrapper {
+.heat-map-page .heat-map,
+.heat-map-page .button-wrapper {
   padding-top: 10px;
   border-top: 1px solid #eeeeee;
 }
-.dataset-pairs-page .heat-map {
+.heat-map-page .heat-map {
   margin-top: 10px;
 }
-.dataset-pairs-page .heat-map .image-wrapper {
+.heat-map-page .heat-map .image-wrapper {
   display: none;
 }
-.dataset-pairs-page .heat-map .image-wrapper .header {
-  width: 930px;
+.heat-map-page .heat-map .image-wrapper .header {
   text-align: center;
   margin-bottom: 20px;
 }
-.dataset-pairs-page .heat-map .image-wrapper .header p {
+.heat-map-page .heat-map .image-wrapper .header p {
   margin: 0;
 }
-.dataset-pairs-page .heat-map .image-wrapper img {
+.heat-map-page .heat-map .image-wrapper img {
   display: block;
-  width: 930px;
-  height: 733px;
+  max-width: 930px;
+  max-height: 733px;
 }
-.dataset-pairs-page .heat-map .rotate {
-  /* FF3.5+ */
-  -moz-transform: rotate(-90deg);
-  /* Opera 10.5 */
-  -o-transform: rotate(-90deg);
-  /* Saf3.1+, Chrome */
-  -webkit-transform: rotate(-90deg);
-  /* Standard */
-  transform: rotate(-90deg);
-}
-.dataset-pairs-page .heat-map .rotate div {
-  position: absolute;
+.heat-map-page .heat-map .image-wrapper iframe {
+  border: 1px solid #eeeeee;
+  height: 800px;
+  width: 100%;
 }
 /* Gene page /Harmonizome/gene/STAT3
  * ------------------------------------------------------------------------- */

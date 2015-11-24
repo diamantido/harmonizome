@@ -1,17 +1,7 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
+import javax.persistence.*;
 import java.util.Set;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 @Entity
 @Table(name = "attribute_type")
@@ -71,5 +61,17 @@ public class AttributeType {
 
 	public void setDatasets(Set<Dataset> datasets) {
 		this.datasets = datasets;
+	}
+
+	@Transient
+	public String getPluralizedName() {
+		String name = this.getName();
+		if (name.equals("protein complex") || name.equals("virus")) {
+			return name + "es";
+		} else if (name.equals("ligand (protein)")) {
+			return "ligands (proteins)";
+		} else {
+			return name + "s";
+		}
 	}
 }

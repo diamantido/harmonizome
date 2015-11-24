@@ -9,6 +9,8 @@ __pychache__
 nohup.out
 *.properties
 
+scripts/matrices/
+
 # Config w/ password
 build_db.sh
 

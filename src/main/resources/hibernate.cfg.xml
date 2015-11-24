@@ -17,6 +17,8 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualization" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetPairVisualization" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Download" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DownloadType" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Feature" />

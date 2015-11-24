@@ -1,29 +1,15 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.model;
 
-import java.sql.Timestamp;
-import java.util.Collections;
-import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.annotations.Type;
-
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.DownloadComparator;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Ellipsizer;
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Collections;
+import java.util.List;
 
 @Entity
 @Table(name = "dataset")
@@ -97,10 +83,13 @@ public class Dataset implements BioEntity {
 	 * --------------- */
 	@OneToMany(mappedBy = "dataset")
 	private List<Download> downloads;
-	
+
 	@OneToMany(mappedBy = "dataset")
 	private List<GeneSet> geneSets;
-	
+
+	@OneToMany(mappedBy = "dataset")
+	private List<DatasetVisualization> datasetVisualizations;
+
 	/* Utilities
 	 * --------- */
 	@Transient
@@ -285,8 +274,16 @@ public class Dataset implements BioEntity {
 		this.geneSets = geneSets;
 	}
 
-	/* Utility functions
-	 * ----------------- */
+    public List<DatasetVisualization> getDatasetVisualizations() {
+        return datasetVisualizations;
+    }
+
+    public void setDatasetVisualizations(List<DatasetVisualization> datasetVisualizations) {
+        this.datasetVisualizations = datasetVisualizations;
+    }
+
+    /* Utility functions
+                 * ----------------- */
 	@Transient
 	public String getKey() {
 		return "name";
