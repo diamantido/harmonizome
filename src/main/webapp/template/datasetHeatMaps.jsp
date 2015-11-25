@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="cfn" uri="http://amp.pharm.mssm.edu/functions" %>
 
-<t:wrapper title="${typeView} Heat Maps">
+<t:wrapper title="${cfn:convertVizTypeToPlainText(typeView)} Heat Maps">
 
     <script src="script/heatmaps.js"></script>
 

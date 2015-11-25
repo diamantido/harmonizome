@@ -57,6 +57,11 @@ $(function() {
                 ds1Val = encodeURIComponent(ds1Text),
                 ds2Val = encodeURIComponent(ds2Text);
 
+            if (ds1Text === selectMsg) {
+                alert('Please select two datasets.');
+                return;
+            }
+
             $.ajax({
                 url: URL_BASE + "dataset_pair/" + ds1Val + '/' + ds2Val,
                 type: 'GET',
@@ -95,18 +100,35 @@ $(function() {
         }
     }
 
-    function getLabelsIfNecessary(data) {
-        if (typeof data.clustergrammerLink !== 'undefined') {
-            return '';
+    function getLabelsIfNecessary(data, isPair) {
+        var hasClustergrammerLink = typeof data.clustergrammerLink !== 'undefined';
+        if (!isPair) {
+            if (hasClustergrammerLink) {
+                return '';
+            } else {
+                return '' +
+                    '<div class="heat-map-header">' +
+                    '   <p><em>No interactive hierarchical clustering is available at this time.</em></p>' +
+                    '   <p><strong>' + data.colLabel + '</strong></p>' +
+                    '   <p>compared with</p>' +
+                    '   <p><strong>' + data.rowLabel + '</strong></p>' +
+                    '</div>';
+            }
         } else {
-            return '' +
-                '<div class="heat-map-header">' +
-                '   <p><em>No interactive hierarchical clustering is available at this time.</em></p>' +
-                '   <p><strong>' + data.colLabel + '</strong></p>' +
-                '   <p>compared with</p>' +
-                '   <p><strong>' + data.rowLabel + '</strong></p>' +
-                '</div>';
+            if (hasClustergrammerLink) {
+                return '';
+            } else {
+                return '' +
+                    '<div class="heat-map-header">' +
+                    '   <p>' + pluralize(data.attributeType1) + ' from</p>' +
+                    '   <p><strong>' + data.dataset1 + '</strong></p>' +
+                    '   <p>compared with</p>' +
+                    '   <p>' + pluralize(data.attributeType2) + ' from</p>' +
+                    '   <p><strong>' + data.dataset2 + '</strong></p>' +
+                    '</div>';
+            }
         }
+
     }
 
     function showDatasetHeatMap(data) {
@@ -114,30 +136,20 @@ $(function() {
             .hide()
             .empty()
             .append(
-                $(getLabelsIfNecessary(data) + getIframeOrImage(data))
+                $(getLabelsIfNecessary(data, false) + getIframeOrImage(data))
             )
             .fadeIn();
     }
 
     function showDatasetPairVisualization(data) {
-        var $img = $('' +
-            '<div class="heat-map-header">' +
-            '   <p>' + pluralize(data.attributeType1) + ' from</p>' +
-            '   <p><strong>' + data.dataset1 + '</strong></p>' +
-            '   <p>compared with</p>' +
-            '   <p>' + pluralize(data.attributeType2) + ' from</p>' +
-            '   <p><strong>' + data.dataset2 + '</strong></p>' +
-            '</div>' +
-            getIframeOrImage(data)
-        );
-
         $VIZ_WRAPPER
             .hide()
             .empty()
-            .append($img)
+            .append(
+                getLabelsIfNecessary(data, true) + getIframeOrImage(data)
+            )
             .fadeIn();
     }
-
 
     /* On dataset pages, show Clustergrammer when user clicks preview image.
      */
