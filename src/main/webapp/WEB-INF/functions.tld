@@ -20,4 +20,10 @@
         <function-class>edu.mssm.pharm.maayanlab.Harmonizome.util.JstlFunctions</function-class>
         <function-signature>java.lang.String convertVizTypeToPlainText(java.lang.String)</function-signature>
     </function>
+
+    <function>
+        <name>urlEncode</name>
+        <function-class>edu.mssm.pharm.maayanlab.Harmonizome.util.JstlFunctions</function-class>
+        <function-signature>java.lang.String urlEncode(java.lang.String)</function-signature>
+    </function>
 </taglib>

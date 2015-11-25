@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="utf-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="cfn" uri="http://amp.pharm.mssm.edu/functions" %>
 
 <t:wrapper title="Dataset Pair Heat Maps">
 
@@ -14,17 +15,14 @@
             <select id="dataset-1">
                 <option>(Please select a dataset)</option>
                 <c:forEach var="dataset" items="${datasets}">
-                    <option value="${dataset.urlEncodedValue}"><c:out value="${dataset.name}"/></option>
+                    <option value="${cfn:urlEncode(dataset)}"><c:out value="${dataset}"/></option>
                 </c:forEach>
             </select>
         </div>
-        <div class="section">
+        <div class="section hidden">
             <label>Dataset 2</label>
             <select id="dataset-2">
                 <option>(Please select a dataset)</option>
-                <c:forEach var="dataset" items="${datasets}">
-                    <option value="${dataset.urlEncodedValue}"><c:out value="${dataset.name}"/></option>
-                </c:forEach>
             </select>
         </div>
         <div class="button-wrapper">

@@ -1,5 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -36,5 +37,9 @@ public class JstlFunctions {
             results += StringUtils.capitalize(parts[i]) + " ";
         }
         return results;
+    }
+
+    public static String urlEncode(String value) {
+        return UrlCodec.encode(value);
     }
 }

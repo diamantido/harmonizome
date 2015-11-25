@@ -9,14 +9,14 @@ import java.util.List;
 
 public class HeatMapDao {
 
-	public static DatasetPairVisualization getDatasetPairVisualization(String dataset_1, String dataset_2) {
+    public static DatasetPairVisualization getDatasetPairVisualization(String dataset_1, String dataset_2) {
         return (DatasetPairVisualization) HibernateUtil.getCurrentSession()
-			.createQuery(
+            .createQuery(
                 "SELECT dpv FROM DatasetPairVisualization AS dpv " +
                 "  JOIN dpv.dataset1 AS ds1 " +
                 "  JOIN dpv.dataset2 AS ds2 " +
                 "WHERE ds1.name = :dataset_1 AND ds2.name = :dataset_2"
-			)
+            )
             .setString("dataset_1", dataset_1)
             .setString("dataset_2", dataset_2)
             .uniqueResult();
@@ -43,6 +43,29 @@ public class HeatMapDao {
             )
             .setString("type", type)
             .list();
+    }
 
+    public static List<String> getLeftDatasetInPair() {
+        return (List<String>) HibernateUtil.getCurrentSession()
+            .createSQLQuery(
+                "SELECT DISTINCT name FROM dataset " +
+                "  JOIN dataset_pair_visualization ON " +
+                "       dataset_pair_visualization.dataset_1_fk = dataset.id "
+            )
+            .list();
+    }
+
+    public static List<String> getRightDatasetInPair(String dataset1) {
+        String subQuery = String.format("(SELECT id FROM dataset WHERE name = \"%s\")", dataset1);
+        String query = String.format(
+            "SELECT DISTINCT name FROM dataset " +
+            "  JOIN dataset_pair_visualization ON dataset_pair_visualization.dataset_2_fk = dataset.id " +
+            "WHERE dataset_pair_visualization.dataset_1_fk = %s",
+            subQuery
+        );
+        System.out.println(query);
+        return (List<String>) HibernateUtil.getCurrentSession()
+            .createSQLQuery(query)
+            .list();
     }
 }

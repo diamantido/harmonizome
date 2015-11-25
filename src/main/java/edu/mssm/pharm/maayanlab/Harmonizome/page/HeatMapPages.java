@@ -1,6 +1,5 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.HeatMapDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
@@ -51,8 +50,8 @@ public class HeatMapPages extends HttpServlet {
     }
 
     public void doDatasetPairsPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Dataset> datasets = GenericDao.getAll(Dataset.class);
-        request.setAttribute("datasets", datasets);
+        List<String> filtered = HeatMapDao.getLeftDatasetInPair();
+        request.setAttribute("datasets", filtered);
         request.getRequestDispatcher(Constant.TEMPLATE_DIR + "datasetPairHeatMaps.jsp").forward(request, response);
     }
 }

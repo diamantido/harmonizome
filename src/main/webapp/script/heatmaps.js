@@ -33,23 +33,32 @@ $(function() {
     }
 
     function setupDatasetPairHeatMapsPage() {
+        var selectMsg = '(Please select a dataset)';
+
+        $('select').eq(0).change(function(evt) {
+            var ds1 = $(evt.target).find(':selected').text();
+            if (ds1 === selectMsg) {
+                $('#dataset-2').empty().parent().addClass('hidden');
+                emptyVisualization();
+                return;
+            }
+            $.ajax({
+                url: 'api/1.0/visualize/heat_map/util/' + encodeURIComponent(ds1),
+                method: 'GET',
+                success: function(data) {
+                    buildRightSelect(JSON.parse(data)['rightDatasets']);
+                }
+            });
+        });
+
         $('button').click(function() {
-            var selectMsg = '(Please select a dataset)',
-                ds1Text = $('select#dataset-1').find(':selected').text(),
+            var ds1Text = $('select#dataset-1').find(':selected').text(),
                 ds2Text = $('select#dataset-2').find(':selected').text(),
                 ds1Val = encodeURIComponent(ds1Text),
                 ds2Val = encodeURIComponent(ds2Text);
 
-            if (ds1Text === selectMsg || ds2Text === selectMsg) {
-                alert('Please select two datasets.');
-                return;
-            } else if (ds1Text === ds2Text) {
-                alert('Please select distinct datasets.');
-                return;
-            }
-
             $.ajax({
-                url: URL_BASE + ds1Val + '/' + ds2Val,
+                url: URL_BASE + "dataset_pair/" + ds1Val + '/' + ds2Val,
                 type: 'GET',
                 success: function(data) {
                     var modifiedData = JSON.parse(data);
@@ -59,6 +68,14 @@ $(function() {
                 }
             });
         });
+    }
+
+    function buildRightSelect(datasets) {
+        var $select = $('#dataset-2').empty();
+        $.each(datasets, function(i, obj) {
+            $select.append('<option>' + obj + '</option>');
+        });
+        $select.parent().removeClass('hidden');
     }
 
     function pluralize(attribute) {
