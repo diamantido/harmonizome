@@ -115,11 +115,6 @@
 /* Dataset page
  * ------------------------------------------------------------------------- */
 .dataset-page {
-    iframe {
-        border: 1px solid @color-gray-light;
-        height: 800px;
-        width: 100%;
-    }
     .glyphicon-th {
         font-size: 5em;
     }
@@ -187,12 +182,60 @@
     }
 }
 
-/* Dataset Pairs /Harmonizome/visualize/heat_map/dataset_pairs
+/* Pages with heat maps
  * ------------------------------------------------------------------------- */
 @image-width: 930px;
 @image-height: 733px;
 
+.dataset-page {
+    .heat-maps {
+        img.preview {
+            &:hover {
+                cursor: pointer;
+                opacity: .75;
+            }
+            width: 200px;
+        }
+        iframe {
+            border: 1px solid @color-gray-light;
+            height: 800px;
+            width: 100%;
+        }
+    }
+}
+
+.dataset-page,
 .heat-map-page {
+    .heat-map {
+        margin-top: 10px;
+        display: none;
+        img {
+            display: block;
+            //max-width: @image-width;
+            //max-height: @image-height;
+        }
+        iframe {
+            border: 1px solid @color-gray-light;
+            height: 800px;
+            width: 100%;
+        }
+        .heat-map-header {
+            border-top: 1px solid @color-gray-light;
+            padding-top: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+            p {
+                margin: 0;
+            }
+            em {
+                margin-bottom: 15px;
+                display: inline-block;
+            }
+        }
+    }
+}
+
+.dataset-pair-heat-maps-page {
     label {
         margin-right: 10px;
     }
@@ -204,32 +247,9 @@
         padding-top: 10px;
         border-top: 1px solid @color-gray-light;
     }
-    .heat-map {
-        margin-top: 10px;
-        .image-wrapper {
-            display: none;
-            .header {
-                text-align: center;
-                margin-bottom: 20px;
-                p {
-                    margin: 0;
-                }
-            }
-            img {
-                display: block;
-                max-width: @image-width;
-                max-height: @image-height;
-            }
-            iframe {
-                border: 1px solid @color-gray-light;
-                height: 800px;
-                width: 100%;
-            }
-        }
-    }
 }
 
-/* Gene page /Harmonizome/gene/STAT3
+/* Gene page
  * ------------------------------------------------------------------------- */
 .gene-page {
     .list {

@@ -28,4 +28,13 @@ public class JstlFunctions {
         }
         return text;
     }
+
+    public static String convertVizTypeToPlainText(String vizType) {
+        String[] parts = vizType.split("_");
+        String results = "";
+        for (int i = 0; i < parts.length; i++) {
+            results += StringUtils.capitalize(parts[i]) + " ";
+        }
+        return results;
+    }
 }

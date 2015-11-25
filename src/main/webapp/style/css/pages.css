@@ -104,11 +104,6 @@
 }
 /* Dataset page
  * ------------------------------------------------------------------------- */
-.dataset-page iframe {
-  border: 1px solid #eeeeee;
-  height: 800px;
-  width: 100%;
-}
 .dataset-page .glyphicon-th {
   font-size: 5em;
 }
@@ -161,43 +156,63 @@
   text-decoration: none;
   opacity: .7;
 }
-/* Dataset Pairs /Harmonizome/visualize/heat_map/dataset_pairs
+/* Pages with heat maps
  * ------------------------------------------------------------------------- */
-.heat-map-page label {
-  margin-right: 10px;
+.dataset-page .heat-maps img.preview {
+  width: 200px;
 }
-.heat-map-page .section {
-  margin-bottom: 10px;
+.dataset-page .heat-maps img.preview:hover {
+  cursor: pointer;
+  opacity: .75;
 }
-.heat-map-page .heat-map,
-.heat-map-page .button-wrapper {
-  padding-top: 10px;
-  border-top: 1px solid #eeeeee;
-}
-.heat-map-page .heat-map {
-  margin-top: 10px;
-}
-.heat-map-page .heat-map .image-wrapper {
-  display: none;
-}
-.heat-map-page .heat-map .image-wrapper .header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-.heat-map-page .heat-map .image-wrapper .header p {
-  margin: 0;
-}
-.heat-map-page .heat-map .image-wrapper img {
-  display: block;
-  max-width: 930px;
-  max-height: 733px;
-}
-.heat-map-page .heat-map .image-wrapper iframe {
+.dataset-page .heat-maps iframe {
   border: 1px solid #eeeeee;
   height: 800px;
   width: 100%;
 }
-/* Gene page /Harmonizome/gene/STAT3
+.dataset-page .heat-map,
+.heat-map-page .heat-map {
+  margin-top: 10px;
+  display: none;
+}
+.dataset-page .heat-map img,
+.heat-map-page .heat-map img {
+  display: block;
+}
+.dataset-page .heat-map iframe,
+.heat-map-page .heat-map iframe {
+  border: 1px solid #eeeeee;
+  height: 800px;
+  width: 100%;
+}
+.dataset-page .heat-map .heat-map-header,
+.heat-map-page .heat-map .heat-map-header {
+  border-top: 1px solid #eeeeee;
+  padding-top: 15px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.dataset-page .heat-map .heat-map-header p,
+.heat-map-page .heat-map .heat-map-header p {
+  margin: 0;
+}
+.dataset-page .heat-map .heat-map-header em,
+.heat-map-page .heat-map .heat-map-header em {
+  margin-bottom: 15px;
+  display: inline-block;
+}
+.dataset-pair-heat-maps-page label {
+  margin-right: 10px;
+}
+.dataset-pair-heat-maps-page .section {
+  margin-bottom: 10px;
+}
+.dataset-pair-heat-maps-page .heat-map,
+.dataset-pair-heat-maps-page .button-wrapper {
+  padding-top: 10px;
+  border-top: 1px solid #eeeeee;
+}
+/* Gene page
  * ------------------------------------------------------------------------- */
 .gene-page .list p {
   margin: 10px 0 5px 0;

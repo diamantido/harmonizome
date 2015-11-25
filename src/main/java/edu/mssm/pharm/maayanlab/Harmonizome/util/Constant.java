@@ -7,6 +7,8 @@ public class Constant {
 	public static final String API_URL = "api/1.0";
 
 	public static final String DATA_DIRECTORY = "http://amp.pharm.mssm.edu/static/hdfs/harmonizome/data";
+
+	public static final String HEAT_MAP_IMAGES = "http://amp.pharm.mssm.edu/static/harmonizome/heat_maps/";
 	
 	// This has no preceding slash because we typically use it as a relative URL in JSP templates.
 	public static final String SEARCH_URL = "search";
@@ -16,6 +18,8 @@ public class Constant {
     public static final String VISUALIZE = "visualize";
 
 	public static final String HEAT_MAPS_URL = VISUALIZE + "/heat_map";
+
+    public static final String HEAT_MAPS_API_URL = API_URL + "/" + VISUALIZE + "/heat_map";
 	
 	public static final String getSEARCH_URL() {
 		return SEARCH_URL;

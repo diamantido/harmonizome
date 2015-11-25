@@ -4,6 +4,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualization;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -39,16 +40,20 @@ public class DatasetPage extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 			
-			Dataset dataset = null;
 			Long numGenes = null;
 			Long numGeneAttributeAssociations = null;
-			dataset = GenericDao.get(Dataset.class, query);
+			Dataset dataset = GenericDao.get(Dataset.class, query);
 			if (dataset != null) {
 				if (!isTest) {
 					dataset.setNumPageViews(dataset.getNumPageViews() + 1);
 				}
 				numGenes = GeneDao.getCountByDataset(query);
 				numGeneAttributeAssociations = DatasetDao.getCountGeneAttributeAssocations(query);
+
+				for (DatasetVisualization dsv : dataset.getDatasetVisualizations()) {
+					System.out.println(dsv);
+				}
+
 			}
 			if (dataset == null) {
 				doNotFound(request, response);

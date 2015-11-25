@@ -8,7 +8,7 @@
 
     <div class="heat-map-page dataset-pair-heat-maps-page">
         <h1>Dataset Pair Heat Maps</h1>
-        <p class="instruction">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p class="instruction">Select from the drop down menu to explore a hierarchically clustered heat map visualization of the similarity of attributes from two datasets.  Red tiles indicate pairs of attributes that are similar based on their associations with genes common to both datasets.  Blue tiles indicate pairs of attributes that are anti-similar--the two attributes have oppositely signed associations with many of the same genes.  White tiles indicate pairs of attributes with few to no overlapping associations.</p>
         <div class="section">
             <label>Dataset 1</label>
             <select id="dataset-1">
@@ -30,8 +30,6 @@
         <div class="button-wrapper">
             <button class="btn btn-default">Visualize</button>
         </div>
-        <div class="heat-map">
-            <div class="image-wrapper"></div>
-        </div>
+        <div class="heat-map"></div>
     </div>
 </t:wrapper>

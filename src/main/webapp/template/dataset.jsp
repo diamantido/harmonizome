@@ -2,10 +2,14 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="cfn" uri="http://amp.pharm.mssm.edu/functions" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
 
 <t:wrapper title="Dataset - ${dataset.name}" navType="withSearch">
+
+    <script src="script/heatmaps.js"></script>
+
     <div class="dataset-page">
         <h1><c:out value="${dataset.name}"/> <span class="note dataset">Dataset</span></h1>
         <section>
@@ -109,12 +113,21 @@
             </table>
         </section>
         <c:if test="${not empty dataset.datasetVisualizations}">
-            <section>
+            <section class="heat-maps">
                 <h2>Visualizations</h2>
-                <%--<c:forEach var="visualization" items="${dataset.datasetVisualizations}">--%>
-                    <%--<iframe src="${visualization.clustergrammerLink}?preview=true"></iframe>--%>
-                <%--</c:forEach>--%>
-                <span class="btn btn-default glyphicon glyphicon-th"></span>
+                <ul class="list-inline">
+                    <c:forEach var="heatMap" items="${dataset.datasetVisualizations}">
+                        <li>
+                            <p><strong><c:out value="${cfn:convertVizTypeToPlainText(heatMap.type)}"/></strong></p>
+                            <img class="preview"
+                                 src="${Constant.HEAT_MAP_IMAGES}/${heatMap.type}/${heatMap.image}"
+                                 data-heat-map-type="${heatMap.type}"
+                                 data-heat-map-dataset="${dataset.name}"
+                                 data-heat-map-url="${Constant.HEAT_MAPS_API_URL}"/>
+                        </li>
+                    </c:forEach>
+                </ul>
+                <div class="heat-map"></div>
             </section>
         </c:if>
         <section>

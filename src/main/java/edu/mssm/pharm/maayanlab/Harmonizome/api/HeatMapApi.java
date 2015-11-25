@@ -23,7 +23,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/" + Constant.API_URL + "/" + Constant.HEAT_MAPS_URL + "/*"})
+@WebServlet(urlPatterns = {"/" + Constant.HEAT_MAPS_API_URL + "/*"})
 public class HeatMapApi extends HttpServlet {
 
     private static Gson gson;
@@ -87,8 +87,8 @@ public class HeatMapApi extends HttpServlet {
                 doErrorSchema(response);
                 return;
             }
-            schema.put("type", type);
 
+            schema.put("type", type);
             if (type.equals("dataset")) {
                 String attribute = formatAttributeType(dv.getDataset());
                 addClustergrammerLink(schema, dv, "Genes", attribute);
@@ -98,7 +98,7 @@ public class HeatMapApi extends HttpServlet {
                 String attribute = formatAttributeType(dv.getDataset());
                 addClustergrammerLink(schema, dv, attribute, attribute);
             }
-
+            addLabels(schema, dv, type);
             addImage(schema, dv, type);
 	        String json = gson.toJson(schema);
             PrintWriter out = response.getWriter();
@@ -113,6 +113,21 @@ public class HeatMapApi extends HttpServlet {
         }
     }
 
+    private void addLabels(Map<String, String> schema, DatasetVisualization dv, String type) {
+        if (type.equals("gene_similarity")) {
+            schema.put("colLabel", "Genes");
+            schema.put("rowLabel", "Genes");
+        } else if (type.equals("attribute_similarity")) {
+            String attributeType = formatAttributeType(dv.getDataset());
+            schema.put("colLabel", attributeType);
+            schema.put("rowLabel", attributeType);
+        } else if (type.equals("dataset")) {
+            String attributeType = formatAttributeType(dv.getDataset());
+            schema.put("colLabel", "Genes");
+            schema.put("rowLabel", attributeType);
+        }
+    }
+
     private void addClustergrammerLink(Map<String, String> schema, DatasetVisualizationAbstract dv, String rowLabel, String colLabel) {
         if (dv.getClustergrammerLink() != null) {
             String queryString = "?preview=true&row_label=" + rowLabel + "&col_label=" + colLabel;
@@ -122,10 +137,7 @@ public class HeatMapApi extends HttpServlet {
 
     private void addImage(Map<String, String> schema, DatasetVisualizationAbstract dv, String type) {
         if (dv.getImage() != null) {
-            System.out.println(dv.getImage());
-            String staticServerUrl = "http://amp.pharm.mssm.edu/static/harmonizome/heat_maps/";
-            String directory = type + "/";
-            String imageLink = staticServerUrl + directory + dv.getImage();
+            String imageLink = Constant.HEAT_MAP_IMAGES + type + "/" + dv.getImage();
             schema.put("imageLink", imageLink);
         }
     }

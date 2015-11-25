@@ -1,13 +1,14 @@
 $(function() {
 
     var URL_BASE = 'api/1.0/visualize/heat_map/',
-        $VIZ_WRAPPER = $('.image-wrapper');
+        $VIZ_WRAPPER = $('.heat-map');
 
     if ($('.dataset-pair-heat-maps-page').length) {
         setupDatasetPairHeatMapsPage();
+    } else if ($('.dataset-page').length) {
+        setupVisualizationsOnDatasetPages();
     } else {
         var heatMapType = $('.heat-map-page').attr('data-heat-map-type');
-        console.log(heatMapType);
         setupIndividualDatasetHeatMapsPage(heatMapType);
     }
 
@@ -25,7 +26,7 @@ $(function() {
                 url: URL_BASE + heatMapType + "/" + encoded + '?type=' + heatMapType,
                 type: 'GET',
                 success: function(data) {
-                    showDatasetVisualization(JSON.parse(data));
+                    showDatasetHeatMap(JSON.parse(data));
                 }
             });
         });
@@ -67,7 +68,7 @@ $(function() {
         return attribute + 's';
     }
 
-    function getVisualElem(data) {
+    function getIframeOrImage(data) {
         var image;
         if (typeof data.clustergrammerLink !== 'undefined') {
             return '<iframe src="' + data.clustergrammerLink + '"></iframe>';
@@ -77,16 +78,40 @@ $(function() {
         }
     }
 
-    function showDatasetVisualization(data) {
+    function getLabelsIfNecessary(data) {
+        if (typeof data.clustergrammerLink !== 'undefined') {
+            return '';
+        } else {
+            return '' +
+                '<div class="heat-map-header">' +
+                '   <p><em>No interactive hierarchical clustering is available at this time.</em></p>' +
+                '   <p><strong>' + data.colLabel + '</strong></p>' +
+                '   <p>compared with</p>' +
+                '   <p><strong>' + data.rowLabel + '</strong></p>' +
+                '</div>';
+        }
+    }
+
+    function showDatasetHeatMap(data) {
+        $VIZ_WRAPPER
+            .hide()
+            .empty()
+            .append(
+                $(getLabelsIfNecessary(data) + getIframeOrImage(data))
+            )
+            .fadeIn();
+    }
+
+    function showDatasetPairVisualization(data) {
         var $img = $('' +
-            '<div class="header">' +
-            //'   <p>' + pluralize(data.attributeType1) + ' from</p>' +
-            //'   <p><strong>' + data.dataset1 + '</strong></p>' +
-            //'   <p>compared with</p>' +
-            //'   <p>' + pluralize(data.attributeType2) + ' from</p>' +
-            //'   <p><strong>' + data.dataset2 + '</strong></p>' +
+            '<div class="heat-map-header">' +
+            '   <p>' + pluralize(data.attributeType1) + ' from</p>' +
+            '   <p><strong>' + data.dataset1 + '</strong></p>' +
+            '   <p>compared with</p>' +
+            '   <p>' + pluralize(data.attributeType2) + ' from</p>' +
+            '   <p><strong>' + data.dataset2 + '</strong></p>' +
             '</div>' +
-            getVisualElem(data)
+            getIframeOrImage(data)
         );
 
         $VIZ_WRAPPER
@@ -96,23 +121,35 @@ $(function() {
             .fadeIn();
     }
 
-    function showDatasetPairVisualization(data) {
-        var $img = $('' +
-            '<div class="header">' +
-            '   <p>' + pluralize(data.attributeType1) + ' from</p>' +
-            '   <p><strong>' + data.dataset1 + '</strong></p>' +
-            '   <p>compared with</p>' +
-            '   <p>' + pluralize(data.attributeType2) + ' from</p>' +
-            '   <p><strong>' + data.dataset2 + '</strong></p>' +
-            '</div>' +
-            getVisualElem(data)
-        );
 
-        $VIZ_WRAPPER
-            .hide()
-            .empty()
-            .append($img)
-            .fadeIn();
+    /* On dataset pages, show Clustergrammer when user clicks preview image.
+     */
+    var clickedHeatMap = [];
+    function setupVisualizationsOnDatasetPages() {
+        $('.dataset-page .heat-maps').click(function(evt) {
+            var $img = $(evt.target),
+                baseUrl = $img.attr('data-heat-map-url'),
+                type = $img.attr('data-heat-map-type'),
+                dataset = encodeURIComponent($img.attr('data-heat-map-dataset')),
+                $clustergrammerWrapper = $('.clustergrammer-wrapper');
+
+            if (clickedHeatMap[0] === type) {
+                emptyVisualization();
+                clickedHeatMap[0] = undefined;
+                return;
+            } else {
+                clickedHeatMap[0] = type;
+            }
+
+            $.ajax({
+                url: baseUrl + "/" + type + "/" + dataset,
+                method: 'GET',
+                success: function(data) {
+                    data = JSON.parse(data);
+                    showDatasetHeatMap(data);
+                }
+            });
+        });
     }
 
     function emptyVisualization() {
