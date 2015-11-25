@@ -38,9 +38,9 @@ public class HeatMapApi extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String[] query = UrlUtil.getPathAsArray(request);
-        if (query.length == 2) {
+        if (query.length == 3) {
             doGetDatasetPairsVisualization(response, query);
-        } else if (query.length == 1) {
+        } else if (query.length == 2) {
             doGetIndividualDatasetVisualization(request, response);
         } else {
             doErrorSchema(response);
@@ -51,7 +51,7 @@ public class HeatMapApi extends HttpServlet {
         try {
             HibernateUtil.beginTransaction();
             Map<String, String> schema = new HashMap<String, String>();
-            DatasetPairVisualization dvp = HeatMapDao.getDatasetPairVisualization(query[0], query[1]);
+            DatasetPairVisualization dvp = HeatMapDao.getDatasetPairVisualization(query[1], query[2]);
             if (dvp == null) {
                 doErrorSchema(response);
                 return;
@@ -61,7 +61,7 @@ public class HeatMapApi extends HttpServlet {
             schema.put("attributeType1", attributeType1);
             schema.put("attributeType2", attributeType2);
             addClustergrammerLink(schema, dvp, attributeType1, attributeType2);
-            addImage(schema, dvp);
+            addImage(schema, dvp, query[0]);
             String json = gson.toJson(schema);
             PrintWriter out = response.getWriter();
             out.write(json);
@@ -76,29 +76,30 @@ public class HeatMapApi extends HttpServlet {
     }
 
     private void doGetIndividualDatasetVisualization(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String query = UrlUtil.getPath(request);
-        String type = UrlUtil.getParameter(request, "type");
+        String[] query = UrlUtil.getPathAsArray(request);
+        String type = query[0];
+        String dataset = query[1];
         try {
             HibernateUtil.beginTransaction();
             Map<String, String> schema = new HashMap<String, String>();
-	        DatasetVisualization dv = HeatMapDao.getDatasetVisualization(query, type);
+	        DatasetVisualization dv = HeatMapDao.getDatasetVisualization(dataset, type);
             if (dv == null) {
                 doErrorSchema(response);
                 return;
             }
             schema.put("type", type);
 
-            if (type.equals("gene-attribute")) {
+            if (type.equals("dataset")) {
                 String attribute = formatAttributeType(dv.getDataset());
                 addClustergrammerLink(schema, dv, "Genes", attribute);
-            } else if (type.equals("gene-gene")) {
+            } else if (type.equals("gene_similarity")) {
                 addClustergrammerLink(schema, dv, "Genes", "Genes");
-            } else if (type.equals("attribute-attribute")) {
+            } else if (type.equals("attribute_similarity")) {
                 String attribute = formatAttributeType(dv.getDataset());
                 addClustergrammerLink(schema, dv, attribute, attribute);
             }
 
-            addImage(schema, dv);
+            addImage(schema, dv, type);
 	        String json = gson.toJson(schema);
             PrintWriter out = response.getWriter();
             out.write(json);
@@ -119,11 +120,12 @@ public class HeatMapApi extends HttpServlet {
         }
     }
 
-    private void addImage(Map<String, String> schema, DatasetVisualizationAbstract dv) {
+    private void addImage(Map<String, String> schema, DatasetVisualizationAbstract dv, String type) {
         if (dv.getImage() != null) {
             System.out.println(dv.getImage());
-            String staticServerUrl = "http://amp.pharm.mssm.edu/static/harmonizome/heat_maps/dataset_pairs/";
-            String imageLink = staticServerUrl + dv.getImage();
+            String staticServerUrl = "http://amp.pharm.mssm.edu/static/harmonizome/heat_maps/";
+            String directory = type + "/";
+            String imageLink = staticServerUrl + directory + dv.getImage();
             schema.put("imageLink", imageLink);
         }
     }

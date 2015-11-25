@@ -15,21 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 @WebServlet(urlPatterns = {"/" + Constant.HEAT_MAPS_URL + "/*"})
 public class HeatMapPages extends HttpServlet {
-
-    private static Map<String, String> urlToType;
-    static {
-        urlToType = new HashMap<String, String>();
-        urlToType.put("dataset", "gene-attribute");
-        urlToType.put("gene_similarity", "gene-gene");
-        urlToType.put("attribute_similarity", "attribute-attribute");
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -39,7 +29,6 @@ public class HeatMapPages extends HttpServlet {
             if (type.equals("dataset_pairs")) {
                 doDatasetPairsPage(request, response);
             } else {
-                type = urlToType.get(type);
                 doDatasetPage(request, response, type);
             }
             HibernateUtil.commitTransaction();
@@ -54,11 +43,7 @@ public class HeatMapPages extends HttpServlet {
     public void doDatasetPage(HttpServletRequest request, HttpServletResponse response, String type) throws ServletException, IOException {
         List<Dataset> datasets = HeatMapDao.getDatasetsFromType(type);
         String typeView;
-        if (type.equals("gene-attribute"))  {
-            typeView = "Dataset";
-        } else {
-            typeView = StringUtils.capitalize(type);
-        }
+        typeView = StringUtils.capitalize(type);
         request.setAttribute("datasets", datasets);
         request.setAttribute("type", type);
         request.setAttribute("typeView", typeView);

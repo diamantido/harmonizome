@@ -22,7 +22,7 @@ $(function() {
             }
 
             $.ajax({
-                url: URL_BASE + encoded + '?type=' + heatMapType,
+                url: URL_BASE + heatMapType + "/" + encoded + '?type=' + heatMapType,
                 type: 'GET',
                 success: function(data) {
                     showDatasetVisualization(JSON.parse(data));
