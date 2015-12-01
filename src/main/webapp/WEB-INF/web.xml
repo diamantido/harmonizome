@@ -9,6 +9,16 @@
         <welcome-file>/template/index.jsp</welcome-file>
     </welcome-file-list>
 
+    <filter>
+        <filter-name>CorsFilter</filter-name>
+        <filter-class>edu.mssm.pharm.maayanlab.Harmonizome.filter.CORSFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CorsFilter</filter-name>
+        <url-pattern>/api/1.0/suggest</url-pattern>
+        <url-pattern>/api/1.0/search</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>documentation.jsp</servlet-name>
         <jsp-file>/template/documentation.jsp</jsp-file>
