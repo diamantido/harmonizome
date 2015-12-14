@@ -90,7 +90,7 @@ if __name__ == '__main__':
         # ('CTD Gene-Disease Associations', 'ctddisease'),
         # ('ClinVar SNP-Phenotype Associations', 'clinvar'),
         # ('Combined Pathways Pathways', 'combinedpathways'),
-        # ('dbGAP Gene-Trait Associations', 'dbgap')
+        # ('dbGAP Gene-Trait Associations', 'dbgap'),
         # ('DEPOD Substrates of Phosphatases', 'depod'),
         # ('DIP Protein-Protein Interactions', 'dip'),
         # ('DISEASES Curated Gene-Disease Assocation Evidence Scores', 'jensendiseasecurated'),
