@@ -30,8 +30,8 @@ public class GeneDao {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT COUNT (DISTINCT gene) FROM Gene AS gene " +
-				"  JOIN gene.features AS feats " +
-				"  JOIN feats.geneSet AS geneSet " +
+				"  JOIN gene.associations AS associations " +
+				"  JOIN associations.geneSet AS geneSet " +
 				"  JOIN geneSet.dataset AS dataset " +
 				"WHERE dataset.name = :datasetName"
 			)
@@ -45,12 +45,12 @@ public class GeneDao {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT DISTINCT gene FROM Gene AS gene " +
-				"  JOIN gene.features AS feats " +
-				"  JOIN feats.geneSet AS geneSet " +
+				"  JOIN gene.associations AS associations " +
+				"  JOIN associations.geneSet AS geneSet " +
 				"  JOIN geneSet.dataset AS dataset " +
 				"WHERE geneSet.nameFromDataset = :geneSetName " +
 				"  AND dataset.name = :datasetName " +
-				"  AND feats.thresholdValue = :thresholdValue"
+				"  AND associations.thresholdValue = :thresholdValue"
 			)
 			.setString("geneSetName", geneSetName)
 			.setString("datasetName", datasetName)

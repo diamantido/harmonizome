@@ -64,8 +64,8 @@
                             <td>
                                 <h3>
                                     <a href="${dataset.endpoint}/${dataset.urlEncodedValue}">
-                                        <c:out value="${cfn:highlightSearchTerm(dataset.name, query)}" escapeXml="false"/>
-                                    </a> <span class="note dataset">Dataset</span>
+                                        <c:out value="${cfn:highlightSearchTerm(dataset.name, query)}" escapeXml="false"/></a>
+                                    <span class="note dataset"> Dataset</span>
                                 </h3>
                                 <div class="description">
                                     <p>
@@ -85,8 +85,8 @@
                             <td>
                                 <h3>
                                     <a href="${gene.endpoint}/${gene.urlEncodedValue}">
-                                        <c:out value="${cfn:highlightSearchTerm(gene.symbol, query)}" escapeXml="false"/>
-                                    </a> <span class="note gene">Gene</span>
+                                        <c:out value="${cfn:highlightSearchTerm(gene.symbol, query)}" escapeXml="false"/></a>
+                                    <span class="note gene"> Gene</span>
                                 </h3>
                                 <div class="description">
                                     <c:if test="${gene.name != null}">
@@ -108,8 +108,8 @@
                             <td>
                                 <h3>
                                     <a href="${GeneSet.ENDPOINT}/${geneSet.urlEncodedValue}">
-                                        <c:out value="${cfn:highlightSearchTerm(geneSet.nameFromDataset, query)}" escapeXml="false"/>
-                                    </a> <span class="note gene-set">Gene Set</span>
+                                        <c:out value="${cfn:highlightSearchTerm(geneSet.nameFromDataset, query)}" escapeXml="false"/></a>
+                                    <span class="note gene-set"> Gene Set</span>
                                 </h3>
                                 <div class="description">
                                     <p><em>From <a href="${geneSet.dataset.endpoint}/${geneSet.dataset.urlEncodedValue}"><c:out value="${geneSet.dataset.name}"/></a></em></p>
@@ -126,3 +126,8 @@
         </div>
     </div>
 </t:wrapper>
+
+<script src="script/search-results-page.js"></script>
+<script>
+	HARMONIZOME.setupDataTable();
+</script>

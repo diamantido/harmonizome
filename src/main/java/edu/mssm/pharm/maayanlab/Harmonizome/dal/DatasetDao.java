@@ -14,8 +14,8 @@ public class DatasetDao {
 			.createQuery(
 				"SELECT DISTINCT dataset FROM Dataset AS dataset " +
 				"  JOIN dataset.geneSets AS geneSets " +
-				"  JOIN geneSets.features as feats " +
-				"  JOIN feats.gene AS gene " +
+				"  JOIN geneSets.associations as associations " +
+				"  JOIN associations.gene AS gene " +
 				"WHERE gene.symbol = :symbol"
 			)
 			.setString("symbol", geneSymbol)
@@ -26,8 +26,8 @@ public class DatasetDao {
 		return (Long) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
-				"SELECT COUNT(feat) FROM Feature AS feat " +
-				"  JOIN feat.geneSet AS geneSet " +
+				"SELECT COUNT(association) FROM Association AS association " +
+				"  JOIN association.geneSet AS geneSet " +
 				"  JOIN geneSet.dataset AS dataset " +
 				"WHERE dataset.name = :datasetName"
 			)

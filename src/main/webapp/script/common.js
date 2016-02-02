@@ -1,26 +1,17 @@
-$(function () {
+var HARMONIZOME = HARMONIZOME || {};
 
-    var API_URL = 'api/1.0/';
+HARMONIZOME.API_URL = 'api/1.0/';
+
+$(function () {
 
     /* Code executes here
      * --------------------------------------------------------------------- */
-    var $dataTables = $('.data-table');
-    if ($dataTables.length && typeof $().dataTable !== 'undefined') {
-        var bSort;
-        if ($('.download-page').length || $('.analytics-page').length) {
-            bSort = true;
-        } else {
-            bSort = false;
-        }
-        setupDataTables($dataTables, bSort);
-    }
     var $searchEl = $('.search-bar');
     if ($searchEl.length) {
         setupSearch($searchEl);
     }
 
     setupTooltips();
-    setupShowByGroupFunctionality();
     monitorSearchSelect();
 
     var $downloadsTools = $('.gene-set-page .downloads-tools');
@@ -28,101 +19,7 @@ $(function () {
         setupEnrichrLink();
     }
 
-    /* --------------------------------------------------------------------- */
-
-    /* Bind events for showing genes and attributes by group.
-     */
-    function setupShowByGroupFunctionality() {
-        var $showHideButtons = $('.dataset-row .glyphicon');
-        $showHideButtons.click(function (evt) {
-            var $dataset = $(evt.target).parent(),
-                url = $dataset.attr('data-gene-list-more-url'),
-                dataset = $dataset.attr('data-gene-list-css-selector'),
-                $geneList = $('.attribute-list.' + dataset);
-
-            $.ajax({
-                url: url,
-                method: 'GET',
-                success: function (data) {
-                    data = JSON.parse(data);
-                    showGeneSets($dataset, $geneList, data);
-                }
-            });
-        });
-    }
-
-    /* Show gene sets based on dataset selected on gene page.
-     */
-    function showGeneSets($dataset, $geneList, data) {
-        var $fillerTd = $('<td class="col-md-1"></td>'),
-            $listTd = $('<td class="col-md-11" colspan="2"></td>'),
-            $plusButton = $dataset.find('.glyphicon.glyphicon-plus'),
-            $minusButton = $dataset.find('.glyphicon.glyphicon-minus');
-
-        $geneList.empty();
-        $geneList.append($fillerTd);
-        $geneList.append($listTd);
-
-        if (data.up.association) {
-            $listTd.append('<p><strong>' + data.up.list.length + ' <em>' + data.up.association + '</em> associations</strong></p>');
-        }
-
-        var upGenes = [];
-        $.each(data.up.list, function (i, obj) {
-            upGenes.push('<a href="' + cleanGeneSetHref(obj.href) + '">' + cleanGeneSetName(obj.name) + '</a>');
-        });
-        $listTd.append(upGenes.join(', '));
-
-        if (data.down.list.length != 0) {
-            if (data.down.association) {
-                $listTd.append('<p class="last"><strong>' + data.down.list.length + ' <em>' + data.down.association + '</em> associations</strong></p>');
-            }
-            var downGenes = [];
-            $.each(data.down.list, function (i, obj) {
-
-                downGenes.push('<a href="' + cleanGeneSetHref(obj.href) + '">' + cleanGeneSetName(obj.name) + '</a>');
-            });
-            $listTd.append(downGenes.join(', '));
-        }
-
-        if ($geneList.hasClass('active')) {
-            $geneList.fadeOut();
-        } else {
-            $geneList.fadeIn();
-        }
-
-        $plusButton.toggleClass('hidden');
-        $minusButton.toggleClass('hidden');
-        $geneList.toggleClass('active');
-    }
-
-    /* Returns a user readable version of a gene set name.
-     */
-    function cleanGeneSetName(geneSetName) {
-        return geneSetName.split('/')[0];
-    }
-
-    /* Returns a link for the gene set page rather than API endpoint.
-     */
-    function cleanGeneSetHref(geneSetHref) {
-        return geneSetHref.replace('/' + API_URL, '');
-    }
-
-    /* Setup datasets table if it exists.
-     */
-    function setupDataTables($dataTables, bSort) {
-        $dataTables.dataTable({
-            bPaginate: true,
-            bSort: bSort,
-            iDisplayLength: 20,
-            oLanguage: {
-                sSearch: "Filter"
-            },
-            fnInitComplete: function() {
-                $dataTables.fadeIn();
-            }
-        });
-    }
+    /* --------------------------------------------------------------------- */ 
 
     /* Gets the attribute and dataset from the URL.
      */
@@ -130,7 +27,7 @@ $(function () {
         try {
             var urlParts = window.location.pathname.split('/');
             urlParts = urlParts.splice(2);
-            return API_URL + urlParts.join('/');
+            return HARMONIZOME.API_URL + urlParts.join('/');
         } catch (err) {
             return undefined;
         }
@@ -162,8 +59,8 @@ $(function () {
 
         function success(data) {
             var geneSymbols = [];
-            data.features.forEach(function (feature, i) {
-                geneSymbols.push(feature.gene.symbol);
+            data.associations.forEach(function (assoc, i) {
+                geneSymbols.push(assoc.gene.symbol);
             });
 
             $('.enrichr').click(function () {
@@ -235,7 +132,7 @@ $(function () {
             },
             queryTokenizer: Bloodhound.tokenizers.whitespace,
             remote: {
-                url: API_URL + 'suggest?q=%QUERY',
+                url: HARMONIZOME.API_URL + 'suggest?q=%QUERY',
                 replace: function (url, urlEncodedQuery) {
                     var type = getEntityType();
                     url = url.replace('%QUERY', urlEncodedQuery);

@@ -38,16 +38,27 @@
 .badge a:hover {
   color: #444444;
 }
+.tooltip {
+  /* These are the colors of the arrows:
+      * http://stackoverflow.com/a/15383656/1830334 */
+}
+.tooltip.in {
+  opacity: 1;
+}
 .tooltip .tooltip-inner {
   background: #444444;
   border-radius: 0;
   text-align: left;
 }
 .tooltip.right .tooltip-arrow {
-  /* This is the color of the arrow: http://stackoverflow.com/a/15383656/1830334 */
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
   border-right: 5px solid #444444;
+}
+.tooltip.top .tooltip-arrow {
+  border-top: 5px solid #444444;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
 }
 .table-responsive {
   /* See http://stackoverflow.com/a/33809511/1830334 */

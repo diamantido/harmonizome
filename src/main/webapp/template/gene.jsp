@@ -1,6 +1,6 @@
 <%@ page contentType="text/html" pageEncoding="utf-8" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
-<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Association" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -70,6 +70,12 @@
                 <c:out value="${allAssociationsSummary}"/>
             </p>
             <p class="instruction">Click the + buttons to view associations for <c:out value="${gene.symbol}"></c:out> from the datasets below.</p>
+            <p class="instruction">If available, associations are ranked by <strong>standard value </strong>
+	            <span class="glyphicon glyphicon-question-sign"
+					  data-toggle="tooltip"
+					  title="Indicates the relative strength of the functional associations. Standardized values are related to empirical p-values as abs(standardized value) = -log10(p-value) and are only available for initially continuous-valued datasets."
+	           	></span>
+	        </p>
             <table class="table entities-by-dataset genes">
                 <thead>
                     <tr>
@@ -81,8 +87,8 @@
                 <c:forEach var="dataset" items="${datasetsByGene}">
                     <tr class="dataset-row ${dataset.cssSelectorName}" >
                         <td class="col-md-1"
-                            data-gene-list-css-selector="${dataset.cssSelectorName}"
-                            data-gene-list-more-url="${Constant.API_URL}/${GeneSet.ENDPOINT}?gene=${gene.urlEncodedValue}&dataset=${dataset.urlEncodedValue}"
+                            data-associations-css-selector="${dataset.cssSelectorName}"
+                            data-associations-more-url="${Constant.API_URL}/${Association.ENDPOINT}?gene=${gene.urlEncodedValue}&dataset=${dataset.urlEncodedValue}"
                         >
                             <button class="btn btn-default glyphicon glyphicon-plus cursor-pointer" aria-hidden="true"></button>
                             <button class="btn btn-default glyphicon glyphicon-minus hidden cursor-pointer" aria-hidden="true"></button>
@@ -97,9 +103,14 @@
                             <c:out value="${attributeSetDescription}"/>
                         </td>
                     </tr>
-                    <tr class="list attribute-list ${dataset.cssSelectorName}"></tr>
+                    <tr class="list association-list ${dataset.cssSelectorName}"></tr>
                 </c:forEach>
             </table>
         </section>
     </div>
 </t:wrapper>
+
+<script src="script/gene-page.js"></script>
+<script>
+	HARMONIZOME.setupShowByDatasetFunctionality();
+</script>

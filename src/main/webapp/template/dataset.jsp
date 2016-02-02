@@ -156,3 +156,8 @@
         </section>
     </div>
 </t:wrapper>
+
+<script src="script/dataset-page.js"></script>
+<script>
+	HARMONIZOME.setupDataTable();
+</script>

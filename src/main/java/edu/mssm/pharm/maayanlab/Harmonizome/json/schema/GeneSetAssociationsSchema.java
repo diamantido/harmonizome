@@ -9,9 +9,9 @@ public class GeneSetAssociationsSchema {
 
 	public Dataset dataset;
 
-	public GeneSetListSchema up;
+	public AssociationsSchema up;
 
-	public GeneSetListSchema down;
+	public AssociationsSchema down;
 
 	public GeneSetAssociationsSchema() {
 	}
@@ -32,19 +32,19 @@ public class GeneSetAssociationsSchema {
 		this.dataset = dataset;
 	}
 
-	public GeneSetListSchema getUp() {
+	public AssociationsSchema getUp() {
 		return up;
 	}
 
-	public void setUp(GeneSetListSchema up) {
+	public void setUp(AssociationsSchema up) {
 		this.up = up;
 	}
 
-	public GeneSetListSchema getDown() {
+	public AssociationsSchema getDown() {
 		return down;
 	}
 
-	public void setDown(GeneSetListSchema down) {
+	public void setDown(AssociationsSchema down) {
 		this.down = down;
 	}
 }

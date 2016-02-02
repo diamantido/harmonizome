@@ -40,17 +40,28 @@
 }
 
 .tooltip {
+	&.in {
+		opacity: 1;
+	}
     .tooltip-inner {
         background: @color-charcoal;
         border-radius: 0;
         text-align: left;
     }
+     /* These are the colors of the arrows:
+      * http://stackoverflow.com/a/15383656/1830334 */
     &.right {
         .tooltip-arrow {
-            /* This is the color of the arrow: http://stackoverflow.com/a/15383656/1830334 */
             border-top: 5px solid transparent;
             border-bottom: 5px solid transparent;
             border-right: 5px solid @color-charcoal;
+        }
+    }
+    &.top {
+        .tooltip-arrow {
+            border-top: 5px solid @color-charcoal;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
         }
     }
 }

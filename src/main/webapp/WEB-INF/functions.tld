@@ -7,6 +7,7 @@
 
     <display-name>Custom Functions</display-name>
     <tlib-version>1.0</tlib-version>
+    <short-name>cf</short-name>
     <uri>http://amp.pharm.mssm.edu/functions</uri>
 
     <function>

@@ -1,9 +1,7 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
-import java.util.Iterator;
 import java.util.List;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -50,12 +48,12 @@ public class GeneSetDao {
 			.getCurrentSession()
 			.createQuery(
 				"SELECT geneSet FROM GeneSet AS geneSet " +
-				"  JOIN geneSet.features AS feats " +
+				"  JOIN geneSet.associations AS associations " +
 				"  JOIN geneSet.dataset AS dataset " +
-				"  JOIN feats.gene AS gene " +
+				"  JOIN associations.gene AS gene " +
 				"WHERE dataset.name = :datasetName " +
 				"  AND gene.symbol = :geneSymbol " +
-				"  AND feats.thresholdValue = :thresholdValue"
+				"  AND associations.thresholdValue = :thresholdValue"
 			)
 			.setString("datasetName", datasetName)
 			.setString("geneSymbol", geneSymbol)
@@ -66,8 +64,6 @@ public class GeneSetDao {
 	/* For stats page
 	 * --------------
 	 */
-
-	@SuppressWarnings("unchecked")
 	public static Long getCountByResource(String resourceName) {
 		return (Long) HibernateUtil
 			.getCurrentSession()
@@ -81,7 +77,6 @@ public class GeneSetDao {
 			.uniqueResult();
 	}
 
-	@SuppressWarnings("unchecked")
 	public static Long getCountByDatasetGroup(String datasetGroupName) {
 		return (Long) HibernateUtil
 			.getCurrentSession()
@@ -94,8 +89,7 @@ public class GeneSetDao {
 			.setString("datasetGroupName", datasetGroupName)
 			.uniqueResult();
 	}
-
-    @SuppressWarnings("unchecked")
+	
     public static Long getCountByAttributeGroup(String attributeGroupName) {
         return (Long) HibernateUtil
             .getCurrentSession()
@@ -109,14 +103,13 @@ public class GeneSetDao {
             .uniqueResult();
     }
 
-	@SuppressWarnings("unchecked")
 	public static Long getNumAssociationsFromGene(String geneSymbol) {
 		return (Long) HibernateUtil
             .getCurrentSession()
             .createQuery(
                 "SELECT COUNT(geneSet) FROM GeneSet AS geneSet" +
-                "  JOIN geneSet.features AS feature " +
-                "  JOIN feature.gene AS gene " +
+                "  JOIN geneSet.associations AS associations " +
+                "  JOIN associations.gene AS gene " +
                 "WHERE gene.symbol = :geneSymbol"
             )
             .setString("geneSymbol", geneSymbol)

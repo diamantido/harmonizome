@@ -60,7 +60,7 @@ public class Gene implements BioEntity {
 	private Set<GeneSynonym> synonyms;
 
 	@OneToMany(mappedBy = "gene")
-	private Set<Feature> features;
+	private Set<Association> associations;
 
 	@OneToMany(mappedBy = "gene")
 	private Set<Protein> protein;
@@ -148,12 +148,12 @@ public class Gene implements BioEntity {
 		this.synonyms = synonyms;
 	}
 
-	public Set<Feature> getFeatures() {
-		return features;
+	public Set<Association> getAssociations() {
+		return associations;
 	}
 
-	public void setFeatures(Set<Feature> features) {
-		this.features = features;
+	public void setAssociations(Set<Association> associations) {
+		this.associations = associations;
 	}
 
 	public Set<Protein> getProteins() {

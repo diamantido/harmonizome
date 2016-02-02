@@ -97,19 +97,27 @@
                     <thead>
                         <tr>
                             <th class="col-md-2">Symbol</th>
-                            <th class="col-md-10">Name</th>
+                            <th class="col-md-5">Name</th>
+                            <c:if test="${dataset.isContinuousValued}">
+	                            <th class="col-md-5">Standardized Value</th>
+                            </c:if>
                         </tr>
                     </thead>
-                    <c:forEach var="gene" items="${genesByAttribute.left}">
+                    <c:forEach var="association" items="${genesByAttribute.left}">
                         <tr>
                             <td class="col-md-2">
-                                <a href="${gene.endpoint}/${gene.urlEncodedValue}">
-                                    <c:out value="${gene.symbol}"/>
+                                <a href="${association.gene.endpoint}/${association.gene.urlEncodedValue}">
+                                    <c:out value="${association.gene.symbol}"/>
                                 </a>
                             </td>
-                            <td class="col-md-10">
-                                <c:out value="${gene.name}"/>
+                            <td class="col-md-5">
+                                <c:out value="${association.gene.name}"/>
                             </td>
+                            <c:if test="${dataset.isContinuousValued}">
+	                            <td class="col-md-5">
+	                            	<c:out value="${association.standardizedValue}"/>
+	                            </td>
+                            </c:if>
                         </tr>
                     </c:forEach>
                 </table>
@@ -124,18 +132,26 @@
                             <tr>
                                 <th>Symbol</th>
                                 <th>Name</th>
+                                <c:if test="${dataset.isContinuousValued}">
+		                            <th class="col-md-5">Standardized Value</th>
+	                            </c:if>
                             </tr>
                         </thead>
                         <c:forEach var="gene" items="${genesByAttribute.right}">
                             <tr>
                                 <td class="col-md-2">
-                                    <a href="${gene.endpoint}/${gene.urlEncodedValue}">
-                                        <c:out value="${gene.symbol}"/>
+                                    <a href="${association.gene.endpoint}/${association.gene.urlEncodedValue}">
+                                        <c:out value="${association.gene.symbol}"/>
                                     </a>
                                 </td>
-                                <td class="col-md-10">
-                                    <c:out value="${gene.name}"/>
+                                <td class="col-md-5">
+                                    <c:out value="${association.gene.name}"/>
                                 </td>
+                                <c:if test="${dataset.isContinuousValued}">
+		                            <td class="col-md-5">
+		                            	<c:out value="${association.standardizedValue}"/>
+		                            </td>
+	                            </c:if>
                             </tr>
                         </c:forEach>
                     </table>
@@ -144,3 +160,8 @@
         </section>
     </div>
 </t:wrapper>
+
+<script src="script/gene-set-page.js"></script>
+<script>
+	HARMONIZOME.setupDataTable(${dataset.isContinuousValued});
+</script>

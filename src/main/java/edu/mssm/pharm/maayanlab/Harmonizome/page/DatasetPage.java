@@ -1,14 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualization;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
-import org.hibernate.HibernateException;
+import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,7 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+
+import org.hibernate.HibernateException;
+
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
+import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Dataset.ENDPOINT + "/*" })
 public class DatasetPage extends HttpServlet {
@@ -49,11 +50,6 @@ public class DatasetPage extends HttpServlet {
 				}
 				numGenes = GeneDao.getCountByDataset(query);
 				numGeneAttributeAssociations = DatasetDao.getCountGeneAttributeAssocations(query);
-
-				for (DatasetVisualization dsv : dataset.getDatasetVisualizations()) {
-					System.out.println(dsv);
-				}
-
 			}
 			if (dataset == null) {
 				doNotFound(request, response);

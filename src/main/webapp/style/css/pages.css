@@ -217,6 +217,15 @@
 .gene-page .list p {
   margin: 10px 0 5px 0;
 }
+.gene-page .list .association {
+  margin-right: 6px;
+  margin-bottom: 6px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  display: inline-block;
+  padding-left: 6px;
+  padding-right: 6px;
+}
 /* Gene set page
  * ------------------------------------------------------------------------- */
 .gene-set-page .downloads-tools .enrichr {

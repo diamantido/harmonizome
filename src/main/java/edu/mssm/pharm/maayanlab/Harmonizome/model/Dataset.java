@@ -56,6 +56,9 @@ public class Dataset implements BioEntity {
 	
 	@Column(name = "num_page_views")
 	private int numPageViews;
+	
+	@Column(name = "is_continuous_valued")
+	private boolean isContinuousValued;
 
 	/* Foreign key relationships
 	 * ------------------------- */
@@ -281,8 +284,16 @@ public class Dataset implements BioEntity {
     public void setDatasetVisualizations(List<DatasetVisualization> datasetVisualizations) {
         this.datasetVisualizations = datasetVisualizations;
     }
+    
+    public boolean getIsContinuousValued() {
+		return isContinuousValued;
+	}
 
-    /* Utility functions
+	public void setContinuousValued(boolean isContinuousValued) {
+		this.isContinuousValued = isContinuousValued;
+	}
+
+	/* Utility functions
                  * ----------------- */
 	@Transient
 	public String getKey() {

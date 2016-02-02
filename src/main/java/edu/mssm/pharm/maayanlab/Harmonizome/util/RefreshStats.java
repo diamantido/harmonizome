@@ -38,7 +38,7 @@ public class RefreshStats extends HttpServlet {
 			Long numGenes = GenericDao.getCount(Gene.class);
 			Long numAttributes = GenericDao.getCount(Attribute.class);
 			Long numResources = GenericDao.getCount(Resource.class);
-			Long numFeatures = GenericDao.getCount(Feature.class);
+			Long numFeatures = GenericDao.getCount(Association.class);
 			
 			Stats stats = StatsDao.get();
 			stats.setNumDatasets(numDatasets);

@@ -10,7 +10,7 @@ import com.google.gson.JsonSerializer;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Feature;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Association;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 
 public class GeneSetMetadataSerializer implements JsonSerializer<GeneSet> {
@@ -23,10 +23,10 @@ public class GeneSetMetadataSerializer implements JsonSerializer<GeneSet> {
 		result.add("dataset", context.serialize(dataset));
 
 		JsonArray jsonArray = new JsonArray();
-		for (Feature feature : geneSet.getFeatures()) {
-			jsonArray.add(context.serialize(feature, Feature.class));
+		for (Association association : geneSet.getAssociations()) {
+			jsonArray.add(context.serialize(association, Association.class));
 		}
-		result.add("features", jsonArray);		
+		result.add("associations", jsonArray);		
 
 		return result;
 	}

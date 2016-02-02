@@ -9,10 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "feature")
-public class Feature {
+public class Association {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,6 +21,10 @@ public class Feature {
 
 	@Column(name = "threshold_value")
 	private double thresholdValue;
+	
+	@Column(name = "standardized_value")
+	// This score is null for about half the datasets.
+	private Double standardizedValue;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "gene_fk")
@@ -29,7 +34,11 @@ public class Feature {
 	@JoinColumn(name = "gene_set_fk")
 	private GeneSet geneSet;
 
-	public Feature() {
+	/* Utilities
+	 * --------- */
+	public static final String ENDPOINT = "association";
+	
+	public Association() {
 	}
 
 	public Long getId() {
@@ -47,6 +56,14 @@ public class Feature {
 	public void setThresholdValue(double thresholdValue) {
 		this.thresholdValue = thresholdValue;
 	}
+	
+	public Double getStandardizedValue() {
+		return standardizedValue;
+	}
+
+	public void setStandardizedValue(Double standardizedValue) {
+		this.standardizedValue = standardizedValue;
+	}
 
 	public Gene getGene() {
 		return gene;
@@ -62,5 +79,10 @@ public class Feature {
 
 	public void setGeneSet(GeneSet geneSet) {
 		this.geneSet = geneSet;
+	}
+	
+	@Transient
+	public String getEndpoint() {
+		return ENDPOINT;
 	}
 }

@@ -41,7 +41,7 @@ public class GeneSet implements BioEntity {
 	private Dataset dataset;
 	
 	@OneToMany(mappedBy = "geneSet")
-	Set<Feature> features;
+	Set<Association> associations;
 
 	/* Foreign key relationships
 	 * ------------------------- */
@@ -112,12 +112,12 @@ public class GeneSet implements BioEntity {
 		this.dataset = dataset;
 	}
 
-	public Set<Feature> getFeatures() {
-		return features;
+	public Set<Association> getAssociations() {
+		return associations;
 	}
 
-	public void setFeatures(Set<Feature> features) {
-		this.features = features;
+	public void setAssociations(Set<Association> associations) {
+		this.associations = associations;
 	}
 
 	public AttributeType getAttributeType() {

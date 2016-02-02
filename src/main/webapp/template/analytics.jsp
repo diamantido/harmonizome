@@ -25,3 +25,8 @@
         </table>
 	</div>
 </t:wrapper>
+
+<script src="script/analytics-page.js"></script>
+<script>
+	HARMONIZOME.setupDataTable();
+</script>

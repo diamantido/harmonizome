@@ -47,10 +47,12 @@ public class SearchResultsPage extends HttpServlet {
                 // The example links send "m=example" so we don't save a bunch of "STAT3" queries.
                 if (meta == null) {
                     UserSearchDao.save(query);
-                    String ipAddress = IpAddresser.getClientIpAddress(request);
-                    Date date = new Date();
-                    System.out.println(ipAddress);
-                    System.out.println(dateFormatter.format(date));
+                    
+                    // TODO: Save the user IP address and time stamp for search queries.
+                    // String ipAddress = IpAddresser.getClientIpAddress(request);
+                    // Date date = new Date();
+            		// System.out.println(ipAddress);
+            		// System.out.println(dateFormatter.format(date));
                 }
 
 				SearchResults searchResults = new SearchResults(query, type);

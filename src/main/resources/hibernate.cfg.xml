@@ -12,6 +12,7 @@
 		<property name="hibernate.tomcatJdbcPool.testOnBorrow">true</property>
 		<property name="show_sql">false</property>
 
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Association" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Attribute" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" />
@@ -21,7 +22,6 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetPairVisualization" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Download" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DownloadType" />
-		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Feature" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym" />

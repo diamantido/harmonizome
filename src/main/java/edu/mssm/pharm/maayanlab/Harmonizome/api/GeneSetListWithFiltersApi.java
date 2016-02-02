@@ -2,7 +2,6 @@ package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,20 +16,21 @@ import org.hibernate.HibernateException;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneSetDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.AssociationDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.AssociationsSchema;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.GeneSetAssociationsSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.GeneSetListSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AssociationWithGeneSetSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Association;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.BioEntityAlphabetizer;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + GeneSet.ENDPOINT })
+@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Association.ENDPOINT })
 public class GeneSetListWithFiltersApi extends HttpServlet {
 
 	private static final long serialVersionUID = 3419499266408427043L;
@@ -39,8 +39,9 @@ public class GeneSetListWithFiltersApi extends HttpServlet {
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();
 		gsonBuilder.registerTypeAdapter(Gene.class, new BioEntityLinkSerializer());
-		gsonBuilder.registerTypeAdapter(Dataset.class, new BioEntityLinkSerializer());
 		gsonBuilder.registerTypeAdapter(GeneSet.class, new BioEntityLinkSerializer());
+		gsonBuilder.registerTypeAdapter(Dataset.class, new BioEntityLinkSerializer());
+		gsonBuilder.registerTypeAdapter(Association.class, new AssociationWithGeneSetSerializer());
 		gson = gsonBuilder.create();
 	}
 
@@ -54,15 +55,15 @@ public class GeneSetListWithFiltersApi extends HttpServlet {
 		try {
 			HibernateUtil.beginTransaction();
 			dataset = GenericDao.get(Dataset.class, datasetName);
-			Pair<List<GeneSet>, List<GeneSet>> geneSets = GeneSetDao.getFromGeneAndDataset(geneSymbol, datasetName);
+			Pair<List<Association>, List<Association>> associations = AssociationDao.getFromGeneAndDataset(geneSymbol, datasetName);
 			
-			List<GeneSet> upGeneSets = geneSets.getLeft();
-			List<GeneSet> downGeneSets = geneSets.getRight();
-			Collections.sort(upGeneSets, new BioEntityAlphabetizer());
-			Collections.sort(downGeneSets, new BioEntityAlphabetizer());
+			List<Association> upAssociations = associations.getLeft();
+			List<Association> downAssociations = associations.getRight();
+			//Collections.sort(upFeatures, new BioEntityAlphabetizer());
+			//Collections.sort(downFeatures, new BioEntityAlphabetizer());
 
-			GeneSetListSchema up = new GeneSetListSchema(dataset.getPositiveAssociation(), upGeneSets);
-			GeneSetListSchema down = new GeneSetListSchema(dataset.getNegativeAssociation(), downGeneSets);
+			AssociationsSchema up = new AssociationsSchema(dataset.getPositiveAssociation(), upAssociations);
+			AssociationsSchema down = new AssociationsSchema(dataset.getNegativeAssociation(), downAssociations);
 			
 			schema.setUp(up);
 			schema.setDown(down);
