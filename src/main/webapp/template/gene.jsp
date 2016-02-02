@@ -70,7 +70,7 @@
                 <c:out value="${allAssociationsSummary}"/>
             </p>
             <p class="instruction">Click the + buttons to view associations for <c:out value="${gene.symbol}"></c:out> from the datasets below.</p>
-            <p class="instruction">If available, associations are ranked by <strong>standard value </strong>
+            <p class="instruction">If available, associations are ranked by <strong>standardized value </strong>
 	            <span class="glyphicon glyphicon-question-sign"
 					  data-toggle="tooltip"
 					  title="Indicates the relative strength of the functional associations. Standardized values are related to empirical p-values as abs(standardized value) = -log10(p-value) and are only available for initially continuous-valued datasets."

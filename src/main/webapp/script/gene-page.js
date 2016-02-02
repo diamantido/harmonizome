@@ -59,7 +59,7 @@ HARMONIZOME.showAssociations = function($dataset, $associations, data) {
     		'<span class="association">' +
 				'<a href="' + HARMONIZOME.cleanGeneSetHref(assoc.geneSet.href) + '">' + HARMONIZOME.cleanGeneSetName(assoc.geneSet.name) + '</a>';
     	if (assoc.standardizedValue) {
-    		assocHtml += ', <strong>' + assoc.standardizedValue + '</strong>';
+    		assocHtml += ' [' + assoc.standardizedValue + ']';
     	}
     	assocHtml += '</span>'
         upGenes.push(assocHtml);
@@ -81,7 +81,7 @@ HARMONIZOME.showAssociations = function($dataset, $associations, data) {
         			'<a href="' + HARMONIZOME.cleanGeneSetHref(assoc.geneSet.href) + '">' + HARMONIZOME.cleanGeneSetName(assoc.geneSet.name) + '</a>';
         	
         	if (assoc.standardizedValue) {
-        		assocHtml += ', <strong>' + assoc.standardizedValue + '</strong>';
+        		assocHtml += ' [' + assoc.standardizedValue + ']';
         	}
         	assocHtml += '</span>';
             downGenes.push(assocHtml);
