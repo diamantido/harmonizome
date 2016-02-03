@@ -4,7 +4,7 @@
 
 HARMONIZOME.setupDataTable = function() {
 
-	var $table = $('.data-table').first();
+	var $table = $('.data-table');
 	
 	var config = {
         bPaginate: true,
