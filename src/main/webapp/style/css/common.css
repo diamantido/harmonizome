@@ -169,7 +169,10 @@ select {
 #navbar-wrapper h1 a:hover {
   text-decoration: none;
 }
+#navbar-wrapper .nav > li > a:focus,
+#navbar-wrapper .nav > li > a:hover,
 #navbar-wrapper .nav .open > a,
+#navbar-wrapper .nav .open > a:active,
 #navbar-wrapper .nav .open > a:focus,
 #navbar-wrapper .nav .open > a:hover {
   background-color: #343844;
