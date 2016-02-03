@@ -6,6 +6,7 @@ import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Association;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class AssociationDao {
@@ -43,15 +44,31 @@ public class AssociationDao {
 
 	@SuppressWarnings("unchecked")
 	private static List<Association> getByValue(String geneSetName, String datasetName, int thresholdValue) {
+		String order = null;
+		String optJoin = null;
+		Dataset dataset = GenericDao.get(Dataset.class, datasetName);
+		if (dataset.getIsContinuousValued()) {
+			optJoin = "";
+			if (thresholdValue == 1) {
+				order = "ORDER BY association.standardizedValue DESC";
+			} else {
+				order = "ORDER BY association.standardizedValue ASC";
+			}
+		} else {
+			optJoin = "  JOIN association.gene AS gene ";
+			order = "ORDER BY gene.symbol";
+		}
 		return (List<Association>) HibernateUtil
 			.getCurrentSession()
 			.createQuery(
 				"SELECT DISTINCT association FROM Association AS association " +
 				"  JOIN association.geneSet AS geneSet " +
 				"  JOIN geneSet.dataset AS dataset " +
+				optJoin +
 				"WHERE geneSet.nameFromDataset = :geneSetName " +
 				"  AND dataset.name = :datasetName " +
-				"  AND association.thresholdValue = :thresholdValue"
+				"  AND association.thresholdValue = :thresholdValue " +
+				order
 			)
 			.setString("geneSetName", geneSetName)
 			.setString("datasetName", datasetName)

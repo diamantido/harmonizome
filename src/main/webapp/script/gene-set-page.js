@@ -15,7 +15,7 @@ HARMONIZOME.setupDataTable = function(isContinuousValued) {
 	function setup($table, sortDesc) {
 		var config = {
 	        bPaginate: true,
-	        //bSort: false,
+	        bSort: false,
 	        iDisplayLength: 20,
 	        oLanguage: {
 	            sSearch: "Filter"
@@ -32,11 +32,6 @@ HARMONIZOME.setupDataTable = function(isContinuousValued) {
 	        	$table.fadeIn();
 	        }
 	    };
-			
-		if (isContinuousValued) {
-			var sortOpt = sortDesc ? 'desc' : 'asc' ;
-			config.order = [[ 2, sortOpt ]];
-		}
 		
 		$table.dataTable(config);
 	}
