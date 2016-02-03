@@ -94,13 +94,14 @@
                         </a>
                     </td>
                 </tr>
-                <tr>
+                <tr id="download-links">
                     <td class="col-md-2">Downloads</td>
                     <td class="col-md-10">
                         <ul class="list-unstyled">
                             <c:forEach var="download" items="${dataset.sortedDownloads}">
                                 <li><a href="${Constant.DATA_DIRECTORY}/${dataset.directory}/${download.downloadType.filename}" target="_blank">
-                                    <span class="capitalize">
+                                    <span class="capitalize"
+                                    	  download-id="${download.id}">
                                         <c:out value="${download.downloadType.name}"/>
                                     </span>
                                 </a>
@@ -160,4 +161,5 @@
 <script src="script/dataset-page.js"></script>
 <script>
 	HARMONIZOME.setupDataTable();
+	HARMONIZOME.trackDownloads("${Constant.DOWNLOAD_COUNT_URL}");
 </script>

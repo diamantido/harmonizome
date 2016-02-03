@@ -20,3 +20,16 @@ HARMONIZOME.setupDataTable = function() {
 
 	$table.dataTable(config);
 };
+
+HARMONIZOME.trackDownloads = function(url) {
+	$('#download-links').click(function(evt) {
+		var downloadId = $(evt.target).attr('download-id');
+		$.ajax({
+			method: 'POST',
+			url: url,
+			data: {
+				downloadId: downloadId
+			}
+		});
+	});
+};

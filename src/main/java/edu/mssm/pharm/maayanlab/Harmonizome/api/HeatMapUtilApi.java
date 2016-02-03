@@ -26,7 +26,9 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/" + Constant.HEAT_MAPS_API_URL + "/util/*"})
 public class HeatMapUtilApi extends HttpServlet {
 
-    private static Gson gson;
+	private static final long serialVersionUID = 7302946082892018366L;
+
+	private static Gson gson;
     static {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(Protein.class, new ProteinMetadataSerializer());

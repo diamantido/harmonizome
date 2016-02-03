@@ -24,7 +24,19 @@ public class GenericDao {
 			.setString("value", value)
 			.uniqueResult();
 	}
-
+	
+	@SuppressWarnings("unchecked")
+	public static <E> E get(Class<E> klass, Integer id) {
+		String table = getTableFromClass(klass);
+		String sql = String.format("SELECT * FROM %s WHERE id = :id", table);
+		return (E) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(sql)
+			.addEntity(klass)
+			.setInteger("id", id)
+			.uniqueResult();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public static <E> List<E> getAll(Class<E> klass) {
 		return (List<E>) HibernateUtil.getCurrentSession()
