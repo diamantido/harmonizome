@@ -137,7 +137,7 @@
 	                            </c:if>
                             </tr>
                         </thead>
-                        <c:forEach var="gene" items="${genesByAttribute.right}">
+                        <c:forEach var="association" items="${genesByAttribute.right}">
                             <tr>
                                 <td class="col-md-2">
                                     <a href="${association.gene.endpoint}/${association.gene.urlEncodedValue}">
