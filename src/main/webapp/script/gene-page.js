@@ -42,6 +42,10 @@ HARMONIZOME.showAssociations = function($dataset, $associations, data) {
      */
     var assocSorter = function(a, b) {
     	if (a.standardizedValue && b.standardizedValue) {
+    		if (a.standardizedValue < 0 && b.standardizedValue < 0) {
+    			// Numerically, least to greatest, i.e. more negative is more interesting.
+    			return a.standardizedValue - b.standardizedValue;
+    		}
     		// Numerically, greatest to least.
     		return b.standardizedValue - a.standardizedValue;
     	} else {
@@ -74,7 +78,7 @@ HARMONIZOME.showAssociations = function($dataset, $associations, data) {
         var downGenes = [],
         	downList;
         
-        downList = data.up.list.sort(assocSorter);  
+        downList = data.down.list.sort(assocSorter);  
         $.each(downList, function (i, assoc) {
         	var assocHtml = '' +
         		'<span class="association">' +
