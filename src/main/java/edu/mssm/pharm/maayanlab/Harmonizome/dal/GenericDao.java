@@ -52,6 +52,7 @@ public class GenericDao {
 		return (List<E>) HibernateUtil.getCurrentSession()
 			.createCriteria(klass)
 			.setFirstResult(startAt)
+			.setMaxResults(Constant.API_MAX_RESULTS)
 			.list();
 	}
 
