@@ -8,7 +8,7 @@ HARMONIZOME.setupDataTable = function() {
 	
 	var config = {
         bPaginate: true,
-        bSort: true,
+        bSort: false,
         iDisplayLength: 20,
         oLanguage: {
             sSearch: "Filter"
