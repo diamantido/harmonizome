@@ -14,7 +14,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
 
-public class GeneMetadataBasicSerializer implements JsonSerializer<Gene> {
+public class GeneMetadataWithAssociationsSerializer implements JsonSerializer<Gene> {
 
 	public JsonElement serialize(final Gene gene, final Type type, final JsonSerializationContext context) {
 		JsonObject result = new JsonObject();

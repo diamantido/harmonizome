@@ -11,6 +11,19 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 public class AssociationDao {
 
+	@SuppressWarnings("unchecked")
+	public static List<Association> getFromGene(String geneSymbol) {
+		return (List<Association>) HibernateUtil
+			.getCurrentSession()
+			.createQuery(
+				"SELECT association FROM Association AS association " +
+				"  JOIN association.gene AS gene " +
+				"WHERE gene.symbol = :geneSymbol"
+			)
+			.setString("geneSymbol", geneSymbol)
+			.list();
+	}
+	
 	public static Pair<List<Association>, List<Association>> getFromGeneAndDataset(String geneSymbol, String datasetName) {
 		List<Association> pos = getFromDatasetAndGeneAndValue(datasetName, geneSymbol, 1);
 		List<Association> neg = getFromDatasetAndGeneAndValue(datasetName, geneSymbol, -1);
