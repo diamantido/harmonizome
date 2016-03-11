@@ -100,11 +100,7 @@ public class GeneMetadataApi extends HttpServlet {
 			schema.setAssociations(associations);
 			
 			PrintWriter out = response.getWriter();
-			if (gene == null) {
-				out.write(gson.toJson(new ErrorSchema()));
-			} else {
-				out.write(gson.toJson(schema));
-			}
+			out.write(gson.toJson(schema));
 			out.flush();
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
