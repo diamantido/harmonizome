@@ -23,6 +23,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.GeneWithAssociationsSche
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.AssociationWithGeneSetSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneMetadataSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.GeneWithAssociationsSerializer;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Association;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
@@ -44,6 +45,7 @@ public class GeneMetadataApi extends HttpServlet {
 		gsonBuilder.registerTypeAdapter(Association.class, new AssociationWithGeneSetSerializer());
 		gsonBuilder.registerTypeAdapter(Gene.class, new GeneMetadataSerializer());
 		gsonBuilder.registerTypeAdapter(GeneSet.class, new BioEntityLinkSerializer());
+		gsonBuilder.registerTypeAdapter(GeneWithAssociationsSchema.class, new GeneWithAssociationsSerializer());
 		gsonBuilder.registerTypeAdapter(Protein.class, new BioEntityLinkSerializer());
 		gsonBuilder.registerTypeAdapter(HgncRootFamily.class, new BioEntityLinkSerializer());
 	}
