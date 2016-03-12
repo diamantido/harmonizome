@@ -1,7 +1,6 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.json.serdes;
 
 import java.lang.reflect.Type;
-import java.util.List;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;

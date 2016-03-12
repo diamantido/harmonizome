@@ -62,6 +62,14 @@
                         </a>
                     </td>
                 </tr>
+				<tr>
+                    <td class="col-md-2">Download Associations</td>
+                    <td class="col-md-10">
+                        <a href="${Constant.DOWNLOAD_ASSOCIATIONS_URL}?gene=${gene.symbol}" target="_blank">
+                            <button class="btn btn-default glyphicon glyphicon-download-alt" data-toggle="tooltip" data-placement="right" title="Download ${gene.symbol}'s associations."></button>
+                        </a>
+                    </td>
+                </tr>
             </table>
         </section>
         <section>

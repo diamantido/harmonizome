@@ -32,6 +32,8 @@ public class Constant {
 	
 	public static final String DOWNLOAD_COUNT_URL = API_DARK + "/download_count";
 	
+	public static final String DOWNLOAD_ASSOCIATIONS_URL = API_URL + "/download/associations";
+	
 	public static final String API_CURSOR = "cursor";
 	
 	public static final String TEMPLATE_DIR = "/template/";
