@@ -1,36 +1,34 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.page;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.UserSearchDao;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.IpAddresser;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.HibernateException;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.HibernateException;
+
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.SearchResults;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.UserSearchDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
+import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = { "/" + Constant.SEARCH_URL, "/" + Constant.SEARCH_URL + "/*" })
 public class SearchResultsPage extends HttpServlet {
 
 	private static final long serialVersionUID = 8241820002853425713L;
 
-    private static DateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
+    // private static DateFormat dateFormatter = new SimpleDateFormat("yyyy/MM/dd");
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

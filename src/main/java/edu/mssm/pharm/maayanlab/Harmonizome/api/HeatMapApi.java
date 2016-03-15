@@ -1,27 +1,55 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.api;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.HeatMapDao;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.ProteinMetadataSerializer;
-import edu.mssm.pharm.maayanlab.Harmonizome.model.*;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
-import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
-import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.hibernate.HibernateException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.hibernate.HibernateException;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.GeneDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.HeatMapDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ClustergrammerColumnSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ClustergrammerPayloadSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ClustergrammerRowSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.schema.ErrorSchema;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.BioEntityLinkSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.json.serdes.ProteinMetadataSerializer;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetPairVisualization;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualization;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualizationAbstract;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
+import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
+import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
+import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 @WebServlet(urlPatterns = {"/" + Constant.HEAT_MAPS_API_URL + "/*"})
 public class HeatMapApi extends HttpServlet {
@@ -155,4 +183,93 @@ public class HeatMapApi extends HttpServlet {
         out.write(json);
         out.flush();
     }
+    
+	@Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String dataset = request.getParameter("dataset");
+		String[] inputGenes = request.getParameterValues("genes[]");
+		try {
+            HibernateUtil.beginTransaction();
+            List<Object[]> overlappingGenesWithAssociations = GeneDao.getWithAssociationsByDatasetAndInputGenes(dataset, inputGenes);
+            
+            Set<String> assocsAdded = new HashSet<String>();
+            List<ClustergrammerColumnSchema> columns = new ArrayList<ClustergrammerColumnSchema>();
+            for (Object[] tuple : overlappingGenesWithAssociations) {
+            	String assoc = (String) tuple[0];
+            	List<ClustergrammerRowSchema> data = null;
+            	if (assocsAdded.contains(assoc)) {
+            		for (ClustergrammerColumnSchema c : columns) {
+            			if (c.getCol_name().equals(assoc)) {
+            				data = c.getData();
+            				break;
+            			}
+            		}
+            	} else {
+            		assocsAdded.add(assoc);
+            		ClustergrammerColumnSchema c = new ClustergrammerColumnSchema(assoc);
+            		columns.add(c);
+            		data = c.getData();
+            	}
+
+        		String geneSymbol = (String) tuple[1];
+        		// First check for standardized (i.e. continuous) value.
+				Float geneValue = (Float) tuple[2];
+				if (geneValue == null) {
+					// If no standardized value, use threshold value.
+					int unboxed = (int) tuple[3];
+					geneValue = new Float(unboxed);
+				}
+				ClustergrammerRowSchema row = new ClustergrammerRowSchema(geneSymbol, geneValue);
+				data.add(row);
+            }
+
+            ClustergrammerPayloadSchema schema = new ClustergrammerPayloadSchema(
+            	dataset,
+            	"http://amp.pharm.mssm.edu/Harmonizome/visualize/heat_map/input_genes",
+            	"N_row_sum", false, columns
+            );
+            System.out.println(gson.toJson(schema));
+            
+            JsonElement results = sendHttpRequestToClustergrammer(schema);
+            PrintWriter out = response.getWriter();
+            String json = gson.toJson(results);
+			out.write(json);
+			out.flush();
+			
+	        HibernateUtil.commitTransaction();
+        } catch (HibernateException he) {
+            he.printStackTrace();
+            HibernateUtil.rollbackTransaction();
+        } finally {
+            HibernateUtil.close();
+        }
+    }
+	
+	private JsonElement sendHttpRequestToClustergrammer(ClustergrammerPayloadSchema schema) throws ClientProtocolException, IOException {
+		String url = "http://amp.pharm.mssm.edu/clustergrammer/vector_upload/";
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpPost request = new HttpPost(url);
+		StringEntity entity = new StringEntity(gson.toJson(schema));
+		request.setEntity(entity);
+		HttpResponse response = httpClient.execute(request);
+		InputStream ips = response.getEntity().getContent();
+		
+		BufferedReader buf = new BufferedReader(new InputStreamReader(ips, "UTF-8"));
+		StringBuilder sb = new StringBuilder();
+		String s;
+		while (true) {
+			s = buf.readLine();
+			if (s == null || s.length() == 0) {
+				break;
+			}
+			sb.append(s);
+		}
+		buf.close();
+		ips.close();
+
+		System.out.println(sb.toString());
+		
+		JsonObject jsonObject = new JsonParser().parse(sb.toString()).getAsJsonObject();
+		return jsonObject;
+	}
 }

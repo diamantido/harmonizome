@@ -235,20 +235,6 @@
     }
 }
 
-.dataset-pair-heat-maps-page {
-    label {
-        margin-right: 10px;
-    }
-    .section {
-        margin-bottom: 10px;
-    }
-    .heat-map,
-    .button-wrapper {
-        padding-top: 10px;
-        border-top: 1px solid @color-gray-light;
-    }
-}
-
 /* Gene page
  * ------------------------------------------------------------------------- */
 .gene-page {
@@ -312,4 +298,35 @@
         font-size: 12px;
         padding: 2px;
     }
+}
+
+/* Heat map visualization pages
+ * ------------------------------------------------------------------------- */
+.heat-map-page {
+	&.heat-map-with-input-genes-page {
+		textarea {
+			height: 400px;
+			margin: 20px 0;
+		}
+		.heat-map-link {
+			background-color: #eee;
+			margin: 20px 0;
+			padding: 10px;
+			font-family: @font-family-primary;
+			display: none;
+		}
+	}
+	&.dataset-pair-heat-maps-page {
+	    label {
+	        margin-right: 10px;
+	    }
+	    .section {
+	        margin-bottom: 10px;
+	    }
+	    .heat-map,
+	    .button-wrapper {
+	        padding-top: 10px;
+	        border-top: 1px solid @color-gray-light;
+	    }
+	}
 }

@@ -8,8 +8,6 @@
 
 <t:wrapper title="Dataset - ${dataset.name}" navType="withSearch">
 
-    <script src="script/heatmaps.js"></script>
-
     <div class="dataset-page">
         <h1><c:out value="${dataset.name}"/> <span class="note dataset">Dataset</span></h1>
         <section>
@@ -158,8 +156,10 @@
     </div>
 </t:wrapper>
 
+<script src="script/heat-maps.js"></script>
 <script src="script/dataset-page.js"></script>
 <script>
-	HARMONIZOME.setupDataTable();
-	HARMONIZOME.trackDownloads("${Constant.DOWNLOAD_COUNT_URL}");
+	HARMONIZOME.datasetPage.setupDataTable();
+	HARMONIZOME.datasetPage.trackDownloads("${Constant.DOWNLOAD_COUNT_URL}");
+	HARMONIZOME.heatMaps.setupVisualizationsOnDatasetPages();
 </script>

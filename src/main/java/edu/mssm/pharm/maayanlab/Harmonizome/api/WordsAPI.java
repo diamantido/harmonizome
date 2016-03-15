@@ -22,6 +22,8 @@ import java.util.List;
 @WebServlet(urlPatterns = { "/" + Constant.API_URL + "/words" })
 public class WordsAPI extends HttpServlet {
 
+	private static final long serialVersionUID = -2370972153895413361L;
+
 	private static final Gson gson;
 	static {
 		GsonBuilder gsonBuilder = new GsonBuilder();

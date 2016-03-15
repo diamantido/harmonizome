@@ -1,16 +1,12 @@
-$(function() {
+/* Utility functions for the analytics page.
+ * -----------------------------------------
+ */
+
+HARMONIZOME.heatMaps = (function() {
 
     var URL_BASE = 'api/1.0/visualize/heat_map/',
-        $VIZ_WRAPPER = $('.heat-map');
-
-    if ($('.dataset-pair-heat-maps-page').length) {
-        setupDatasetPairHeatMapsPage();
-    } else if ($('.dataset-page').length) {
-        setupVisualizationsOnDatasetPages();
-    } else {
-        var heatMapType = $('.heat-map-page').attr('data-heat-map-type');
-        setupIndividualDatasetHeatMapsPage(heatMapType);
-    }
+        $VIZ_WRAPPER = $('.heat-map'),
+        $VIZ_LINK = $('.heat-map-link');
 
     function setupIndividualDatasetHeatMapsPage(heatMapType) {
         $('select').change(function(evt) {
@@ -33,6 +29,7 @@ $(function() {
     }
 
     function setupDatasetPairHeatMapsPage() {
+
         var selectMsg = '(Please select a dataset)';
 
         $('select').eq(0).change(function(evt) {
@@ -180,8 +177,54 @@ $(function() {
             });
         });
     }
+    
+    /* On heat map with input genes page, handles submit the form to the API.
+     */
+    function setupHeatMapWithInputGenesPage() {
+    	$('form button').click(function(evt) {
+    		evt.preventDefault();
+    		emptyVisualization();
+    		var genes = $('textarea').val().trim().split('\n'),
+    			dataset = $('select').val(),
+    			promise;
+
+    		if (genes.length == 1 && genes[0] === '') {
+    			alert('Please input a few genes.');
+    			return;
+    		}
+    		if (dataset == '(Please select a dataset)') {
+    			alert('Please select a dataset.');
+    			return;
+    		}
+
+    		promise = $.post(URL_BASE + 'input_genes', {
+            	'dataset': dataset,
+            	'genes': genes,
+            });
+    		promise.done(function(data) {
+            	var data = JSON.parse(data);
+            	data.clustergrammerLink = data.link + '?preview=true';
+            	data.colLabel = 'columns';
+            	data.rowLabel = 'rows';
+            	showHeatMapLink(data);
+            	showDatasetHeatMap(data);
+            });
+    	});
+    }
+    
+    function showHeatMapLink(data) {
+    	$VIZ_LINK.show().text(data.link);
+    }
 
     function emptyVisualization() {
+    	$VIZ_LINK.hide();
         $VIZ_WRAPPER.empty();
     }
-});
+    
+    return {
+    	setupDatasetPairHeatMapsPage: setupDatasetPairHeatMapsPage,
+    	setupVisualizationsOnDatasetPages: setupVisualizationsOnDatasetPages,
+    	setupIndividualDatasetHeatMapsPage: setupIndividualDatasetHeatMapsPage,
+    	setupHeatMapWithInputGenesPage: setupHeatMapWithInputGenesPage
+    };
+})();

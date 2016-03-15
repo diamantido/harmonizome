@@ -34,7 +34,8 @@ public class HeatMapDao {
             .uniqueResult();
     }
 
-    public static List<Dataset> getDatasetsFromType(String type) {
+    @SuppressWarnings("unchecked")
+	public static List<Dataset> getDatasetsFromType(String type) {
         return (List<Dataset>) HibernateUtil.getCurrentSession()
             .createQuery(
                 "SELECT dataset FROM Dataset AS dataset " +
@@ -45,7 +46,8 @@ public class HeatMapDao {
             .list();
     }
 
-    public static List<String> getLeftDatasetInPair() {
+    @SuppressWarnings("unchecked")
+	public static List<String> getLeftDatasetInPair() {
         return (List<String>) HibernateUtil.getCurrentSession()
             .createSQLQuery(
                 "SELECT DISTINCT name FROM dataset " +
@@ -55,7 +57,8 @@ public class HeatMapDao {
             .list();
     }
 
-    public static List<String> getRightDatasetInPair(String dataset1) {
+    @SuppressWarnings("unchecked")
+	public static List<String> getRightDatasetInPair(String dataset1) {
         String subQuery = String.format("(SELECT id FROM dataset WHERE name = \"%s\")", dataset1);
         String query = String.format(
             "SELECT DISTINCT name FROM dataset " +

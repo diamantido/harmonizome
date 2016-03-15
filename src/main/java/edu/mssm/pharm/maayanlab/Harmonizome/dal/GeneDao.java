@@ -67,7 +67,21 @@ public class GeneDao {
 				"WHERE MATCH(gene.name) AGAINST(:geneName IN BOOLEAN MODE)"
 			)
 			.addEntity(Gene.class)
-			.setString("geneName", "%" + query + "%")
+			.setString("geneName", "%" + query + "with%")
 			.list();
+	}
+
+	@SuppressWarnings("unchecked")
+	public static List<Object[]> getWithAssociationsByDatasetAndInputGenes(String datasetName, String[] genes) {
+		String joinedGenes = "'" + String.join("','", genes) + "'";
+		String sql = String.format("" +
+			"SELECT gene_set.name_from_dataset, gene.symbol, association.standardized_value, association.threshold_value " +
+			"FROM gene " +
+			"  JOIN association ON association.gene_fk = gene.id " +
+			"  JOIN gene_set ON gene_set.id = association.gene_set_fk " +
+			"  JOIN dataset ON dataset.id = gene_set.dataset_fk " +
+			"WHERE symbol IN (" + joinedGenes + ")" +
+			"  AND dataset.name = '%s'", datasetName);
+		return HibernateUtil.getCurrentSession().createSQLQuery(sql).list();
 	}
 }

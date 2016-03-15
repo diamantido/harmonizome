@@ -4,9 +4,6 @@
 <%@ taglib prefix="cfn" uri="http://amp.pharm.mssm.edu/functions" %>
 
 <t:wrapper title="Dataset Pair Heat Maps">
-
-    <script src="script/heatmaps.js"></script>
-
     <div class="heat-map-page dataset-pair-heat-maps-page">
         <h1>Dataset Pair Heat Maps</h1>
         <p class="instruction">Select from the drop down menu to explore a hierarchically clustered heat map visualization of the similarity of attributes from two datasets.  Red tiles indicate pairs of attributes that are similar based on their associations with genes common to both datasets.  Blue tiles indicate pairs of attributes that are anti-similar--the two attributes have oppositely signed associations with many of the same genes.  White tiles indicate pairs of attributes with few to no overlapping associations.</p>
@@ -30,4 +27,9 @@
         </div>
         <div class="heat-map"></div>
     </div>
+    
+    <script src="script/heat-maps.js"></script>
+   	<script>
+    	HARMONIZOME.heatMaps.setupDatasetPairHeatMapsPage();
+    </script>
 </t:wrapper>
