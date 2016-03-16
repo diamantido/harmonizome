@@ -374,3 +374,31 @@ select {
 .project-title {
   font-family: Georgia, sans-serif;
 }
+/* Loading screen
+ * ------------------------------------------------------------------------- */
+.loader-container {
+  background-color: rgba(255, 255, 255, 0.75);
+  cursor: wait;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+.loader-container .loader-modal {
+  background-color: #fffac7;
+  border: 1px solid #fff169;
+  color: #444444;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 5px;
+  margin: 0 auto;
+  position: absolute;
+  left: 0;
+  text-align: center;
+  right: 0;
+  top: 40%;
+  width: 150px;
+}

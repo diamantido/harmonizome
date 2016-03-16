@@ -184,19 +184,25 @@ HARMONIZOME.heatMaps = (function() {
     	$('form #submit-btn').click(function(evt) {
     		evt.preventDefault();
     		emptyVisualization();
-    		var genes = $('textarea').val().trim().split('\n'),
+    		
+    		var loader = LoadingScreen('Please wait...'),
+    			genes = $('textarea').val().trim().split('\n'),
     			dataset = $('select').val(),
     			promise;
 
+    		loader.start();    		
     		if (genes.length == 1 && genes[0] === '') {
+    			loader.stop();
     			alert('No genes. Please input a few genes.');
     			return;
     		}
     		if (genes.length > 500) {
+    			loader.stop();
     			alert('Too many genes. Please input 500 or fewer genes.');
     			return;
     		}
     		if (dataset == '(Please select a dataset)') {
+    			loader.stop();
     			alert('No dataset selected.');
     			return;
     		}
@@ -206,6 +212,7 @@ HARMONIZOME.heatMaps = (function() {
             	'genes': genes,
             });
     		promise.done(function(data) {
+    			loader.stop();
             	var data = JSON.parse(data);
             	data.clustergrammerLink = data.link + '?preview=true';
             	data.colLabel = 'columns';
@@ -231,6 +238,23 @@ HARMONIZOME.heatMaps = (function() {
     function emptyVisualization() {
     	$HEAT_MAP_WRAPPER.hide();
     	$HEAT_MAP.empty();
+    }
+   
+    function LoadingScreen(message) {
+        var $body = $('body'),
+            $el = $('' +
+                '<div class="loader-container">' +
+                    '<div class="loader-modal">' + message + '</div>' +
+                '</div>'
+            );
+        return {
+            start: function() {
+                $body.append($el);
+            },
+            stop: function() {
+                $el.remove();
+            }
+        };
     }
     
     return {
