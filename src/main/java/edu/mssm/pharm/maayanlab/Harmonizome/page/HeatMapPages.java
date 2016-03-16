@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.DatasetDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.dal.HeatMapDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
@@ -57,7 +57,7 @@ public class HeatMapPages extends HttpServlet {
     }
     
     public void doDatasetWithInputGenes(HttpServletRequest request, HttpServletResponse response, String type) throws ServletException, IOException {
-        List<Dataset> datasets = GenericDao.getAll(Dataset.class);
+        List<Dataset> datasets = DatasetDao.getAllWithNOrFewerGeneSets(200);
         String typeView;
         typeView = StringUtils.capitalize(type);
         request.setAttribute("datasets", datasets);

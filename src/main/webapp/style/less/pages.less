@@ -306,16 +306,21 @@
 	&.heat-map-with-input-genes-page {
 		textarea {
 			height: 400px;
-			margin: 20px 0;
+			margin-bottom: 10px;
 		}
-		.heat-map-link {
-			background-color: #eee;
-			margin: 20px 0;
-			padding: 10px;
-			font-family: @font-family-primary;
+		#heat-map-wrapper {
 			display: none;
+			.heat-map-link {
+				background-color: @color-gray-light;
+				margin: 20px 0;
+				padding: 10px;
+				font-family: @font-family-primary;
+				font-size: 12px;
+				display: none;
+			}
 		}
 	}
+	&.heat-map-with-input-genes-page,
 	&.dataset-pair-heat-maps-page {
 	    label {
 	        margin-right: 10px;

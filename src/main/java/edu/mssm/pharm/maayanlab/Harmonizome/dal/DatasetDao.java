@@ -74,4 +74,19 @@ public class DatasetDao {
 			.setString("resourceName", resourceName)
 			.uniqueResult();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<Dataset> getAllWithNOrFewerGeneSets(int N) {
+		return (List<Dataset>) HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(
+				"SELECT dataset.* FROM dataset " +
+				"  JOIN gene_set ON gene_set.dataset_fk = dataset.id " +
+				"GROUP BY dataset.id " +
+				"  HAVING COUNT(*) <= :numGeneSets"
+			)
+			.addEntity(Dataset.class)
+			.setInteger("numGeneSets", N)
+			.list();
+	}
 }

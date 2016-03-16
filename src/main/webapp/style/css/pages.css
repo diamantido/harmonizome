@@ -255,22 +255,30 @@
  * ------------------------------------------------------------------------- */
 .heat-map-page.heat-map-with-input-genes-page textarea {
   height: 400px;
-  margin: 20px 0;
+  margin-bottom: 10px;
 }
-.heat-map-page.heat-map-with-input-genes-page .heat-map-link {
-  background-color: #eee;
+.heat-map-page.heat-map-with-input-genes-page #heat-map-wrapper {
+  display: none;
+}
+.heat-map-page.heat-map-with-input-genes-page #heat-map-wrapper .heat-map-link {
+  background-color: #eeeeee;
   margin: 20px 0;
   padding: 10px;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
   display: none;
 }
+.heat-map-page.heat-map-with-input-genes-page label,
 .heat-map-page.dataset-pair-heat-maps-page label {
   margin-right: 10px;
 }
+.heat-map-page.heat-map-with-input-genes-page .section,
 .heat-map-page.dataset-pair-heat-maps-page .section {
   margin-bottom: 10px;
 }
+.heat-map-page.heat-map-with-input-genes-page .heat-map,
 .heat-map-page.dataset-pair-heat-maps-page .heat-map,
+.heat-map-page.heat-map-with-input-genes-page .button-wrapper,
 .heat-map-page.dataset-pair-heat-maps-page .button-wrapper {
   padding-top: 10px;
   border-top: 1px solid #eeeeee;

@@ -47,6 +47,7 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualization;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualizationAbstract;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
+import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -223,12 +224,12 @@ public class HeatMapApi extends HttpServlet {
 				data.add(row);
             }
 
+            
             ClustergrammerPayloadSchema schema = new ClustergrammerPayloadSchema(
-            	dataset,
+            	UrlCodec.encode(dataset),
             	"http://amp.pharm.mssm.edu/Harmonizome/visualize/heat_map/input_genes",
             	"N_row_sum", false, columns
             );
-            System.out.println(gson.toJson(schema));
             
             JsonElement results = sendHttpRequestToClustergrammer(schema);
             PrintWriter out = response.getWriter();
@@ -267,8 +268,6 @@ public class HeatMapApi extends HttpServlet {
 		buf.close();
 		ips.close();
 
-		System.out.println(sb.toString());
-		
 		JsonObject jsonObject = new JsonParser().parse(sb.toString()).getAsJsonObject();
 		return jsonObject;
 	}
