@@ -47,7 +47,6 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualization;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualizationAbstract;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Gene;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.Protein;
-import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlCodec;
 import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
@@ -161,7 +160,7 @@ public class HeatMapApi extends HttpServlet {
 
     private void addClustergrammerLink(Map<String, String> schema, DatasetVisualizationAbstract dv, String rowLabel, String colLabel) {
         if (dv.getClustergrammerLink() != null) {
-            String queryString = "?preview=true&row_label=" + rowLabel + "&col_label=" + colLabel;
+            String queryString = "?row_label=" + rowLabel + "&col_label=" + colLabel;
             schema.put("clustergrammerLink", dv.getClustergrammerLink() + queryString);
         }
     }
@@ -189,6 +188,7 @@ public class HeatMapApi extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String dataset = request.getParameter("dataset");
 		String[] inputGenes = request.getParameterValues("genes[]");
+		
 		try {
             HibernateUtil.beginTransaction();
             List<Object[]> overlappingGenesWithAssociations = GeneDao.getWithAssociationsByDatasetAndInputGenes(dataset, inputGenes);
@@ -224,12 +224,7 @@ public class HeatMapApi extends HttpServlet {
 				data.add(row);
             }
 
-            
-            ClustergrammerPayloadSchema schema = new ClustergrammerPayloadSchema(
-            	UrlCodec.encode(dataset),
-            	"http://amp.pharm.mssm.edu/Harmonizome/visualize/heat_map/input_genes",
-            	"N_row_sum", false, columns
-            );
+            ClustergrammerPayloadSchema schema = new ClustergrammerPayloadSchema(columns);
             
             JsonElement results = sendHttpRequestToClustergrammer(schema);
             PrintWriter out = response.getWriter();

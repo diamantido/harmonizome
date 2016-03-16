@@ -7,29 +7,38 @@
 
     <div class="dataset-heatmaps-page heat-map-page heat-map-with-input-genes-page">
         <h1 class="initial">Heat Map with Input Genes</h1>
-        <p class="instruction">"Select from the drop down menu to choose a dataset. Paste your gene list in the text box. Click submit to build a customized hierarchically clustered heat map visualization of the associations between your uploaded genes and the biological entities in your chosen dataset."</p>
-		<div class="instruction restrictions">To place an upper bound on the size of the heat maps, which have latency issues as they grow larger, we have two restrictions:
+        <p class="instruction">Select from the drop down menu to choose a dataset. Paste your gene list in the text box. Click submit to build a customized hierarchically clustered heat map visualization of the associations between your uploaded genes and the biological entities in your chosen dataset.</p>
+		<div class="instruction restrictions">To place an upper bound on the size of the heat maps, which load more slowly as they grow larger, we have two restrictions:
 			<ol>
-				<li>Max 500 genes in input gene list.</li>
+				<li>Input gene list can have 500 genes maximum.</li>
 				<li>Only datasets with 200 or fewer gene sets can be visualized.</li>
 			</ol>
 		</div>
-		<div class="section">
-            <label>Dataset</label>
-            <select id="dataset">
-                <option>(Please select a dataset)</option>
-                <c:forEach var="dataset" items="${datasets}">
-                    <option value="${dataset.name}"><c:out value="${dataset.name}"/></option>
-                </c:forEach>
-            </select>
+		<div class="section row">
+			<label class="col-md-1">Dataset</label>
+            <div class="col-md-5">
+            	<select id="dataset">
+	                <option>(Please select a dataset)</option>
+	                <c:forEach var="dataset" items="${datasets}">
+	                    <option value="${dataset.name}"><c:out value="${dataset.name}"/></option>
+	                </c:forEach>
+	            </select>
+            </div>
         </div>
-       	<form>
-        	<textarea class="form-control"></textarea>
-        	<div class="button-wrapper">
-        		<button class="btn btn-default" id="example-btn">Example input</button>
-        		<button class="btn btn-default" id="submit-btn">Submit</button>
+        <div class="row">
+        	<label class="col-md-1">Genes</label>
+        	<div class="col-md-5">
+		        <textarea class="form-control"></textarea>
         	</div>
-        </form>
+        </div>
+        <div class="row">
+        	<div class="col-md-12">
+        		<div class="button-wrapper">
+        			<button class="btn btn-default" id="example-btn">Example input</button>
+        			<button class="btn btn-default" id="submit-btn">Submit</button>
+        		</div>
+        	</div>
+        </div>
         <div id="heat-map-wrapper">
         	<p class="heat-map-link"></p>
         	<div class="heat-map"></div>

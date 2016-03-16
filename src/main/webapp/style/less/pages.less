@@ -187,23 +187,6 @@
 @image-width: 930px;
 @image-height: 733px;
 
-.dataset-page {
-    .heat-maps {
-        img.preview {
-            &:hover {
-                cursor: pointer;
-                opacity: .75;
-            }
-            width: 200px;
-        }
-        iframe {
-            border: 1px solid @color-gray-light;
-            height: 800px;
-            width: 100%;
-        }
-    }
-}
-
 .dataset-page,
 .heat-map-page {
     .heat-map {
@@ -211,13 +194,13 @@
         display: none;
         img {
             display: block;
-            //max-width: @image-width;
-            //max-height: @image-height;
+         	max-width: @image-width;
+            max-height: @image-height;
         }
         iframe {
-            border: 1px solid @color-gray-light;
             height: 800px;
             width: 100%;
+            border: none;
         }
         .heat-map-header {
             border-top: 1px solid @color-gray-light;
@@ -234,6 +217,62 @@
         }
     }
 }
+
+.dataset-page {
+    .heat-maps {
+        img.preview {
+            &:hover {
+                cursor: pointer;
+                opacity: .75;
+            }
+            width: 200px;
+        }
+    }
+}
+
+.heat-map-page {
+	&.heat-map-with-input-genes-page,
+	&.dataset-pair-heat-maps-page {
+	    .section {
+	        margin-bottom: 10px;
+	    }
+	    .heat-map,
+	    .button-wrapper {
+	        padding-top: 10px;
+	        border-top: 1px solid @color-gray-light;
+	    }
+	}
+	&.heat-map-with-input-genes-page {
+		textarea {
+			height: 200px;
+			margin-bottom: 10px;
+		}
+		select {
+			width: 100%;
+		}
+		#heat-map-wrapper {
+			display: none;
+			.heat-map-link {
+				background-color: @color-gray-light;
+				margin: 20px 0;
+				padding: 10px;
+				font-family: @font-family-primary;
+				font-size: 12px;
+				display: none;
+			}
+		}
+		.section {
+			margin-bottom: 10px;
+		}
+	}
+	&.dataset-heatmaps-page,
+	&.dataset-pair-heat-maps-page {
+	    label {
+	        margin-right: 10px;
+	    }
+	}
+}
+
 
 /* Gene page
  * ------------------------------------------------------------------------- */
@@ -298,40 +337,4 @@
         font-size: 12px;
         padding: 2px;
     }
-}
-
-/* Heat map visualization pages
- * ------------------------------------------------------------------------- */
-.heat-map-page {
-	&.heat-map-with-input-genes-page {
-		textarea {
-			height: 400px;
-			margin-bottom: 10px;
-		}
-		#heat-map-wrapper {
-			display: none;
-			.heat-map-link {
-				background-color: @color-gray-light;
-				margin: 20px 0;
-				padding: 10px;
-				font-family: @font-family-primary;
-				font-size: 12px;
-				display: none;
-			}
-		}
-	}
-	&.heat-map-with-input-genes-page,
-	&.dataset-pair-heat-maps-page {
-	    label {
-	        margin-right: 10px;
-	    }
-	    .section {
-	        margin-bottom: 10px;
-	    }
-	    .heat-map,
-	    .button-wrapper {
-	        padding-top: 10px;
-	        border-top: 1px solid @color-gray-light;
-	    }
-	}
 }

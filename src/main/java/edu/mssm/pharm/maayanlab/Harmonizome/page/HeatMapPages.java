@@ -58,8 +58,7 @@ public class HeatMapPages extends HttpServlet {
     
     public void doDatasetWithInputGenes(HttpServletRequest request, HttpServletResponse response, String type) throws ServletException, IOException {
         List<Dataset> datasets = DatasetDao.getAllWithNOrFewerGeneSets(200);
-        String typeView;
-        typeView = StringUtils.capitalize(type);
+        String typeView = StringUtils.capitalize(type);
         request.setAttribute("datasets", datasets);
         request.setAttribute("type", type);
         request.setAttribute("typeView", typeView);
