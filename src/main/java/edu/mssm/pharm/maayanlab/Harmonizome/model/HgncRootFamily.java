@@ -37,7 +37,7 @@ public class HgncRootFamily implements BioEntity {
 
 	/* Foreign key relationships
 	 * ------------------------- */
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	@JoinTable(name = "hgnc_root_families_to_genes", joinColumns = { @JoinColumn(name = "hgnc_root_family_fk") }, inverseJoinColumns = { @JoinColumn(name = "gene_fk") })
 	private List<Gene> genes;
 

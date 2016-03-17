@@ -1,14 +1,17 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.dal;
 
+import java.util.Iterator;
+import java.util.List;
+
+import javax.persistence.Table;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
+
 import edu.mssm.pharm.maayanlab.Harmonizome.model.BioEntityMetadata;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Projections;
-
-import javax.persistence.Table;
-import java.util.Iterator;
-import java.util.List;
 
 public class GenericDao {
 	
@@ -39,8 +42,10 @@ public class GenericDao {
 	
 	@SuppressWarnings("unchecked")
 	public static <E> List<E> getAll(Class<E> klass) {
-		return (List<E>) HibernateUtil.getCurrentSession()
+		return (List<E>) HibernateUtil
+			.getCurrentSession()
 			.createCriteria(klass)
+			.addOrder(Order.asc("id"))
 			.list();
 	}
 
@@ -49,8 +54,10 @@ public class GenericDao {
 		if (startAt == null) {
 			startAt = 0;
 		}
-		return (List<E>) HibernateUtil.getCurrentSession()
+		return (List<E>) HibernateUtil
+			.getCurrentSession()
 			.createCriteria(klass)
+			.addOrder(Order.asc("id"))
 			.setFirstResult(startAt)
 			.setMaxResults(Constant.API_MAX_RESULTS)
 			.list();
