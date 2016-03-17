@@ -73,15 +73,19 @@ public class GeneDao {
 
 	@SuppressWarnings("unchecked")
 	public static List<Object[]> getWithAssociationsByDatasetAndInputGenes(String datasetName, String[] genes) {
-		String joinedGenes = "'" + String.join("','", genes) + "'";
-		String sql = String.format("" +
-			"SELECT gene_set.name_from_dataset, gene.symbol, association.standardized_value, association.threshold_value " +
-			"FROM gene " +
-			"  JOIN association ON association.gene_fk = gene.id " +
-			"  JOIN gene_set ON gene_set.id = association.gene_set_fk " +
-			"  JOIN dataset ON dataset.id = gene_set.dataset_fk " +
-			"WHERE symbol IN (" + joinedGenes + ")" +
-			"  AND dataset.name = '%s'", datasetName);
-		return HibernateUtil.getCurrentSession().createSQLQuery(sql).list();
+		return HibernateUtil
+			.getCurrentSession()
+			.createSQLQuery(
+				"SELECT gene_set.name_from_dataset, gene.symbol, association.standardized_value, association.threshold_value " +
+				"FROM gene " +
+				"  JOIN association ON association.gene_fk = gene.id " +
+				"  JOIN gene_set ON gene_set.id = association.gene_set_fk " +
+				"  JOIN dataset ON dataset.id = gene_set.dataset_fk " +
+				"WHERE symbol IN (:geneList)" +
+				"  AND dataset.name = :datasetName"
+			)
+			.setParameterList("geneList", genes)
+			.setString("datasetName", datasetName)
+			.list();
 	}
 }
