@@ -17,6 +17,23 @@
                     <p>This document describes the REST APIs provided by the Harmonizome. These APIs are for developers who want to integrate the Harmonizome's data into their own applications or who want to run batch scripts against the data.</p>
                     <p>If you're comfortable with Python, you can use an API wrapper written in Python. See <a href="documentation#quick-start">Quick Start in Python</a>.</p>
                 </section>
+				<section id="quick-start">
+                    <h2>Quick Start in Python</h2>
+                    <ul>
+                        <li>Download this Python module: <span class="mono"><a href="static/harmonizomeapi.py" target="_blank">harmonizomeapi.py</a></span>.</li>
+                        <li>Call <span class="mono">fetch</span> with a supported <span class="mono">Entity</span>. For example:</li>
+                    </ul>
+<pre><code class="python">&gt;&gt;&gt; from harmonizomeapi import HarmonizomeAPI, Entity
+&gt;&gt;&gt; pid_dataset = HarmonizomeAPI.fetch(Entity.DATASET, name='PID pathways')</code></pre>
+                    <ul>
+                        <li>To get a list of the entities, omit the <span class="mono">name</span>.</li>
+                    </ul>
+<pre><code class="python">&gt;&gt;&gt; entity_list = HarmonizomeAPI.fetch(Entity.GENE)</code></pre>
+                    <ul>
+                        <li>To get more of the same entity, pass in the response object to the <span class="mono">next</span> function.</li>
+                    </ul>
+<pre><code class="python">&gt;&gt;&gt; more = HarmonizomeAPI.next(entity_list)</code></pre>
+                </section>
                 <section>
                     <h2>Traversing the URLs</h2>
                     <p>These APIs provide direct access to the data via URL paths and were designed to be used without any knowledge beyond the base URL. The base URL returns a list of the available data entities:</p>
@@ -89,22 +106,24 @@
 </code></pre>
                     <p>Note that the <span class="mono">geneSets</span> property is an array of entities; therefore, each gene set has its own <span class="mono">href</span> property which can be traversed.</p>
                 </section>
-                <section id="quick-start">
-                    <h2>Quick Start in Python</h2>
-                    <ul>
-                        <li>Download this Python module: <span class="mono"><a href="static/harmonizomeapi.py" target="_blank">harmonizomeapi.py</a></span>.</li>
-                        <li>Call <span class="mono">fetch</span> with a supported <span class="mono">Entity</span>. For example:</li>
-                    </ul>
-<pre><code class="python">&gt;&gt;&gt; from harmonizomeapi import HarmonizomeAPI, Entity
-&gt;&gt;&gt; pid_dataset = HarmonizomeAPI.fetch(Entity.DATASET, name='PID pathways')</code></pre>
-                    <ul>
-                        <li>To get a list of the entities, omit the <span class="mono">name</span>.</li>
-                    </ul>
-<pre><code class="python">&gt;&gt;&gt; entity_list = HarmonizomeAPI.fetch(Entity.GENE)</code></pre>
-                    <ul>
-                        <li>To get more of the same entity, pass in the response object to the <span class="mono">next</span> function.</li>
-                    </ul>
-<pre><code class="python">&gt;&gt;&gt; more = HarmonizomeAPI.next(entity_list)</code></pre>
+                <section>
+                	<h2>Associations</h2>
+                	<p>Every gene in the database has functional associations. These associations are expensive to compute and slow to render in the browser. By default, the <span class="mono">gene</span> endpoint does not display this information. If you would like to access the associations via the API, you can add the query string argument <span class="mono">showAssociations=true</span>. For example:</p>
+<pre><code class="bash">GET /Harmonizome/api/1.0/gene/nanog?showAssociations=true</code></pre>
+<pre><code class="json">{
+    "symbol": "NANOG",
+    ...
+    "associations": [
+        {
+            "geneSet": {
+                "name": "V/Allen Brain Atlas Adult Human Brain Tissue Gene Expression Profiles",
+                "href": "/api/1.0/gene_set/V/Allen+Brain+Atlas+Adult+Human+Brain+Tissue+Gene+Expression+Profiles"
+            },
+            "thresholdValue": 1,
+            "standardizedValue": 1.33291
+        },
+        ...
+</code></pre>
                 </section>
             </div>
         </div>
