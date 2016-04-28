@@ -167,7 +167,7 @@ public class HeatMapApi extends HttpServlet {
 
     private void addImage(Map<String, String> schema, DatasetVisualizationAbstract dv, String type) {
         if (dv.getImage() != null) {
-            String imageLink = Constant.HEAT_MAP_IMAGES + type + "/" + dv.getImage();
+            String imageLink = Constant.HEAT_MAP_IMAGES_DIR + type + "/" + dv.getImage();
             schema.put("imageLink", imageLink);
         }
     }

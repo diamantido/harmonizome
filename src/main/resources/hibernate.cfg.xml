@@ -25,11 +25,15 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Gene" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSynonym" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.GlPrediction" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.HgncRootFamily" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.HgncTerminalFamily" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.IcPrediction" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.IdgFamily" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.IdgTdlClass" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.KsPrediction" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Measurement" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.MpPrediction" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.NamingAuthority" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Protein" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Publication" />

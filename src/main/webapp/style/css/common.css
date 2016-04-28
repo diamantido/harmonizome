@@ -163,7 +163,7 @@ select {
 #navbar-wrapper h1 span.credits {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 14px;
   margin-left: 10px;
 }
 #navbar-wrapper h1 a:hover {
@@ -246,6 +246,9 @@ select {
 }
 @media (max-width: 1000px) {
   #navbar-wrapper h1 .project-title {
+    display: none;
+  }
+  #navbar-wrapper ul li.search-item {
     display: none;
   }
 }
