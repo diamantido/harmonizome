@@ -35,9 +35,9 @@
 			Methods and results for the machine learning case studies are
 			described in detail in the <a data-toggle="tooltip"
 				data-placement="right" title="${pubWarning}">Harmonizome
-				publication</a>. Here, we provide interactive tables for browsing the
-			top predictions of the classifiers and text files that contain the
-			full results.
+				publication</a>. Here, we provide brief descriptions of the case
+			studies, interactive tables for browsing the top predictions of the
+			classifiers, and text files that contain the full results.
 		</p>
 	</div>
 	<table class="table">
