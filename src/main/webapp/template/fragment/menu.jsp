@@ -20,6 +20,7 @@
 		<li>
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">Predict</a>
 			<ul class="dropdown-menu">
+				<li><a href="machine_learning">Intro</a></li>
 				<li><a href="machine_learning/ic_predictions">Ion channels</a></li>
 				<li><a href="machine_learning/mp_predictions">Mouse phenotypes</a></li>
 				<li><a href="machine_learning/gl_predictions">GPCR-Ligands</a></li>

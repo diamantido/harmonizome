@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.HibernateException;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.dal.GenericDao;
+import edu.mssm.pharm.maayanlab.Harmonizome.dal.PredictionDao;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.GlPrediction;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.IcPrediction;
 import edu.mssm.pharm.maayanlab.Harmonizome.model.KsPrediction;
@@ -37,7 +37,8 @@ public class MachineLearningPages extends HttpServlet {
 	}
 
 	private static String note = "Machine Learning Case Study";
-	private static String commonText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+	
+	private static String filename = "allpredictions.txt.gz";
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,14 +49,18 @@ public class MachineLearningPages extends HttpServlet {
 		}
 		try {
 			HibernateUtil.beginTransaction();
-			request.setAttribute("title", pathToTitle(path));
-			Class<?> klass = urlToClass.get(path);
-			// TODO: Get all sorted by probability.
-			List<?> predictions = GenericDao.getAll(klass, 0);
-			request.setAttribute("note", note);
-			request.setAttribute("commonText", commonText);
-			request.setAttribute("predictions", predictions);
-			request.getRequestDispatcher(pathToCamelCaseJSP(path)).forward(request, response);
+			if (path != null) {
+				request.setAttribute("title", pathToTitle(path));
+				Class<?> klass = urlToClass.get(path);
+				List<?> predictions = PredictionDao.getAllByProbability(klass);
+				request.setAttribute("note", note);
+				request.setAttribute("commonDownloadText", "The table below shows the top 10,000 predictions. To download the full table:");
+				request.setAttribute("downloadUrl", pathToMLDataDownloadUrl(path));
+				request.setAttribute("predictions", predictions);
+			} else {
+				request.setAttribute("filename", filename);
+			}
+			request.getRequestDispatcher(pathToJSP(path)).forward(request, response);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {
 			he.printStackTrace();
@@ -66,14 +71,23 @@ public class MachineLearningPages extends HttpServlet {
 	}
 
 	private boolean isValidPath(String path) {
-		return urlToClass.get(path) != null;
+		return path == null || urlToClass.get(path) != null;
 	}
 
 	private String pathToTitle(String path) {
+		if (path == null)
+			return null;
 		return path.split("_")[0].toUpperCase() + " Predictions";
 	}
 
-	private String pathToCamelCaseJSP(String urlPath) {
-		return Constant.TEMPLATE_DIR + "machine_learning/" + urlPath + ".jsp";
+	private String pathToJSP(String path) {
+		String dir = Constant.TEMPLATE_DIR + "machine_learning/";
+		if (path == null)
+			return dir + "machine_learning.jsp";
+		return dir + path + ".jsp";
+	}
+	
+	private String pathToMLDataDownloadUrl(String path) {
+		return Constant.ML_DATA_DIR + "/" + path + "/" + filename;
 	}
 }

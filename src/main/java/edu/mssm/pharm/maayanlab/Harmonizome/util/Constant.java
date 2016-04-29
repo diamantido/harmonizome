@@ -42,6 +42,8 @@ public class Constant {
  *---------------------------------------------------------------------------*/
 	
 	public static final String DATA_DIR = "http://amp.pharm.mssm.edu/static/hdfs/harmonizome/data";
+	
+	public static final String ML_DATA_DIR = "http://amp.pharm.mssm.edu/static/hdfs/harmonizome/data/machine_learning";
 
 	public static final String HEAT_MAP_IMAGES_DIR = "http://amp.pharm.mssm.edu/static/harmonizome/heat_maps/";
 	
@@ -58,4 +60,5 @@ public class Constant {
 	public static final int API_MAX_RESULTS = 100;
 
     public static final int DB_MAX_RESULTS = 1000;
+   
 }
