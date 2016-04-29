@@ -55,19 +55,20 @@
 						<td><c:out value="${prediction.knownIonChannel}" /></td>
 						<td><c:out value="${prediction.inTrainingSet}" /></td>
 						<td><c:out value="${prediction.falseDiscoveryRate}" /></td>
+						
+<!-- IF YOU AUTOFORMAT THE HTML USING ECLISPE, IF WILL ADD UNNECESSARY SPACES
+  -->
 						<td><c:set var="parts"
 								value="${fn:split(prediction.similarIonChannel1, ',')}" /> <c:set
 								var="geneSymbol" value="${parts[0]}" /> <a
 							href="${prediction.gene.endpoint}/${cfn:urlEncode(geneSymbol)}">
-								<c:out value="${geneSymbol}" />
-						</a> <c:if test="${not empty parts[0]}"> ,</c:if> <c:out
+								<c:out value="${geneSymbol}"/></a><c:if test="${not empty parts[0]}">,</c:if> <c:out
 								value="${parts[1]}" /></td>
 						<td><c:set var="parts"
 								value="${fn:split(prediction.similarIonChannel2, ',')}" /> <c:set
 								var="geneSymbol" value="${parts[0]}" /> <a
 							href="${prediction.gene.endpoint}/${cfn:urlEncode(geneSymbol)}">
-								<c:out value="${geneSymbol}" />
-						</a> <c:if test="${not empty parts[0]}"> ,</c:if> <c:out
+								<c:out value="${geneSymbol}" /></a><c:if test="${not empty parts[0]}">,</c:if> <c:out
 								value="${parts[1]}" /></td>
 					</tr>
 				</c:forEach>
