@@ -55,28 +55,28 @@
 			</tr>
 		</thead>
 		<tr>
-			<td>Ion Channel (IC) Predictions</td>
+			<td>Ion Channel Predictions</td>
 			<td><a href="${Constant.ML_URL}/ic_predictions"
 				class="btn btn-default glyphicon glyphicon-th-list"></a></td>
 			<td><a href="${Constant.ML_DATA_DIR}/ic_predictions/${filename}"
 				class="btn btn-default glyphicon glyphicon-download-alt"></a></td>
 		</tr>
 		<tr>
-			<td>Mouse Phenotype (MP) Predictions</td>
+			<td>Mouse Phenotype Predictions</td>
 			<td><a href="${Constant.ML_URL}/mp_predictions"
 				class="btn btn-default glyphicon glyphicon-th-list"></a></td>
 			<td><a href="${Constant.ML_DATA_DIR}/mp_predictions/${filename}"
 				class="btn btn-default glyphicon glyphicon-download-alt"></a></td>
 		</tr>
 		<tr>
-			<td>GPCR-Ligand (G-L) Interaction Predictions</td>
+			<td>GPCR-Ligand Interaction Predictions</td>
 			<td><a href="${Constant.ML_URL}/gl_predictions"
 				class="btn btn-default glyphicon glyphicon-th-list"></a></td>
 			<td><a href="${Constant.ML_DATA_DIR}/gl_predictions/${filename}"
 				class="btn btn-default glyphicon glyphicon-download-alt"></a></td>
 		</tr>
 		<tr>
-			<td>Kinase-Substrate (K-S) Interaction Predictions</td>
+			<td>Kinase-Substrate Interaction Predictions</td>
 			<td><a href="${Constant.ML_URL}/ks_predictions"
 				class="btn btn-default glyphicon glyphicon-th-list"></a></td>
 			<td><a href="${Constant.ML_DATA_DIR}/ks_predictions/${filename}"
