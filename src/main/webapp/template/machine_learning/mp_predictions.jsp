@@ -11,13 +11,18 @@
 			Mouse phenotype predictions <span class="note"><c:out
 					value="${note}" /></span>
 		</h1>
-		<p>For this case study, we trained a classifier to predict
-			phenotypes observed in mice harboring single gene knockout mutations,
-			and then predicted mouse phenotypes likely to be caused by knockout
-			of genes that have not yet been phenotypically characterized. The
-			classifier performed modestly in cross-validation with an area under
-			the receiver operating characteristic curve of 0.88, F1-score of
-			0.24, and Matthew’s correlation coefficient of 0.23.</p>
+		<p>
+			For this case study, we trained a classifier to predict phenotypes
+			observed in mice harboring single gene knockout mutations, and then
+			predicted mouse phenotypes likely to be caused by knockout of genes
+			that have not yet been phenotypically characterized. The classifier
+			performed modestly in cross-validation with an area under the
+			receiver operating characteristic curve of 0.88, F1-score of 0.24,
+			and Matthew’s correlation coefficient of 0.23. Methods and results
+			for this machine learning case study are described in detail in the <a
+				data-toggle="tooltip" data-placement="right" title="${pubWarning}">Harmonizome
+				publication</a>.
+		</p>
 		<p>Each row in the results table provides the gene symbol of a
 			gene (Gene column), provides the name of a phenotype from the
 			Mammalian Phenotype Ontology (Phenotype column), provides the

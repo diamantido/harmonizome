@@ -17,7 +17,12 @@
 			transmembrane proteins might be ion channels. The classifier
 			performed very well in cross-validation with an area under the
 			receiver operating characteristic curve of 0.99, F1-score of 0.922,
-			and Matthew’s correlation coefficient of 0.918.</p>
+			and Matthew’s correlation coefficient of 0.918. Methods and results 
+			for this machine learning case study are
+			described in detail in the <a data-toggle="tooltip"
+				data-placement="right"
+				title="${pubWarning}">Harmonizome publication</a>.
+		</p>
 		<p>Each row in the results table provides the gene symbol of a
 			transmembrane protein (Gene column), provides the predicted
 			probability that the protein is an ion channel (Probability column),
@@ -25,7 +30,7 @@
 			indicates whether the protein was used as an example for training the
 			classifier (Training column), provides the predicted false discovery
 			rate if all predictions with better or equivalent probability were
-			tested (FDR column), and lists up to three ion channels that the
+			tested (FDR column), and lists up to two ion channels that the
 			classifier thinks are most similar to the protein (Similar IC
 			columns).</p>
 		<p>${commonDownloadText}

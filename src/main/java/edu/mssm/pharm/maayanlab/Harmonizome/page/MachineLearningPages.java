@@ -39,6 +39,10 @@ public class MachineLearningPages extends HttpServlet {
 	private static String note = "Machine Learning Case Study";
 	
 	private static String filename = "allpredictions.txt.gz";
+	
+	// TODO: When the Harmonizome is properly published, GREP for this variable
+	// and fix all links.
+	private static String pubWarning = "This link will be available upon publication.";
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,12 +58,13 @@ public class MachineLearningPages extends HttpServlet {
 				Class<?> klass = urlToClass.get(path);
 				List<?> predictions = PredictionDao.getAllByProbability(klass);
 				request.setAttribute("note", note);
-				request.setAttribute("commonDownloadText", "The table below shows the top 10,000 predictions. To download the full table:");
+				request.setAttribute("commonDownloadText", "The table below shows predictions with probabilities greater than or equal to 0.5. To download the full table:");
 				request.setAttribute("downloadUrl", pathToMLDataDownloadUrl(path));
 				request.setAttribute("predictions", predictions);
 			} else {
 				request.setAttribute("filename", filename);
 			}
+			request.setAttribute("pubWarning", pubWarning);
 			request.getRequestDispatcher(pathToJSP(path)).forward(request, response);
 			HibernateUtil.commitTransaction();
 		} catch (HibernateException he) {

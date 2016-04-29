@@ -10,13 +10,18 @@
 		<h1>
 			Kinase substrates <span class="note"><c:out value="${note}" /></span>
 		</h1>
-		<p>For this case study, we trained a classifier to predict
-			known interactions between kinases and their substrates, and then
-			predicted kinases for proteins that have phosphosites with unknown
-			regulatory kinase. The classifier performed modestly in
-			cross-validation with an area under the receiver operating
-			characteristic curve of 0.88, F1-score of 0.23, and Matthew’s
-			correlation coefficient of 0.22.</p>
+		<p>
+			For this case study, we trained a classifier to predict known
+			interactions between kinases and their substrates, and then predicted
+			kinases for proteins that have phosphosites with unknown regulatory
+			kinase. The classifier performed modestly in cross-validation with an
+			area under the receiver operating characteristic curve of 0.88,
+			F1-score of 0.23, and Matthew’s correlation coefficient of 0.22.
+			Methods and results for this machine learning case study are
+			described in detail in the <a data-toggle="tooltip"
+				data-placement="right" title="${pubWarning}">Harmonizome
+				publication</a>.
+		</p>
 		<p>Each row in the results table provides the gene symbol of a
 			kinase (Kinase column), provides the gene symbol of a phosphoprotein
 			(Substrate column), provides the predicted probability that the

@@ -11,12 +11,17 @@
 			GPCR-ligand predictions <span class="note"><c:out
 					value="${note}" /></span>
 		</h1>
-		<p>For this case study, we trained a classifier to predict known
+		<p>
+			For this case study, we trained a classifier to predict known
 			interactions between G protein-coupled receptors (GPCRs) and
 			protein-derived ligands, and then predicted ligands for orphan GPRCs.
 			The classifier performed well in cross-validation with an area under
 			the receiver operating characteristic curve of 0.91, F1-score of
-			0.59, and Matthew’s correlation coefficient of 0.59.</p>
+			0.59, and Matthew’s correlation coefficient of 0.59. Methods and
+			results for this machine learning case study are described in detail
+			in the <a data-toggle="tooltip" data-placement="right"
+				title="${pubWarning}">Harmonizome publication</a>.
+		</p>
 		<p>Each row in the results table provides the gene symbol of a
 			GPCR (GPCR column), provides the gene symbol of a candidate
 			protein-derived ligand (Ligand column), provides the predicted
