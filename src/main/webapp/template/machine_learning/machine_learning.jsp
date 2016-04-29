@@ -34,11 +34,10 @@
 		<p>
 			Methods and results for the machine learning case studies are
 			described in detail in the <a data-toggle="tooltip"
-				data-placement="right"
-				title="${pubWarning}">Harmonizome
+				data-placement="right" title="${pubWarning}">Harmonizome
 				publication</a>. Here, we provide interactive tables for browsing the
-			top 10,000 predictions of the classifiers and text files that contain
-			the full results.
+			top predictions of the classifiers and text files that contain the
+			full results.
 		</p>
 	</div>
 	<table class="table">
