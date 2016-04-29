@@ -60,5 +60,7 @@ public class Constant {
 	public static final int API_MAX_RESULTS = 100;
 
     public static final int DB_MAX_RESULTS = 1000;
+    
+    public static final int ML_PREDICTIONS_MAX_RESULTS = 10000;
    
 }

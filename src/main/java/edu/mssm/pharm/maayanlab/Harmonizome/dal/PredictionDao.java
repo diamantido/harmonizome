@@ -16,7 +16,7 @@ public class PredictionDao {
 			.createCriteria(klass)
 			.addOrder(Order.desc("probability"))
 			.setFirstResult(0)
-			.setMaxResults(Constant.DB_MAX_RESULTS)
+			.setMaxResults(Constant.ML_PREDICTIONS_MAX_RESULTS)
 			.list();
 	}
 }
