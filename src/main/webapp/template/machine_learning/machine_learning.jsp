@@ -28,9 +28,9 @@
 			(features) labelling the columns. Then we trained a classifier to use
 			the features to distinguish between genes (or pairs of genes) known
 			to have a property of interest and genes (or pairs of genes) unlikely
-			to have that property. Finally, we applied the classifier the make
-			predictions about genes (or pairs of genes) for which nothing is
-			known regarding the property of interest.</p>
+			to have that property. Finally, we applied the classifier to make
+			predictions about genes (or pairs of genes) for which knowledge is
+			missing.</p>
 		<p>
 			Methods and results for the machine learning case studies are
 			described in detail in the <a data-toggle="tooltip"
