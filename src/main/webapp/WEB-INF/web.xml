@@ -46,6 +46,15 @@
         <url-pattern>/mobile</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>terms.jsp</servlet-name>
+        <jsp-file>/template/terms.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>terms.jsp</servlet-name>
+        <url-pattern>/terms</url-pattern>
+    </servlet-mapping>
+    
     <error-page>
         <error-code>404</error-code>
         <location>/template/404.jsp</location>

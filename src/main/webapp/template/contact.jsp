@@ -7,8 +7,8 @@
 
     <div class="contact-page">
         <h1>Contact</h1>
-        <div class="col-md-6">
-            <div class="row">
+        <div class="row">
+        	<div class="col-md-6">   
                 <form method="POST" action="contact">
                     <label for="topic">How can we help? <span class="hidden">(Required)</span></label>
                     <div class="form-group">

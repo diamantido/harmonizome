@@ -5,8 +5,11 @@
 				<li>
 					<a href="http://icahn.mssm.edu/research/labs/maayan-laboratory" target="_blank">Ma'ayan Lab<span class="hide-on-mobile">oratory of Computational Systems Biology</span></a>
 				</li>
-				<li class="last">
+				<li class="left-border">
 					<a href="contact">Contact Us</a>
+				</li>
+				<li class="left-border">
+					<a href="terms">Terms</a>
 				</li>
 			</ul>
 			<strong>Funding</strong>
