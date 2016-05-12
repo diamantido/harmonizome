@@ -163,8 +163,11 @@
   text-decoration: none;
   opacity: .7;
 }
+.mobile-page .app-store-links li.last {
+  margin-top: 20px;
+}
 .mobile-page .app-store-links li.last a {
-  font-style: italic;
+  color: #ec1e8e;
 }
 /* Pages with heat maps
  * ------------------------------------------------------------------------- */
