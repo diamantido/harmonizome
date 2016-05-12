@@ -140,6 +140,13 @@
 .mobile-page img {
   height: 600px;
 }
+.mobile-page h5 {
+  margin-top: 40px;
+}
+.mobile-page h5 a {
+  font-size: 24px;
+  font-weight: 300;
+}
 .mobile-page .app-store-links i {
   position: relative;
   top: -2px;
@@ -155,6 +162,9 @@
 .mobile-page .app-store-links a:focus {
   text-decoration: none;
   opacity: .7;
+}
+.mobile-page .app-store-links li.last a {
+  font-style: italic;
 }
 /* Pages with heat maps
  * ------------------------------------------------------------------------- */

@@ -17,7 +17,6 @@
                     <li><i class="fa fa-mobile fa-3x"></i></li>
                 </ul>
                 <h4>Take the Harmonizome with you</h4>
-
                 <p>
                     With your free Harmonizome app, you can explore genes, proteins, and functional terms from anywhere.
                 </p>
@@ -31,6 +30,11 @@
                         <i class="fa fa-android fa-2x"></i>
                         <a href="https://play.google.com/store/apps/details?id=com.maayanlab.harmonizome&hl=en"
                            target="_blank">Free for Android</a>
+                    </li>
+                    <li class="last">
+                        <i class="fa fa-video-camera fa-2x"></i>
+                        <a href="https://www.youtube.com/watch?v=dkYcD51pnfY"
+                           target="_blank">Watch the tutorial</a>
                     </li>
                 </ul>
             </div>
