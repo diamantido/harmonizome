@@ -13,7 +13,7 @@
 				</li>
 			</ul>
 			<div id="citation">
-				<h6>Please acknowledge the Harmonizome in your publications by citing the following references:</h6>
+				<h6>Please acknowledge the Harmonizome in your publications by citing the following reference:</h6>
 				<p>
 					<a href="http://database.oxfordjournals.org/content/2016/baw100.short" target="_blank">
 						Rouillard AD, Gundersen GW, Fernandez NF, Wang Z, Monteiro CD, McDermott MG, Ma'ayan A. 
