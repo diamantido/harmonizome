@@ -409,6 +409,23 @@ select {
     p {
         font-family: @font-family-primary;
     }
+    h6 {
+    	border-bottom: none;
+    	font-weight: bold;
+    	font-size: 14px;
+    	margin-bottom: 5px;
+    }
+    .pull-left {
+    	width: 80%;
+        #citation {
+	    }
+        #contact {
+	        .left-border {
+	            border-left: 1px solid @color-gray-medium;
+	            padding-left: 8px;
+	        }
+	    }
+    }
     #share {
         a {
             float: right;
@@ -421,29 +438,26 @@ select {
             }
         }
     }
-    #contact {
-        .left-border {
-            border-left: 1px solid @color-gray-medium;
-            padding-left: 8px;
-        }
-    }
 }
 
 @media (max-width: 665px) {
     .hide-on-mobile {
         display: none;
     }
+    .footer {
+    	.pull-left {
+    		width: 100%;
+    	}
+    } 
 }
 
-@media (max-width: 464px) {
-    /* .footer {
-        #contact {
-            .left-border {
-                border-left: none;
-                padding-left: 5px;
-            }
-        }
-    } */
+/* This break point is when the publication citation text-wraps, causing the 
+ * footer to need to be longer.
+ */
+@media (max-width: 990px) {
+    .footer {
+    	height: 240px;
+    } 
 }
 
 .project-title {

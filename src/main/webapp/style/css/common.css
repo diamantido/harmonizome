@@ -15,13 +15,13 @@ html {
   min-height: 100%;
 }
 body {
-  margin-bottom: 140px;
+  margin-bottom: 210px;
 }
 .footer {
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 140px;
+  height: 210px;
   width: 100%;
 }
 .wrapper {
@@ -59,7 +59,7 @@ h6 {
 h1,
 h2,
 h3 {
-  border-bottom: 1px solid #aaaaaa;
+  border-bottom: 1px solid #aaa;
   font-weight: 300;
 }
 h4,
@@ -106,10 +106,10 @@ select {
   color: #309fab;
 }
 .note.gene {
-  color: #ed8c2b;
+  color: #ED8C2B;
 }
 .note.gene-set {
-  color: #ec1e8e;
+  color: #EC1E8E;
 }
 .glyphicon-search {
   cursor: pointer;
@@ -261,7 +261,7 @@ select {
   }
   #navbar-wrapper #menu a:hover,
   #navbar-wrapper #menu afocus {
-    background-color: #61697f;
+    background-color: #61697F;
   }
   #navbar-wrapper #menu li {
     padding: 5px 10px;
@@ -300,11 +300,11 @@ select {
   float: left;
 }
 .search-bar .entity-dropdown.gene {
-  border: 1px solid #ed8c2b;
+  border: 1px solid #ED8C2B;
   width: 80px;
 }
 .search-bar .entity-dropdown.geneSet {
-  border: 1px solid #ec1e8e;
+  border: 1px solid #EC1E8E;
   width: 105px;
 }
 .search-bar .entity-dropdown.dataset {
@@ -332,8 +332,8 @@ select {
   }
 }
 .footer {
-  background: #eeeeee;
-  color: #444444;
+  background: #eee;
+  color: #444;
   padding: 13px;
   width: 100%;
 }
@@ -342,12 +342,25 @@ select {
   padding: 0;
 }
 .footer a {
-  color: #444444;
+  color: #444;
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
 }
 .footer p {
   font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.footer h6 {
+  border-bottom: none;
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+.footer .pull-left {
+  width: 80%;
+}
+.footer .pull-left #contact .left-border {
+  border-left: 1px solid #aaa;
+  padding-left: 8px;
 }
 .footer #share a {
   float: right;
@@ -359,24 +372,21 @@ select {
 .footer #share img:hover {
   opacity: 0.7;
 }
-.footer #contact .left-border {
-  border-left: 1px solid #aaaaaa;
-  padding-left: 8px;
-}
 @media (max-width: 665px) {
   .hide-on-mobile {
     display: none;
   }
+  .footer .pull-left {
+    width: 100%;
+  }
 }
-@media (max-width: 464px) {
-  /* .footer {
-        #contact {
-            .left-border {
-                border-left: none;
-                padding-left: 5px;
-            }
-        }
-    } */
+/* This break point is when the publication citation text-wraps, causing the 
+ * footer to need to be longer.
+ */
+@media (max-width: 990px) {
+  .footer {
+    height: 240px;
+  }
 }
 .project-title {
   font-family: Georgia, sans-serif;
@@ -396,7 +406,7 @@ select {
 .loader-container .loader-modal {
   background-color: #fffac7;
   border: 1px solid #fff169;
-  color: #444444;
+  color: #444;
   font-family: Arial, sans-serif;
   font-size: 13px;
   font-weight: bold;

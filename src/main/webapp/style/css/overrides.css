@@ -61,8 +61,11 @@
   border-right: 5px solid transparent;
 }
 .table-responsive {
-  /* See http://stackoverflow.com/a/33809511/1830334 */
-  overflow-x: inherit;
+  /* See:
+     *   http://stackoverflow.com/a/33809511/1830334
+     *   http://stackoverflow.com/a/26424135/1830334
+     */
+  overflow-x: auto;
   padding-top: 10px;
 }
 .img-responsive {
