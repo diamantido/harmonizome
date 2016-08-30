@@ -28,8 +28,8 @@ hibernate.connection.url=<DB_CONNECTION_STRING>
 `email.properties`: This should have at least four lines:
 
 ```
-email.username=harmonizome@gmail.com
-email.password=<HARMONIZOME_GMAIL_PASSWORD>
-email.avi=avi.maayan@mssm.edu
+email.username=<HARMONIZOME_EMAIL_ADDRESS>
+email.password=<HARMONIZOME_EMAIL_PASSWORD>
+email.avi=<AVIS_EMAIL_ADDRESS>
 email.<CURRENT_DEVELOPER_NAME>=<CURRENT_DEVELOPER_EMAIL>
 ```
