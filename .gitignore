@@ -1,21 +1,14 @@
-# Misc
-.DS_Store
-*.swp
-*.swo
-data/
-src/main/webapp/node_modules/
-*.pyc
-__pychache__
-nohup.out
-*.properties
+# Sensitive information
+src/main/resources/hibernate.properties
+src/main/resources/email.properties
+deploy.sh
 
-scripts/matrices/
+# Large data files
+scripts/
 
-# Config w/ password
-build_db.sh
-
-# Generated files
+# Maven generated files
 target/
+bin/
 
 # Eclipse and IntelliJ
 .project
@@ -45,6 +38,3 @@ target/
 
 # TeXlipse plugin
 .texlipse
-
-
-
