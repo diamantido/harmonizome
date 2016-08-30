@@ -4,8 +4,8 @@ This repository contains the source code for the [Harmonizome](http://amp.pharm.
 
 ### Funding
 
-[BD2K-LINCS Data Coordination and Integration Center](http://lincs-dcic.org/)
-[Illuminating the Druggable Genome, Knowledge Management Center](https://commonfund.nih.gov/idg/overview)
+- [BD2K-LINCS Data Coordination and Integration Center](http://lincs-dcic.org/)
+- [Illuminating the Druggable Genome, Knowledge Management Center](https://commonfund.nih.gov/idg/overview)
 
 ### Citation
 
@@ -27,7 +27,9 @@ hibernate.connection.url=<DB_CONNECTION_STRING>
 
 `email.properties`: This should have at least four lines:
 
+```
 email.username=harmonizome@gmail.com
 email.password=<HARMONIZOME_GMAIL_PASSWORD>
 email.avi=avi.maayan@mssm.edu
 email.<CURRENT_DEVELOPER_NAME>=<CURRENT_DEVELOPER_EMAIL>
+```
