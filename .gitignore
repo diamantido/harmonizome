@@ -3,8 +3,9 @@ src/main/resources/hibernate.properties
 src/main/resources/email.properties
 deploy.sh
 
-# Large data files
+# Personal scripts and migration files
 scripts/
+migrations/
 
 # Maven generated files
 target/
