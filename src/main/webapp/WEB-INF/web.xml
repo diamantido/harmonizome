@@ -15,8 +15,10 @@
     </filter>
     <filter-mapping>
         <filter-name>CorsFilter</filter-name>
+        <url-pattern>/api/1.0/*</url-pattern>
+<!--    <url-pattern>/api/1.0/gene/*</url-pattern>
         <url-pattern>/api/1.0/suggest</url-pattern>
-        <url-pattern>/api/1.0/search</url-pattern>
+        <url-pattern>/api/1.0/search</url-pattern> -->
     </filter-mapping>
 
     <servlet>

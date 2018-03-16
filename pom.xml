@@ -74,6 +74,25 @@
 			<version>2.4</version>
 		</dependency>
 
+		<!-- Hibernate c3p0 connection pool -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>3.6.3.Final</version>
+		</dependency>
+
+		<!-- Machine Learning -->
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-core_2.10</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.spark</groupId>
+			<artifactId>spark-mllib_2.10</artifactId>
+			<version>1.5.0</version>
+		</dependency>
+		
 		<!-- Email for contact us form -->
 		<dependency>
 			<groupId>javax.mail</groupId>
