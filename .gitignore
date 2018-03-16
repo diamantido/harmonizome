@@ -40,3 +40,9 @@ bin/
 
 # TeXlipse plugin
 .texlipse
+
+# Mac artifacts
+.DS_Store
+
+# Vim artifacts
+*.swp

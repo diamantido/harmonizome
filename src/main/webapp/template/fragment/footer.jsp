@@ -29,8 +29,8 @@
 			            <a href="http://lincs-dcic.org/" target="_blank">BD2K-LINCS Data Coordination and Integration Center</a>
 			        </li>
 			        <li>
-			        	<a href="https://commonfund.nih.gov/idg/overview" target="_blank">Illuminating the Druggable Genome<span class="hide-on-mobile">, Knowledge Management Center</span></a>
-			        </li>
+						<a href="https://druggablegenome.net" target="_blank">Illuminating the Druggable Genome<span class="hide-on-mobile">, Knowledge Management Center</span></a>
+					</li>
 				</ul>
 			</div>
 		</div>

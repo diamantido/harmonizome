@@ -1,4 +1,5 @@
 <%@ tag description="Wraps every Harmonizome page" pageEncoding="utf-8" %>
+<%@ tag import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ attribute name="title" %>
 <%@ attribute name="description" %>
@@ -10,6 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <base href="<%= Constant.PREFIX %>/" />
         <%@include file="/template/fragment/globalIncludes.jsp" %>
         <c:choose>
             <c:when test="${not empty title}">

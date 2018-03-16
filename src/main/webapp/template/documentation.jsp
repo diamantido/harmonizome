@@ -4,7 +4,7 @@
 <t:wrapper title="Documentation">
 
     <link rel="stylesheet" href="lib/highlight/highlight.css">
-    <link rel="stylesheet" type="text/css" href="/Harmonizome/style/css/documentation.css">
+    <link rel="stylesheet" type="text/css" href="style/css/documentation.css">
     <script src="lib/highlight/highlight.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 

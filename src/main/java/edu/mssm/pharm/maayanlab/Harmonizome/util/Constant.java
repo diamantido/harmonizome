@@ -1,9 +1,12 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.util.BuildConstants;
+
 public class Constant {
-	
 	public static final String HARMONIZOME = "Harmonizome";
-	
+
+	public static final String PREFIX = BuildConstants.PREFIX;
+
 /* URLs
  *---------------------------------------------------------------------------*/
 

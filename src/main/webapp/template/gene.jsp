@@ -70,6 +70,30 @@
                         </a>
                     </td>
                 </tr>
+				<tr>
+                    <td class="col-md-2">Predicted Functions</td>
+                    <td class="col-md-10">
+                        <a href="https://amp.pharm.mssm.edu/archs4/search/genepage.php?search=go&gene=${gene.symbol}" target="_blank">
+                            <img src="image/resource/archs-42.png" width=100 alt="View ${gene.symbol}'s ARCHS4 Predicted Functions."><br />
+                        </a>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="col-md-2">Co-expressed Genes</td>
+                    <td class="col-md-10">
+                        <a href="https://amp.pharm.mssm.edu/archs4/search/genepage.php?search=go&gene=${gene.symbol}#correlation" target="_blank">
+                            <img src="image/resource/archs-42.png" width=100 alt="View ${gene.symbol}'s ARCHS4 Predicted Functions."><br />
+                        </a>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="col-md-2">Expression in Tissues and Cell Lines</td>
+                    <td class="col-md-10">
+                        <a href="https://amp.pharm.mssm.edu/archs4/search/genepage.php?search=go&gene=${gene.symbol}#tissueexpression" target="_blank">
+                            <img src="image/resource/archs-42.png" width=100 alt="View ${gene.symbol}'s ARCHS4 Predicted Functions."><br />
+                        </a>
+                    </td>
+                </tr>
             </table>
         </section>
         <section>

@@ -33,8 +33,8 @@ public class Emailer {
 	}
 
 	public static void send(String user, String topic, String body) throws UnsupportedEncodingException {
-		String botEmail = props.getProperty("email.username");
-		String botPassword = props.getProperty("email.password");
+		final String botEmail = props.getProperty("email.username");
+		final String botPassword = props.getProperty("email.password");
 		String avi = props.getProperty("email.avi");
 		String andrew = props.getProperty("email.andrew");
 		String greg = props.getProperty("email.greg");
