@@ -1,11 +1,27 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.util;
 
-import edu.mssm.pharm.maayanlab.Harmonizome.util.BuildConstants;
+import java.util.Properties;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Constant {
+
+	public static final Properties props = new Properties();
+	static {
+        try {
+			ClassLoader loader = Thread.currentThread().getContextClassLoader();
+			InputStream resource = loader.getResourceAsStream("constant.properties");
+			System.out.println(resource);
+			props.load(resource);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static final String HARMONIZOME_PREFIX = Constant.props.getProperty("HARMONIZOME_PREFIX");
+
 	public static final String HARMONIZOME = "Harmonizome";
 
-	public static final String PREFIX = BuildConstants.PREFIX;
 
 /* URLs
  *---------------------------------------------------------------------------*/
@@ -65,5 +81,4 @@ public class Constant {
     public static final int DB_MAX_RESULTS = 1000;
     
     public static final int ML_PREDICTIONS_MAX_RESULTS = 10000;
-   
 }

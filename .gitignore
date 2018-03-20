@@ -46,3 +46,6 @@ bin/
 
 # Vim artifacts
 *.swp
+
+# Gradle build
+build
