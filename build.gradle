@@ -41,6 +41,7 @@ dependencies {
 }
 
 tomcat {
+    def prefix = System.getenv("HARMONIZOME_PREFIX") ?: "Harmonizome"
     httpPort = 8080
-    contextPath = "${System.env.HARMONIZOME_PREFIX}"
+    contextPath = "${prefix}"
 }

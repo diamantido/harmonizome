@@ -1,6 +1,5 @@
 # Sensitive information
-src/main/resources/hibernate.properties
-src/main/resources/email.properties
+src/main/resources/*.properties
 deploy.sh
 
 # Personal scripts and migration files
