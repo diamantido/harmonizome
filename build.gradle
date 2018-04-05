@@ -40,8 +40,32 @@ dependencies {
     providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version:'2.2'
 }
 
+def prefix = project.properties["HARMONIZOME_PREFIX"] ?: "Harmonizome"
+
 tomcat {
-    def prefix = System.getenv("HARMONIZOME_PREFIX") ?: "Harmonizome"
-    httpPort = 8080
+    httpPort = project.properties["TOMCAT_PORT"].toInteger() ?: 8080
     contextPath = "${prefix}"
+}
+
+task createConstantProperties(type: WriteProperties) {
+    File constPropFile = file('src/main/resources/constant.properties')
+    project.logger.info('Creating constant.properties')
+    property('HARMONIZOME_PREFIX', prefix)
+    setOutputFile(constPropFile)
+    writeProperties()
+}
+
+task createHibernateProperties(type: WriteProperties) {
+    String mysqlHost = project.properties["MYSQL_HOST"] ?: "localhost"
+    String mysqlDatabase = project.properties["MYSQL_DATABASE"] ?: "harmonizome"
+    String mysqlUser = project.properties["MYSQL_USER"] ?: "harmonizome"
+    String mysqlPass = project.properties["MYSQL_PASSWORD"] ?: "emozinomrah"
+    String hibernateUri = "jdbc:mysql://" + mysqlHost + "/" + mysqlDatabase
+    File hibernatePropFile = file('src/main/resources/hibernate.properties')
+    project.logger.info('Creating hibernate.properties')
+    property('hibernate.connection.username', mysqlUser)
+    property('hibernate.connection.password', mysqlPass)
+    property('hibernate.connection.url', hibernateUri)
+    setOutputFile(hibernatePropFile)
+    writeProperties()
 }
