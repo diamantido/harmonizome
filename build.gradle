@@ -1,24 +1,31 @@
+group = 'edu.mssm.pharm.maayanlab.Harmonizome'
+description = 'Harmonizome'
+
+def prefix = project.properties["HARMONIZOME_PREFIX"] ?: "Harmonizome"
+
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        } 
     }
 
     dependencies {
         classpath 'com.bmuschko:gradle-tomcat-plugin:2.4.2'
+        classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
     }
 }
-
-group = 'edu.mssm.pharm.maayanlab.Harmonizome'
-description = 'Harmonizome'
-
-apply plugin: 'java'
-apply plugin: 'war'
-apply plugin: 'com.bmuschko.tomcat'
-
 repositories {
     mavenLocal()
     mavenCentral()
 }
+
+apply plugin: 'war'
+apply plugin: 'java'
+apply plugin: 'com.moowork.node'
+apply plugin: 'com.moowork.grunt'
+apply plugin: 'com.bmuschko.tomcat'
 
 dependencies {
   def tomcatVersion = '8.0.42'
@@ -40,7 +47,34 @@ dependencies {
     providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version:'2.2'
 }
 
-def prefix = project.properties["HARMONIZOME_PREFIX"] ?: "Harmonizome"
+def webappDir = "${project.projectDir}/src/main/webapp/"
+
+node {
+  version = '0.11.10'
+  npmVersion = '2.1.5'
+  download = true
+  nodeModulesDir = file(webappDir)
+}
+
+grunt {
+    workDir = file(webappDir)
+}
+
+task prepareNpm(type: NpmTask) {
+    inputs.file("${webappDir}/package.json")
+    outputs.dir("${webappDir}/node_modules")
+    args = [ "install" ]
+}
+
+task buildStyles(type: GruntTask) {
+    inputs.files(fileTree("${webappDir}/style/less"))
+    inputs.file("${webappDir}/gruntfile.js")
+    outputs.dir("${webappDir}/style/css")
+    dependsOn prepareNpm
+    args = ['build']
+}
+
+build.dependsOn buildStyles
 
 tomcat {
     httpPort = project.properties["TOMCAT_PORT"].toInteger() ?: 8080

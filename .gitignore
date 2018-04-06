@@ -46,5 +46,13 @@ bin/
 # Vim artifacts
 *.swp
 
-# Gradle build
+# Gradle
+.gradle
 build
+
+# Node
+node_modules
+package-lock.json
+
+# Generated styles
+src/main/webapp/style/css/
