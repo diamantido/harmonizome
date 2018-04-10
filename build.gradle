@@ -50,8 +50,6 @@ dependencies {
 def webappDir = "${project.projectDir}/src/main/webapp/"
 
 node {
-  version = '0.11.10'
-  npmVersion = '2.1.5'
   download = true
   nodeModulesDir = file(webappDir)
 }
@@ -66,15 +64,15 @@ task prepareNpm(type: NpmTask) {
     args = [ "install" ]
 }
 
-task buildStyles(type: GruntTask) {
-    inputs.files(fileTree("${webappDir}/style/less"))
+task buildGrunt(type: GruntTask) {
     inputs.file("${webappDir}/gruntfile.js")
-    outputs.dir("${webappDir}/style/css")
+    inputs.files fileTree(webappDir).include('**/*.less').include('**/*.css').exclude('dist/**').exclude('lib/**')
+    outputs.dir("${webappDir}/dist")
     dependsOn prepareNpm
-    args = ['build']
+    args = [ "build" ]
 }
 
-build.dependsOn buildStyles
+build.dependsOn buildGrunt
 
 tomcat {
     httpPort = project.properties["TOMCAT_PORT"].toInteger() ?: 8080

@@ -18,9 +18,9 @@
 <script src="lib/dataTables/dataTables.min.js"></script>
 <script src="lib/dataTables/dataTables.bootstrap.min.js"></script>
 
-<link href="style/css/common.css" rel="stylesheet" type="text/css">
-<link href="style/css/pages.css" rel="stylesheet" type="text/css">
-<link href="style/css/overrides.css" rel="stylesheet" type="text/css">
+<link href="dist/style/common.css" rel="stylesheet" type="text/css">
+<link href="dist/style/pages.css" rel="stylesheet" type="text/css">
+<link href="dist/style/overrides.css" rel="stylesheet" type="text/css">
 <script src="script/common.js"></script>
 
 <script>
