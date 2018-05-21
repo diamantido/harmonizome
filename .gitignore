@@ -49,6 +49,7 @@ bin/
 # Gradle
 .gradle
 build
+gradle.properties
 
 # Node
 node_modules
