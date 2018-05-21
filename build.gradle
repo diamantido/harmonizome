@@ -1,14 +1,7 @@
-group = 'edu.mssm.pharm.maayanlab.Harmonizome'
-description = 'Harmonizome'
-
-def prefix = project.properties["HARMONIZOME_PREFIX"] ?: "Harmonizome"
-
 buildscript {
     repositories {
         jcenter()
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        } 
+        maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
@@ -16,35 +9,43 @@ buildscript {
         classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
     }
 }
-repositories {
-    mavenLocal()
-    mavenCentral()
-}
 
-apply plugin: 'war'
 apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'war'
 apply plugin: 'com.moowork.node'
-apply plugin: 'com.moowork.grunt'
 apply plugin: 'com.bmuschko.tomcat'
+
+group = 'edu.mssm.pharm.maayanlab.Harmonizome'
+description = 'Harmonizome'
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
 
 dependencies {
   def tomcatVersion = '8.0.42'
   tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
         "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
         "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-    compile group: 'org.apache.tomcat', name: 'tomcat-jdbc', version:"${tomcatVersion}"
-    compile group: 'javax.servlet', name: 'jstl', version:'1.2'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.5.2'
-    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.22'
-    compile group: 'org.hibernate', name: 'hibernate-core', version:'4.1.8.Final'
-  compile project(':common:common-database')
-    compile group: 'org.hibernate', name: 'hibernate-c3p0', version:'3.6.3.Final'
-    compile group: 'javax.mail', name: 'mail', version:'1.4'
-    testCompile group: 'junit', name: 'junit', version:'4.12'
-    testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.8'
-    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.0.1'
-    providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version:'2.2'
+
+  compile group: 'org.apache.tomcat', name: 'tomcat-jdbc', version:"${tomcatVersion}"
+  compile group: 'javax.servlet', name: 'jstl', version:'1.2'
+  compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
+  compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.5.2'
+  compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.22'
+  compile group: 'org.hibernate', name: 'hibernate-core', version:'4.1.8.Final'
+  compile 'com.github.MaayanLab.common:common-database:master-SNAPSHOT'
+  compile group: 'org.hibernate', name: 'hibernate-c3p0', version:'3.6.3.Final'
+  compile group: 'javax.mail', name: 'mail', version:'1.4'
+  testCompile group: 'junit', name: 'junit', version:'4.12'
+  testCompile group: 'org.mockito', name: 'mockito-all', version:'1.10.8'
+  providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version:'3.0.1'
+  providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version:'2.2'
 }
 
 def webappDir = "${project.projectDir}/src/main/webapp/"
@@ -54,28 +55,27 @@ node {
   nodeModulesDir = file(webappDir)
 }
 
-grunt {
-    workDir = file(webappDir)
-}
-
 task prepareNpm(type: NpmTask) {
     inputs.file("${webappDir}/package.json")
     outputs.dir("${webappDir}/node_modules")
     args = [ "install" ]
 }
 
-task buildGrunt(type: GruntTask) {
+task buildProject(type: NpmTask) {
+    inputs.file("${webappDir}/.babelrc")
     inputs.file("${webappDir}/gruntfile.js")
-    inputs.files fileTree(webappDir).include('**/*.less').include('**/*.css').exclude('dist/**').exclude('lib/**')
+    inputs.files fileTree(webappDir).include('**/*.js').include('**/*.css').exclude('dist/**').exclude('lib/**').exclude('node_modules/**')
     outputs.dir("${webappDir}/dist")
     dependsOn prepareNpm
-    args = [ "build" ]
+    args = [ "run", "build" ]
 }
 
-build.dependsOn buildGrunt
+build.dependsOn buildProject
+
+def prefix = project.properties["HARMONIZOME_PREFIX"] ?: "Harmonizome"
 
 tomcat {
-    httpPort = project.properties["TOMCAT_PORT"].toInteger() ?: 8080
+    httpPort = (project.properties["TOMCAT_PORT"] ?: "8080").toInteger()
     contextPath = "${prefix}"
 }
 
@@ -100,4 +100,13 @@ task createHibernateProperties(type: WriteProperties) {
     property('hibernate.connection.url', hibernateUri)
     setOutputFile(hibernatePropFile)
     writeProperties()
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+  classifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+artifacts {
+  archives sourcesJar
 }

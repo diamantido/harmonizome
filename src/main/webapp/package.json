@@ -13,7 +13,9 @@
     "grunt-contrib-less": "^1.4.1",
     "less": "^3.0.1"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "grunt build"
+  },
   "author": "",
   "license": "MIT"
 }
