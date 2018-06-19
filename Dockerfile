@@ -2,7 +2,7 @@ FROM library/tomcat:8-jre8
 
 ARG HARMONIZOME_PREFIX=Harmonizome
 
-ADD build/libs/Harmonizome-*.war Harmonizome.war
+ADD build/libs/harmonizome*.war Harmonizome.war
 RUN set -x \
     && mv "Harmonizome.war" "webapps/${HARMONIZOME_PREFIX}.war"
 
