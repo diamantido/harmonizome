@@ -19,7 +19,10 @@ import java.io.PrintWriter;
 import java.util.List;
 
 
-@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/words" })
+@WebServlet(urlPatterns = {
+	"/" + Constant.API_URL + "/words",
+	"/" + Constant.API_URL + "/words" + "/"
+})
 public class WordsAPI extends HttpServlet {
 
 	private static final long serialVersionUID = -2370972153895413361L;

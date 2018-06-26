@@ -16,7 +16,10 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/" + Constant.DOWNLOAD_COUNT_URL })
+@WebServlet(urlPatterns = {
+	"/" + Constant.DOWNLOAD_COUNT_URL,
+	"/" + Constant.DOWNLOAD_COUNT_URL + "/"
+})
 public class DownloadCountApi extends HttpServlet {
 
 	private static final long serialVersionUID = 825000865667024400L;

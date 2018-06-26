@@ -27,7 +27,10 @@ import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
 
-@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/stats" })
+@WebServlet(urlPatterns = {
+	"/" + Constant.API_URL + "/stats",
+	"/" + Constant.API_URL + "/stats" + "/"
+})
 public class StatsAPI extends HttpServlet {
 	
 	private static final long serialVersionUID = 2755067155579627424L;

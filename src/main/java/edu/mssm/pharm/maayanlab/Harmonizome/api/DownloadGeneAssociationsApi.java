@@ -18,7 +18,10 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/" + Constant.DOWNLOAD_ASSOCIATIONS_URL })
+@WebServlet(urlPatterns = {
+	"/" + Constant.DOWNLOAD_ASSOCIATIONS_URL,
+	"/" + Constant.DOWNLOAD_ASSOCIATIONS_URL + "/"
+})
 public class DownloadGeneAssociationsApi extends HttpServlet {
 
 	private static final long serialVersionUID = 825000865667024400L;

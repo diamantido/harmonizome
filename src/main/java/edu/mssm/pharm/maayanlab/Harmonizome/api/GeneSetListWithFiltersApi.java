@@ -30,7 +30,10 @@ import edu.mssm.pharm.maayanlab.Harmonizome.net.UrlUtil;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = { "/" + Constant.API_URL + "/" + Association.ENDPOINT })
+@WebServlet(urlPatterns = {
+	"/" + Constant.API_URL + "/" + Association.ENDPOINT,
+	"/" + Constant.API_URL + "/" + Association.ENDPOINT + "/"
+})
 public class GeneSetListWithFiltersApi extends HttpServlet {
 
 	private static final long serialVersionUID = 3419499266408427043L;

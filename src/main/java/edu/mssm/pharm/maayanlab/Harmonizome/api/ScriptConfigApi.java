@@ -25,7 +25,10 @@ import edu.mssm.pharm.maayanlab.Harmonizome.model.DownloadType;
 import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
 import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 
-@WebServlet(urlPatterns = {"/" + Constant.API_DARK_URL + "/script_config"})
+@WebServlet(urlPatterns = {
+	"/" + Constant.API_DARK_URL + "/script_config",
+	"/" + Constant.API_DARK_URL + "/script_config" + "/"
+})
 public class ScriptConfigApi extends HttpServlet {
 
 	private static final long serialVersionUID = 7240269807104096923L;
