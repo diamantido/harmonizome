@@ -7,6 +7,7 @@
 <%@ attribute name="navType" %>
 <%@ attribute name="pageWidth" %>
 <%@ attribute name="userSearch" %>
+<%@ attribute name="jsonld" fragment="true" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +52,14 @@
             <c:otherwise>
                 <c:set var="bootstrapClass" value="container"/>
             </c:otherwise>
+        </c:choose>
+
+        <c:choose>
+            <c:when test="${not empty jsonld}">
+                <script type="application/ld+json">
+                    <jsp:invoke fragment="jsonld" />
+                </script>
+            </c:when>
         </c:choose>
     </head>
     <body>
