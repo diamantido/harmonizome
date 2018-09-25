@@ -10,14 +10,14 @@
     <jsp:attribute name="jsonld">
         {
             "@context": "http://schema.org",
-            "@type": "DataCatalog",
-            "dataset": [
+            "@type": "Dataset",
+            "distribution": [
                 <c:forEach var="download" items="${dataset.sortedDownloads}" varStatus="loop">
                     {
-                        "@type": "Dataset",
+                        "@type": "DataDownload",
                         "name": "${download.downloadType.name}",
                         "description": "${download.downloadType.description}",
-                        "url": "${Constant.DATA_DIR}/${dataset.directory}/${download.downloadType.filename}"
+                        "contentUrl": "${Constant.DATA_DIR}/${dataset.directory}/${download.downloadType.filename}"
                     }<c:if test="${!loop.last}">,</c:if>
                 </c:forEach>
             ],
