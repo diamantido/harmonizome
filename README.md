@@ -16,10 +16,9 @@ Please acknowledge the Harmonizome in your publications by citing the following 
 ## Configuration
 Certain environment variables are necessary to connect to the database. Typically this can be handled with a `gradle.properties` file of the form:
 ```
-MYSQL_USER=myuser
-MYSQL_PASSWORD=mypass
-MYSQL_HOST=myhost
-MYSQL_DATABASE=mydb
+DB_URL=jdbc:mysql://yourhost/yourdb
+DB_USER=youruser
+DB_PASS=yourpass
 HARMONIZOME_PREFIX=Harmonizome
 TOMCAT_PORT=8080
 ```
@@ -42,4 +41,14 @@ gradle install
 
 # Construct docker image
 docker build -t maayanlab/harmonizome:latest .
+```
+
+When you run the image you'll need to provide the environment variables:
+```
+docker run \
+  -e DB_URL=jdbc:mysql://yourhost/yourdb \
+  -e DB_USER=youruser \
+  -e DB_PASS=yourpass \
+  -p 8080:8080
+  -it maayanlab/harmonizome:latest
 ```

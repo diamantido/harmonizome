@@ -48,6 +48,15 @@ dependencies {
   providedCompile group: 'javax.servlet.jsp', name: 'jsp-api', version:'2.2'
 }
 
+// Capture system properties
+ext {
+    HARMONIZOME_PREFIX = project.findProperty("HARMONIZOME_PREFIX") ?: "Harmonizome"
+    TOMCAT_PORT = project.findProperty("TOMCAT_PORT") ?: "8080"
+    DB_URL = project.findProperty("DB_URL") ?: "jdbc:mysql://localhost/harmonizome"
+    DB_USER = project.findProperty("DB_USER") ?: "harmonizome"
+    DB_PASS = project.findProperty("DB_PASS") ?: "harmonizome"
+}
+
 def webappDir = "${project.projectDir}/src/main/webapp/"
 
 node {
@@ -72,39 +81,46 @@ task buildProject(type: NpmTask) {
 
 build.dependsOn buildProject
 
-def prefix = project.properties["HARMONIZOME_PREFIX"] ?: "Harmonizome"
+// Make system properties available to our tests
+test {
+    useTestNG()
+    systemProperties System.properties
+}
 
 tomcat {
-    httpPort = (project.properties["TOMCAT_PORT"] ?: "8080").toInteger()
-    contextPath = "${prefix}"
+    httpPort = "${TOMCAT_PORT}".toInteger()
+    contextPath = "${HARMONIZOME_PREFIX}"
 }
 
 task createConstantProperties(type: WriteProperties) {
     File constPropFile = file('src/main/resources/constant.properties')
     project.logger.info('Creating constant.properties')
-    property('HARMONIZOME_PREFIX', prefix)
+    property('HARMONIZOME_PREFIX', "${HARMONIZOME_PREFIX}")
     setOutputFile(constPropFile)
     writeProperties()
 }
 
+// We create hibernate properties from the environment to get the database working at runtime
 task createHibernateProperties(type: WriteProperties) {
-    String mysqlHost = project.properties["MYSQL_HOST"] ?: "localhost"
-    String mysqlDatabase = project.properties["MYSQL_DATABASE"] ?: "harmonizome"
-    String mysqlUser = project.properties["MYSQL_USER"] ?: "harmonizome"
-    String mysqlPass = project.properties["MYSQL_PASSWORD"] ?: "emozinomrah"
-    String hibernateUri = "jdbc:mysql://" + mysqlHost + "/" + mysqlDatabase
     File hibernatePropFile = file('src/main/resources/hibernate.properties')
     project.logger.info('Creating hibernate.properties')
-    property('hibernate.connection.username', mysqlUser)
-    property('hibernate.connection.password', mysqlPass)
-    property('hibernate.connection.url', hibernateUri)
+    property('hibernate.connection.username', "${DB_USER}")
+    property('hibernate.connection.password', "${DB_PASS}")
+    property('hibernate.connection.url', "${DB_URL}")
     setOutputFile(hibernatePropFile)
     writeProperties()
+}
+tomcatRun.dependsOn createHibernateProperties
+
+// We don't want hibernate properties in the deployment(s)
+war {
+    rootSpec.exclude '**/hibernate.properties'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
   classifier = 'sources'
   from sourceSets.main.allSource
+  exclude '**/hibernate.properties'
 }
 
 artifacts {
