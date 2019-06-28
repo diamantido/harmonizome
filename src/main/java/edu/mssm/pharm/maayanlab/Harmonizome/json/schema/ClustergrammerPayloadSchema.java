@@ -5,7 +5,7 @@ import java.util.List;
 public class ClustergrammerPayloadSchema {
 
 	String title = "harmonizome";
-	String link = "http://amp.pharm.mssm.edu/Harmonizome/visualize/heat_map/input_genes";
+	String link = "https://amp.pharm.mssm.edu/Harmonizome/visualize/heat_map/input_genes";
 	String filter = "N_row_sum";
 	Boolean is_up_down = false;
 	List<ClustergrammerColumnSchema> columns;

@@ -242,7 +242,7 @@ public class HeatMapApi extends HttpServlet {
     }
 	
 	private JsonElement sendHttpRequestToClustergrammer(ClustergrammerPayloadSchema schema) throws ClientProtocolException, IOException {
-		String url = "http://amp.pharm.mssm.edu/clustergrammer/vector_upload/";
+		String url = "https://amp.pharm.mssm.edu/clustergrammer/vector_upload/";
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost request = new HttpPost(url);
 		StringEntity entity = new StringEntity(gson.toJson(schema));

@@ -60,11 +60,11 @@ public class Constant {
 /* Directories
  *---------------------------------------------------------------------------*/
 	
-	public static final String DATA_DIR = "http://amp.pharm.mssm.edu/static/hdfs/harmonizome/data";
+	public static final String DATA_DIR = "https://amp.pharm.mssm.edu/static/hdfs/harmonizome/data";
 	
-	public static final String ML_DATA_DIR = "http://amp.pharm.mssm.edu/static/hdfs/harmonizome/data/machine_learning";
+	public static final String ML_DATA_DIR = "https://amp.pharm.mssm.edu/static/hdfs/harmonizome/data/machine_learning";
 
-	public static final String HEAT_MAP_IMAGES_DIR = "http://amp.pharm.mssm.edu/static/harmonizome/heat_maps/";
+	public static final String HEAT_MAP_IMAGES_DIR = "https://amp.pharm.mssm.edu/static/harmonizome/heat_maps/";
 	
 	public static final String TEMPLATE_DIR = "/template/";
 

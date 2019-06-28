@@ -40,7 +40,7 @@ def download_datasets(selected_datasets, selected_downloads, decompress=False):
             os.mkdir(dataset)
 
         for downloadable in selected_downloads:
-            url = 'http://amp.pharm.mssm.edu/static/hdfs/harmonizome/data/%s/%s' %\
+            url = 'https://amp.pharm.mssm.edu/static/hdfs/harmonizome/data/%s/%s' %\
                   (path, downloadable)
             response = requests.get(url, stream=True)
             filename = '%s/%s' % (dataset, downloadable)

@@ -4,6 +4,6 @@
 <t:wrapper title="Visualize">
 
 	<script src="script/visualization.js"></script>
-    <iframe src="http://amp.pharm.mssm.edu/harmonogram/"></iframe>
+    <iframe src="https://amp.pharm.mssm.edu/harmonogram/"></iframe>
     
 </t:wrapper>

@@ -59,8 +59,8 @@ def json_from_url(url):
 
 
 VERSION = '1.0'
-API_URL = 'http://amp.pharm.mssm.edu/Harmonizome/api'
-DOWNLOAD_URL = 'http://amp.pharm.mssm.edu/static/hdfs/harmonizome/data'
+API_URL = 'https://amp.pharm.mssm.edu/Harmonizome/api'
+DOWNLOAD_URL = 'https://amp.pharm.mssm.edu/static/hdfs/harmonizome/data'
 
 # This config objects pulls the names of the datasets, their directories, and
 # the possible downloads from the API. This allows us to add new datasets and

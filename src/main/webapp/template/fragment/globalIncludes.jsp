@@ -11,7 +11,7 @@
 <script src="lib/jquery/jquery.min.js"></script>
 <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-<link href="http://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css">
+<link href="https://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css">
 <script src="lib/typeahead/typeahead.bundle.min.js"></script>
 <link href="lib/dataTables/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css">
 <link href="lib/dataTables/responsive.bootstrap.min.css" rel="stylesheet" type="text/css">

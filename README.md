@@ -1,6 +1,6 @@
 # Harmonizome
 
-This repository contains the source code for the [Harmonizome](http://amp.pharm.mssm.edu/Harmonizome/).
+This repository contains the source code for the [Harmonizome](https://amp.pharm.mssm.edu/Harmonizome/).
 
 ## Funding
 
