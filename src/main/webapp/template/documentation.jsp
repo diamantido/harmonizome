@@ -21,18 +21,18 @@
                     <h2>Quick Start in Python</h2>
                     <ul>
                         <li>Download this Python module: <span class="mono"><a href="static/harmonizomeapi.py" target="_blank">harmonizomeapi.py</a></span>.</li>
-                        <li>Call <span class="mono">fetch</span> with a supported <span class="mono">Entity</span>. For example:</li>
+                        <li>Call <span class="mono">get</span> with a supported <span class="mono">Entity</span>. For example:</li>
                     </ul>
-<pre><code class="python">&gt;&gt;&gt; from harmonizomeapi import HarmonizomeAPI, Entity
-&gt;&gt;&gt; pid_dataset = HarmonizomeAPI.fetch(Entity.DATASET, name='PID pathways')</code></pre>
+<pre><code class="python">&gt;&gt;&gt; from harmonizomeapi import Harmonizome, Entity
+&gt;&gt;&gt; pid_dataset = Harmonizome.get(Entity.DATASET, name='PID pathways')</code></pre>
                     <ul>
                         <li>To get a list of the entities, omit the <span class="mono">name</span>.</li>
                     </ul>
-<pre><code class="python">&gt;&gt;&gt; entity_list = HarmonizomeAPI.fetch(Entity.GENE)</code></pre>
+<pre><code class="python">&gt;&gt;&gt; entity_list = Harmonizome.get(Entity.GENE)</code></pre>
                     <ul>
                         <li>To get more of the same entity, pass in the response object to the <span class="mono">next</span> function.</li>
                     </ul>
-<pre><code class="python">&gt;&gt;&gt; more = HarmonizomeAPI.next(entity_list)</code></pre>
+<pre><code class="python">&gt;&gt;&gt; more = Harmonizome.next(entity_list)</code></pre>
                 </section>
                 <section>
                     <h2>Traversing the URLs</h2>
