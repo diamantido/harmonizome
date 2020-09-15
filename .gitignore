@@ -1,6 +1,7 @@
 # Sensitive information
 src/main/resources/*.properties
 deploy.sh
+.env
 
 # Personal scripts and migration files
 scripts/
@@ -8,7 +9,7 @@ migrations/
 
 # Maven generated files
 target/
-bin/
+/bin/
 
 # Eclipse and IntelliJ
 .project
@@ -53,6 +54,7 @@ gradle.properties
 
 # Node
 node_modules
+npm-debug.log
 package-lock.json
 
 # Grunt generated

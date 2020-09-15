@@ -1,0 +1,9 @@
+version: '3'
+services:
+  harmonizome:
+    build: .
+    image: maayanlab/harmonizome:1.0.11
+    environment:
+      DB_URL: ${DB_URL}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
