@@ -36,7 +36,7 @@
 					user data. Queries and uploaded data from users are anonymously
 					stored and not linked to any user information. If you have any
 					questions regarding our privacy policy please <a
-						href="https://amp.pharm.mssm.edu/Harmonizome/contact">contact
+						href="${Constant.ORIGIN()}/${Constant.HARMONIZOME_PREFIX()}/contact">contact
 						us</a>.
 				</p>
 			</div>

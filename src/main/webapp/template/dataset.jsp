@@ -17,7 +17,7 @@
                         "@type": "DataDownload",
                         "name": "${download.downloadType.name}",
                         "description": "${download.downloadType.description}",
-                        "contentUrl": "${Constant.DATA_DIR}/${dataset.directory}/${download.downloadType.filename}"
+                        "contentUrl": "${Constant.DATA_DIR()}/${dataset.directory}/${download.downloadType.filename}"
                     }<c:if test="${!loop.last}">,</c:if>
                 </c:forEach>
             ],
@@ -131,7 +131,7 @@
                         <td class="col-md-10">
                             <ul class="list-unstyled">
                                 <c:forEach var="download" items="${dataset.sortedDownloads}">
-                                    <li><a href="${Constant.DATA_DIR}/${dataset.directory}/${download.downloadType.filename}" target="_blank">
+                                    <li><a href="${Constant.DATA_DIR()}/${dataset.directory}/${download.downloadType.filename}" target="_blank">
                                         <span class="capitalize"
                                             download-id="${download.id}">
                                             <c:out value="${download.downloadType.name}"/>
@@ -153,7 +153,7 @@
                             <li>
                                 <p><strong><c:out value="${cfn:convertVizTypeToPlainText(heatMap.type)}"/></strong></p>
                                 <img class="preview"
-                                    src="${Constant.HEAT_MAP_IMAGES_DIR}/${heatMap.type}/${heatMap.image}"
+                                    src="${Constant.HEAT_MAP_IMAGES_DIR()}/${heatMap.type}/${heatMap.image}"
                                     data-heat-map-type="${heatMap.type}"
                                     data-heat-map-dataset="${dataset.name}"
                                     data-heat-map-url="${Constant.HEAT_MAPS_API_URL}"/>

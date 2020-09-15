@@ -37,9 +37,9 @@ public class MachineLearningPages extends HttpServlet {
 	}
 
 	private static String note = "Machine Learning Case Study";
-	
+
 	private static String filename = "allpredictions.txt.gz";
-	
+
 	// TODO: When the Harmonizome is properly published, GREP for this variable
 	// and fix all links.
 	private static String pubWarning = "This link will be available upon publication.";
@@ -91,8 +91,8 @@ public class MachineLearningPages extends HttpServlet {
 			return dir + "machine_learning.jsp";
 		return dir + path + ".jsp";
 	}
-	
+
 	private String pathToMLDataDownloadUrl(String path) {
-		return Constant.ML_DATA_DIR + "/" + path + "/" + filename;
+		return Constant.ML_DATA_DIR() + "/" + path + "/" + filename;
 	}
 }

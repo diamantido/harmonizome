@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.mssm.pharm.maayanlab.Harmonizome.util.Constant;
+
 @WebServlet(urlPatterns = { "/Harmonizome-ML", "/Harmonizome-ML/*" })
 public class HarmonizomeMLRedirect extends HttpServlet {
 
@@ -15,6 +17,6 @@ public class HarmonizomeMLRedirect extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("https://amp.pharm.mssm.edu/Harmonizome-ML");
+		response.sendRedirect(Constant.HARMONIZOME_ML_URL());
 	}
 }

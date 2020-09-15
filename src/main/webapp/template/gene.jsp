@@ -1,6 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="utf-8" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.Association" %>
+<%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
@@ -73,7 +74,7 @@
 				<tr>
                     <td class="col-md-2">Predicted Functions</td>
                     <td class="col-md-10">
-                        <a href="https://amp.pharm.mssm.edu/archs4/gene/${gene.symbol}" target="_blank">
+                        <a href="${Constant.ARCHS4_URL()}/gene/${gene.symbol}" target="_blank">
                             <img src="image/resource/archs-42.png" width=100 alt="View ${gene.symbol}'s ARCHS4 Predicted Functions."><br />
                         </a>
                     </td>
@@ -81,7 +82,7 @@
 				<tr>
                     <td class="col-md-2">Co-expressed Genes</td>
                     <td class="col-md-10">
-                        <a href="https://amp.pharm.mssm.edu/archs4/gene/${gene.symbol}#correlation" target="_blank">
+                        <a href="${Constant.ARCHS4_URL()}/gene/${gene.symbol}#correlation" target="_blank">
                             <img src="image/resource/archs-42.png" width=100 alt="View ${gene.symbol}'s ARCHS4 Predicted Functions."><br />
                         </a>
                     </td>
@@ -89,7 +90,7 @@
 				<tr>
                     <td class="col-md-2">Expression in Tissues and Cell Lines</td>
                     <td class="col-md-10">
-                        <a href="https://amp.pharm.mssm.edu/archs4/gene/${gene.symbol}#tissueexpression" target="_blank">
+                        <a href="${Constant.ARCHS4_URL()}/gene/${gene.symbol}#tissueexpression" target="_blank">
                             <img src="image/resource/archs-42.png" width=100 alt="View ${gene.symbol}'s ARCHS4 Predicted Functions."><br />
                         </a>
                     </td>

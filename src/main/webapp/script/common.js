@@ -19,7 +19,7 @@ $(function () {
         setupEnrichrLink();
     }
 
-    /* --------------------------------------------------------------------- */ 
+    /* --------------------------------------------------------------------- */
 
     /* Gets the attribute and dataset from the URL.
      */
@@ -87,7 +87,7 @@ $(function () {
 
         var form = document.createElement('form');
         form.setAttribute('method', 'post');
-        form.setAttribute('action', 'https://amp.pharm.mssm.edu/Enrichr/enrich');
+        form.setAttribute('action', window._config.ENRICHR_URL + '/enrich');
         form.setAttribute('target', '_blank');
         form.setAttribute('enctype', 'multipart/form-data');
 

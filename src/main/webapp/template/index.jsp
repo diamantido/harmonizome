@@ -7,11 +7,11 @@
 		{
 			"@context": "http://schema.org",
 			"@type": "WebSite",
-			"url": "https://amp.pharm.mssm.edu/Harmonizome/",
+			"url": "${Constant.ORIGIN()}/${Constant.HARMONIZOME_PREFIX()}/",
 			"potentialAction": [
 				{
 					"@type": "SearchAction",
-					"target": "https://amp.pharm.mssm.edu/Harmonizome/search?t=all&q={query}",
+					"target": "${Constant.ORIGIN()}/${Constant.HARMONIZOME_PREFIX()}/${Constant.SEARCH_URL}?t=all&q={query}",
 					"query-input": "required name=query"
 				}
 			]

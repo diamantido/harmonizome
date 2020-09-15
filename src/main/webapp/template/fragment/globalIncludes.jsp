@@ -1,3 +1,5 @@
+<%@ tag import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,6 +23,11 @@
 <link href="dist/style/common.css" rel="stylesheet" type="text/css">
 <link href="dist/style/pages.css" rel="stylesheet" type="text/css">
 <link href="dist/style/overrides.css" rel="stylesheet" type="text/css">
+<script>
+	window._config = {
+		ENRICHR_URL: "${Constant.ENRICHR_URL()}",
+	}
+</script>
 <script src="script/common.js"></script>
 
 <script>

@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <base href="/<%= Constant.HARMONIZOME_PREFIX %>/" />
+        <base href="/<%= Constant.HARMONIZOME_PREFIX() %>/" />
         <%@include file="/template/fragment/globalIncludes.jsp" %>
         <c:choose>
             <c:when test="${not empty title}">

@@ -55,7 +55,7 @@ import edu.mssm.pharm.maayanlab.common.database.HibernateUtil;
 public class HeatMapApi extends HttpServlet {
 
 	private static final long serialVersionUID = -7885353436714737700L;
-	
+
 	private static Gson gson;
 
     static {
@@ -167,7 +167,7 @@ public class HeatMapApi extends HttpServlet {
 
     private void addImage(Map<String, String> schema, DatasetVisualizationAbstract dv, String type) {
         if (dv.getImage() != null) {
-            String imageLink = Constant.HEAT_MAP_IMAGES_DIR + type + "/" + dv.getImage();
+            String imageLink = Constant.HEAT_MAP_IMAGES_DIR() + type + "/" + dv.getImage();
             schema.put("imageLink", imageLink);
         }
     }
@@ -183,16 +183,16 @@ public class HeatMapApi extends HttpServlet {
         out.write(json);
         out.flush();
     }
-    
+
 	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String dataset = request.getParameter("dataset");
 		String[] inputGenes = request.getParameterValues("genes[]");
-		
+
 		try {
             HibernateUtil.beginTransaction();
             List<Object[]> overlappingGenesWithAssociations = GeneDao.getWithAssociationsByDatasetAndInputGenes(dataset, inputGenes);
-            
+
             Set<String> assocsAdded = new HashSet<String>();
             List<ClustergrammerColumnSchema> columns = new ArrayList<ClustergrammerColumnSchema>();
             for (Object[] tuple : overlappingGenesWithAssociations) {
@@ -225,13 +225,13 @@ public class HeatMapApi extends HttpServlet {
             }
 
             ClustergrammerPayloadSchema schema = new ClustergrammerPayloadSchema(columns);
-            
+
             JsonElement results = sendHttpRequestToClustergrammer(schema);
             PrintWriter out = response.getWriter();
             String json = gson.toJson(results);
 			out.write(json);
 			out.flush();
-			
+
 	        HibernateUtil.commitTransaction();
         } catch (HibernateException he) {
             he.printStackTrace();
@@ -240,16 +240,16 @@ public class HeatMapApi extends HttpServlet {
             HibernateUtil.close();
         }
     }
-	
+
 	private JsonElement sendHttpRequestToClustergrammer(ClustergrammerPayloadSchema schema) throws ClientProtocolException, IOException {
-		String url = "https://amp.pharm.mssm.edu/clustergrammer/vector_upload/";
+		String url = Constant.CLUSTERGRAMMER_URL() + "/vector_upload/";
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost request = new HttpPost(url);
 		StringEntity entity = new StringEntity(gson.toJson(schema));
 		request.setEntity(entity);
 		HttpResponse response = httpClient.execute(request);
 		InputStream ips = response.getEntity().getContent();
-		
+
 		BufferedReader buf = new BufferedReader(new InputStreamReader(ips, "UTF-8"));
 		StringBuilder sb = new StringBuilder();
 		String s;
