@@ -1,19 +1,22 @@
+// Gradle version 7.0
+
 buildscript {
     repositories {
+        gradlePluginPortal()
         jcenter()
         maven { url "https://plugins.gradle.org/m2/" }
     }
 
     dependencies {
-        classpath 'com.bmuschko:gradle-tomcat-plugin:2.4.2'
-        classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+        classpath 'com.bmuschko:gradle-tomcat-plugin:2.5'
+        classpath 'com.github.node-gradle:gradle-node-plugin:2.2.4'
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'war'
-apply plugin: 'com.moowork.node'
+apply plugin: 'com.github.node-gradle.node'
 apply plugin: 'com.bmuschko.tomcat'
 
 group = 'edu.mssm.pharm.maayanlab.Harmonizome'
@@ -71,7 +74,6 @@ task prepareNpm(type: NpmTask) {
 }
 
 task buildProject(type: NpmTask) {
-    inputs.file("${webappDir}/.babelrc")
     inputs.file("${webappDir}/gruntfile.js")
     inputs.files fileTree(webappDir).include('**/*.js').include('**/*.css').exclude('dist/**').exclude('lib/**').exclude('node_modules/**')
     outputs.dir("${webappDir}/dist")
@@ -112,14 +114,16 @@ task createHibernateProperties(type: WriteProperties) {
 }
 tomcatRun.dependsOn createHibernateProperties
 
-// We don't want hibernate properties in the deployment(s)
+// We don't want local properties in the deployment(s)
 war {
-    rootSpec.exclude '**/hibernate.properties'
+  rootSpec.exclude '**/constant.properties'
+  rootSpec.exclude '**/hibernate.properties'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
   classifier = 'sources'
   from sourceSets.main.allSource
+  exclude '**/constant.properties'
   exclude '**/hibernate.properties'
 }
 
