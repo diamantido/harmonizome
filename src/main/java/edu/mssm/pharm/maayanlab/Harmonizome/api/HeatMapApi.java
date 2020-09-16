@@ -161,7 +161,7 @@ public class HeatMapApi extends HttpServlet {
     private void addClustergrammerLink(Map<String, String> schema, DatasetVisualizationAbstract dv, String rowLabel, String colLabel) {
         if (dv.getClustergrammerLink() != null) {
             String queryString = "?row_label=" + rowLabel + "&col_label=" + colLabel;
-            schema.put("clustergrammerLink", dv.getClustergrammerLink() + queryString);
+            schema.put("clustergrammerLink", Constant.CLUSTERGRAMMER_URL() + dv.getClustergrammerLink() + queryString);
         }
     }
 
