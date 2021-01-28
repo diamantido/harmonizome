@@ -124,7 +124,7 @@ public class GenericDao {
 			.getCurrentSession()
 			.createSQLQuery(sql)
 			.addEntity(klass)
-			.setString("query", "*" + query + "*")
+			.setString("query", query + "*")
             .setMaxResults(Constant.DB_MAX_RESULTS)
 			.list();
 	}
@@ -153,7 +153,7 @@ public class GenericDao {
 			.getCurrentSession()
 			.createSQLQuery(sql)
 			.addEntity(klass)
-			.setString("query", "*" + query + "*")
+			.setString("query", query + "*")
             .setMaxResults(Constant.DB_MAX_RESULTS)
 			.list();
 	}
@@ -190,7 +190,7 @@ public class GenericDao {
 		return (List<String>) HibernateUtil
 			.getCurrentSession()
 			.createSQLQuery(sql)
-			.setString("query", "*" + query + "*")
+			.setString("query", query + "*")
 			.list();
 	}
 }
