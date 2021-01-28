@@ -16,6 +16,8 @@ public class UserSearchDao {
             "WHERE query.keywords = :text"
         );
         query.setString("text", text);
+        query.setFirstResult(0);
+        query.setMaxResults(1);
 
         UserSearch search = (UserSearch) query.uniqueResult();
         if (search != null) {
