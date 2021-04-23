@@ -87,6 +87,11 @@ HARMONIZOME.heatMaps = (function() {
         return attribute + 's';
     }
 
+    function ensureHttps(link) {
+        var m = /^https?(:\/\/.+)$/.exec(link);
+        return 'https' + m[1];
+    }
+
     function getIframeOrImage(data) {
         var image;
         if (typeof data.clustergrammerLink !== 'undefined') {
@@ -214,7 +219,7 @@ HARMONIZOME.heatMaps = (function() {
     		promise.done(function(data) {
     			loader.stop();
             	var data = JSON.parse(data);
-            	data.clustergrammerLink = data.link;
+            	data.clustergrammerLink = ensureHttps(data.link);
             	data.colLabel = 'columns';
             	data.rowLabel = 'rows';
             	showHeatMapLink(data);
