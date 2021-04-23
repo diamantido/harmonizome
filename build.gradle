@@ -81,7 +81,7 @@ task buildProject(type: NpmTask) {
     args = [ "run", "build" ]
 }
 
-build.dependsOn buildProject
+war.dependsOn buildProject
 
 // Make system properties available to our tests
 test {
