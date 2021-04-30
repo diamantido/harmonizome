@@ -4,16 +4,17 @@
 import gzip
 import json
 import os
+import logging
 
 # Support for both Python2.X and 3.X.
 # -----------------------------------------------------------------------------
 try:
-    from io import StringIO
+    from io import BytesIO
     from urllib.request import urlopen
     from urllib.error import HTTPError
     from urllib.parse import quote_plus
 except ImportError:
-    from StringIO import StringIO
+    from StringIO import StringIO as BytesIO
     from urllib2 import urlopen, HTTPError
     from urllib import quote_plus
 
@@ -102,10 +103,10 @@ class Harmonizome(object):
         return cls.get(entity=entity, start_at=start_at)
 
     @classmethod
-    def download(cls, datasets=None):
+    def download(cls, datasets=None, what=None):
         """For each dataset, creates a directory and downloads files into it.
         """
-        # Why not check `if not datasets`? Because in principle, a user could
+        # Why not check `if not datasets`? Because in principle, a user could 
         # call `download([])`, which should download nothing, not everything.
         # Why might they do this? Imagine that the list of datasets is
         # dynamically generated in another user script.
@@ -125,24 +126,41 @@ class Harmonizome(object):
             if not os.path.exists(dataset):
                 os.mkdir(dataset)
 
-            for dl in DOWNLOADS:
+            if what is None:
+                what = DOWNLOADS
+
+            for dl in what:
                 path = DATASET_TO_PATH[dataset]
                 url = '%s/%s/%s' % (DOWNLOAD_URL, path, dl)
 
                 try:
                     response = urlopen(url)
-                except HTTPError:
+                except HTTPError as e:
                     # Not every dataset has all downloads.
-                    pass
+                    if what is not None:
+                        raise Exception('Error downloading from %s: %s' % (url, e))
 
                 filename = '%s/%s' % (dataset, dl)
                 filename = filename.replace('.gz', '')
 
                 if response.code != 200:
                     raise Exception('This should not happen')
+                
+                if os.path.isfile(filename):
+                    logging.info('Using cached `%s`' % (filename))
+                else:
+                    logging.info('Downloading `%s`' % (filename))
+                    _download_and_decompress_file(response, filename)
 
-                _download_and_decompress_file(response, filename)
+                yield filename
 
+    @classmethod
+    def download_df(cls, datasets=None, what=None, sparse=False, **kwargs):
+        for file in cls.download(datasets, what):
+            if sparse:
+                yield _read_as_sparse_dataframe(file, **kwargs)
+            else:
+                yield _read_as_dataframe(file, **kwargs)
 
 # Utility functions
 # -------------------------------------------------------------------------
@@ -181,19 +199,155 @@ def _get_next(response):
 def _download_and_decompress_file(response, filename):
     """Downloads and decompresses a single file from a response object.
     """
-    compressed_file = StringIO()
-    compressed_file.write(response.read())
-    compressed_file.seek(0)
-    decompressed_file = gzip.GzipFile(fileobj=compressed_file, mode='rb')
-    with open(filename, 'w+') as outfile:
-        outfile.write(decompressed_file.read())
-
-
-def _download_and_decompress_file(response, filename):
-    """
-    """
-    compressed_file = io.BytesIO(response.read())
+    compressed_file = BytesIO(response.read())
     decompressed_file = gzip.GzipFile(fileobj=compressed_file)
 
     with open(filename, 'wb+') as outfile:
         outfile.write(decompressed_file.read())
+
+
+def _getfshape(fn, row_sep='\n', col_sep='\t', open_args={}):
+    ''' Fast and efficient way of finding row/col height of file '''
+    with open(fn, 'r', newline=row_sep, **open_args) as f:
+        col_size = f.readline().count(col_sep) + 1
+        row_size = sum(1 for line in f) + 1
+        return (row_size, col_size)
+
+def _parse(fn, column_size=3, index_size=3, shape=None,
+          index_fmt=None, data_fmt=None,
+          index_dtype=None, data_dtype=None,
+          col_sep='\t', row_sep='\n',
+          open_args={}):
+    '''
+    Smart(er) parser for processing matrix formats. Evaluate size and construct
+     ndframes with the right size before parsing, this allows for more efficient
+     loading of sparse dataframes as well. To obtain a sparse representation use:
+         data_fmt=scipy.lil_matrix
+    This only works if all of the data is of the same type, if it isn't a float
+     use:
+         data_dtype=np.float64
+    
+    Returns:
+        (column_names, columns, index_names, index, data)
+    '''
+    import numpy as np
+
+    if index_fmt is None: index_fmt = np.ndarray
+    if data_fmt is None: data_fmt = np.ndarray
+    if index_dtype is None: index_dtype = np.object
+    if data_dtype is None: data_dtype = np.float64
+
+    if shape is not None:
+        rows, cols = shape
+    else:
+        rows, cols = _getfshape(fn, row_sep=row_sep, col_sep=col_sep, open_args=open_args)
+
+    columns = index_fmt((column_size, cols - index_size), dtype=index_dtype)
+    index = index_fmt((rows - column_size, index_size), dtype=index_dtype)
+    data = data_fmt((rows - column_size, cols - index_size), dtype=data_dtype)
+
+    with open(fn, 'r', newline=row_sep, **open_args) as fh:
+        header = np.array([next(fh).strip().split(col_sep)
+                           for _ in range(column_size)])
+
+        column_names = header[:column_size, index_size - 1]
+        index_names = header[column_size - 1, :index_size]
+
+        columns[:, :] = header[:column_size, index_size:]
+
+        for ind, line in enumerate(fh):
+            lh = line.strip().split(col_sep)
+            index[ind, :] = lh[:index_size]
+            data[ind, :] = lh[index_size:]
+
+        return (column_names, columns, index_names, index, data)
+
+def _parse_df(fn, sparse=False, default_fill_value=None,
+             column_apply=None, index_apply=None, df_args={},
+             **kwargs):
+    import numpy as np
+    import pandas as pd
+    from scipy.sparse import lil_matrix
+
+    data_fmt = lil_matrix if sparse else np.ndarray
+    df_type = pd.SparseDataFrame if sparse else pd.DataFrame
+    (
+        column_names, columns,
+        index_names, index,
+        data,
+    ) = _parse(fn, data_fmt=data_fmt, **kwargs)
+
+    if column_apply is not None:
+        column_names, columns = column_apply(column_names.T, columns.T)
+    else:
+        column_names, columns = (column_names.T, columns.T)
+
+    if index_apply is not None:
+        index_names, index = index_apply(index_names, index)
+
+    return df_type(
+        data=data.tocsr() if sparse else data,
+        index=pd.Index(
+            data=index,
+            name=str(index_names),
+            dtype=np.object,
+        ),
+        columns=pd.Index(
+            data=columns,
+            name=str(column_names),
+            dtype=np.object,
+        ),
+        **df_args,
+    )
+
+def _df_column_uniquify(df):
+    df_columns = df.columns
+    new_columns = []
+    for item in df_columns:
+            counter = 0
+            newitem = item
+            while newitem in new_columns:
+                    counter += 1
+                    newitem = "{}_{}".format(item, counter)
+            new_columns.append(newitem)
+    df.columns = new_columns
+    return df
+
+def _json_ind_no_slash(ind_names, ind):
+    return (
+        json.dumps([ind_name.replace('/', '|')
+                    for ind_name in ind_names]),
+        [json.dumps([ii.replace('/', '|')
+                     for ii in i])
+         for i in ind],
+    )
+
+def _read_as_dataframe(fn):
+    ''' Standard loading of dataframe '''
+    if fn.endswith('gene_attribute_matrix.txt'):
+        return _df_column_uniquify(_parse_df(
+            fn,
+            sparse=False,
+            index_apply=_json_ind_no_slash,
+            column_apply=_json_ind_no_slash,
+            open_args=dict(encoding="latin-1"),
+        ))
+    elif fn.endswith('gene_list_terms.txt') or fn.endswith('attribute_list_entries.txt'):
+        import pandas as pd
+        return pd.read_table(fn, encoding="latin-1", index_col=None)
+    else:
+        raise Exception('Unable to parse this file into a dataframe.')
+
+def _read_as_sparse_dataframe(fn, blocksize=10e6, fill_value=0):
+    ''' Efficient loading sparse dataframe '''
+    if fn.endswith('gene_attribute_matrix.txt'):
+        return _df_column_uniquify(_parse_df(
+            fn,
+            sparse=True,
+            index_apply=_json_ind_no_slash,
+            column_apply=_json_ind_no_slash,
+            df_args=dict(default_fill_value=0),
+            open_args=dict(encoding="latin-1"),
+        ))
+    else:
+        raise Exception('Unable to parse this file into a dataframe.')
