@@ -110,7 +110,8 @@ task createHibernateProperties(type: WriteProperties) {
     setOutputFile(hibernatePropFile)
     writeProperties()
 }
-tomcatRun.dependsOn createHibernateProperties
+
+processResources.dependsOn createHibernateProperties
 
 // We don't want local properties in the deployment(s)
 war {
