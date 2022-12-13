@@ -90,7 +90,7 @@ public class GenePage extends HttpServlet {
 
             	// [GeneSym] has [Number of associations] functional associations with biological entities 
                 // spanning [Number of attribute categories] categories ([semi-colon delimited list of categories]) 
-                // extracted from [Number of datasets] datasets”.
+                // extracted from [Number of datasets] datasets.
                 String allAssociationsSummary = gene.getSymbol() +
                         " has " + NumberFormat.getInstance().format(numAssociations) +
                         " functional associations with biological entities spanning " + numCategories +
