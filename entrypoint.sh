@@ -28,14 +28,14 @@ find overrides/pre -type f -print | while IFS= read -r INPATH; do
   envsubst < ${INPATH} > ${OUTPATH}
 done
 
-
+chmod +x "${CATALINA_HOME}/bin/setenv.sh"
 catalina.sh run &
 PID=$1
 
 echo "Waiting for it to start..."
 while true; do
-  URL="http://localhost:8080/${HARMONIZOME_PREFIX}/"
-  PROBE="$(curl --silent --connect-timeout 1 --write-out '%{response_code}' -o /dev/null ${URL})"
+  URL="http://localhost:8080/${HARMONIZOME_PREFIX}/about"
+  PROBE="$(curl --silent -m 1 --write-out '%{response_code}' -o /dev/null ${URL})"
   echo "GET ${URL} returned ${PROBE}"
   if [ "${PROBE}" -eq "200" ]; then
     echo "Post initialization overrides..."
