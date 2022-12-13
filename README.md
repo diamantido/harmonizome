@@ -37,7 +37,7 @@ gradle tomcatRun
 Gradle is used to assemble a war file to be deployed with a tomcat8-base docker image.
 ```
 # Build and assemble war file
-gradle install
+gradle war
 
 # Construct docker image
 docker build -t maayanlab/harmonizome:latest .
