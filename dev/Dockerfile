@@ -13,9 +13,9 @@ RUN \
 ENV GRADLE_HOME=/usr/local/gradle-7.0
 ENV PATH=$PATH:$GRADLE_HOME/bin JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 
+WORKDIR /work
+
 ADD entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
-
-WORKDIR /work
 
 CMD [ "/entrypoint.sh" ]
