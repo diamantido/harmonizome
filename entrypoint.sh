@@ -13,8 +13,17 @@ if [ -z "${STATIC_URL}" ]; then
 fi
 
 if [ -z "${DB_URL}" ]; then
-  echo "Missing DB_URL"
-  exit 1
+  if [ "${DATABASE_URL}" != "" ]; then
+    DB_CONFIG=$(sed 's/^\(mysql\|mariadb\):\/\/\([^:]\+\):\([^@]\+\)@\([^:]\+\):\([0-9]\+\)\/\(.\+\)/\1 \2 \3 \4 \5 \6/g' <<< "${DATABASE_URL}")
+    read -r DB_PROTO DB_USER DB_PASS DB_HOST DB_PORT DB_DATABASE <<< "${DB_CONFIG}"
+    export DB_URL="jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_DATABASE}"
+    export DB_USER="${DB_USER}"
+    export DB_PASS="${DB_PASS}"
+    echo "${DATABASE_URL} => DB_URL=${DB_URL}, DB_USER=${DB_USER}, DB_PASS=${DB_PASS}"
+  else
+    echo "Missing DB_URL"
+    exit 1
+  fi
 fi
 
 # Pre-init
