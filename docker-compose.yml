@@ -15,3 +15,11 @@ services:
     environment:
       MARIADB_USER: ${DB_USER}
       MARIADB_PASSWORD: ${DB_PASS}
+
+  dev:
+    build:
+      context: ./dev
+    image: dev
+    network_mode: host
+    volumes:
+    - ./:/work
