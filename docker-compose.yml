@@ -7,3 +7,11 @@ services:
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
+
+  mariadb:
+    image: mariadb
+    ports:
+      - 3306:3306
+    environment:
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASS}
