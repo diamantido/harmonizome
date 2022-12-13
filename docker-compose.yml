@@ -2,7 +2,9 @@ version: '3'
 services:
   harmonizome:
     build: .
-    image: maayanlab/harmonizome:1.0.16
+    image: maayanlab/harmonizome:${HARMONIZOME_VERSION}
+    ports:
+      - 8080:8080
     environment:
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
@@ -13,13 +15,18 @@ services:
     ports:
       - 3306:3306
     environment:
+      MARIADB_DATABASE: harmonizome
       MARIADB_USER: ${DB_USER}
       MARIADB_PASSWORD: ${DB_PASS}
+      MARIADB_RANDOM_ROOT_PASSWORD: 'true'
+    command: mysqld --innodb-buffer-pool-size=16G
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
 
   dev:
     build:
       context: ./dev
-    image: dev
+    image: maayanlab/harmonizome-builder:${HARMONIZOME_VERSION}
     network_mode: host
     volumes:
     - ./:/work
