@@ -7,6 +7,6 @@ ADD ./overrides overrides
 ADD ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-ADD build/libs/harmonizome*.war Harmonizome.war
+ADD build/libs/work.war Harmonizome.war
 
 CMD /entrypoint.sh

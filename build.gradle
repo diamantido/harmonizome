@@ -29,16 +29,16 @@ repositories {
 }
 
 dependencies {
-  def tomcatVersion = '8.0.42'
+  def tomcatVersion = '8.5.16'
   tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
-        "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
+        // "org.apache.tomcat.embed:tomcat-embed-logging-juli:8.5.2",
         "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
 
   implementation group: 'org.apache.tomcat', name: 'tomcat-jdbc', version:"${tomcatVersion}"
   implementation group: 'javax.servlet', name: 'jstl', version:'1.2'
   implementation group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
   implementation group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.5.2'
-  implementation group: 'mysql', name: 'mysql-connector-java', version:'5.1.22'
+  implementation group: 'mysql', name: 'mysql-connector-java', version:'8.0.31'
   implementation group: 'org.hibernate', name: 'hibernate-core', version:'4.1.8.Final'
   implementation 'com.github.MaayanLab.common:common-database:master-SNAPSHOT'
   implementation group: 'org.hibernate', name: 'hibernate-c3p0', version:'3.6.3.Final'
@@ -88,6 +88,9 @@ test {
 }
 
 tomcat {
+    httpProtocol = 'org.apache.coyote.http11.Http11Nio2Protocol'
+    ajpProtocol  = 'org.apache.coyote.ajp.AjpNio2Protocol'
+
     httpPort = "${TOMCAT_PORT}".toInteger()
     contextPath = "${HARMONIZOME_PREFIX}"
 }
