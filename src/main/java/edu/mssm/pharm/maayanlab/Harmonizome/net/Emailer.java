@@ -1,13 +1,10 @@
 package edu.mssm.pharm.maayanlab.Harmonizome.net;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -18,34 +15,24 @@ public class Emailer {
 	
 	private static final Properties props = new Properties();
 	static {
-		props.put("mail.smtp.auth", "true");
+        props.put("mail.transport.protocol", "smtp");
+        props.put("mail.smtp.port", System.getenv("SMTP_PORT")); //"587");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-        try {
-			ClassLoader loader = Thread.currentThread().getContextClassLoader();
-			InputStream resource = loader.getResourceAsStream("email.properties");
-			System.out.println(resource);
-			props.load(resource);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 	}
 
 	public static void send(String user, String topic, String body) throws UnsupportedEncodingException {
-		final String botEmail = props.getProperty("email.username");
-		final String botPassword = props.getProperty("email.password");
-		String avi = props.getProperty("email.avi");
-		String andrew = props.getProperty("email.andrew");
-		String greg = props.getProperty("email.greg");
+        final String host = System.getenv("SMTP_HOST");
+		final String botEmail = System.getenv("FROM_EMAIL");
+        final String botUser = System.getenv("FROM_USER");
+		final String botPassword = System.getenv("FROM_PASS");
+        String avi = System.getenv("EMAIL_AVI");
+		String daniel = System.getenv("EMAIL_DANIEL");
+		String ido = System.getenv("EMAIL_IDO");
 		
-        Session session = Session.getInstance(props,
-        	new javax.mail.Authenticator() {
-            	protected PasswordAuthentication getPasswordAuthentication() {
-            		return new PasswordAuthentication(botEmail, botPassword);
-            	}
-            });
-        
+        Session session = Session.getDefaultInstance(props);
+
         StringBuilder finalMessage = new StringBuilder();
         finalMessage.append("From: " + user);
         finalMessage.append(System.lineSeparator());
@@ -58,11 +45,15 @@ public class Emailer {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(botEmail, "Harmonizome Bot"));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(avi));
-            msg.addRecipient(Message.RecipientType.CC, new InternetAddress(andrew));
-            msg.addRecipient(Message.RecipientType.CC, new InternetAddress(greg));
+            msg.addRecipient(Message.RecipientType.CC, new InternetAddress(daniel));
+            msg.addRecipient(Message.RecipientType.CC, new InternetAddress(ido));
             msg.setSubject("Feedback from user " + user);
             msg.setText(finalMessage.toString());
-            Transport.send(msg);
+
+            Transport transport = session.getTransport();
+            transport.connect(host, botUser, botPassword);
+            transport.sendMessage(msg, msg.getAllRecipients());
+            transport.close();
         } catch (AddressException e) {
         	e.printStackTrace();
         } catch (MessagingException e) {
