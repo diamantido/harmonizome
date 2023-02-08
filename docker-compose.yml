@@ -9,6 +9,13 @@ services:
       DB_URL: ${DB_URL}
       DB_USER: ${DB_USER}
       DB_PASS: ${DB_PASS}
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT}
+      FROM_EMAIL: ${FROM_EMAIL}
+      FROM_USER: ${FROM_USER}
+      FROM_PASS: ${FROM_PASS}
+      EMAIL_TO: ${EMAIL_TO}
+      EMAIL_CC: ${EMAIL_CC}
 
   mariadb:
     image: mariadb

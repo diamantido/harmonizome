@@ -27,10 +27,8 @@ public class Emailer {
 		final String botEmail = System.getenv("FROM_EMAIL");
         final String botUser = System.getenv("FROM_USER");
 		final String botPassword = System.getenv("FROM_PASS");
-        String avi = System.getenv("EMAIL_TO");
-        String[] cc = System.getenv("EMAIL_CC").split(",");
-		String daniel = cc[0];
-		String ido = cc[1];
+        String to = System.getenv("EMAIL_TO");
+        String cc = System.getenv("EMAIL_CC");
 		
         Session session = Session.getDefaultInstance(props);
 
@@ -45,9 +43,21 @@ public class Emailer {
         try {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(botEmail, "Harmonizome Bot"));
-            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(avi));
-            msg.addRecipient(Message.RecipientType.CC, new InternetAddress(daniel));
-            msg.addRecipient(Message.RecipientType.CC, new InternetAddress(ido));
+            if(to.isBlank() || to==null) {
+                throw new MessagingException("No recipient was specified.");
+            } else {
+                String[] tos = to.split(",");
+                for(String address : tos) {
+                    msg.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
+                }
+            }
+            if(!cc.isBlank() && cc!=null){
+                String[] ccs = cc.split(",");
+                for(String address : ccs){
+                    msg.addRecipient(Message.RecipientType.CC, new InternetAddress(address));
+                } 
+
+            }
             msg.setSubject("Feedback from user " + user);
             msg.setText(finalMessage.toString());
 
