@@ -27,9 +27,10 @@ public class Emailer {
 		final String botEmail = System.getenv("FROM_EMAIL");
         final String botUser = System.getenv("FROM_USER");
 		final String botPassword = System.getenv("FROM_PASS");
-        String avi = System.getenv("EMAIL_AVI");
-		String daniel = System.getenv("EMAIL_DANIEL");
-		String ido = System.getenv("EMAIL_IDO");
+        String avi = System.getenv("EMAIL_TO");
+        String[] cc = System.getenv("EMAIL_CC").split(",");
+		String daniel = cc[0];
+		String ido = cc[1];
 		
         Session session = Session.getDefaultInstance(props);
 
