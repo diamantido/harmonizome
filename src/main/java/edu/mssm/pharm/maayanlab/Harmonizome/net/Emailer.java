@@ -12,24 +12,24 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Emailer {
+
+    private static final String host = System.getenv("SMTP_HOST");
+    private static final String botEmail = System.getenv("FROM_EMAIL");
+    private static final String botUser = System.getenv("FROM_USER");
+    private static final String botPassword = System.getenv("FROM_PASS");
+    private static final String to = System.getenv("EMAIL_TO");
+    private static final String cc = System.getenv("EMAIL_CC");
 	
 	private static final Properties props = new Properties();
 	static {
         props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.port", System.getenv("SMTP_PORT")); //"587");
+        props.put("mail.smtp.port", System.getenv("SMTP_PORT"));
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 	}
 
 	public static void send(String user, String topic, String body) throws UnsupportedEncodingException {
-        final String host = System.getenv("SMTP_HOST");
-		final String botEmail = System.getenv("FROM_EMAIL");
-        final String botUser = System.getenv("FROM_USER");
-		final String botPassword = System.getenv("FROM_PASS");
-        String to = System.getenv("EMAIL_TO");
-        String cc = System.getenv("EMAIL_CC");
-		
         Session session = Session.getDefaultInstance(props);
 
         StringBuilder finalMessage = new StringBuilder();
@@ -43,7 +43,7 @@ public class Emailer {
         try {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(botEmail, "Harmonizome Bot"));
-            if(to.isBlank() || to==null) {
+            if(to==null || to.isBlank()) {
                 throw new MessagingException("No recipient was specified.");
             } else {
                 String[] tos = to.split(",");
@@ -51,7 +51,7 @@ public class Emailer {
                     msg.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
                 }
             }
-            if(!cc.isBlank() && cc!=null){
+            if(cc!= null && !cc.isBlank()){
                 String[] ccs = cc.split(",");
                 for(String address : ccs){
                     msg.addRecipient(Message.RecipientType.CC, new InternetAddress(address));
