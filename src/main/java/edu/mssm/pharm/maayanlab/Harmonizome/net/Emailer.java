@@ -43,7 +43,7 @@ public class Emailer {
         try {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(botEmail, "Harmonizome Bot"));
-            if(to==null || to.isBlank()) {
+            if(to==null || to.isEmpty()) {
                 throw new MessagingException("No recipient was specified.");
             } else {
                 String[] tos = to.split(",");
@@ -51,7 +51,7 @@ public class Emailer {
                     msg.addRecipient(Message.RecipientType.TO, new InternetAddress(address));
                 }
             }
-            if(cc!= null && !cc.isBlank()){
+            if(cc!= null && !cc.isEmpty()){
                 String[] ccs = cc.split(",");
                 for(String address : ccs){
                     msg.addRecipient(Message.RecipientType.CC, new InternetAddress(address));
