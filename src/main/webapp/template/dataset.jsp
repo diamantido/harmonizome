@@ -2,6 +2,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="cfn" uri="http://amp.pharm.mssm.edu/functions" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.util.Constant" %>
 <%@ page import="edu.mssm.pharm.maayanlab.Harmonizome.model.GeneSet" %>
@@ -151,7 +152,14 @@
                     <ul class="list-inline">
                         <c:forEach var="heatMap" items="${dataset.datasetVisualizations}">
                             <li>
-                                <p><strong><c:out value="${cfn:convertVizTypeToPlainText(heatMap.type)}"/></strong></p>
+                            <c:choose>
+                                <c:when test="${heatMap.type eq'umap'}">
+                                    <p><strong>UMAP</strong></p>
+                                </c:when>
+                                <c:otherwise>
+                                    <p><strong><c:out value="${cfn:convertVizTypeToPlainText(heatMap.type)}"/></strong></p>
+                                </c:otherwise>
+                            </c:choose>
                                 <img class="preview"
                                     src="${Constant.HEAT_MAP_IMAGES_DIR()}/${heatMap.type}/${heatMap.image}"
                                     data-heat-map-type="${heatMap.type}"

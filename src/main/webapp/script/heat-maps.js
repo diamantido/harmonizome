@@ -96,6 +96,9 @@ HARMONIZOME.heatMaps = (function() {
         var image;
         if (typeof data.clustergrammerLink !== 'undefined') {
             return '<iframe src="' + data.clustergrammerLink + '"></iframe>';
+        } else if (data.type == 'umap'){
+            var plotSrc = data.imageLink.replace("png", "html") || data.imageLink;
+            return '<iframe src="' + plotSrc +'"></iframe>';
         } else {
             image = data.imageLink || 'https://placeholdit.imgix.net/~text?txtsize=13&w=930&h=733';
             return '<img class="img-responsive" src="' + image + '"/>';
@@ -105,7 +108,7 @@ HARMONIZOME.heatMaps = (function() {
     function getLabelsIfNecessary(data, isPair) {
         var hasClustergrammerLink = typeof data.clustergrammerLink !== 'undefined';
         if (!isPair) {
-            if (hasClustergrammerLink) {
+            if (hasClustergrammerLink || data.type =='umap') {
                 return '';
             } else {
                 return '' +

@@ -54,6 +54,15 @@
         <servlet-name>terms.jsp</servlet-name>
         <url-pattern>/terms</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>whatsNew.jsp</servlet-name>
+        <jsp-file>/template/whatsNew.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>whatsNew.jsp</servlet-name>
+        <url-pattern>/whatsNew</url-pattern>
+    </servlet-mapping>
     
     <error-page>
         <error-code>404</error-code>

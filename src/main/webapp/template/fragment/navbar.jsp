@@ -3,8 +3,8 @@
 		<h1 class="pull-left">
 			<a href="">
 				<img src="image/logo_30x26.png">
-				<span class="project-title">Harmonizome</span>
-				<span class="credits">Integrated Knowledge About Genes & Proteins</span>
+				<span class="project-title">Harmonizome 3.0</span>
+				<span class="credits">Integrated Knowledge about Genes and Proteins</span>
 			</a>
 		</h1>
 

@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="col-md-12 text-center">
 					<img src="image/logo_100x87.png">
-					<h1 class="project-title">Harmonizome</h1>
+					<h1 class="project-title">Harmonizome 3.0</h1>
 					<p class="instruction">Search for genes or proteins and their functional terms extracted and organized from over a hundred publicly available resources. <a href="about#resources"><strong>Learn more</strong></a>.</p>
 				</div>
 			</div>
@@ -43,6 +43,11 @@
 							<a href="${Constant.SEARCH_URL}?q=breast+cancer&m=example">breast cancer</a>
 						</li>
 					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12 text-center">
+					<p class="whatsNew">Check out what's new in Harmonizome 3.0! <a href="whatsNew"><strong>Learn more</strong></a>.</p>
 				</div>
 			</div>
 		</div>

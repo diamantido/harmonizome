@@ -34,7 +34,11 @@
 			<a href="mobile">Mobile</a>
 		</li>
 		<li>
-			<a href="about">About</a>
+			<a href="#" class="dropdown-toggle" data-toggle="dropdown">About</a>
+			<ul class="dropdown-menu">
+				<li><a href="about">About</a></li>
+				<li><a href="whatsNew">What's New</a></li>
+			</ul>
 		</li>
 	</ul>
 </div>

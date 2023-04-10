@@ -119,7 +119,7 @@ public class HeatMapApi extends HttpServlet {
             }
 
             schema.put("type", type);
-            if (type.equals("dataset")) {
+            if (type.equals("gene_attribute") || type.equals("dataset")) {
                 String attribute = formatAttributeType(dv.getDataset());
                 addClustergrammerLink(schema, dv, "Genes", attribute);
             } else if (type.equals("gene_similarity")) {
@@ -151,7 +151,7 @@ public class HeatMapApi extends HttpServlet {
             String attributeType = formatAttributeType(dv.getDataset());
             schema.put("colLabel", attributeType);
             schema.put("rowLabel", attributeType);
-        } else if (type.equals("dataset")) {
+        } else if (type.equals("dataset") || type.equals("gene_attribute")) {
             String attributeType = formatAttributeType(dv.getDataset());
             schema.put("colLabel", "Genes");
             schema.put("rowLabel", attributeType);

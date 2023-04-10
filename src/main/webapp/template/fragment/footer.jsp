@@ -38,9 +38,6 @@
 			<a href="https://www.linkedin.com/shareArticle?url=http://www.maayanlab.net/harmonizome" target="_blank">
 				<img src="image/share/linkedin.png">
 			</a>
-			<a href="https://plus.google.com/share?url=http://www.maayanlab.net/harmoziome" target="_blank">
-				<img src="image/share/google-plus.png">
-			</a>
 			<a href="http://www.facebook.com/sharer/sharer.php?u=http://www.maayanlab.net/harmonizome/" target="_blank">
 				<img src="image/share/facebook.png">
 			</a>

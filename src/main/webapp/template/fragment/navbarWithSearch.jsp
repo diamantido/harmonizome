@@ -3,7 +3,7 @@
 		<h1 class="pull-left">
 			<a href="">
 				<img src="image/logo_30x26.png">
-				<span class="project-title">Harmonizome</span>
+				<span class="project-title">Harmonizome 3.0</span>
 			</a>
 		</h1>
 
