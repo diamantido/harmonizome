@@ -17,7 +17,7 @@
                     <li><a href="dataset/DisGeNET+Gene-Phenotype+Associations">DisGeNET Gene-Phenotype Associations</a></li>
                     <li><a href="dataset/Kinase+Library+Serine+Threonine+Kinome+Atlas">Kinase Library Serine Threonine Kinase Atlas</a></li>
                     <li><a href="dataset/KnockTF+Gene+Expression+Profiles+with+Transcription+Factor+Perturbations">KnockTF Gene Expression Profiles with Transcription Factor Perturbations</a></li>
-                    <li><a href="dataset/Sanger+Cancer+Dependency+Map+Cancer+Cell+Line+Proteomics">Sanger Cancer Dependency Map Cancer Cell Line Proteomics</a></li>
+                    <li><a href="dataset/Sanger+Dependency+Map+Cancer+Cell+Line+Proteomics">Sanger Cancer Dependency Map Cancer Cell Line Proteomics</a></li>
                     <li><a href="dataset/Tabula+Sapiens+Gene-Cell+Associations">Tabula Sapiens Gene-Cell Associations</a></li>
                 </ul>
             </div>
