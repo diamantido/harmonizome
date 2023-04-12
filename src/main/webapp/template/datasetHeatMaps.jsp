@@ -19,7 +19,7 @@
                     <c:out value="Select from the drop down menu to explore a hierarchically clustered heat map visualization of the attribute similarity matrix derived from a dataset. Red tiles indicate pairs of attributes that are similar based on their associations with genes in the selected dataset. Blue tiles indicate pairs of attributes that are anti-similar—the two attributes have oppositely signed associations with many of the same genes. White tiles indicate pairs of attributes with few to no overlapping associations."/>
                 </c:when>
                 <c:when test="${type == 'umap'}">
-                    <c:out value="Select from the drop down menu to explore an interactive UMAP visualization of the gene sets derived from a dataset. Gene set clusters are formed based on TF-IDF vectorization of their associated genes."
+                    <c:out value="Select from the drop down menu to explore an interactive UMAP visualization of the gene sets derived from a dataset. Gene set clusters are formed based on TF-IDF vectorization of their associated genes."/>
                 </c:when>
             </c:choose>
         </p>
