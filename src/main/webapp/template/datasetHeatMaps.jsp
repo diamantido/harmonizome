@@ -6,7 +6,14 @@
 <t:wrapper title="${cfn:convertVizTypeToPlainText(typeView)} Heat Maps">
 
     <div class="dataset-heatmaps-page heat-map-page" data-heat-map-type="${type}">
-        <h1 class="initial"><c:out value="${cfn:convertVizTypeToPlainText(typeView)}"/> Heat Maps</h1>
+        <c:choose>
+            <c:when test="${type == 'umap'}">
+                <h1 class="initial">Dataset UMAPs</h1>
+            </c:when>
+            <c:otherwise>
+                <h1 class="initial"><c:out value="${cfn:convertVizTypeToPlainText(typeView)}"/> Heat Maps</h1>
+            </c:otherwise>
+        </c:choose>
         <p class="instruction">
             <c:choose>
                 <c:when test="${type == 'gene_attribute'}">

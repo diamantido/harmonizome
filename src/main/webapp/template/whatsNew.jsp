@@ -13,17 +13,39 @@
                 <p><h2>New Datasets</h2></p>
                 <ul>
                     <li><a href="dataset/DeepCoverMOA+Drug+Mechanisms+of+Action">DeepCoverMOA Mechanisms of Actions</a></li>
+                    <ul>
+                        <li>Protein expression profiles in HCT116 cell line following drug treatment</li>
+                    </ul>
                     <li><a href="dataset/DisGeNET+Gene-Disease+Associations">DisGeNET Gene-Disease Associations</a></li>
+                    <ul>
+                        <li>Gene-disease associations sourced from curated repositories, GWAS catalogues, animal models and the scientific literature</li>
+                    </ul>
                     <li><a href="dataset/DisGeNET+Gene-Phenotype+Associations">DisGeNET Gene-Phenotype Associations</a></li>
+                    <ul>
+                        <li>Gene-phenotype associations sourced from curated repositories, GWAS catalogues, animal models and the scientific literature</li>
+                    </ul>
                     <li><a href="dataset/Kinase+Library+Serine+Threonine+Kinome+Atlas">Kinase Library Serine Threonine Kinase Atlas</a></li>
+                    <ul>
+                        <li>A phosphoproteomics atlas detailing phosphorylation of protein substrates by 303 serine/threonine kinases in the human kinome</li>
+                    </ul>
                     <li><a href="dataset/KnockTF+Gene+Expression+Profiles+with+Transcription+Factor+Perturbations">KnockTF Gene Expression Profiles with Transcription Factor Perturbations</a></li>
+                    <ul>
+                        <li>Gene expression profiles for cell lines or tissues following transcription factor perturbation (knockdown/knockout)</li>
+                    </ul>
                     <li><a href="dataset/Sanger+Dependency+Map+Cancer+Cell+Line+Proteomics">Sanger Cancer Dependency Map Cancer Cell Line Proteomics</a></li>
+                    <ul>
+                        <li>Protein intensity values acquired using data-independent acquisition mass spectrometry (DIA-MS)</li>
+                    </ul>
                     <li><a href="dataset/Tabula+Sapiens+Gene-Cell+Associations">Tabula Sapiens Gene-Cell Associations</a></li>
+                    <ul>
+                        <li>Gene expression counts for single human cells</li>
+                    </ul>
                 </ul>
             </div>
             <div class="row">
-                <p><h2>New Downloads</h2></p>
+                <p><h2>New Download Type</h2></p>
                 <p><h4>Knowledge Graph Serializations</h4></p>
+                <p>A compressed folder containing serialized dataset associations ready for knowledge graph ingestion in multiple formats:</p>
                 <ul>
                     <li>RDF</li>
                     <li>JSON</li>
@@ -32,11 +54,17 @@
             </div>
             <div class="row">
                 <p><h2>New Visualizations</h2></p>
-                <p><h4>UMAP</h4></p>
-                <ul>
-                    <li>Interactive plots</li>
-                    <li>Static images</li>
-                </ul>
+                <div class="row">
+                    <p><h4><a href="visualize/heat_map/dataset_pairs">Dataset Pair Visualizations</a></h4></p>
+                    <ul>
+                        <li>Added over 1,000 new dataset pair attribute similarity heat maps</li>
+                    </ul>
+                    <p><h4><a href="visualize/heat_map/umap">UMAP</a></h4></p>
+                    <ul>
+                        <li>Interactive cluster plots</li>
+                    </ul>
+                    <iframe src="https://amp.pharm.mssm.edu/static/harmonizome/heat_maps/umap/deepcovermoa.html" width="1003px" height="703px"></iframe>
+                </div>
             </div>
         </div>
     </jsp:body>
