@@ -31,8 +31,16 @@ public class GenePage extends HttpServlet {
 
     private static final long serialVersionUID = 4256183225988457817L;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void doGetTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response, true);
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response, false);
+	}
+
+    private void doGet(HttpServletRequest request, HttpServletResponse response, boolean isTest) throws ServletException, IOException {
 
         String query = UrlUtil.getPath(request);
 
@@ -68,6 +76,9 @@ public class GenePage extends HttpServlet {
                     Collections.sort(datasetsByGene, new BioEntityAlphabetizer());
                     for (Dataset dataset : datasetsByGene) {
                         uniqueAttributeGroups.add(dataset.getAttributeGroup().getName());
+                    }
+                    if (!isTest) {
+                        gene.setNumPageViews(gene.getNumPageViews() + 1);
                     }
                     numCategories = uniqueAttributeGroups.size();
                     numDatasets = datasetsByGene.size();

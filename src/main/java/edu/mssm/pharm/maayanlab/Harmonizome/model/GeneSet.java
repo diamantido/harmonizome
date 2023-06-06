@@ -29,6 +29,9 @@ public class GeneSet implements BioEntity {
 
 	@Column(name = "url_from_dataset", length = 2083)
 	private String urlFromDataset;
+
+	@Column(name = "num_page_views")
+	private int numPageViews;
 	
 	/* Back references
 	 * --------------- */
@@ -94,6 +97,14 @@ public class GeneSet implements BioEntity {
 
 	public void setUrlFromDataset(String urlFromDataset) {
 		this.urlFromDataset = urlFromDataset;
+	}
+
+	public int getNumPageViews() {
+		return numPageViews;
+	}
+
+	public void setNumPageViews(int numPageViews) {
+		this.numPageViews = numPageViews;
 	}
 
 	public Attribute getAttribute() {

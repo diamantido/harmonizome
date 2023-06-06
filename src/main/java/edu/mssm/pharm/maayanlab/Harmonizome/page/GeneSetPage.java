@@ -25,8 +25,16 @@ public class GeneSetPage extends HttpServlet {
 
 	private static final long serialVersionUID = 6236670940063554419L;
 
+	public void doGetTest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response, true);
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response, false);
+	}
+
+    private void doGet(HttpServletRequest request, HttpServletResponse response, boolean isTest) throws ServletException, IOException {
 		String[] query = UrlUtil.getPathAsArray(request);
 		if (query.length == 2) {
 			try {
@@ -39,6 +47,9 @@ public class GeneSetPage extends HttpServlet {
 					request.getRequestDispatcher(Constant.TEMPLATE_DIR + "noSearchResults.jsp").forward(request, response);
 				} else {
 					Pair<List<Association>, List<Association>> genesByAssociation = AssociationDao.getFromGeneSetByValue(name, datasetName);
+					if (!isTest) {
+						geneSet.setNumPageViews(geneSet.getNumPageViews() + 1);
+					}
 					int numGenes = genesByAssociation.getLeft().size() + genesByAssociation.getRight().size();
 					String geneSetDescription = geneSet.getDataset().getGeneSetDescription();
 					String strongName = "<strong>" + geneSet.getNameFromDataset() + "</strong>";

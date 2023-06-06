@@ -44,6 +44,9 @@ public class Gene implements BioEntity {
 	@Column(name = "ncbi_entrez_gene_url", length = 2083)
 	private String ncbiEntrezGeneUrl;
 
+	@Column(name = "num_page_views")
+	private int numPageViews;
+
 	/* Foreign key relationships
 	 * ------------------------- */
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -122,6 +125,14 @@ public class Gene implements BioEntity {
 
 	public void setNcbiEntrezGeneUrl(String ncbiEntrezGeneUrl) {
 		this.ncbiEntrezGeneUrl = ncbiEntrezGeneUrl;
+	}
+
+	public int getNumPageViews() {
+		return numPageViews;
+	}
+
+	public void setNumPageViews(int numPageViews) {
+		this.numPageViews = numPageViews;
 	}
 
 	public IdgFamily getIdgFamily() {

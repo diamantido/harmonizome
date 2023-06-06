@@ -11,44 +11,43 @@ This repository contains the source code for the [Harmonizome](https://amp.pharm
 
 Please acknowledge the Harmonizome in your publications by citing the following reference:
 
-[Rouillard AD, Gundersen GW, Fernandez NF, Wang Z, Monteiro CD, McDermott MG, Ma'ayan A. The harmonizome: a collection of processed datasets gathered to serve and mine knowledge about genes and proteins. Database (Oxford). 2016 Jul 3;2016. pii: baw100.](http://database.oxfordjournals.org/content/2016/baw100.short)
+[Rouillard AD, Gundersen GW, Fernandez NF, Wang Z, Monteiro CD, McDermott MG, Ma&#39;ayan A. The harmonizome: a collection of processed datasets gathered to serve and mine knowledge about genes and proteins. Database (Oxford). 2016 Jul 3;2016. pii: baw100.](http://database.oxfordjournals.org/content/2016/baw100.short)
 
 ## Configuration
-Certain environment variables are necessary to connect to the database. Typically this can be handled with a `gradle.properties` file of the form:
+
+Certain environment variables are necessary to connect to the database. Typically this can be handled with a `.env` file of the form:
+
 ```
-DB_URL=jdbc:mysql://yourhost/yourdb
+DB_URL=jdbc:mysql://mariadb:3306/harmonizome
 DB_USER=youruser
 DB_PASS=yourpass
-HARMONIZOME_PREFIX=Harmonizome
-TOMCAT_PORT=8080
+HARMONIZOME_VERSION=1.1.0
 ```
 
 ## Build instructions
-Gradle is used to fetch dependencies, build and debug the project. The two commands below in different terminals can be used to automatically rebuild/deploy the project to an embedded tomcat server for a continuous development experience.
-```
-# Continuous build (rebuilds on file change)
-gradle build -t
-
-# Tomcat development server (reflects file changes)
-gradle tomcatRun
-```
 
 ### Docker
-Gradle is used to assemble a war file to be deployed with a tomcat8-base docker image.
-```
-# Build and assemble war file
-gradle war
 
-# Construct docker image
-docker build -t maayanlab/harmonizome:latest .
+Depending on your system, you may need to adjust the Dockerfile to ensure that the Java installation directory in the Docker container is correct. Line 14 of the Dockerfile should be adjusted as follows:
+
+```
+# Windows
+ENV PATH=$PATH:$GRADLE_HOME/bin JAVA_HOME=/usr/lib/jvm/java-11-openjdk-arm64
+
+# Mac/Linux
+ENV PATH=$PATH:$GRADLE_HOME/bin JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 ```
 
-When you run the image you'll need to provide the environment variables:
+Running these commands will construct and deploy two Docker containers: one runs a MariaDB image, and the other will launch an instance of Harmonizome which accesses the database stored in the MariaDB container's volume.
+
 ```
-docker run \
-  -e DB_URL=jdbc:mysql://yourhost/yourdb \
-  -e DB_USER=youruser \
-  -e DB_PASS=yourpass \
-  -p 8080:8080
-  -it maayanlab/harmonizome:latest
+# Set up DB
+docker build mariadb
+docker compose up -d mariadb
+
+# Set up Harmonizome application
+docker build harmonizome
+docker compose up -d harmonizome
 ```
+
+After launching both containers, a local instance of Harmonizome will be available at localhost:8080/Harmonizome . All static pages will be functional, but a Harmonizome database dump file is required to display information about datasets, genes, and gene sets.
