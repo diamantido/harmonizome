@@ -11,8 +11,28 @@
             </div>
             <div class="row">
                 <p><h2>New Datasets</h2></p>
+                <p><h3>June 13th, 2023</h3></p>
                 <ul>
-                    <li><a href="dataset/DeepCoverMOA+Drug+Mechanisms+of+Action">DeepCoverMOA Mechanisms of Actions</a></li>
+                    <li><a href="dataset/Gene+Ontology+Biological+Process+Annotations+2023">Gene Ontology Biological Process Annotations 2023</a></li>
+                    <ul>
+                        <li>Curated annotations of genes with biological processes from the Gene Ontology, updated for 2023</li>
+                    </ul>
+                    <li><a href="dataset/Gene+Ontology+Cellular+Component+Annotations+2023">Gene Ontology Cellular Component Annotations 2023</a></li>
+                    <ul>
+                        <li>Curated annotations of genes with cellular components from the Gene Ontology, updated for 2023</li>
+                    </ul>
+                    <li><a href="dataset/Gene+Ontology+Molecular+Function+Annotations+2023">Gene Ontology Molecular Function Annotations 2023</a></li>
+                    <ul>
+                        <li>Curated annotations of genes with molecular functions from the Gene Ontology, updated for 2023</li>
+                    </ul>
+                    <li><a href="dataset/Wikipathways+PFOCR">Wikipathways PFOCR</a></li>
+                    <ul>
+                        <li>Sets of genes extracted from pathway figure using optical character recognition</li>
+                    </ul>
+                </ul>
+                <p><h3>May 12th, 2023</h3></p>
+                <ul>
+                    <li><a href="dataset/DeepCoverMOA+Drug+Mechanisms+of+Action">DeepCoverMOA Drug Mechanisms of Action</a></li>
                     <ul>
                         <li>Protein expression profiles in HCT116 cell line following drug treatment</li>
                     </ul>
@@ -63,7 +83,7 @@
                     <ul>
                         <li>Interactive cluster plots</li>
                     </ul>
-                    <iframe src="https://amp.pharm.mssm.edu/static/harmonizome/heat_maps/umap/deepcovermoa.html" width="1003px" height="703px"></iframe>
+                    <iframe src="https://amp.pharm.mssm.edu/static/harmonizome/heat_maps/umap/deepcovermoa.html" scrolling="no" frameBorder="0" width="1003px" height="703px"></iframe>
                 </div>
             </div>
         </div>
