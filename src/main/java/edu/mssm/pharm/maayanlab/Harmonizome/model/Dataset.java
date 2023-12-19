@@ -60,6 +60,9 @@ public class Dataset implements BioEntity {
 	@Column(name = "is_continuous_valued")
 	private boolean isContinuousValued;
 
+	@Column(name = "is_archived")
+	private boolean isArchived;
+
 	/* Foreign key relationships
 	 * ------------------------- */
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -291,6 +294,14 @@ public class Dataset implements BioEntity {
 
 	public void setContinuousValued(boolean isContinuousValued) {
 		this.isContinuousValued = isContinuousValued;
+	}
+
+	public boolean getIsArchived() {
+		return isArchived;
+	}
+
+	public void setIsArchived(boolean isArchived) {
+		this.isArchived = isArchived;
 	}
 
 	/* Utility functions

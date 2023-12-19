@@ -9,6 +9,7 @@
         <p class="instruction">Click on a dataset to access its downloads. Click on a column header to sort the table by that column. Type in the search bar to filter.</p>
         <p class="instruction">To download the data programmatically, use <a href="documentation">the API</a> or <a href="static/harmonizomedownloader.py" target="_blank">this Python script</a>.</p>
         <div class="table-responsive">
+            <button type="button" id="toggleArchived" class="btn btn-outline-primary position-absolute end-0" data-bs-toggle="button" autocomplete="off">Show Archived Datasets</button>
             <table class="table data-table">
                 <thead>
                     <tr>
@@ -18,6 +19,7 @@
                         <th>Category</th>
                         <th>Attribute</th>
                         <th>Views</th>
+                        <th>Archived</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +39,7 @@
                             <td>${dataset.datasetGroup.name}</td>
                             <td>${dataset.attributeType.name}</td>
                             <td>${dataset.numPageViews}</td>
+                            <td>${dataset.isArchived}</td>
                         </tr>
                     </c:forEach>
                 </tbody>

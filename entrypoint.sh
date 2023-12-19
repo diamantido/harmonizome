@@ -39,7 +39,7 @@ done
 
 chmod +x "${CATALINA_HOME}/bin/setenv.sh"
 catalina.sh run &
-PID=$1
+PID=$!
 
 echo "Waiting for it to start..."
 while true; do

@@ -61,11 +61,13 @@ public class Constant {
 
 	public static final String DOWNLOAD_ASSOCIATIONS_URL = API_URL + "/download/associations";
 
-  public static final String VISUALIZE_URL = "visualize";
+	public static final String VISUALIZE_URL = "visualize";
 
 	public static final String HEAT_MAPS_URL = VISUALIZE_URL + "/heat_map";
 
-  public static final String HEAT_MAPS_API_URL = API_URL + "/" + VISUALIZE_URL + "/heat_map";
+	public static final String UMAP_URL = VISUALIZE_URL + "/umap";
+
+	public static final String HEAT_MAPS_API_URL = API_URL + "/" + VISUALIZE_URL + "/heat_map";
 
 	public static final String ADMIN_URL = "admin";
 
