@@ -12,10 +12,9 @@
 				<li><a href="visualize/heat_map/gene_attribute">Gene Attribute Heat Maps</a></li>
 				<li><a href="visualize/heat_map/gene_similarity">Gene Similarity Heat Maps</a></li>
                 <li><a href="visualize/heat_map/attribute_similarity">Attribute Similarity Heat Maps</a></li>
-				<li><a href="visualize/heat_map/umap">UMAP</a></li>
+				<li><a href="visualize/umap">UMAP</a></li>
                 <li><a href="visualize/heat_map/dataset_pairs">Dataset Pair Heat Maps</a></li>
                 <li><a href="visualize/heat_map/input_genes">Heat Map with Input Genes</a></li>
-				<li><a href="visualize/heat_map/umap">UMAP</a></li>
 			</ul>
 		</li>
 		<li>
@@ -29,10 +28,16 @@
 			</ul>
 		</li>
 		<li>
+			<a href="cross">Cross</a>
+		</li>
+		<li>
 			<a href="documentation">API</a>
 		</li>
 		<li>
 			<a href="mobile">Mobile</a>
+		</li>
+		<li>
+			<a href="chat">Chat</a>
 		</li>
 		<li>
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown">About</a>

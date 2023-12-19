@@ -1,0 +1,148 @@
+[
+    {
+        "name": "getTopGeneSets",
+        "description": "Get the gene sets from the Harmonizome database that are most associated with the input gene",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "gene": {
+                    "type": "string",
+                    "description": "The gene symbol to find associations for."}, 
+                "numAssociations": {
+                    "type": "integer",
+                    "description": "The number of associations to return (default 5)."
+                }
+            },
+            "required": ["gene", "numAssociations"]}
+    }
+    ,{
+        "name": "getBottomGeneSets",
+        "description": "Get the gene sets from the Harmonizome database that are most negatively associated with the input gene",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "gene": {
+                    "type": "string",
+                    "description": "The gene symbol to find associations for."}, 
+                "numAssociations": {
+                    "type": "integer",
+                    "description": "The number of associations to return (default 5)."
+                }
+            },
+            "required": ["gene", "numAssociations"]}
+    },{
+        "name": "getGeneSetsFromAttribute",
+        "description": "Gets gene sets from the Harmonizome database using the user-specified attribute. Use if the user asks for gene set information without providing a specific dataset. Prompts the user for a choice from the results.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "attribute": {
+                    "type": "string",
+                    "description": "The attribute to find gene sets for."}
+            },
+            "required": ["attribute"]}
+    },{
+        "name": "getTopGenes",
+        "description": "Get the genes from the Harmonizome database that are most associated with the attribute and dataset specified by the user. To be used only after getGeneSetsFromAttribute has already been called or a dataset has been selected by the user",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "geneSet": {
+                    "type": "string",
+                    "description": "The gene set to find associations for."}, 
+                "dataset": {
+                    "type": "string",
+                    "dataset": "The dataset the gene set belongs to."},
+                "numAssociations": {
+                    "type": "integer",
+                    "description": "The number of associations to return (default 5)."
+                }
+            },
+            "required": ["geneSet", "dataset", "numAssociations"]}
+    },{
+        "name": "getBottomGenes",
+        "description": "Get the genes from the Harmonizome database that are most negatively associated with the attribute and dataset specified by the user. To be used only after getGeneSetsFromAttribute has already been called or a dataset has been selected by the user",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "geneSet": {
+                    "type": "string",
+                    "description": "The gene set to find associations for."}, 
+                "dataset": {
+                    "type": "string",
+                    "description": "The dataset the gene set belongs to."},
+                "numAssociations": {
+                    "type": "integer",
+                    "description": "The number of associations to return (default 5)."
+                }
+            },
+            "required": ["geneSet", "dataset", "numAssociations"]}
+    },{
+        "name": "getResources",
+        "description": "Get a list of resources from the resource API endpoint. These describe organizations that publish datasets."
+    }, {
+        "name": "getResource",
+        "description": "Get information about a specific resource.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "resource": {
+                    "type": "string",
+                    "description": "The resource name to get information about."
+                }
+            },
+            "required": ["resource"]
+        }
+    }, {
+        "name": "getDatasets",
+        "description": "Get a list of up to 100 datasets from the dataset API endpoint, beginning at the StartIndex.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "startIndex": {
+                    "type": "integer",
+                    "description": "The index to start getting the dataset list at (default 0)."
+                }
+            },
+            "required": ["startIndex"]
+        }
+    }, {
+        "name": "getDataset",
+        "description": "Get information about a specific dataset.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "dataset": {
+                    "type": "string",
+                    "description": "The dataset name to get information about."
+                }
+            },
+            "required": ["dataset"]
+        }
+    }, {
+        "name": "getGenes",
+        "description": "Get a list of genes from the gene API endpoint.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "startIndex": {
+                    "type": "integer",
+                    "description": "The index to start getting the gene list at."
+                }
+            }
+        }
+    }, {
+        "name": "getGene",
+        "description": "Get information about a specific gene.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "symbol": {
+                    "type": "string",
+                    "description": "The gene symbol to get information about."
+                }
+            },
+            "required": ["symbol"]
+        }
+    }
+]
