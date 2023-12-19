@@ -24,6 +24,7 @@
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeGroup" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.AttributeType" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.Dataset" />
+		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetCrossing" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetGroup" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetVisualization" />
 		<mapping class="edu.mssm.pharm.maayanlab.Harmonizome.model.DatasetPairVisualization" />
