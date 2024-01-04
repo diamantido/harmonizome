@@ -342,6 +342,18 @@
                     <iframe src="https://amp.pharm.mssm.edu/static/harmonizome/heat_maps/umap/deepcovermoa.html" scrolling="no" frameBorder="0" width="1000px" height="700px"></iframe>
                 </div>
             </section>
+            <section>
+                <p><h2><a href="chat">Chat</a></h2></p>
+                <p>AI chat bot powered by OpenAI's GPT-4 model. Using natural language, users can interact with the Harmonizome knowledgebase
+                    to find connections between genes and attributes from different datasets and resources.</p>
+                    <iframe src="chat" frameBorder="0" width="1000px" height="700px"></iframe>
+            </section>
+            <section>
+                <p><h2><a href="cross">Dataset Pair Crossing</a></h2></p>
+                <p>A tool to compare the similarity of attributes from two datasets based on the similarity of their associated gene sets.
+                    Selecting two datasets will return a table of gene sets from those datasets with information about their overlapping genes.</p>
+                    <iframe src="cross" frameBorder="0" width="1000px" height="700px"></iframe>
+            </section>
         </div>
     </jsp:body>
 </t:wrapper>

@@ -29,6 +29,8 @@ HARMONIZOME.cross = (function() {
                 alert('Please select two datasets.');
                 return;
             }
+            var submitButton = document.getElementById('button');
+            submitButton.innerHTML = 'Loading...<span class="loader"></span>';
             
             $.ajax({
                 url: "api/1.0/cross/" + ds1Val + '/' + ds2Val,
@@ -36,6 +38,7 @@ HARMONIZOME.cross = (function() {
                 success: function(data) {
                     var modifiedData = JSON.parse(data);
                     setupDataTable(modifiedData);
+                    submitButton.innerHTML = 'Submit';
                 }
             });
         });

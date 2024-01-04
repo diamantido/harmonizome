@@ -22,6 +22,7 @@ public class ChatPage extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("history", OpenAiApiController.createHistory());
         request.getRequestDispatcher(Constant.TEMPLATE_DIR + "chat.jsp").forward(request, response);
     }
 

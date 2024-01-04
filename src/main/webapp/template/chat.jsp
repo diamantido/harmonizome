@@ -32,6 +32,7 @@
 
 <script src="script/chat-page.js"></script>
 <script>
-	HARMONIZOME.setupChatBot();
+    var chatHistory = <%= request.getAttribute("history") %>;
+	HARMONIZOME.setupChatBot(chatHistory);
 </script>
 

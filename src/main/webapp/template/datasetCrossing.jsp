@@ -23,7 +23,7 @@
             </select>
         </div>
         <div class="button-wrapper">
-            <button class="btn btn-default">Submit</button>
+            <button id="button" class="btn btn-default">Submit</button>
         </div>
         <div class="table-responsive">
             <table id="dataTable" class="data-table table-responsive"></table>

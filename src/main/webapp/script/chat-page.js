@@ -2,21 +2,10 @@
  * ----------------------------------------
  */
 
-HARMONIZOME.setupChatBot = function() {
+HARMONIZOME.setupChatBot = function(initialHistory) {
 
     // Create initial chat history
-    var history = [{
-        "role": "system",
-        "content": "You are Harmonizome AI. Your function is to answer any questions pertaining to information stored in Harmonizome. You will only answer relevant queries. When an irrelevant query is passed, you will offer an alternative that is relevant." 
-                    + " You should call a function to query the Harmonizome API if the user asks for any data. If there is any uncertainty about calling a function or which arguments to pass to a function, please ask the user before continuing."
-                    + " Never pass an argument unless it is explicitly included by the user. Use the function description to create an introduction to the function's reply."
-                    + " If a function has been called, it is essential that your only response is introducing the function called. Your response needs to resemble this format:"
-                    + " 'Please select the dataset you would like to see associations from:' or 'Here are the genes most associated with lung carcinoma from the DISEASES Text-mining Gene-Disease Assocation Evidence Scores dataset.'"
-                    + " You should never include a dataset, gene, or gene set in your response unless it has been directly passed to you by the user."
-    },{
-        "role": "assistant",
-        "content": "Hello, I am Harmonizome AI, a language model designed to answer questions related to the Harmonizome database. Submit a query, and I will retrieve information from Harmonizome to answer."
-    }];
+    var history = initialHistory;
 
     var chatHistory = document.getElementById("chat-history");
     const exampleCard1 = document.getElementById('example-card-1');

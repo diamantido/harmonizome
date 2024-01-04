@@ -38,8 +38,31 @@ public class OpenAiApiController {
     
     private static final String apiKey = System.getenv("OPENAI_API_KEY");
     private static final String harmonizomeApiUrl = Constant.ORIGIN() + "/" + Constant.HARMONIZOME + "/" + Constant.API_URL;
+    private static final String systemMessage = "You are Harmonizome AI. Your function is to answer any questions pertaining to information stored in Harmonizome. You will only answer relevant queries. When an irrelevant query is passed, you will offer an alternative that is relevant." +
+    " You should call a function to query the Harmonizome API if the user asks for any data. If there is any uncertainty about calling a function or which arguments to pass to a function, please ask the user before continuing." +
+    " Never pass an argument unless it is explicitly included by the user. Use the function description to create an introduction to the function's reply." +
+    " If a function has been called, it is essential that your only response is introducing the function called. Your response needs to resemble this format:" +
+    " 'Please select the dataset you would like to see associations from:' or 'Here are the genes most associated with lung carcinoma from the DISEASES Text-mining Gene-Disease Assocation Evidence Scores dataset.'" +
+    " You should never include a dataset, gene, or gene set in your response unless it has been directly passed to you by the user.";
+
+    public static JSONArray createHistory() {
+        JSONObject system = new JSONObject();
+        system.put("role", "system");
+        system.put("content", systemMessage);
+
+        JSONObject intro = new JSONObject();
+        intro.put("role", "assistant");
+        intro.put("content", "Hello, I am Harmonizome AI, a language model designed to answer questions related to the Harmonizome database. Submit a query, and I will retrieve information from Harmonizome to answer.");
+        
+        JSONArray history = new JSONArray();
+        history.put(system);
+        history.put(intro);
+        return history;
+    }
 
     public static JSONArray chatGPT(JSONArray history, Boolean functionCalling) throws IOException {
+        history = cleanHistory(history);
+
         try {
             File file = new File("webapps/Harmonizome/json/functions.json");
             JSONArray functions = new JSONArray(new BufferedReader(new FileReader(file)).lines().reduce((a, b) -> a + b).get());
@@ -415,6 +438,23 @@ public class OpenAiApiController {
         history.put(reply);
         history = chatGPT(history, false);
         return history;
+    }
+
+    private static JSONArray cleanHistory(JSONArray history) {
+        Integer systemMessageCount = 0;
+        Integer systemMessageIndex = -1;
+        for (int i = 0; i<history.length(); i++) {
+            JSONObject message = history.getJSONObject(i);
+            if (message.has("role") && message.getString("role").equals("system")) {
+                systemMessageCount += 1;
+                systemMessageIndex = i;
+            }
+        }
+        if (systemMessageCount == 1 && systemMessageIndex == 0 && history.getJSONObject(systemMessageIndex).getString("content").equals(systemMessage)) {
+            return history;
+        } else {
+            return new JSONArray();
+        }
     }
 
     private static String sendHarmonizomeAPIQuery(String URL) throws IOException {
